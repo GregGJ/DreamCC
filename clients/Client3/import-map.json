@@ -1,0 +1,6 @@
+
+{
+    "imports": {
+        "dream-cc-core":"./libs/dream-cc-core.mjs"
+    }
+}
