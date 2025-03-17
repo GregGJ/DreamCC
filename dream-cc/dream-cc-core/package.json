@@ -2,13 +2,13 @@
   "name": "dream-cc-core",
   "version": "1.0.9",
   "description": "cocos create +fgui game framework",
-  "main": "dist/dream-cc-core.mjs",
-  "types": "dist/dream-cc-core.d.ts",
-  "module": "dist/dream-cc-core.mjs",
+  "main": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "module": "dist/index.mjs",
   "type": "module",
   "files": [
-    "dist/dream-cc-core.mjs",
-    "dist/dream-cc-core.d.ts"
+    "dist/index.mjs",
+    "dist/index.d.ts"
   ],
   "scripts": {
     "build": "rollup -c && node ./esbuild.js && call ./copy2Client.bat"

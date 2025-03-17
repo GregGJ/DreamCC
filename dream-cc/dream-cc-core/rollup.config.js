@@ -3,10 +3,16 @@ import commonjs from '@rollup/plugin-commonjs';
 import resolve from "@rollup/plugin-node-resolve";
 import dts from "rollup-plugin-dts";
 import typescript from 'rollup-plugin-typescript2';
+
+import path from 'path';
+
+// 获取工程文件夹名称
+const projectFolderName = path.basename(path.resolve('.'));
+
 export default [
     // {
-    //     input: './src/dream-cc-core.ts',
-    //     external: ["cc","cc/env","dream-cc-core"],
+    //     input: './src/index.ts',
+    //     external: ["cc","cc/env","index"],
     //     plugins: [
     //         resolve({
     //             extensions: ['.ts', '.tsx']
@@ -15,17 +21,17 @@ export default [
     //         typescript()
     //     ],
     //     output: {
-    //         file: "./dist/dream-cc-core.mjs",
+    //         file: "./dist/index.mjs",
     //         format: 'esm',
-    //         name:"dream-cc-core",
+    //         name:"index",
     //     }
     // },
     {
-        input:"./src/dream-cc-core.ts",
+        input:"./src/index.ts",
         plugins: [dts()],
         output:{
             format:"esm",
-            file:"./dist/dream-cc-core.d.ts"
+            file:`./dist/${projectFolderName}.d.ts`
         }
     }
 ];

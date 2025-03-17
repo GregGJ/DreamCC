@@ -1,7 +1,7 @@
 import { IPoolable } from "../pools/IPoolable";
 import { Pool } from "../pools/Pool";
-import { ResURL } from "../res/ResURL";
 import { EventType } from "./EventType";
+import { IEventDispatcher } from "./IEventDispatcher";
 
 
 /**
@@ -25,27 +25,27 @@ export class Event implements IPoolable {
     static readonly ADD_CHILD: string = "ADD_CHILD";
     static readonly REMOVE_CHILD: string = "REMOVE_CHILD";
     static readonly CHILD_VALUE_CHANGED: string = "CHILD_VALUE_CHANGED";
-    
+
     /**
      * 事件类型
      */
     type?: EventType;
     /**
+     * 事件派发对象
+     */
+    target?: IEventDispatcher;
+    /**
      * 事件数据
      */
     data?: any;
     /**
-     * 资源地址
-     */
-    url?: ResURL;
-    /**
      * 错误信息
      */
-    err?: Error;
+    error?: Error;
     /**
      * 进入百分比(0-1)
      */
-    progress?: number;
+    progress: number = 0;
     /**
      * 事件是否停止
      */
@@ -58,24 +58,24 @@ export class Event implements IPoolable {
     /**
      * 初始化
      * @param type 
+     * @param taraget
      * @param data 
      * @param err 
      * @param progress 
-     * @param url 
      */
-    init(type: EventType, data?: any, err?: Error, progress?: number, url?: ResURL): void {
+    init(type: EventType, taraget: IEventDispatcher, data?: any, err?: Error, progress: number = 0): void {
         this.type = type;
+        this.target = taraget;
         this.data = data;
-        this.err = err;
-        this.url = url;
+        this.error = err;
         this.progress = progress;
     }
 
     reset(): void {
         this.type = undefined;
+        this.target = undefined;
         this.data = null;
-        this.err = undefined;
-        this.url = undefined;
+        this.error = undefined;
         this.progress = 0;
     }
 
@@ -87,19 +87,19 @@ export class Event implements IPoolable {
     release(): void {
         Pool.release(Event, this);
     }
-    
+
     /**
      * 创建事件对象
      * @param type
+     * @param target
      * @param data 
      * @param err 
-     * @param url 
      * @param progress 
      * @returns 
      */
-    static create(type: EventType, data?: any, err?: Error, progress?: number, url?: ResURL): Event {
+    static create(type: EventType, target: IEventDispatcher, data?: any, err?: Error, progress?: number): Event {
         let result = Pool.acquire(Event);
-        result.init(type, data, err, progress, url);
+        result.init(type, target, data, err, progress);
         return result;
     }
 }

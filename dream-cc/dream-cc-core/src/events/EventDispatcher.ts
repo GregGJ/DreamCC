@@ -1,4 +1,3 @@
-import { ResURL } from "../res/ResURL";
 import { TickerManager } from "../ticker/TickerManager";
 import { Event } from "./Event";
 import { EventListener } from "./EventListener";
@@ -30,7 +29,10 @@ export class EventDispatcher implements IEventDispatcher {
     private __listeners: Map<EventType, Array<EventListener>>;
     private __callers: Map<any, Array<EventListener>>;
 
-    constructor() {
+    private __target: IEventDispatcher;
+
+    constructor(target?: IEventDispatcher) {
+        this.__target = target ? target : this;
         this.__listeners = new Map<EventType, Array<EventListener>>();
         this.__callers = new Map<any, Array<EventListener>>();
     }
@@ -134,11 +136,12 @@ export class EventDispatcher implements IEventDispatcher {
      * @param url 
      * @returns 
      */
-    emit(type: EventType, data?: any, err?: Error, progress?: number, url?: ResURL): void {
+    emit(type: EventType, data?: any, err?: Error, progress?: number): void {
+        //如果没人关心这个事件
         if (this.__listeners.has(type)) {
             return;
         }
-        const event = Event.create(type, data, err, progress, url);
+        const event = Event.create(type, this.__target, data, err, progress);
         this.__needEmit.push(event);
         if (this.eventAync) {
             TickerManager.callNextFrame(this.__emit, this);
@@ -147,9 +150,12 @@ export class EventDispatcher implements IEventDispatcher {
         }
     }
 
+    private __emitHelp: Array<Event> = [];
     private __emit(): void {
-        for (let index = 0; index < this.__needEmit.length; index++) {
-            const event = this.__needEmit[index];
+        this.__emitHelp.push(...this.__needEmit);
+        this.__needEmit.splice(0, this.__needEmit.length);
+        for (let index = 0; index < this.__emitHelp.length; index++) {
+            const event = this.__emitHelp[index];
             //有人关心且事件没有被停止
             if (this.hasEvent(event.type!) && event.propagationStopped == false) {
                 let list: EventListener[] = this.__listeners.get(event.type!)!;
@@ -160,13 +166,13 @@ export class EventDispatcher implements IEventDispatcher {
                     if (event.propagationStopped) {
                         break;
                     }
-                    listener.handler!.apply(listener.caller, [event]);
+                    listener.handler.apply(listener.caller, [event]);
                 }
             }
             //事件退还
             event.release();
         }
-        this.__needEmit.splice(0, this.__needEmit.length);
+        this.__emitHelp.splice(0, this.__emitHelp.length);
     }
 
     hasEvent(type: EventType): boolean {
@@ -189,8 +195,16 @@ export class EventDispatcher implements IEventDispatcher {
     }
 
     destroy(): boolean {
+        if (this.eventAync) {
+            TickerManager.clearNextFrame(this.__emit, this);
+        }
+        this.__needEmit.splice(0, this.__needEmit.length);
+        this.__needEmit = undefined;
         this.__listeners.clear();
+        this.__listeners = undefined;
         this.__callers.clear();
+        this.__callers = undefined;
+        this.__target = undefined;
         return true;
     }
 }

@@ -1,5 +1,4 @@
 import { IDestroyable } from "../interfaces/IDestroyable";
-import { ResURL } from "../res/ResURL";
 import { Event } from "./Event";
 import { EventType } from "./EventType";
 
@@ -46,7 +45,7 @@ export interface IEventDispatcher extends IDestroyable {
      * @param err  错误信息
      * @param progress 进度信息(0-1)
      */
-    emit(type: EventType, data?: any, err?: Error, progress?: number,url?:ResURL): void;
+    emit(type: EventType, data?: any, err?: Error, progress?: number): void;
 
     /**
      * 是否有事件监听

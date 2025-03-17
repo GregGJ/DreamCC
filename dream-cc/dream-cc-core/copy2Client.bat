@@ -6,4 +6,4 @@ REM chcp 65001
 
 @SET dir=.\dist
 
-copy %dir%\* D:\DreamCC\clients\Client3\assets\libs\
+copy %dir%\* D:\DreamCC\clients\Client3\libs

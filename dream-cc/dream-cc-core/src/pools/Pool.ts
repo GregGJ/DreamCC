@@ -4,6 +4,14 @@ import { PoolImpl } from "./PoolImpl";
 
 
 
+/**
+ * 对象池
+ * @example
+ * //从对象池获取一个实例
+ * let item=Pool.acquire(MyClass);
+ * //将对象还回对象池
+ * Pool.release(MyClass,item);
+ */
 export class Pool {
 
     /**
