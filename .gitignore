@@ -73,3 +73,6 @@ crashlytics-build.properties
 /[Aa]ssets/[Ss]treamingAssets/aa.meta
 /[Aa]ssets/[Ss]treamingAssets/aa/*
 /dream-cc/dream-cc-core/node_modules
+/dream-cc/dream-cc-gui/node_modules
+/dream-cc/fairygui-cc/node_modules
+/tools/dream_cli/target
