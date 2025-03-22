@@ -1,0 +1,2492 @@
+import { GComponent, ITooltipManager, ITooltipView } from 'fairygui-cc';
+import { EventDispatcher, ILoader, ResURL, Resource, Binder, Module, ResRequest, IEnginePlugin } from 'dream-cc-core';
+import { Color, Node } from 'cc';
+
+interface IAlert {
+    /**
+     * 显示一个警告框
+     * @param msg       文本内容
+     * @param title     标题
+     * @param buttons   按钮文本
+     * @param callback  点击按钮后的回调函数
+     * @param buttonSkins 按钮皮肤
+     */
+    show(msg: string, title?: string, buttons?: string[], callback?: (btnIdx: number) => void, buttonSkins?: string[]): void;
+}
+
+declare class Alert {
+    static KEY: string;
+    /**
+     * 显示一个警告框
+     * @param msg
+     * @param title
+     * @param buttons
+     * @param callback
+     * @param buttonSkins
+     */
+    static show(msg: string, title?: string, buttons?: string[], callback?: (btnIdx: number) => void, buttonSkins?: string[]): void;
+    private static __impl;
+    static get impl(): IAlert;
+}
+
+/**
+ * UI层接口
+ */
+interface ILayer {
+    addChild(child: any): void;
+    addChildAt(child: any, index: number): void;
+    removeChild(child: any): void;
+    removeChildAt(index: number): void;
+    /**
+     * 获取指定索引内容
+     * @param index
+     */
+    getChildAt(index: number): any;
+    /**
+     * 当前层拥有的子对象数量
+     */
+    getCount(): number;
+}
+
+/**
+ * 层管理器接口
+ */
+interface ILayerManager {
+    /**
+     * 添加层
+     * @param key
+     * @param layer
+     */
+    addLayer(key: string, layer: ILayer): void;
+    /**
+     * 删除层
+     * @param key
+     */
+    removeLayer(key: string): void;
+    /**
+     * 获取层对象
+     * @param key
+     */
+    getLayer(key: string): ILayer | undefined;
+    /**
+     * 获得所有层
+     */
+    getAllLayer(): ILayer[];
+}
+
+/**
+ * 层级类
+ */
+declare class Layer extends GComponent implements ILayer {
+    /**
+     * 是否是全屏层
+     */
+    isFullScrene: boolean;
+    /**
+     * 开启记录
+     */
+    openRecord: Array<string>;
+    constructor(name: string, isFullScrene?: boolean);
+    getCount(): number;
+}
+
+/**
+ * 层管理器
+ */
+declare class LayerManager {
+    static KEY: string;
+    /**
+     * 添加一个层
+     * @param key
+     * @param layer
+     */
+    static addLayer(key: string, layer: ILayer): void;
+    /**
+     * 删除层
+     * @param key
+     */
+    static removeLayer(key: string): void;
+    /**
+     * 获取层对象
+     * @param key
+     */
+    static getLayer(key: string): ILayer | undefined;
+    /**
+     * 获得所有层
+     */
+    static getAllLayer(): ILayer[];
+    private static __impl;
+    private static get impl();
+}
+
+/**
+ * cocos fgui 层管理器
+ */
+declare class LayerManagerImpl implements ILayerManager {
+    private __layerMap;
+    constructor();
+    /**
+     * 添加层
+     * @param key
+     * @param layer
+     */
+    addLayer(key: string, layer: ILayer): void;
+    /**
+     * 删除层
+     * @param key
+     */
+    removeLayer(key: string): void;
+    getLayer(layerKey: string): ILayer | undefined;
+    /**
+     * 获得所有层
+     */
+    getAllLayer(): ILayer[];
+}
+
+/**
+ * 加载界面
+ */
+interface ILoadingView {
+    /**
+     * 更新
+     * @param data
+     */
+    changeData(...args: any[]): void;
+    /**
+     * 显示
+     */
+    show(): void;
+    /**
+     * 隐藏
+     */
+    hide(): void;
+}
+
+/**
+ * 加载界面
+ */
+declare class LoadingView {
+    static KEY: string;
+    static show(): void;
+    static hide(): void;
+    static changeData(...args: any[]): void;
+    private static __impl;
+    static get impl(): ILoadingView;
+}
+
+/**
+ * 位置模式
+ */
+declare enum TooltipPosMode {
+    Touch = 0,
+    Left = 1,
+    Right = 2
+}
+
+/**
+ * 提示数据
+ */
+declare class ITooltipData {
+    /**
+     * 数据
+     */
+    data: any;
+    /**
+     * 提示类
+     */
+    tooltipType: string;
+    /**
+     * 显示位置模式
+     */
+    posMode: TooltipPosMode;
+}
+
+/**
+ * tooltip 管理类
+ */
+declare class TooltipManagerImpl implements ITooltipManager {
+    private __tooltipMap;
+    private __currentTooltip;
+    /**
+     * 提示层
+     */
+    tooltipLayer: string;
+    constructor();
+    register(type: string, value: ITooltipView): void;
+    unregister(type: string): void;
+    show(data: ITooltipData): void;
+    private __layout;
+    hide(): void;
+    get isShowing(): boolean;
+}
+
+/**
+ * UI关联数据列表
+ */
+interface IRelationList {
+    /**
+     * 要显示的UI列表
+     */
+    show: Array<string>;
+    /**
+     * 要隐藏的UI列表
+     */
+    hide: Array<string>;
+}
+
+/**
+ * UI关联数据
+ */
+interface IRelationInfo {
+    /**
+     * 显示时的关联
+     */
+    show: IRelationList;
+    /**
+     * 隐藏时的关联
+     */
+    hide: IRelationList;
+}
+
+/**
+* GUI 关联关系
+*/
+declare class RelationManager {
+    static DEBUG: boolean;
+    private static __map;
+    constructor();
+    /**
+     * 添加UI关联关系
+     * @param key
+     * @param value
+     */
+    static addRelation(key: string, value: IRelationInfo): void;
+    static removeRelation(key: string): void;
+    /**
+     * 检测合法性
+     * @param value
+     */
+    private static __checkValidity;
+    static getRelation(key: string): IRelationInfo;
+}
+
+declare class FGUILoader extends EventDispatcher implements ILoader {
+    url: ResURL;
+    constructor();
+    load(url: ResURL): void;
+    private loadUIPackge;
+    reset(): void;
+}
+
+declare class FGUIResource extends Resource {
+    constructor();
+    /**
+     * 销毁
+     */
+    destroy(): boolean;
+}
+
+/**
+ * 基础Mediator类
+ */
+declare class BaseMediator extends Binder {
+    /**UI组件 */
+    ui: GComponent | null;
+    /**外部传参*/
+    data: any;
+    constructor();
+    init(): void;
+    tick(dt: number): void;
+    show(data: any): void;
+    showedUpdate(data?: any): void;
+    hide(): void;
+    /**
+     * 根据名称或路径获取组件
+     * @param path
+     * @returns
+     */
+    getUIComponent(path: string): any;
+}
+
+/**
+ * 界面状态
+ */
+declare enum GUIState {
+    /**
+     * 未使用状态
+     */
+    Null = 0,
+    /**
+     * 显示处理中
+     */
+    Showing = 1,
+    /**
+     * 已显示
+     */
+    Showed = 2,
+    /**
+     * 关闭处理中
+     */
+    Closeing = 3,
+    /**
+     * 已关闭
+     */
+    Closed = 4
+}
+
+interface ITabData {
+    page?: number;
+    pageData?: ITabData;
+    next?: ITabData;
+    data?: any;
+}
+
+/**
+     * GUI 管理器
+     */
+declare class GUIManager {
+    static KEY: string;
+    /**
+     * 在界面关闭后多长时间不使用则销毁(秒)
+     */
+    static GUI_GC_INTERVAL: number;
+    /**
+     * 注册
+     * @param info
+     * @returns
+     */
+    static register(info: {
+        key: string;
+    }): void;
+    /**
+     * 注销
+     * @param key
+     * @returns
+     */
+    static unregister(key: string): void;
+    /**
+     * 打开指定UI界面
+     * @param key
+     * @param data
+     */
+    static open(key: string, data?: ITabData): void;
+    /**
+     * 关闭
+     * @param key
+     * @param checkLayer 是否检查全屏记录
+     */
+    static close(key: string, checkLayer?: boolean): void;
+    /**
+     * 关闭所有界面
+     */
+    static closeAll(): void;
+    /**
+     * 获取界面状态
+     * @param key
+     * @returns  0 未显示  1显示中
+     */
+    static getGUIState(key: string): GUIState;
+    /**
+     * 是否已打开或再打开中
+     * @param key
+     * @returns
+     */
+    static isOpen(key: string): boolean;
+    /**
+     * 获取GUI中的某个组件
+     * @param key    界面全局唯一KEY
+     * @param path   组件名称/路径
+     */
+    static getUIComponent(key: string, path: string): any;
+    private static __impl;
+    private static get impl();
+}
+
+interface IGUIInfo {
+    /**
+     * UI 全局唯一KEY
+     */
+    key: string;
+    /**
+     * 是否永久存在
+     */
+    permanence: boolean;
+    /**
+     * UI所在层
+     */
+    layer: string;
+    /**
+     * 是否使用遮罩
+     */
+    modal: boolean;
+    /**
+     * 点击蒙版时时候关闭界面
+     */
+    modalClose: boolean;
+    /**
+     * 资源包
+     */
+    bundleName: string;
+    /**
+     * UIPackage名称
+     */
+    packageName: string;
+    /**
+     * FGUI 组件名
+     */
+    comName: string;
+    /**UI所属状态 */
+    state: GUIState;
+    /**
+     * 遮罩是否全透明
+     */
+    maskAlpha: boolean;
+}
+
+/**
+ * UI管理器接口
+ */
+interface IGUIManager {
+    /**
+     * 注册
+     * @param key
+     * @param mediatorClass
+     * @param data
+     */
+    register(info: {
+        key: string;
+    }): void;
+    /**
+     * 注销
+     * @param key
+     */
+    unregister(key: string): void;
+    /**
+     * 心跳
+     * @param dt
+     */
+    tick(dt: number): void;
+    /**
+     * 打开
+     * @param key
+     * @param data
+     */
+    open(key: string, data?: any): void;
+    /**
+     * 关闭
+     * @param key
+     * @param checkLayer  是否检查全屏打开记录
+     */
+    close(key: string, checkLayer: boolean): void;
+    /**
+     * 关闭所有
+     * @param key
+     */
+    closeAll(): void;
+    /**
+     * 是否已打开
+     * @param key
+     * @returns
+     */
+    getState(key: string): GUIState;
+    /**
+     * 获取GUI中的某个组件
+     * @param key    界面全局唯一KEY
+     * @param path   组件名称/路径
+     */
+    getUIComponent(key: string, path: string): any;
+    /**
+     * 是否已打开或打开中
+     * @param key
+     */
+    isOpen(key: string): boolean;
+}
+
+interface IViewComponent {
+    /**
+     * 可见性
+     */
+    visible: boolean;
+}
+
+interface IGUIMediator {
+    info: any;
+    /**
+     * 依赖的配置
+     */
+    configs: Array<string>;
+    /**依赖的资源*/
+    assets: Array<ResURL>;
+    /**
+     * 依赖的模块
+     */
+    local_module: Module;
+    /**
+     * 是否显示进度条
+     */
+    showLoadingView: boolean;
+    /**
+     * 显示界面时是否关闭进度条
+     */
+    closeLoadingView: boolean;
+    /**
+     * 界面准备时汇报总比值
+     */
+    loadingViewTotalRatio: number;
+    /**初始化完毕 */
+    inited: boolean;
+    /**
+     * 显示节点
+     */
+    viewComponent: IViewComponent | null;
+    /**
+     * 播放显示动画
+     * @param complete
+     */
+    playShowAnimation?: (complete: () => void) => void;
+    /**
+     * 界面关闭时播放的动画
+     * @param complete
+     */
+    playHideAnimation?: (complete: () => void) => void;
+    /**
+     * 创建UI
+     * @param info
+     * @param created
+     */
+    createUI(info: any, created: Function): void;
+    /**
+     * 初始化
+     */
+    init(): void;
+    /**
+     * 心跳
+     * @param dt
+     */
+    tick(dt: number): void;
+    /**
+     * 显示(内部接口，请勿调用)
+     * @param data
+     */
+    show(data?: ITabData): void;
+    /**
+     * 当已经处在显示中 GUIManager.call时 则调用该方法而不调用showedUpdate
+     * @param data
+     */
+    showedUpdate(data?: ITabData): void;
+    /**
+     * 隐藏(内部接口，请勿调用)
+     * @param info
+     */
+    hide(): void;
+    /**
+     * 销毁
+     */
+    destroy(): void;
+    /**
+     * 获取组件
+     * @param path
+     */
+    getUIComponent(path: string): any;
+}
+
+/**
+ * GUI管理器
+ */
+declare class GUIManagerImpl implements IGUIManager {
+    /**已注册*/
+    private __registered;
+    /**实例 */
+    private __instances;
+    /**
+     * 删除列表
+     */
+    private __destryList;
+    constructor();
+    /**获取某个组件 */
+    getUIComponent(key: string, path: string): any;
+    /**
+     * 获取界面的mediator
+     * @param key
+     */
+    getMediatorByKey(key: string): IGUIMediator;
+    private __showedHandler;
+    private __closedHandler;
+    register(info: IGUIInfo): void;
+    unregister(key: string): void;
+    tick(dt: number): void;
+    open(key: string, data?: any): void;
+    private __open;
+    private checkFullLayer;
+    close(key: string, checkLayer?: boolean): void;
+    closeAll(): void;
+    private __close;
+    /**
+     * 检测UI关联关系
+     * @param key
+     */
+    private __checkRelation;
+    /**
+     * 获取界面状态
+     * @param key
+     */
+    getState(key: string): GUIState;
+    setState(key: string, state: GUIState): void;
+    /**
+     * 是否已打开或打开中
+     * @param key
+     * @returns
+     */
+    isOpen(key: string): boolean;
+}
+
+/**
+ * 子UI 逻辑划分
+ */
+declare class SubGUIMediator extends BaseMediator {
+    /**所属GUI*/
+    owner: GUIMediator | null;
+    constructor(ui: GComponent | null, owner: GUIMediator | null);
+    /**
+     * 子类必须在构造函数中调用
+     */
+    init(): void;
+    show(data: any): void;
+    hide(): void;
+    destroy(): void;
+}
+
+interface ITabPage {
+    /**
+     * UI
+     */
+    ui: any;
+    /**
+     * 所属的Mediator
+     */
+    owner: any;
+    /**
+     * 初始化
+     */
+    init(): void;
+    /**
+     * 显示
+     * @param data
+     */
+    show(data?: ITabData): void;
+    showedUpdate(data?: ITabData): void;
+    /**
+     * 隐藏
+     */
+    hide(): void;
+    /**
+     * 销毁
+     */
+    destroy(): void;
+}
+
+/**
+ * 页签容器组件
+ */
+declare class TabContainer extends Binder {
+    /**Tab容器 */
+    ui: GComponent;
+    /**所属*/
+    owner: any;
+    private __pageInstanceMap;
+    /**当前页签索引 */
+    currentIndex: number;
+    /**当前页签 */
+    currentPage: ITabPage;
+    /**页签创建函数*/
+    private __createPage;
+    private __showing;
+    constructor(content: GComponent, createPage: (index: number) => ITabPage, owner: any);
+    /**切换到某个页签 */
+    switchPage(index: number, data?: any): void;
+    init(): void;
+    show(data?: ITabData): void;
+    showedUpdate(data?: ITabData): void;
+    hide(): void;
+    private getPage;
+    destroy(): void;
+}
+
+/**
+ * UI逻辑类
+ */
+declare class GUIMediator extends BaseMediator implements IGUIMediator {
+    info: IGUIInfo | null;
+    /**模块*/
+    local_module: Module;
+    /**依赖的配置表 */
+    configs: Array<string>;
+    /**依赖的资源*/
+    assets: Array<ResURL>;
+    /**是否显示进度界面 */
+    showLoadingView: boolean;
+    /**显示界面时是否关闭进度条*/
+    closeLoadingView: boolean;
+    /**界面从开始加载到底层调用Show方法之前的进度总比值 */
+    loadingViewTotalRatio: number;
+    /**根节点 */
+    viewComponent: GComponent | null;
+    /**页签容器*/
+    tabContainer: TabContainer;
+    /**
+     * 播放显示动画
+     * @param complete
+     */
+    playShowAnimation?: (complete: () => void) => void;
+    /**
+     * 界面关闭时播放的动画
+     * @param complete
+     */
+    playHideAnimation?: (complete: () => void) => void;
+    /**遮罩 */
+    private __mask;
+    /**创建UI完成回调*/
+    private __createdCallBack;
+    /**子Mediator(用于代码拆分),记住只能在Init函数中赋值*/
+    protected $subMediators: Array<SubGUIMediator>;
+    constructor();
+    /**
+     * 创建UI
+     * @param info
+     * @param created
+     */
+    createUI(info: any, created: () => void): void;
+    private __asyncCreator;
+    private __createUI;
+    private __uiCreated;
+    protected _maskClickHandler(): void;
+    init(): void;
+    show(data?: ITabData): void;
+    showedUpdate(data?: ITabData): void;
+    hide(): void;
+    /**
+     * 关闭
+     * @param checkLayer 是否检查全屏层记录
+     */
+    close(checkLayer?: boolean): void;
+    tick(dt: number): void;
+    destroy(): void;
+}
+
+/**
+ * GUI代理，将资源加载和Mediator逻辑隔离开
+ */
+declare class GUIProxy {
+    /**用于Creator创建器的统一帮助节点 */
+    private static createNode;
+    info?: IGUIInfo;
+    /**GUI中介*/
+    mediator?: IGUIMediator;
+    /**关闭时间*/
+    closeTime: number;
+    /**数据 */
+    data: any;
+    /**引用的资源 */
+    urls: Array<ResURL>;
+    assetsRequest: ResRequest;
+    /**是否在显示中*/
+    private __showing;
+    /**加载状态 */
+    private __loadState;
+    constructor(info: IGUIInfo);
+    /**
+     * 加载代码包
+     */
+    private __loadAssetBundle;
+    /**
+    * 初始化模块
+    */
+    private __initModules;
+    private __moduleInitComplete;
+    /**
+     * 模块初始化完成
+     */
+    private __moduleInited;
+    private __loadAssets;
+    /**
+     * 创建UI
+     */
+    private __create_ui;
+    /**
+     * UI创建完成回调
+     */
+    private __create_ui_callback;
+    private __add_to_layer;
+    tick(dt: number): void;
+    show(data?: any): void;
+    showedUpdate(data: any): void;
+    private __show;
+    private __showAnimationPlayed;
+    hide(): void;
+    private __hideAnimationPlayed;
+    private __hide;
+    destroy(): void;
+    private getLayerChildCount;
+    private get layer();
+    /**
+     * 获取组件
+     * @param path
+     */
+    getComponent(path: string): any;
+}
+
+interface IViewCreator {
+    /**
+     * 创建Mediator
+     */
+    createMediator(): IGUIMediator;
+}
+
+declare class TabPage extends Binder implements ITabPage {
+    /**
+     * UI
+     */
+    ui: any;
+    /**
+     * 所属的Mediator
+     */
+    owner: any;
+    constructor();
+    init(): void;
+    show(data?: ITabData): void;
+    showedUpdate(data?: ITabData): void;
+    hide(): void;
+    destroy(): void;
+}
+
+/**
+ * GUI插件
+ */
+declare class GUIPlugin extends EventDispatcher implements IEnginePlugin {
+    /**
+     * 名称
+     */
+    readonly name = "GUIPlugin";
+    /**
+     * UI资源包URL
+     * @param packname
+     * @param type
+     * @param bundle
+     * @returns
+     */
+    static uiPackageURL: (packname: string, type?: any, bundle?: string) => ResURL;
+    /**UI遮罩颜色值 */
+    static MaskColor: Color;
+    /**透明遮罩颜色 */
+    static AlphaMaskColor: Color;
+    /**
+     * 初始化
+     * @param root          fgui根节点
+     * @param guiconfig     UI配置
+     * @param callback      回调
+     * @param progress      进度汇报
+     * @param layer         层级配置
+     * @param assets        公共资源
+     * @param fonts         字体
+     */
+    setup(root: Node, guiconfig: ResURL, layer?: {
+        layers: Array<string>;
+        fullScrene: Array<string>;
+    }, assets?: Array<ResURL>, fonts?: Array<{
+        name: string;
+        url: ResURL;
+    }>, language?: ResURL): void;
+    private __InitLayer;
+    private __loadCommonAssets;
+    private __loadFonts;
+    private __initUI;
+    /**
+     * 加载FGUI语言包
+     * @param url
+     * @param p_progress
+     * @param cb
+     */
+    private __loadLangenge;
+    private parseXML;
+    private __onError;
+    private __allComplete;
+}
+
+export { Alert, BaseMediator, FGUILoader, FGUIResource, GUIManager, GUIManagerImpl, GUIMediator, GUIPlugin, GUIProxy, GUIState, IAlert, IGUIInfo, IGUIManager, IGUIMediator, ILayer, ILayerManager, ILoadingView, IRelationInfo, IRelationList, ITabData, ITabPage, ITooltipData, IViewComponent, IViewCreator, Layer, LayerManager, LayerManagerImpl, LoadingView, RelationManager, SubGUIMediator, TabContainer, TabPage, TooltipManagerImpl, TooltipPosMode };
+// src/gui/alerts/Alert.ts
+import { Injector } from "dream-cc-core";
+var Alert = class {
+  /**
+   * 显示一个警告框
+   * @param msg 
+   * @param title 
+   * @param buttons 
+   * @param callback 
+   * @param buttonSkins 
+   */
+  static show(msg, title, buttons, callback, buttonSkins) {
+    this.impl.show(msg, title, buttons, callback, buttonSkins);
+  }
+  static get impl() {
+    if (this.__impl == null) {
+      this.__impl = Injector.getInject(this.KEY);
+    }
+    if (this.__impl == null) {
+      throw new Error("\u672A\u6CE8\u5165\uFF1A" + this.KEY);
+    }
+    return this.__impl;
+  }
+};
+Alert.KEY = "htsd.Alert";
+
+// src/gui/layer/Layer.ts
+import { GComponent } from "fairygui-cc";
+var Layer = class extends GComponent {
+  constructor(name, isFullScrene = false) {
+    super();
+    this.node.name = name;
+    this.isFullScrene = isFullScrene;
+    this.openRecord = [];
+    this.makeFullScreen();
+  }
+  getCount() {
+    return this.numChildren;
+  }
+};
+
+// src/gui/layer/LayerManager.ts
+import { Injector as Injector2 } from "dream-cc-core";
+
+// src/gui/layer/LayerManagerImpl.ts
+import { GRoot } from "fairygui-cc";
+var LayerManagerImpl = class {
+  constructor() {
+    this.__layerMap = /* @__PURE__ */ new Map();
+  }
+  /**
+   * 添加层
+   * @param key 
+   * @param layer 
+   */
+  addLayer(key, layer) {
+    if (layer instanceof Layer) {
+      GRoot.inst.addChild(layer);
+      this.__layerMap.set(key, layer);
+    } else {
+      throw new Error("\u5C42\u5FC5\u987B\u662FLayer");
+    }
+  }
+  /**
+   * 删除层
+   * @param key 
+   */
+  removeLayer(key) {
+    let layer = this.__layerMap.get(key);
+    if (layer) {
+      GRoot.inst.removeChild(layer);
+      this.__layerMap.delete(key);
+    } else {
+      throw new Error("\u627E\u4E0D\u5230\u8981\u5220\u9664\u7684\u5C42\uFF1A" + key);
+    }
+  }
+  getLayer(layerKey) {
+    return this.__layerMap.get(layerKey);
+  }
+  /**
+   * 获得所有层
+   */
+  getAllLayer() {
+    let _values = [];
+    this.__layerMap.forEach(function(v, key) {
+      _values.push(v);
+    });
+    return _values;
+  }
+};
+
+// src/gui/layer/LayerManager.ts
+var LayerManager = class {
+  /**
+   * 添加一个层
+   * @param key 
+   * @param layer 
+   */
+  static addLayer(key, layer) {
+    this.impl.addLayer(key, layer);
+  }
+  /**
+   * 删除层
+   * @param key 
+   */
+  static removeLayer(key) {
+    this.impl.removeLayer(key);
+  }
+  /**
+   * 获取层对象
+   * @param key 
+   */
+  static getLayer(key) {
+    return this.impl.getLayer(key);
+  }
+  /**
+   * 获得所有层
+   */
+  static getAllLayer() {
+    return this.impl.getAllLayer();
+  }
+  static get impl() {
+    if (this.__impl == null) {
+      this.__impl = Injector2.getInject(this.KEY);
+    }
+    if (this.__impl == null) {
+      this.__impl = new LayerManagerImpl();
+    }
+    return this.__impl;
+  }
+};
+LayerManager.KEY = "htsd.LayerManager";
+
+// src/gui/loadingView/LoadingView.ts
+import { Injector as Injector3 } from "dream-cc-core";
+var LoadingView = class {
+  static show() {
+    if (!this.impl) {
+      return;
+    }
+    this.impl.show();
+  }
+  static hide() {
+    if (!this.impl) {
+      return;
+    }
+    this.impl.hide();
+  }
+  static changeData(...args) {
+    if (!this.impl) {
+      return;
+    }
+    this.impl.changeData(...args);
+  }
+  static get impl() {
+    if (this.__impl == null) {
+      this.__impl = Injector3.getInject(this.KEY);
+    }
+    if (this.__impl == null) {
+      console.warn(this.KEY + "\u672A\u6CE8\u5165");
+    }
+    return this.__impl;
+  }
+};
+LoadingView.KEY = "htsd.LoadingView";
+
+// src/gui/tooltips/ITooltipData.ts
+var ITooltipData = class {
+};
+
+// src/gui/tooltips/TooltipManagerImpl.ts
+import { Vec2 } from "cc";
+
+// src/gui/tooltips/TooltipPosMode.ts
+var TooltipPosMode = /* @__PURE__ */ ((TooltipPosMode2) => {
+  TooltipPosMode2[TooltipPosMode2["Touch"] = 0] = "Touch";
+  TooltipPosMode2[TooltipPosMode2["Left"] = 1] = "Left";
+  TooltipPosMode2[TooltipPosMode2["Right"] = 2] = "Right";
+  return TooltipPosMode2;
+})(TooltipPosMode || {});
+
+// src/gui/tooltips/TooltipManagerImpl.ts
+import { GRoot as GRoot2 } from "fairygui-cc";
+var TooltipManagerImpl = class {
+  constructor() {
+    /**
+     * 提示层
+     */
+    this.tooltipLayer = "Tooltip";
+    this.__tooltipMap = /* @__PURE__ */ new Map();
+  }
+  register(type, value) {
+    this.__tooltipMap.set(type, value);
+  }
+  unregister(type) {
+    this.__tooltipMap.delete(type);
+  }
+  show(data) {
+    if (this.isShowing) {
+      this.hide();
+    }
+    let tData;
+    let posMode;
+    if (typeof data == "string") {
+      tData = data;
+      posMode = 0 /* Touch */;
+      this.__currentTooltip = this.__tooltipMap.get("default");
+    } else if (data instanceof ITooltipData) {
+      tData = data.data;
+      posMode = data.posMode;
+      if (this.__tooltipMap.has(data.tooltipType)) {
+        this.__currentTooltip = this.__tooltipMap.get(data.tooltipType);
+      } else {
+        throw new Error("\u672A\u6CE8\u518Ctooltip Type:" + data.tooltipType);
+      }
+    }
+    this.__currentTooltip.update(tData);
+    let layer = LayerManager.getLayer(this.tooltipLayer);
+    layer.addChild(this.__currentTooltip.viewComponent);
+    this.__layout(posMode);
+  }
+  __layout(posMode) {
+    let view = this.__currentTooltip.viewComponent;
+    let pos;
+    switch (posMode) {
+      case 0 /* Touch */:
+        pos = GRoot2.inst.getTouchPosition();
+        break;
+      case 1 /* Left */:
+      case 2 /* Right */:
+        pos = new Vec2();
+        if (posMode == 1 /* Left */) {
+          pos.x = GRoot2.inst.width * 0.25 - view.width * 0.5;
+          pos.y = (GRoot2.inst.height - view.height) * 0.5;
+        } else {
+          pos.x = GRoot2.inst.width - GRoot2.inst.width * 0.25 - view.width * 0.5;
+          pos.y = (GRoot2.inst.height - view.height) * 0.5;
+        }
+        break;
+      default:
+        throw new Error("Tooltip \u672A\u77E5\u5B9A\u4F4D\u7C7B\u578B\uFF01");
+        break;
+    }
+    if (pos.x < 0) {
+      pos.x = 0;
+    } else if (pos.x + view.width > GRoot2.inst.width) {
+      pos.x = GRoot2.inst.width - view.width;
+    }
+    if (pos.y < 0) {
+      pos.y = 0;
+    } else if (pos.y + view.height > GRoot2.inst.height) {
+      pos.y = GRoot2.inst.height - view.height;
+    }
+    view.x = pos.x;
+    view.y = pos.y;
+  }
+  hide() {
+    if (!this.isShowing) {
+      return;
+    }
+    let layer = LayerManager.getLayer(this.tooltipLayer);
+    layer.removeChild(this.__currentTooltip.viewComponent);
+    this.__currentTooltip = null;
+  }
+  get isShowing() {
+    return this.__currentTooltip != null;
+  }
+};
+
+// src/gui/relations/RelationManager.ts
+var RelationManager = class {
+  constructor() {
+  }
+  /**
+   * 添加UI关联关系
+   * @param key 
+   * @param value 
+   */
+  static addRelation(key, value) {
+    if (this.DEBUG) {
+      this.__checkValidity(key, value);
+    }
+    if (this.__map.has(key)) {
+      throw new Error("\u91CD\u590D\u6CE8\u518C\uFF01");
+    }
+    this.__map.set(key, value);
+  }
+  static removeRelation(key) {
+    if (!this.__map.has(key)) {
+      throw new Error("\u627E\u4E0D\u5230\u8981\u5220\u9664\u7684\u5185\u5BB9\uFF01");
+    }
+    this.__map.delete(key);
+  }
+  /**
+   * 检测合法性
+   * @param value 
+   */
+  static __checkValidity(key, value) {
+    let guiKey = key;
+    let showList = value.show;
+    let hideList = value.hide;
+    let findex;
+    findex = showList.show.indexOf(guiKey);
+    if (findex >= 0) {
+      throw new Error("GuiRelation.config\u914D\u7F6E\u9519\u8BEF:gui:" + guiKey + " show.show:\u4E2D\u4E0D\u80FD\u5305\u542B\u81EA\u8EAB\uFF01");
+    }
+    findex = showList.hide.indexOf(guiKey);
+    if (findex >= 0) {
+      throw new Error("GuiRelation.config\u914D\u7F6E\u9519\u8BEF:gui:" + guiKey + " show.hide:\u4E2D\u4E0D\u80FD\u5305\u542B\u81EA\u8EAB\uFF01");
+    }
+    findex = hideList.show.indexOf(guiKey);
+    if (findex >= 0) {
+      throw new Error("GuiRelation.config\u914D\u7F6E\u9519\u8BEF:gui:" + guiKey + " hide.show:\u4E2D\u4E0D\u80FD\u5305\u542B\u81EA\u8EAB\uFF01");
+    }
+    findex = hideList.hide.indexOf(guiKey);
+    if (findex >= 0) {
+      throw new Error("GuiRelation.config\u914D\u7F6E\u9519\u8BEF:gui:" + guiKey + " hide.hide:\u4E2D\u4E0D\u80FD\u5305\u542B\u81EA\u8EAB\uFF01");
+    }
+    for (let index = 0; index < showList.show.length; index++) {
+      const showkey = showList.show[index];
+      const findex2 = showList.hide.indexOf(showkey);
+      if (findex2 >= 0) {
+        throw new Error("GuiRelation.config\u914D\u7F6E\u9519\u8BEF:gui:" + guiKey + " show.show\u548Cshow.hide\u4E2D\u5305\u542B\u76F8\u540C\u7684guikey:" + showkey);
+      }
+    }
+    for (let index = 0; index < hideList.show.length; index++) {
+      const showkey = hideList.show[index];
+      const findex2 = hideList.hide.indexOf(showkey);
+      if (findex2 >= 0) {
+        throw new Error("GuiRelation.config\u914D\u7F6E\u9519\u8BEF:gui:" + guiKey + " hide.show\u548Chide.hide\u4E2D\u5305\u542B\u76F8\u540C\u7684guikey:" + showkey);
+      }
+    }
+  }
+  static getRelation(key) {
+    return this.__map.get(key);
+  }
+};
+RelationManager.DEBUG = false;
+RelationManager.__map = /* @__PURE__ */ new Map();
+
+// src/gui/res/FGUILoader.ts
+import { assetManager as assetManager2 } from "cc";
+
+// src/gui/res/FGUIResource.ts
+import { assetManager } from "cc";
+import { Res, Resource } from "dream-cc-core";
+import { UIPackage } from "fairygui-cc";
+var FGUIResource = class extends Resource {
+  constructor() {
+    super();
+  }
+  /**
+   * 销毁
+   */
+  destroy() {
+    let url = Res.key2Url(this.key);
+    if (typeof url != "string") {
+      UIPackage.removePackage(url.url);
+      let bundle = assetManager.getBundle(url.bundle);
+      let asset = bundle.get(url.url);
+      assetManager.releaseAsset(asset);
+    } else {
+      throw new Error("\u672A\u5904\u7406\u7684Fguipackage\u9500\u6BC1\uFF01");
+    }
+    return super.destroy();
+  }
+};
+
+// src/gui/res/FGUILoader.ts
+import { UIPackage as UIPackage2 } from "fairygui-cc";
+import { Event, EventDispatcher, Res as Res2, ResourceManager } from "dream-cc-core";
+var FGUILoader = class extends EventDispatcher {
+  constructor() {
+    super();
+  }
+  load(url) {
+    this.url = url;
+    if (typeof url == "string") {
+      throw new Error("\u672A\u5B9E\u73B0\uFF1A" + url);
+    } else {
+      let bundle = assetManager2.getBundle(url.bundle);
+      let self = this;
+      if (!bundle) {
+        assetManager2.loadBundle(url.bundle, (err, bundle2) => {
+          if (err) {
+            self.emit(Event.ERROR, url, err);
+            return;
+          }
+          self.loadUIPackge(url, bundle2);
+        });
+      } else {
+        self.loadUIPackge(url, bundle);
+      }
+    }
+  }
+  loadUIPackge(url, bundle) {
+    if (typeof url == "string") {
+      throw new Error("\u672A\u5B9E\u73B0\uFF1A" + url);
+    }
+    let self = this;
+    UIPackage2.loadPackage(
+      bundle,
+      url.url,
+      (finish, total, item) => {
+        const progress = finish / total;
+        self.emit(Event.PROGRESS, url, void 0, progress);
+      },
+      (err, pkg) => {
+        if (err) {
+          self.emit(Event.ERROR, url, err);
+          return;
+        }
+        const urlKey = Res2.url2Key(url);
+        let res = new FGUIResource();
+        res.key = urlKey;
+        res.content = pkg;
+        ResourceManager.addRes(res);
+        self.emit(Event.COMPLETE, url);
+      }
+    );
+  }
+  reset() {
+    this.url = null;
+  }
+};
+
+// src/gui/BaseMediator.ts
+import { Binder } from "dream-cc-core";
+var BaseMediator = class extends Binder {
+  constructor() {
+    super();
+    /**UI组件 */
+    this.ui = null;
+  }
+  init() {
+    super.init();
+  }
+  tick(dt) {
+  }
+  show(data) {
+    this.data = data;
+    this.bindByRecords();
+  }
+  showedUpdate(data) {
+    this.data = data;
+  }
+  hide() {
+    this.unbindByRecords();
+  }
+  /**
+   * 根据名称或路径获取组件
+   * @param path 
+   * @returns 
+   */
+  getUIComponent(path) {
+    let paths = path.split("/");
+    let ui = this.ui;
+    let index = 0;
+    let uiName;
+    while (ui && index < paths.length) {
+      uiName = paths[index];
+      if (uiName.startsWith("m_")) {
+        uiName = uiName.replace("m_", "");
+      }
+      ui = ui.getChild(uiName);
+      index++;
+    }
+    return ui;
+  }
+};
+
+// src/gui/GUIManager.ts
+import { Injector as Injector4 } from "dream-cc-core";
+
+// src/gui/GUIProxy.ts
+import { assetManager as assetManager3, Node as Node2 } from "cc";
+
+// src/GUIPlugin.ts
+import { Color } from "cc";
+import { Event as Event2, EventDispatcher as EventDispatcher2, I18N, Logger, Res as Res3 } from "dream-cc-core";
+import { GRoot as GRoot3, registerFont, SmartLoader, UIObjectFactory, UIPackage as UIPackage3 } from "fairygui-cc";
+var GUIPlugin = class extends EventDispatcher2 {
+  constructor() {
+    super(...arguments);
+    /**
+     * 名称
+     */
+    this.name = "GUIPlugin";
+  }
+  /**
+   * 初始化
+   * @param root          fgui根节点
+   * @param guiconfig     UI配置
+   * @param callback      回调
+   * @param progress      进度汇报
+   * @param layer         层级配置
+   * @param assets        公共资源
+   * @param fonts         字体
+   */
+  setup(root, guiconfig, layer, assets, fonts, language) {
+    Logger.log("Engine Init...", "gui");
+    Res3.setLoader(Res3.TYPE.FGUI, FGUILoader);
+    UIObjectFactory.setLoaderExtension(SmartLoader);
+    GRoot3.create(root);
+    this.__InitLayer(layer);
+    if (assets && assets.length > 0) {
+      this.__loadCommonAssets(assets, guiconfig, fonts, language);
+    } else {
+      if (fonts && fonts.length > 0) {
+        this.__loadFonts(fonts, guiconfig, language);
+      } else {
+        this.__initUI(guiconfig, language);
+      }
+    }
+  }
+  __InitLayer(layer) {
+    if (layer == void 0) {
+      let layers = [
+        "BattleDamage",
+        "FullScreen",
+        "Window",
+        "Pannel",
+        "Tooltip",
+        "Alert",
+        "Guide",
+        "LoadingView"
+      ];
+      let fullScrene = [
+        "FullScreen"
+      ];
+      layer = { layers, fullScrene };
+    }
+    if (layer.layers && layer.layers.length > 0) {
+      for (let index = 0; index < layer.layers.length; index++) {
+        const layerKey = layer.layers[index];
+        if (layer.fullScrene && layer.fullScrene.length > 0) {
+          LayerManager.addLayer(layerKey, new Layer(layerKey, layer.fullScrene.indexOf(layerKey) >= 0));
+        } else {
+          LayerManager.addLayer(layerKey, new Layer(layerKey));
+        }
+      }
+    }
+  }
+  __loadCommonAssets(assets, guiconfig, fonts, language) {
+    let reqeust = Res3.create(
+      assets,
+      "Engine",
+      (progress) => {
+        let v = 0.2 + progress * 0.2;
+        this.emit(Event2.PROGRESS, Event2.create(Event2.PROGRESS, this, null, null, v));
+      },
+      (err) => {
+        if (err) {
+          reqeust.dispose();
+          reqeust = null;
+          this.__onError(err);
+          return;
+        }
+        if (fonts && fonts.length > 0) {
+          this.__loadFonts(fonts, guiconfig, language);
+        } else {
+          this.__initUI(guiconfig, language);
+        }
+      }
+    );
+    reqeust.load();
+  }
+  __loadFonts(fonts, guiconfig, language) {
+    let urls = [];
+    let fontNames = /* @__PURE__ */ new Map();
+    for (let index = 0; index < fonts.length; index++) {
+      const config = fonts[index];
+      urls.push(config.url);
+      fontNames.set(Res3.url2Key(config.url), config.name);
+    }
+    let request = Res3.create(
+      urls,
+      "Engine",
+      (progress) => {
+        let v = 0.4 + progress * 0.2;
+        this.emit(Event2.PROGRESS, Event2.create(Event2.PROGRESS, this, null, null, v));
+      },
+      (err) => {
+        if (err) {
+          request.dispose();
+          request = null;
+          this.__onError(err);
+          return;
+        }
+        let refs = request.getRefList();
+        for (let index = 0; index < refs.length; index++) {
+          const ref = refs[index];
+          const name = fontNames.get(ref.key);
+          registerFont(name, ref.content);
+        }
+        this.__initUI(guiconfig, language);
+      }
+    );
+    request.load();
+  }
+  __initUI(guiconfig, language) {
+    if (guiconfig) {
+      let request = Res3.create(
+        guiconfig,
+        "Engine",
+        (progress) => {
+          const v = 0.6 + progress * 0.2;
+          this.emit(Event2.PROGRESS, Event2.create(Event2.PROGRESS, this, null, null, v));
+        },
+        (err) => {
+          if (err) {
+            request.dispose();
+            request = null;
+            this.__onError(err);
+            return;
+          }
+          let ref = request.getRef();
+          let list = ref.content.json;
+          for (let index = 0; index < list.length; index++) {
+            const element = list[index];
+            GUIManager.register(element);
+          }
+          if (language) {
+            this.__loadLangenge(language);
+          } else {
+            this.__allComplete();
+          }
+        }
+      );
+      request.load();
+    } else {
+      if (language) {
+        this.__loadLangenge(language);
+      } else {
+        this.__allComplete();
+      }
+    }
+  }
+  /**
+   * 加载FGUI语言包
+   * @param url 
+   * @param p_progress 
+   * @param cb 
+   */
+  __loadLangenge(url) {
+    let request = Res3.create(
+      url,
+      "Engine",
+      (progress) => {
+        const v = 0.8 + progress * 0.2;
+        this.emit(Event2.PROGRESS, Event2.create(Event2.PROGRESS, this, null, null, v));
+      },
+      (err) => {
+        if (err) {
+          request.dispose();
+          request = null;
+          this.__allComplete();
+          return;
+        }
+        let ref = request.getRef();
+        UIPackage3.setStringsSource(this.parseXML(ref.content.text));
+        this.__allComplete();
+      }
+    );
+    request.load();
+  }
+  parseXML(value) {
+    var xml = new DOMParser().parseFromString(value, "text/xml").documentElement;
+    var nodes = xml.childNodes;
+    var length1 = nodes.length;
+    for (var i1 = 0; i1 < length1; i1++) {
+      var cxml = nodes[i1];
+      if (cxml.tagName == "string") {
+        var key = cxml.getAttribute("name");
+        var text = cxml.childNodes.length > 0 ? cxml.firstChild.nodeValue : "";
+        var i = key.indexOf("-");
+        if (i == -1)
+          continue;
+        let t_str = I18N.tr(text);
+        cxml.textContent = t_str;
+      }
+    }
+    const serializer = new XMLSerializer();
+    return serializer.serializeToString(xml);
+  }
+  __onError(err) {
+    Logger.error("Engine Init Error:" + err.message, "gui");
+  }
+  __allComplete(err) {
+    if (err) {
+      Logger.error("Engine Init Error" + err.message, "gui");
+      return;
+    }
+    Logger.log("Engine Init Completed" + err.message, "gui");
+    this.emit(Event2.COMPLETE, Event2.create(Event2.COMPLETE, this));
+  }
+};
+/**UI遮罩颜色值 */
+GUIPlugin.MaskColor = new Color(0, 0, 0, 255 * 0.5);
+/**透明遮罩颜色 */
+GUIPlugin.AlphaMaskColor = new Color(0, 0, 0, 0);
+
+// src/gui/GUIProxy.ts
+import { Event as Event3, EventDispatcher as EventDispatcher3, ModuleManager, Res as Res4 } from "dream-cc-core";
+var _GUIProxy = class _GUIProxy {
+  constructor(info) {
+    /**关闭时间*/
+    this.closeTime = 0;
+    /**是否在显示中*/
+    this.__showing = false;
+    /**加载状态 */
+    this.__loadState = 0 /* Null */;
+    this.info = info;
+    if (!this.info) {
+      throw new Error("UI\u4FE1\u606F\u4E0D\u80FD\u4E3A\u7A7A\uFF01");
+    }
+    this.urls = [];
+  }
+  /**
+   * 加载代码包
+   */
+  __loadAssetBundle() {
+    this.__loadState = 1 /* Loading */;
+    if (!assetManager3.getBundle(this.info.bundleName)) {
+      assetManager3.loadBundle(this.info.bundleName, this.__initModules.bind(this));
+    } else {
+      this.__initModules();
+    }
+  }
+  /**
+  * 初始化模块
+  */
+  __initModules() {
+    ModuleManager.single.load(
+      [this.info.bundleName],
+      (p_progress) => {
+        let progress = p_progress * 0.3;
+        LoadingView.changeData({ label: this.info.key + " Module Init...", progress });
+      },
+      (err) => {
+        if (err) {
+          throw err;
+        }
+        const module = ModuleManager.single.getModule(this.info.bundleName);
+        const module_proxy = ModuleManager.single.getModuleProxy(this.info.bundleName);
+        module_proxy.addRef();
+        if (module.inited) {
+          this.__moduleInited(module);
+        } else {
+          module.on(Event3.COMPLETE, this.__moduleInitComplete, this);
+        }
+      }
+    );
+  }
+  __moduleInitComplete(e) {
+    const module = e.target;
+    module.off(Event3.COMPLETE, this.__moduleInitComplete, this);
+    this.__moduleInited(module);
+  }
+  /**
+   * 模块初始化完成
+   */
+  __moduleInited(module) {
+    if (GUIPlugin.uiPackageURL == void 0) {
+      throw new Error("GUIModule.uiPackageURL\u672A\u5B9A\u4E49!");
+    }
+    this.urls.push(GUIPlugin.uiPackageURL(this.info.packageName, Res4.TYPE.FGUI, this.info.bundleName));
+    let viewCreatorCom = _GUIProxy.createNode.addComponent(this.info.key + "ViewCreator");
+    let viewCreator = viewCreatorCom;
+    if (!viewCreator) {
+      throw new Error(this.info.key + "ViewCreator\u7C7B\u4E0D\u5B58\u5728\u6216\u672A\u5B9E\u73B0IViewCreator!");
+    }
+    this.mediator = viewCreator.createMediator();
+    this.mediator.local_module = module;
+    if (this.mediator.showLoadingView) {
+      LoadingView.show();
+    }
+    viewCreatorCom.destroy();
+    if (this.mediator.configs && this.mediator.configs.length > 0) {
+      for (let index = 0; index < this.mediator.configs.length; index++) {
+        const sheet = this.mediator.configs[index];
+        const url = Res4.sheet2URL(sheet);
+        this.urls.push(url);
+      }
+    }
+    if (this.mediator.assets && this.mediator.assets.length > 0) {
+      for (let index = 0; index < this.mediator.assets.length; index++) {
+        const url = this.mediator.assets[index];
+        this.urls.push(url);
+      }
+    }
+    this.__loadAssets();
+  }
+  //加载UI资源
+  __loadAssets() {
+    this.assetsRequest = Res4.create(
+      this.urls,
+      this.info.key,
+      (p_progress) => {
+        let progress = (0.5 + p_progress * 0.5) * this.mediator.loadingViewTotalRatio;
+        LoadingView.changeData({ label: this.info.key + " Res Loading...", progress });
+      },
+      (err) => {
+        if (err) {
+          this.assetsRequest.dispose();
+          this.assetsRequest = null;
+          LoadingView.changeData({ label: this.info.key + " Res Load Err:" + err });
+          return;
+        }
+        this.__create_ui();
+      }
+    );
+    this.assetsRequest.load();
+  }
+  /**
+   * 创建UI
+   */
+  __create_ui() {
+    this.mediator.createUI(this.info, this.__create_ui_callback.bind(this));
+  }
+  /**
+   * UI创建完成回调
+   */
+  __create_ui_callback() {
+    LoadingView.changeData({ progress: this.mediator.loadingViewTotalRatio });
+    this.__loadState = 2 /* Loaded */;
+    this.mediator.init();
+    this.mediator.inited = true;
+    if (this.__showing) {
+      this.__show();
+    }
+  }
+  __add_to_layer() {
+    this.layer.addChildAt(this.mediator.viewComponent, this.getLayerChildCount());
+    this.mediator.viewComponent.visible = true;
+  }
+  tick(dt) {
+    if (this.__loadState == 2 /* Loaded */) {
+      if (this.mediator) {
+        this.mediator.tick(dt);
+      }
+    }
+  }
+  show(data) {
+    this.__showing = true;
+    this.data = data;
+    this.__show();
+  }
+  showedUpdate(data) {
+    if (this.mediator && this.__showing) {
+      this.mediator.showedUpdate(data);
+    }
+  }
+  __show() {
+    if (this.__loadState == 0 /* Null */) {
+      this.__loadAssetBundle();
+    } else if (this.__loadState == 1 /* Loading */) {
+    } else {
+      this.__add_to_layer();
+      if (this.mediator.showLoadingView && this.mediator.closeLoadingView) {
+        LoadingView.hide();
+      }
+      this.mediator.show(this.data);
+      this.data = null;
+      if (!GUIManager.isOpen(this.info.key)) {
+        return;
+      }
+      if (this.mediator.playShowAnimation) {
+        this.mediator.playShowAnimation(this.__showAnimationPlayed.bind(this));
+      } else {
+        EventDispatcher3.Main.emit(Event3.SHOW, this.info.key);
+      }
+    }
+  }
+  __showAnimationPlayed() {
+    EventDispatcher3.Main.emit(Event3.SHOW, this.info.key);
+  }
+  hide() {
+    if (this.__loadState == 1 /* Loading */) {
+      this.__loadState = 0 /* Null */;
+    } else if (this.__loadState == 2 /* Loaded */) {
+      if (this.__showing) {
+        if (this.mediator.playHideAnimation) {
+          this.mediator.playHideAnimation(this.__hideAnimationPlayed.bind(this));
+        } else {
+          this.__hide();
+        }
+      }
+    }
+  }
+  __hideAnimationPlayed() {
+    if (this.__showing) {
+      this.__hide();
+    }
+  }
+  __hide() {
+    this.mediator.viewComponent.visible = false;
+    this.mediator.hide();
+    this.__showing = false;
+    EventDispatcher3.Main.emit(Event3.HIDE, this.info.key);
+  }
+  destroy() {
+    var _a;
+    console.log("UI\u9500\u6BC1=>" + ((_a = this.info) == null ? void 0 : _a.key));
+    if (this.assetsRequest) {
+      this.assetsRequest.dispose();
+      this.assetsRequest = null;
+    }
+    this.mediator.destroy();
+    this.mediator = void 0;
+    this.info = void 0;
+    this.data = null;
+  }
+  getLayerChildCount() {
+    return this.layer.getCount();
+  }
+  get layer() {
+    let l = LayerManager.getLayer(this.info.layer);
+    if (l === void 0) {
+      throw new Error("layer\uFF1A" + this.info.layer + "\u4E0D\u5B58\u5728\uFF01");
+    }
+    return l;
+  }
+  /**
+   * 获取组件
+   * @param path 
+   */
+  getComponent(path) {
+    if (!this.mediator) {
+      return null;
+    }
+    return this.mediator.getUIComponent(path);
+  }
+};
+/**用于Creator创建器的统一帮助节点 */
+_GUIProxy.createNode = new Node2("createHelpNode");
+var GUIProxy = _GUIProxy;
+
+// src/gui/GUIState.ts
+var GUIState = /* @__PURE__ */ ((GUIState2) => {
+  GUIState2[GUIState2["Null"] = 0] = "Null";
+  GUIState2[GUIState2["Showing"] = 1] = "Showing";
+  GUIState2[GUIState2["Showed"] = 2] = "Showed";
+  GUIState2[GUIState2["Closeing"] = 3] = "Closeing";
+  GUIState2[GUIState2["Closed"] = 4] = "Closed";
+  return GUIState2;
+})(GUIState || {});
+
+// src/gui/GUIManagerImpl.ts
+import { Event as Event4, EventDispatcher as EventDispatcher4, TickerManager, Timer } from "dream-cc-core";
+var GUIManagerImpl = class {
+  constructor() {
+    /**已注册*/
+    this.__registered = /* @__PURE__ */ new Map();
+    /**实例 */
+    this.__instances = /* @__PURE__ */ new Map();
+    /**
+     * 删除列表
+     */
+    this.__destryList = [];
+    TickerManager.addTicker(this);
+    EventDispatcher4.Main.on(Event4.SHOW, this.__showedHandler, this);
+    EventDispatcher4.Main.on(Event4.HIDE, this.__closedHandler, this);
+  }
+  /**获取某个组件 */
+  getUIComponent(key, path) {
+    if (!this.__instances.has(key)) {
+      throw new Error("GUI:" + key + "\u5B9E\u4F8B\uFF0C\u4E0D\u5B58\u5728\uFF01");
+    }
+    let guiProxy = this.__instances.get(key);
+    return guiProxy.getComponent(path);
+  }
+  /**
+   * 获取界面的mediator
+   * @param key 
+   */
+  getMediatorByKey(key) {
+    if (!this.__instances.has(key)) {
+      return null;
+    }
+    return this.__instances.get(key).mediator;
+  }
+  __showedHandler(e) {
+    let guiKey = e.data;
+    this.setState(guiKey, 2 /* Showed */);
+  }
+  __closedHandler(e) {
+    let guiKey = e.data;
+    this.setState(guiKey, 4 /* Closed */);
+  }
+  register(info) {
+    if (this.__registered.has(info.key)) {
+      throw new Error("\u91CD\u590D\u6CE8\u518C\uFF01");
+    }
+    this.__registered.set(info.key, info);
+  }
+  unregister(key) {
+    if (!this.__registered.has(key)) {
+      throw new Error("\u672A\u627E\u5230\u8981\u6CE8\u9500\u7684\u754C\u9762\u4FE1\u606F\uFF01");
+    }
+    this.__registered.delete(key);
+  }
+  tick(dt) {
+    this.__destryList.length = 0;
+    let currentTime = Timer.currentTime;
+    this.__instances.forEach((value, key, map) => {
+      if (value.info.state == 2 /* Showed */) {
+        value.tick(dt);
+      } else if (value.info.state == 4 /* Closed */) {
+        if (!value.info.permanence) {
+          if (currentTime - value.closeTime > GUIManager.GUI_GC_INTERVAL) {
+            this.__destryList.push(key);
+          }
+        }
+      }
+    });
+    if (this.__destryList.length > 0) {
+      let gui;
+      for (let index = 0; index < this.__destryList.length; index++) {
+        const key = this.__destryList[index];
+        gui = this.__instances.get(key);
+        gui.info.state = 0 /* Null */;
+        this.__instances.delete(key);
+        gui.destroy();
+      }
+    }
+  }
+  open(key, data) {
+    this.__open(key, data);
+    this.__checkRelation(key, true);
+  }
+  __open(key, data) {
+    let state = this.getState(key);
+    let guiProxy;
+    if (state == 0 /* Null */) {
+      let info = this.__registered.get(key);
+      guiProxy = new GUIProxy(info);
+      guiProxy.info.state = 1 /* Showing */;
+      this.__instances.set(info.key, guiProxy);
+      this.checkFullLayer(guiProxy);
+      guiProxy.show(data);
+      return;
+    }
+    if (state == 1 /* Showing */) {
+      guiProxy = this.__instances.get(key);
+      this.checkFullLayer(guiProxy);
+      guiProxy.show(data);
+      return;
+    }
+    if (state == 2 /* Showed */) {
+      guiProxy = this.__instances.get(key);
+      this.checkFullLayer(guiProxy);
+      guiProxy.showedUpdate(data);
+      LoadingView.hide();
+      return;
+    }
+    if (state == 3 /* Closeing */ || state == 4 /* Closed */) {
+      guiProxy = this.__instances.get(key);
+      guiProxy.info.state = 1 /* Showing */;
+      this.checkFullLayer(guiProxy);
+      guiProxy.show(data);
+      return;
+    }
+  }
+  //全屏层同时只能打开一个界面
+  checkFullLayer(guiProxy) {
+    let layer = LayerManager.getLayer(guiProxy.info.layer);
+    if (layer.isFullScrene) {
+      for (let index = 0; index < layer.openRecord.length; index++) {
+        const guiKey = layer.openRecord[index];
+        if (guiKey != guiProxy.info.key) {
+          this.__close(guiKey);
+        }
+      }
+      layer.openRecord.push(guiProxy.info.key);
+    }
+  }
+  close(key, checkLayer = true) {
+    this.__close(key, checkLayer);
+    this.__checkRelation(key, false);
+  }
+  closeAll() {
+    this.__instances.forEach((value, key, map) => {
+      this.close(key, false);
+    });
+  }
+  __close(key, checkLayer = false) {
+    let state = this.getState(key);
+    let guiProxy;
+    if (state == 0 /* Null */ || state == 4 /* Closed */ || state == 3 /* Closeing */) {
+      return;
+    }
+    guiProxy = this.__instances.get(key);
+    guiProxy.closeTime = Timer.currentTime;
+    guiProxy.info.state = 3 /* Closeing */;
+    guiProxy.hide();
+    if (!checkLayer) {
+      return;
+    }
+    let layer = LayerManager.getLayer(guiProxy.info.layer);
+    if (layer.isFullScrene && layer.openRecord.length > 1) {
+      layer.openRecord.pop();
+      let guikey = layer.openRecord.pop();
+      this.__open(guikey);
+    }
+  }
+  /**
+   * 检测UI关联关系
+   * @param key 
+   */
+  __checkRelation(key, isOpen) {
+    let relation = RelationManager.getRelation(key);
+    let relationList;
+    if (relation) {
+      if (isOpen) {
+        relationList = relation.show;
+      } else {
+        relationList = relation.hide;
+      }
+      let guiKey;
+      for (let index = 0; index < relationList.show.length; index++) {
+        guiKey = relationList.show[index];
+        this.__open(guiKey);
+      }
+      for (let index = 0; index < relationList.hide.length; index++) {
+        guiKey = relationList.hide[index];
+        this.__close(guiKey);
+      }
+    }
+  }
+  /**
+   * 获取界面状态
+   * @param key 
+   */
+  getState(key) {
+    if (!this.__registered.has(key)) {
+      throw new Error("GUI:" + key + "\u672A\u6CE8\u518C\uFF01");
+    }
+    if (!this.__instances.has(key)) {
+      return 0 /* Null */;
+    }
+    let proxy = this.__instances.get(key);
+    return proxy.info.state;
+  }
+  setState(key, state) {
+    if (!this.__registered.has(key)) {
+      throw new Error("GUI:" + key + "\u672A\u6CE8\u518C\uFF01");
+    }
+    let info = this.__registered.get(key);
+    info.state = state;
+  }
+  /**
+   * 是否已打开或打开中
+   * @param key 
+   * @returns 
+   */
+  isOpen(key) {
+    let state = this.getState(key);
+    if (state == 1 /* Showing */ || state == 2 /* Showed */) {
+      return true;
+    }
+    return false;
+  }
+};
+
+// src/gui/GUIManager.ts
+var GUIManager = class {
+  /**
+   * 注册
+   * @param info 
+   * @returns 
+   */
+  static register(info) {
+    return this.impl.register(info);
+  }
+  /**
+   * 注销
+   * @param key 
+   * @returns 
+   */
+  static unregister(key) {
+    return this.impl.unregister(key);
+  }
+  /**
+   * 打开指定UI界面
+   * @param key 
+   * @param data 
+   */
+  static open(key, data) {
+    this.impl.open(key, data);
+  }
+  /**
+   * 关闭
+   * @param key 
+   * @param checkLayer 是否检查全屏记录
+   */
+  static close(key, checkLayer = true) {
+    this.impl.close(key, checkLayer);
+  }
+  /**
+   * 关闭所有界面
+   */
+  static closeAll() {
+    this.impl.closeAll();
+  }
+  /**
+   * 获取界面状态
+   * @param key 
+   * @returns  0 未显示  1显示中
+   */
+  static getGUIState(key) {
+    return this.impl.getState(key);
+  }
+  /**
+   * 是否已打开或再打开中
+   * @param key 
+   * @returns 
+   */
+  static isOpen(key) {
+    return this.impl.isOpen(key);
+  }
+  /**
+   * 获取GUI中的某个组件
+   * @param key    界面全局唯一KEY
+   * @param path   组件名称/路径
+   */
+  static getUIComponent(key, path) {
+    return this.impl.getUIComponent(key, path);
+  }
+  static get impl() {
+    if (this.__impl == null) {
+      this.__impl = Injector4.getInject(this.KEY);
+    }
+    if (this.__impl == null) {
+      this.__impl = new GUIManagerImpl();
+    }
+    return this.__impl;
+  }
+};
+GUIManager.KEY = "GUIManager";
+/**
+ * 在界面关闭后多长时间不使用则销毁(秒)
+ */
+GUIManager.GUI_GC_INTERVAL = 30;
+
+// src/gui/GUIMediator.ts
+import { Color as Color2 } from "cc";
+import { AsyncOperation, GComponent as GComponent3, GGraph, UIPackage as UIPackage4 } from "fairygui-cc";
+import { ModuleManager as ModuleManager2 } from "dream-cc-core";
+var GUIMediator = class extends BaseMediator {
+  constructor() {
+    super();
+    this.info = null;
+    /**是否显示进度界面 */
+    this.showLoadingView = false;
+    /**显示界面时是否关闭进度条*/
+    this.closeLoadingView = true;
+    /**界面从开始加载到底层调用Show方法之前的进度总比值 */
+    this.loadingViewTotalRatio = 1;
+    /**根节点 */
+    this.viewComponent = null;
+    /**遮罩 */
+    this.__mask = null;
+  }
+  /**
+   * 创建UI
+   * @param info 
+   * @param created 
+   */
+  createUI(info, created) {
+    this.info = info;
+    if (this.info == null) {
+      throw new Error("GUI \u4FE1\u606F\u4E0D\u80FD\u4E3A\u7A7A");
+    }
+    this.__createdCallBack = created;
+    this.__createUI(true);
+  }
+  __createUI(async) {
+    let packageName = this.info.packageName;
+    let com_name = this.info.comName;
+    if (this.info.comName.startsWith("UI_")) {
+      com_name = this.info.comName.substring("UI_".length);
+    }
+    if (async) {
+      this.__asyncCreator = new AsyncOperation();
+      this.__asyncCreator.callback = this.__uiCreated.bind(this);
+      this.__asyncCreator.createObject(packageName, com_name);
+    } else {
+      try {
+        let ui = UIPackage4.createObject(packageName, com_name);
+        this.__uiCreated(ui);
+      } catch (err) {
+        throw new Error("\u521B\u5EFA\u754C\u9762\u5931\u8D25\uFF1A" + this.info.packageName + " " + com_name);
+      }
+    }
+  }
+  __uiCreated(ui) {
+    let uiCom = ui.asCom;
+    uiCom.makeFullScreen();
+    if (this.info.modal) {
+      this.ui = uiCom;
+      this.viewComponent = new GComponent3();
+      this.viewComponent.makeFullScreen();
+      this.__mask = new GGraph();
+      this.__mask.touchable = true;
+      this.__mask.makeFullScreen();
+      this.__mask.drawRect(0, Color2.BLACK, this.info.maskAlpha ? GUIPlugin.AlphaMaskColor : GUIPlugin.MaskColor);
+      this.viewComponent.addChild(this.__mask);
+      if (this.info.modalClose) {
+        this.__mask.onClick(this._maskClickHandler, this);
+      }
+      this.viewComponent.addChild(this.ui);
+    } else {
+      this.ui = this.viewComponent = uiCom;
+    }
+    this.ui.name = this.info.key;
+    if (this.__createdCallBack) {
+      this.__createdCallBack();
+      this.__createdCallBack = null;
+    }
+  }
+  _maskClickHandler() {
+    GUIManager.close(this.info.key);
+  }
+  init() {
+    super.init();
+  }
+  show(data) {
+    super.show(data);
+    if (this.$subMediators) {
+      for (let index = 0; index < this.$subMediators.length; index++) {
+        const element = this.$subMediators[index];
+        element.show(data);
+      }
+    }
+    if (this.tabContainer) {
+      this.tabContainer.show(data);
+    }
+  }
+  showedUpdate(data) {
+    super.showedUpdate(data);
+    if (this.$subMediators) {
+      for (let index = 0; index < this.$subMediators.length; index++) {
+        const element = this.$subMediators[index];
+        element.showedUpdate(data);
+      }
+    }
+    if (this.tabContainer) {
+      this.tabContainer.showedUpdate(data);
+    }
+  }
+  hide() {
+    super.hide();
+    if (this.$subMediators) {
+      for (let index = 0; index < this.$subMediators.length; index++) {
+        const element = this.$subMediators[index];
+        element.hide();
+      }
+    }
+    if (this.tabContainer) {
+      this.tabContainer.hide();
+    }
+  }
+  /**
+   * 关闭
+   * @param checkLayer 是否检查全屏层记录
+   */
+  close(checkLayer = true) {
+    GUIManager.close(this.info.key, checkLayer);
+  }
+  tick(dt) {
+    if (this.$subMediators) {
+      for (let index = 0; index < this.$subMediators.length; index++) {
+        const element = this.$subMediators[index];
+        element.tick(dt);
+      }
+    }
+  }
+  destroy() {
+    super.destroy();
+    if (this.__mask) {
+      this.__mask.offClick(this._maskClickHandler, this);
+      this.__mask.dispose();
+      this.__mask = null;
+    }
+    this.viewComponent.dispose();
+    if (this.$subMediators) {
+      for (let index = 0; index < this.$subMediators.length; index++) {
+        const element = this.$subMediators[index];
+        element.destroy();
+      }
+    }
+    this.configs = null;
+    this.assets = null;
+    if (this.tabContainer) {
+      this.tabContainer.destroy();
+      this.tabContainer = null;
+    }
+    if (this.local_module) {
+      ModuleManager2.single.dispose(this.info.bundleName);
+      this.local_module = null;
+    }
+    this.info = null;
+  }
+};
+
+// src/gui/SubGUIMediator.ts
+var SubGUIMediator = class extends BaseMediator {
+  constructor(ui, owner) {
+    super();
+    if (ui == null) {
+      throw new Error("ui\u7EC4\u4EF6\u4E3A\u7A7A");
+    }
+    this.ui = ui;
+    this.owner = owner;
+    this.inited = true;
+  }
+  /**
+   * 子类必须在构造函数中调用
+   */
+  init() {
+  }
+  show(data) {
+    super.show(data);
+  }
+  hide() {
+    super.hide();
+  }
+  destroy() {
+    super.destroy();
+    this.owner = null;
+    this.ui = null;
+  }
+};
+
+// src/gui/tabs/TabContainer.ts
+import { Binder as Binder2 } from "dream-cc-core";
+var TabContainer = class extends Binder2 {
+  constructor(content, createPage, owner) {
+    super();
+    this.__pageInstanceMap = /* @__PURE__ */ new Map();
+    this.ui = content;
+    this.__createPage = createPage;
+    this.owner = owner;
+    this.init();
+  }
+  /**切换到某个页签 */
+  switchPage(index, data) {
+    if (index == this.currentIndex) {
+      return;
+    }
+    this.currentIndex = index;
+    if (this.currentPage) {
+      if (this.currentPage.ui.parent) {
+        this.currentPage.hide();
+        this.ui.removeChild(this.currentPage.ui);
+      }
+      this.currentPage = null;
+    }
+    this.currentPage = this.getPage(index);
+    if (this.__showing) {
+      this.currentPage.show(data);
+      this.ui.addChild(this.currentPage.ui);
+    }
+  }
+  init() {
+    super.init();
+  }
+  show(data) {
+    this.__showing = true;
+    let page = data ? data.page || 0 : 0;
+    let pageData = data ? data.pageData || null : null;
+    this.switchPage(page, pageData);
+    this.bindByRecords();
+  }
+  showedUpdate(data) {
+    let page = data ? data.page || 0 : this.currentIndex;
+    let pageData = data ? data.pageData || null : null;
+    if (page == this.currentIndex) {
+      this.currentPage.showedUpdate(pageData);
+    } else {
+      this.switchPage(page, pageData);
+    }
+  }
+  hide() {
+    if (this.currentPage) {
+      this.currentPage.hide();
+      this.ui.removeChild(this.currentPage.ui);
+      this.currentPage = null;
+    }
+    this.currentIndex = -1;
+    this.__showing = false;
+    this.unbindByRecords();
+  }
+  getPage(index) {
+    if (this.__pageInstanceMap.has(index)) {
+      return this.__pageInstanceMap.get(index);
+    }
+    if (!this.__createPage) {
+      throw new Error("Page\u521B\u5EFA\u51FD\u6570\u672A\u5B9A\u4E49\uFF01");
+    }
+    let result = this.__createPage(index);
+    result.owner = this.owner;
+    result.ui.setSize(this.ui.width, this.ui.height);
+    result.init();
+    this.__pageInstanceMap.set(index, result);
+    return result;
+  }
+  destroy() {
+    super.destroy();
+    let values = this.__pageInstanceMap.values();
+    let page;
+    for (let index = 0; index < this.__pageInstanceMap.size; index++) {
+      page = values.next().value;
+      page.destroy();
+    }
+    this.__pageInstanceMap.clear();
+    this.__pageInstanceMap = null;
+    this.ui = null;
+    this.currentPage = null;
+    this.currentIndex = void 0;
+  }
+};
+
+// src/gui/tabs/TabPage.ts
+import { Binder as Binder3 } from "dream-cc-core";
+var TabPage = class extends Binder3 {
+  constructor() {
+    super();
+  }
+  init() {
+    super.init();
+  }
+  show(data) {
+    this.bindByRecords();
+  }
+  showedUpdate(data) {
+  }
+  hide() {
+    this.unbindByRecords();
+  }
+  destroy() {
+    super.destroy();
+  }
+};
+export {
+  Alert,
+  BaseMediator,
+  FGUILoader,
+  FGUIResource,
+  GUIManager,
+  GUIManagerImpl,
+  GUIMediator,
+  GUIPlugin,
+  GUIProxy,
+  GUIState,
+  ITooltipData,
+  Layer,
+  LayerManager,
+  LayerManagerImpl,
+  LoadingView,
+  RelationManager,
+  SubGUIMediator,
+  TabContainer,
+  TabPage,
+  TooltipManagerImpl,
+  TooltipPosMode
+};
+//# sourceMappingURL=dream-cc-gui.mjs.map
+{
+  "version": 3,
+  "sources": ["../src/gui/alerts/Alert.ts", "../src/gui/layer/Layer.ts", "../src/gui/layer/LayerManager.ts", "../src/gui/layer/LayerManagerImpl.ts", "../src/gui/loadingView/LoadingView.ts", "../src/gui/tooltips/ITooltipData.ts", "../src/gui/tooltips/TooltipManagerImpl.ts", "../src/gui/tooltips/TooltipPosMode.ts", "../src/gui/relations/RelationManager.ts", "../src/gui/res/FGUILoader.ts", "../src/gui/res/FGUIResource.ts", "../src/gui/BaseMediator.ts", "../src/gui/GUIManager.ts", "../src/gui/GUIProxy.ts", "../src/GUIPlugin.ts", "../src/gui/GUIState.ts", "../src/gui/GUIManagerImpl.ts", "../src/gui/GUIMediator.ts", "../src/gui/SubGUIMediator.ts", "../src/gui/tabs/TabContainer.ts", "../src/gui/tabs/TabPage.ts"],
+  "sourcesContent": ["import { Injector } from \"dream-cc-core\";\r\nimport { IAlert } from \"./IAlert\";\r\n\r\n\r\n\r\n\r\nexport class Alert {\r\n\r\n\r\n    static KEY: string = \"htsd.Alert\";\r\n\r\n    /**\r\n     * \u663E\u793A\u4E00\u4E2A\u8B66\u544A\u6846\r\n     * @param msg \r\n     * @param title \r\n     * @param buttons \r\n     * @param callback \r\n     * @param buttonSkins \r\n     */\r\n    static show(msg: string, title?: string, buttons?: string[], callback?: (btnIdx: number) => void, buttonSkins?: string[]): void {\r\n        this.impl.show(msg, title, buttons, callback, buttonSkins);\r\n    }\r\n\r\n    private static __impl: IAlert;\r\n    static get impl(): IAlert {\r\n        if (this.__impl == null) {\r\n            this.__impl = Injector.getInject(this.KEY);\r\n        }\r\n        if (this.__impl == null) {\r\n            throw new Error(\"\u672A\u6CE8\u5165\uFF1A\" + this.KEY);\r\n        }\r\n        return this.__impl;\r\n    }\r\n}", "import { GComponent } from \"fairygui-cc\";\r\nimport { ILayer } from \"./ILayer\";\r\n\r\n\r\n\r\n/**\r\n * \u5C42\u7EA7\u7C7B\r\n */\r\nexport class Layer extends GComponent implements ILayer {\r\n\r\n    /**\r\n     * \u662F\u5426\u662F\u5168\u5C4F\u5C42\r\n     */\r\n    isFullScrene: boolean;\r\n\r\n    /**\r\n     * \u5F00\u542F\u8BB0\u5F55\r\n     */\r\n    openRecord: Array<string>;\r\n    \r\n    constructor(name: string, isFullScrene: boolean = false) {\r\n        super();\r\n        this.node.name = name;\r\n        this.isFullScrene = isFullScrene;\r\n        this.openRecord = [];\r\n        this.makeFullScreen();\r\n    }\r\n\r\n    getCount(): number {\r\n        return this.numChildren;\r\n    }\r\n}", "import { Injector } from \"dream-cc-core\";\r\nimport { ILayer } from \"./ILayer\";\r\nimport { ILayerManager } from \"./ILayerManager\";\r\nimport { LayerManagerImpl } from \"./LayerManagerImpl\";\r\n\r\n\r\n/**\r\n * \u5C42\u7BA1\u7406\u5668\r\n */\r\nexport class LayerManager {\r\n\r\n    static KEY: string = \"htsd.LayerManager\";\r\n    /**\r\n     * \u6DFB\u52A0\u4E00\u4E2A\u5C42\r\n     * @param key \r\n     * @param layer \r\n     */\r\n    static addLayer(key: string, layer: ILayer): void {\r\n        this.impl.addLayer(key, layer);\r\n    }\r\n\r\n    /**\r\n     * \u5220\u9664\u5C42\r\n     * @param key \r\n     */\r\n    static removeLayer(key: string): void {\r\n        this.impl.removeLayer(key);\r\n    }\r\n\r\n    /**\r\n     * \u83B7\u53D6\u5C42\u5BF9\u8C61\r\n     * @param key \r\n     */\r\n    static getLayer(key: string): ILayer | undefined {\r\n        return this.impl.getLayer(key);\r\n    }\r\n\r\n    /**\r\n     * \u83B7\u5F97\u6240\u6709\u5C42\r\n     */\r\n    static getAllLayer(): ILayer[] {\r\n        return this.impl.getAllLayer();\r\n    }\r\n\r\n    private static __impl: ILayerManager;\r\n    private static get impl(): ILayerManager {\r\n        if (this.__impl == null) {\r\n            this.__impl = Injector.getInject(this.KEY);\r\n        }\r\n        if (this.__impl == null) {\r\n            this.__impl = new LayerManagerImpl();\r\n        }\r\n        return this.__impl;\r\n    }\r\n}", "\r\n\r\nimport { GRoot } from \"fairygui-cc\";\r\nimport { ILayer } from \"./ILayer\";\r\nimport { ILayerManager } from \"./ILayerManager\";\r\nimport { Layer } from \"./Layer\";\r\n\r\n\r\n/**\r\n * cocos fgui \u5C42\u7BA1\u7406\u5668\r\n */\r\nexport class LayerManagerImpl implements ILayerManager {\r\n\r\n    private __layerMap: Map<string, ILayer> = new Map<string, ILayer>();\r\n\r\n    constructor() {\r\n\r\n    }\r\n    \r\n    /**\r\n     * \u6DFB\u52A0\u5C42\r\n     * @param key \r\n     * @param layer \r\n     */\r\n    addLayer(key: string, layer: ILayer): void {\r\n        if (layer instanceof Layer) {\r\n            GRoot.inst.addChild(layer);\r\n            this.__layerMap.set(key, layer);\r\n        } else {\r\n            throw new Error(\"\u5C42\u5FC5\u987B\u662FLayer\");\r\n        }\r\n    }\r\n    \r\n    /**\r\n     * \u5220\u9664\u5C42\r\n     * @param key \r\n     */\r\n    removeLayer(key: string): void {\r\n        let layer: Layer = this.__layerMap.get(key) as Layer;\r\n        if (layer) {\r\n            GRoot.inst.removeChild(layer);\r\n            this.__layerMap.delete(key);\r\n        } else {\r\n            throw new Error(\"\u627E\u4E0D\u5230\u8981\u5220\u9664\u7684\u5C42\uFF1A\" + key);\r\n        }\r\n    }\r\n\r\n    getLayer(layerKey: string): ILayer | undefined {\r\n        return this.__layerMap.get(layerKey);\r\n    }\r\n\r\n    /**\r\n     * \u83B7\u5F97\u6240\u6709\u5C42\r\n     */\r\n    getAllLayer(): ILayer[] {\r\n        let _values: Array<ILayer> = [];\r\n        this.__layerMap.forEach(function (v: ILayer, key: string) {\r\n            _values.push(v);\r\n        })\r\n        return _values;\r\n    }\r\n}\r\n", "import { Injector } from \"dream-cc-core\";\r\nimport { ILoadingView } from \"./ILoadingView\";\r\n\r\n/**\r\n * \u52A0\u8F7D\u754C\u9762\r\n */\r\nexport class LoadingView {\r\n\r\n    static KEY: string = \"htsd.LoadingView\";\r\n\r\n    static show(): void {\r\n        if (!this.impl) {\r\n            return;\r\n        }\r\n        this.impl.show();\r\n    }\r\n\r\n    static hide(): void {\r\n        if (!this.impl) {\r\n            return;\r\n        }\r\n        this.impl.hide();\r\n    }\r\n\r\n    static changeData(...args:any[]): void {\r\n        if (!this.impl) {\r\n            return;\r\n        }\r\n        this.impl.changeData(...args);\r\n    }\r\n    \r\n    private static __impl: ILoadingView;\r\n    static get impl(): ILoadingView {\r\n        if (this.__impl == null) {\r\n            this.__impl = Injector.getInject(this.KEY);\r\n        }\r\n        if (this.__impl == null) {\r\n            console.warn(this.KEY + \"\u672A\u6CE8\u5165\");\r\n        }\r\n        return this.__impl;\r\n    }\r\n}", "import { TooltipPosMode } from \"./TooltipPosMode\";\r\n\r\n/**\r\n * \u63D0\u793A\u6570\u636E\r\n */\r\nexport class ITooltipData{\r\n    /**\r\n     * \u6570\u636E\r\n     */\r\n    data: any;\r\n    /**\r\n     * \u63D0\u793A\u7C7B\r\n     */\r\n    tooltipType:string;\r\n    /**\r\n     * \u663E\u793A\u4F4D\u7F6E\u6A21\u5F0F\r\n     */\r\n    posMode: TooltipPosMode;\r\n}", "import { Vec2 } from \"cc\";\r\nimport { ITooltipData } from \"./ITooltipData\";\r\nimport { TooltipPosMode } from \"./TooltipPosMode\";\r\nimport { LayerManager } from \"../layer/LayerManager\";\r\nimport { ILayer } from \"../layer/ILayer\";\r\nimport { GComponent, GRoot, ITooltipManager, ITooltipView } from \"fairygui-cc\";\r\n\r\n\r\n\r\n/**\r\n * tooltip \u7BA1\u7406\u7C7B\r\n */\r\nexport class TooltipManagerImpl implements ITooltipManager {\r\n\r\n    private __tooltipMap: Map<string, ITooltipView>;\r\n\r\n    private __currentTooltip: ITooltipView | null;\r\n\r\n    /**\r\n     * \u63D0\u793A\u5C42\r\n     */\r\n    tooltipLayer: string = \"Tooltip\";\r\n\r\n    constructor() {\r\n        this.__tooltipMap = new Map<string, ITooltipView>();\r\n    }\r\n\r\n\r\n    register(type: string, value: ITooltipView): void {\r\n        this.__tooltipMap.set(type, value);\r\n    }\r\n\r\n    unregister(type: string): void {\r\n        this.__tooltipMap.delete(type);\r\n    }\r\n\r\n    show(data: ITooltipData): void {\r\n        if (this.isShowing) {\r\n            this.hide();\r\n        }\r\n        let tData: any;\r\n        let posMode: TooltipPosMode;\r\n        if (typeof data == \"string\") {\r\n            tData = data;\r\n            posMode = TooltipPosMode.Touch;\r\n            this.__currentTooltip = this.__tooltipMap.get(\"default\");\r\n        } else if (data instanceof ITooltipData) {\r\n            tData = data.data;\r\n            posMode = data.posMode;\r\n            //\u5982\u679C\u5B58\u5728\u8001\u7684\r\n            if (this.__tooltipMap.has(data.tooltipType)) {\r\n                this.__currentTooltip = this.__tooltipMap.get(data.tooltipType);\r\n            } else {\r\n                throw new Error(\"\u672A\u6CE8\u518Ctooltip Type:\" + data.tooltipType);\r\n            }\r\n        }\r\n        this.__currentTooltip.update(tData);\r\n        let layer: ILayer = LayerManager.getLayer(this.tooltipLayer);\r\n        layer.addChild(this.__currentTooltip.viewComponent);\r\n        this.__layout(posMode);\r\n    }\r\n\r\n    private __layout(posMode: TooltipPosMode): void {\r\n        let view: GComponent = this.__currentTooltip.viewComponent;\r\n        let pos: Vec2;\r\n        //\u5B9A\u4F4D\r\n        switch (posMode) {\r\n            case TooltipPosMode.Touch:\r\n                pos = GRoot.inst.getTouchPosition();\r\n                break;\r\n            case TooltipPosMode.Left:\r\n            case TooltipPosMode.Right:\r\n                pos = new Vec2();\r\n                if (posMode == TooltipPosMode.Left) {\r\n                    pos.x = GRoot.inst.width * 0.25 - view.width * 0.5;\r\n                    pos.y = (GRoot.inst.height - view.height) * 0.5\r\n                } else {\r\n                    pos.x = GRoot.inst.width - GRoot.inst.width * 0.25 - view.width * 0.5;\r\n                    pos.y = (GRoot.inst.height - view.height) * 0.5\r\n                }\r\n                break;\r\n            default:\r\n                throw new Error(\"Tooltip \u672A\u77E5\u5B9A\u4F4D\u7C7B\u578B\uFF01\");\r\n                break;\r\n        }\r\n        //\u8D85\u51FA\u5C4F\u5E55\u68C0\u6D4B\r\n        if (pos.x < 0) {\r\n            pos.x = 0;\r\n        } else if (pos.x + view.width > GRoot.inst.width) {\r\n            pos.x = GRoot.inst.width - view.width;\r\n        }\r\n        if (pos.y < 0) {\r\n            pos.y = 0;\r\n        } else if (pos.y + view.height > GRoot.inst.height) {\r\n            pos.y = GRoot.inst.height - view.height;\r\n        }\r\n        view.x = pos.x;\r\n        view.y = pos.y;\r\n    }\r\n\r\n    hide(): void {\r\n        if (!this.isShowing) {\r\n            return;\r\n        }\r\n        let layer: ILayer = LayerManager.getLayer(this.tooltipLayer);\r\n        layer.removeChild(this.__currentTooltip.viewComponent);\r\n        this.__currentTooltip = null;\r\n    }\r\n\r\n    get isShowing(): boolean {\r\n        return this.__currentTooltip != null;\r\n    }\r\n}", "\r\n\r\n\r\n/**\r\n * \u4F4D\u7F6E\u6A21\u5F0F\r\n */\r\nexport enum TooltipPosMode{\r\n    Touch,\r\n    Left,\r\n    Right\r\n}", "import { IRelationInfo } from \"./IRelationInfo\";\r\nimport { IRelationList } from \"./IRelationList\";\r\n\r\n/**\r\n* GUI \u5173\u8054\u5173\u7CFB\r\n*/\r\nexport class RelationManager {\r\n\r\n    public static DEBUG:boolean=false;\r\n\r\n    private static __map: Map<string, IRelationInfo> = new Map<string, IRelationInfo>();\r\n\r\n    constructor() {\r\n\r\n    }\r\n\r\n    /**\r\n     * \u6DFB\u52A0UI\u5173\u8054\u5173\u7CFB\r\n     * @param key \r\n     * @param value \r\n     */\r\n    static addRelation(key: string, value: IRelationInfo): void {\r\n        if (this.DEBUG) {\r\n            this.__checkValidity(key, value);\r\n        }\r\n        if (this.__map.has(key)) {\r\n            throw new Error(\"\u91CD\u590D\u6CE8\u518C\uFF01\");\r\n        }\r\n        this.__map.set(key, value);\r\n    }\r\n\r\n    static removeRelation(key: string): void {\r\n        if (!this.__map.has(key)) {\r\n            throw new Error(\"\u627E\u4E0D\u5230\u8981\u5220\u9664\u7684\u5185\u5BB9\uFF01\");\r\n        }\r\n        this.__map.delete(key);\r\n    }\r\n\r\n    /**\r\n     * \u68C0\u6D4B\u5408\u6CD5\u6027\r\n     * @param value \r\n     */\r\n    private static __checkValidity(key: string, value: IRelationInfo): void {\r\n        let guiKey: string = key;\r\n        let showList: IRelationList = value.show;\r\n        let hideList: IRelationList = value.hide;\r\n        let findex: number;\r\n\r\n        findex = showList.show.indexOf(guiKey);\r\n        if (findex >= 0) {\r\n            throw new Error(\"GuiRelation.config\u914D\u7F6E\u9519\u8BEF:gui:\" + guiKey + \" show.show:\u4E2D\u4E0D\u80FD\u5305\u542B\u81EA\u8EAB\uFF01\");\r\n        }\r\n        findex = showList.hide.indexOf(guiKey);\r\n        if (findex >= 0) {\r\n            throw new Error(\"GuiRelation.config\u914D\u7F6E\u9519\u8BEF:gui:\" + guiKey + \" show.hide:\u4E2D\u4E0D\u80FD\u5305\u542B\u81EA\u8EAB\uFF01\");\r\n        }\r\n\r\n        findex = hideList.show.indexOf(guiKey);\r\n        if (findex >= 0) {\r\n            throw new Error(\"GuiRelation.config\u914D\u7F6E\u9519\u8BEF:gui:\" + guiKey + \" hide.show:\u4E2D\u4E0D\u80FD\u5305\u542B\u81EA\u8EAB\uFF01\");\r\n        }\r\n        findex = hideList.hide.indexOf(guiKey);\r\n        if (findex >= 0) {\r\n            throw new Error(\"GuiRelation.config\u914D\u7F6E\u9519\u8BEF:gui:\" + guiKey + \" hide.hide:\u4E2D\u4E0D\u80FD\u5305\u542B\u81EA\u8EAB\uFF01\");\r\n        }\r\n\r\n        for (let index = 0; index < showList.show.length; index++) {\r\n            const showkey = showList.show[index];\r\n            const findex: number = showList.hide.indexOf(showkey);\r\n            if (findex >= 0) {\r\n                throw new Error(\"GuiRelation.config\u914D\u7F6E\u9519\u8BEF:gui:\" + guiKey + \" show.show\u548Cshow.hide\u4E2D\u5305\u542B\u76F8\u540C\u7684guikey:\" + showkey);\r\n            }\r\n        }\r\n        for (let index = 0; index < hideList.show.length; index++) {\r\n            const showkey = hideList.show[index];\r\n            const findex: number = hideList.hide.indexOf(showkey);\r\n            if (findex >= 0) {\r\n                throw new Error(\"GuiRelation.config\u914D\u7F6E\u9519\u8BEF:gui:\" + guiKey + \" hide.show\u548Chide.hide\u4E2D\u5305\u542B\u76F8\u540C\u7684guikey:\" + showkey);\r\n            }\r\n        }\r\n    }\r\n\r\n    static getRelation(key: string): IRelationInfo {\r\n        return this.__map.get(key);\r\n    }\r\n}", "import { AssetManager, assetManager } from \"cc\";\r\nimport { FGUIResource } from \"./FGUIResource\";\r\nimport { UIPackage } from \"fairygui-cc\";\r\nimport { Event, EventDispatcher, ILoader, Res, ResourceManager, ResURL } from \"dream-cc-core\";\r\n\r\n\r\nexport class FGUILoader extends EventDispatcher implements ILoader {\r\n\r\n    url: ResURL;\r\n\r\n    constructor() {\r\n        super();\r\n    }\r\n\r\n    load(url: ResURL): void {\r\n        this.url = url;\r\n        if (typeof url == \"string\") {\r\n            throw new Error(\"\u672A\u5B9E\u73B0\uFF1A\" + url);\r\n        } else {\r\n            let bundle = assetManager.getBundle(url.bundle);\r\n            let self = this;\r\n            if (!bundle) {\r\n                assetManager.loadBundle(url.bundle, (err: Error, bundle: AssetManager.Bundle) => {\r\n                    if (err) {\r\n                        self.emit(Event.ERROR, url, err);\r\n                        return;\r\n                    }\r\n                    self.loadUIPackge(url, bundle);\r\n                });\r\n            } else {\r\n                self.loadUIPackge(url, bundle);\r\n            }\r\n        }\r\n    }\r\n\r\n    private loadUIPackge(url: ResURL, bundle: AssetManager.Bundle): void {\r\n        if (typeof url == \"string\") {\r\n            throw new Error(\"\u672A\u5B9E\u73B0\uFF1A\" + url);\r\n        }\r\n        let self = this;\r\n        UIPackage.loadPackage(bundle, url.url,\r\n            (finish: number, total: number, item: AssetManager.RequestItem) => {\r\n                const progress: number = finish / total;\r\n                self.emit(Event.PROGRESS, url, undefined, progress);\r\n            },\r\n            (err: Error, pkg: UIPackage) => {\r\n                if (err) {\r\n                    self.emit(Event.ERROR, url, err);\r\n                    return;\r\n                }\r\n                const urlKey = Res.url2Key(url);\r\n                let res = new FGUIResource();\r\n                res.key = urlKey;\r\n                res.content = pkg;\r\n                ResourceManager.addRes(res);\r\n                self.emit(Event.COMPLETE, url);\r\n            });\r\n    }\r\n\r\n    reset(): void {\r\n        this.url = null;\r\n    }\r\n}", "import { assetManager } from \"cc\";\r\nimport { Res, Resource } from \"dream-cc-core\";\r\nimport { UIPackage } from \"fairygui-cc\";\r\n\r\n\r\nexport class FGUIResource extends Resource {\r\n\r\n    constructor() {\r\n        super();\r\n    }\r\n\r\n    /**\r\n     * \u9500\u6BC1\r\n     */\r\n    destroy(): boolean {\r\n        let url = Res.key2Url(this.key);\r\n        if (typeof url != \"string\") {\r\n            UIPackage.removePackage(url.url);\r\n            let bundle = assetManager.getBundle(url.bundle);\r\n            let asset = bundle.get(url.url);\r\n            assetManager.releaseAsset(asset);\r\n        } else {\r\n            throw new Error(\"\u672A\u5904\u7406\u7684Fguipackage\u9500\u6BC1\uFF01\");\r\n        }\r\n        return super.destroy();\r\n    }\r\n}", "import { Binder } from \"dream-cc-core\";\r\nimport { GComponent } from \"fairygui-cc\";\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n/**\r\n * \u57FA\u7840Mediator\u7C7B\r\n */\r\nexport class BaseMediator extends Binder {\r\n\r\n    /**UI\u7EC4\u4EF6 */\r\n    ui: GComponent | null = null;\r\n\r\n    /**\u5916\u90E8\u4F20\u53C2*/\r\n    data: any;\r\n\r\n    constructor() {\r\n        super();\r\n    } \r\n\r\n    init(): void {\r\n        super.init();\r\n    }\r\n\r\n    tick(dt: number): void {\r\n\r\n    }\r\n\r\n    show(data: any): void {\r\n        this.data = data;\r\n        this.bindByRecords();\r\n    }\r\n\r\n    showedUpdate(data?: any): void {\r\n        this.data = data;\r\n    }\r\n\r\n    hide(): void {\r\n        this.unbindByRecords();\r\n    }\r\n    \r\n    /**\r\n     * \u6839\u636E\u540D\u79F0\u6216\u8DEF\u5F84\u83B7\u53D6\u7EC4\u4EF6\r\n     * @param path \r\n     * @returns \r\n     */\r\n    getUIComponent(path: string): any {\r\n        let paths: Array<string> = path.split(\"/\");\r\n        let ui: any = this.ui;\r\n        let index: number = 0;\r\n        let uiName: string;\r\n        while (ui && index < paths.length) {\r\n            uiName = paths[index];\r\n            //\u517C\u5BB9m_\u5199\u6CD5\r\n            if (uiName.startsWith(\"m_\")) {\r\n                uiName = uiName.replace(\"m_\", \"\");\r\n            }\r\n            ui = ui.getChild(uiName);\r\n            index++;\r\n        }\r\n        return ui;\r\n    }\r\n}", "import { Injector } from \"dream-cc-core\";\r\nimport { GUIManagerImpl } from \"./GUIManagerImpl\";\r\nimport { GUIState } from \"./GUIState\";\r\nimport { IGUIManager } from \"./IGUIManager\";\r\nimport { ITabData } from \"./tabs/ITabData\";\r\n\r\n/**\r\n     * GUI \u7BA1\u7406\u5668\r\n     */\r\nexport class GUIManager {\r\n\r\n    static KEY: string = \"GUIManager\";\r\n\r\n    /**\r\n     * \u5728\u754C\u9762\u5173\u95ED\u540E\u591A\u957F\u65F6\u95F4\u4E0D\u4F7F\u7528\u5219\u9500\u6BC1(\u79D2)\r\n     */\r\n    static GUI_GC_INTERVAL: number = 30;\r\n\r\n    /**\r\n     * \u6CE8\u518C\r\n     * @param info \r\n     * @returns \r\n     */\r\n    static register(info: { key: string }): void {\r\n        return this.impl.register(info);\r\n    }\r\n\r\n    /**\r\n     * \u6CE8\u9500\r\n     * @param key \r\n     * @returns \r\n     */\r\n    static unregister(key: string): void {\r\n        return this.impl.unregister(key);\r\n    }\r\n\r\n    /**\r\n     * \u6253\u5F00\u6307\u5B9AUI\u754C\u9762\r\n     * @param key \r\n     * @param data \r\n     */\r\n    static open(key: string, data?: ITabData): void {\r\n        this.impl.open(key, data);\r\n    }\r\n\r\n    /**\r\n     * \u5173\u95ED\r\n     * @param key \r\n     * @param checkLayer \u662F\u5426\u68C0\u67E5\u5168\u5C4F\u8BB0\u5F55\r\n     */\r\n    static close(key: string, checkLayer: boolean = true): void {\r\n        this.impl.close(key, checkLayer);\r\n    }\r\n\r\n    /**\r\n     * \u5173\u95ED\u6240\u6709\u754C\u9762\r\n     */\r\n    static closeAll(): void {\r\n        this.impl.closeAll();\r\n    }\r\n\r\n    /**\r\n     * \u83B7\u53D6\u754C\u9762\u72B6\u6001\r\n     * @param key \r\n     * @returns  0 \u672A\u663E\u793A  1\u663E\u793A\u4E2D\r\n     */\r\n    static getGUIState(key: string): GUIState {\r\n        return this.impl.getState(key);\r\n    }\r\n\r\n    /**\r\n     * \u662F\u5426\u5DF2\u6253\u5F00\u6216\u518D\u6253\u5F00\u4E2D\r\n     * @param key \r\n     * @returns \r\n     */\r\n    static isOpen(key: string): boolean {\r\n        return this.impl.isOpen(key);\r\n    }\r\n\r\n    /**\r\n     * \u83B7\u53D6GUI\u4E2D\u7684\u67D0\u4E2A\u7EC4\u4EF6\r\n     * @param key    \u754C\u9762\u5168\u5C40\u552F\u4E00KEY\r\n     * @param path   \u7EC4\u4EF6\u540D\u79F0/\u8DEF\u5F84\r\n     */\r\n    static getUIComponent(key: string, path: string): any {\r\n        return this.impl.getUIComponent(key, path);\r\n    }\r\n\r\n    private static __impl: IGUIManager;\r\n    private static get impl(): IGUIManager {\r\n        if (this.__impl == null) {\r\n            this.__impl = Injector.getInject(this.KEY);\r\n        }\r\n        if (this.__impl == null) {\r\n            this.__impl = new GUIManagerImpl();\r\n        }\r\n        return this.__impl;\r\n    }\r\n}", "import { assetManager, Component, Node } from \"cc\";\r\nimport { GUIPlugin } from \"../GUIPlugin\";\r\nimport { GUIManager } from \"./GUIManager\";\r\nimport { IGUIInfo } from \"./IGUIInfo\";\r\nimport { IGUIMediator } from \"./IGUIMediator\";\r\nimport { IViewCreator } from \"./IViewCreator\";\r\nimport { ILayer } from \"./layer/ILayer\";\r\nimport { LayerManager } from \"./layer/LayerManager\";\r\nimport { LoadingView } from \"./loadingView/LoadingView\";\r\nimport { Event, EventDispatcher, Module, ModuleManager, Res, ResRequest, ResURL } from \"dream-cc-core\";\r\n\r\n\r\n\r\nenum LoadState {\r\n    Null,\r\n    Loading,\r\n    Loaded\r\n}\r\n\r\n/**\r\n * GUI\u4EE3\u7406\uFF0C\u5C06\u8D44\u6E90\u52A0\u8F7D\u548CMediator\u903B\u8F91\u9694\u79BB\u5F00\r\n */\r\nexport class GUIProxy {\r\n\r\n    /**\u7528\u4E8ECreator\u521B\u5EFA\u5668\u7684\u7EDF\u4E00\u5E2E\u52A9\u8282\u70B9 */\r\n    private static createNode: Node = new Node(\"createHelpNode\");\r\n\r\n    info?: IGUIInfo;\r\n\r\n    /**GUI\u4E2D\u4ECB*/\r\n    mediator?: IGUIMediator;\r\n\r\n    /**\u5173\u95ED\u65F6\u95F4*/\r\n    closeTime: number = 0;\r\n\r\n    /**\u6570\u636E */\r\n    data: any;\r\n\r\n    /**\u5F15\u7528\u7684\u8D44\u6E90 */\r\n    urls: Array<ResURL>;\r\n\r\n    assetsRequest: ResRequest;\r\n\r\n    /**\u662F\u5426\u5728\u663E\u793A\u4E2D*/\r\n    private __showing: boolean = false;\r\n\r\n    /**\u52A0\u8F7D\u72B6\u6001 */\r\n    private __loadState: LoadState = LoadState.Null;\r\n\r\n    constructor(info: IGUIInfo) {\r\n        this.info = info;\r\n        if (!this.info) {\r\n            throw new Error(\"UI\u4FE1\u606F\u4E0D\u80FD\u4E3A\u7A7A\uFF01\");\r\n        }\r\n        this.urls = [];\r\n    }\r\n\r\n    /**\r\n     * \u52A0\u8F7D\u4EE3\u7801\u5305\r\n     */\r\n    private __loadAssetBundle(): void {\r\n        this.__loadState = LoadState.Loading;\r\n        if (!assetManager.getBundle(this.info.bundleName)) {\r\n            assetManager.loadBundle(this.info.bundleName, this.__initModules.bind(this));\r\n        } else {\r\n            this.__initModules();\r\n        }\r\n    }\r\n\r\n    /**\r\n    * \u521D\u59CB\u5316\u6A21\u5757\r\n    */\r\n    private __initModules(): void {\r\n        ModuleManager.single.load([this.info.bundleName],\r\n            (p_progress: number) => {\r\n                let progress: number = p_progress * 0.3;\r\n                LoadingView.changeData({ label: this.info.key + \" Module Init...\", progress: progress });\r\n            }, (err: Error) => {\r\n                if (err) {\r\n                    throw err;\r\n                }\r\n                const module = ModuleManager.single.getModule(this.info.bundleName);\r\n                const module_proxy = ModuleManager.single.getModuleProxy(this.info.bundleName);\r\n                module_proxy.addRef();\r\n                if (module.inited) {\r\n                    this.__moduleInited(module);\r\n                } else {\r\n                    module.on(Event.COMPLETE, this.__moduleInitComplete, this);\r\n                }\r\n            });\r\n    }\r\n\r\n    private __moduleInitComplete(e: Event): void {\r\n        const module = e.target as Module;\r\n        module.off(Event.COMPLETE, this.__moduleInitComplete, this);\r\n        this.__moduleInited(module);\r\n    }\r\n\r\n    /**\r\n     * \u6A21\u5757\u521D\u59CB\u5316\u5B8C\u6210\r\n     */\r\n    private __moduleInited(module: Module): void {\r\n        //UI\u754C\u9762\u5305\u8D44\u6E90\r\n        if (GUIPlugin.uiPackageURL == undefined) {\r\n            throw new Error(\"GUIModule.uiPackageURL\u672A\u5B9A\u4E49!\");\r\n        }\r\n        this.urls.push(GUIPlugin.uiPackageURL(this.info.packageName, Res.TYPE.FGUI, this.info.bundleName));\r\n        //\u521B\u5EFAMediator\r\n        let viewCreatorCom: Component = GUIProxy.createNode.addComponent(this.info.key + \"ViewCreator\");\r\n        let viewCreator: IViewCreator = <unknown>viewCreatorCom as IViewCreator;\r\n        if (!viewCreator) {\r\n            throw new Error(this.info.key + \"ViewCreator\u7C7B\u4E0D\u5B58\u5728\u6216\u672A\u5B9E\u73B0IViewCreator!\");\r\n        }\r\n        this.mediator = viewCreator.createMediator();\r\n        this.mediator.local_module = module;\r\n        //\u8FDB\u5EA6\u754C\u9762\r\n        if (this.mediator.showLoadingView) {\r\n            LoadingView.show();\r\n        }\r\n        //\u9500\u6BC1\u7EC4\u4EF6\r\n        viewCreatorCom.destroy();\r\n        //\u914D\u7F6E\u8868\r\n        if (this.mediator.configs && this.mediator.configs.length > 0) {\r\n            for (let index = 0; index < this.mediator.configs.length; index++) {\r\n                const sheet = this.mediator.configs[index];\r\n                const url = Res.sheet2URL(sheet);\r\n                this.urls.push(url);\r\n            }\r\n        }\r\n        //\u4F9D\u8D56\u7684\u8D44\u6E90\r\n        if (this.mediator.assets && this.mediator.assets.length > 0) {\r\n            for (let index = 0; index < this.mediator.assets.length; index++) {\r\n                const url = this.mediator.assets[index];\r\n                this.urls.push(url);\r\n            }\r\n        }\r\n        this.__loadAssets();\r\n    }\r\n\r\n    //\u52A0\u8F7DUI\u8D44\u6E90\r\n    private __loadAssets(): void {\r\n        this.assetsRequest = Res.create(\r\n            this.urls,\r\n            this.info.key,\r\n            (p_progress: number) => {\r\n                let progress: number = (0.5 + p_progress * 0.5) * this.mediator.loadingViewTotalRatio;\r\n                LoadingView.changeData({ label: this.info.key + \" Res Loading...\", progress: progress })\r\n            },\r\n            (err?: Error) => {\r\n                if (err) {\r\n                    this.assetsRequest.dispose();\r\n                    this.assetsRequest = null;\r\n                    LoadingView.changeData({ label: this.info.key + \" Res Load Err:\" + err });\r\n                    return;\r\n                }\r\n                this.__create_ui();\r\n            }\r\n        );\r\n        this.assetsRequest.load();\r\n    }\r\n\r\n    /**\r\n     * \u521B\u5EFAUI\r\n     */\r\n    private __create_ui(): void {\r\n        this.mediator!.createUI(this.info, this.__create_ui_callback.bind(this));\r\n    }\r\n\r\n    /**\r\n     * UI\u521B\u5EFA\u5B8C\u6210\u56DE\u8C03\r\n     */\r\n    private __create_ui_callback(): void {\r\n        LoadingView.changeData({ progress: this.mediator.loadingViewTotalRatio });\r\n        this.__loadState = LoadState.Loaded;\r\n        this.mediator!.init();\r\n        this.mediator.inited = true;\r\n        if (this.__showing) {\r\n            this.__show();\r\n        }\r\n    }\r\n\r\n    private __add_to_layer(): void {\r\n        this.layer.addChildAt(this.mediator!.viewComponent, this.getLayerChildCount());\r\n        this.mediator!.viewComponent!.visible = true;\r\n    }\r\n\r\n    tick(dt: number): void {\r\n        if (this.__loadState == LoadState.Loaded) {\r\n            if (this.mediator) {\r\n                this.mediator.tick(dt);\r\n            }\r\n        }\r\n    }\r\n\r\n    show(data?: any): void {\r\n        this.__showing = true;\r\n        this.data = data;\r\n        this.__show();\r\n    }\r\n\r\n    showedUpdate(data: any): void {\r\n        if (this.mediator && this.__showing) {\r\n            this.mediator.showedUpdate(data);\r\n        }\r\n    }\r\n\r\n    private __show(): void {\r\n        if (this.__loadState == LoadState.Null) {\r\n            this.__loadAssetBundle();\r\n        } else if (this.__loadState == LoadState.Loading) {\r\n            //\u52A0\u8F7D\u4E2D\u5565\u4E5F\u4E0D\u5E72\r\n        } else {\r\n            this.__add_to_layer();\r\n            //\u8FDB\u5EA6\u754C\u9762\r\n            if (this.mediator!.showLoadingView && this.mediator!.closeLoadingView) {\r\n                LoadingView.hide();\r\n            }\r\n            this.mediator!.show(this.data);\r\n            this.data = null;\r\n            //\u5982\u679C\u754C\u9762\u5DF2\u7ECF\u88AB\u5173\u95ED(\u8FD9\u662F\u6709\u53EF\u80FD\u7684\uFF01);\r\n            if (!GUIManager.isOpen(this.info.key)) {\r\n                return;\r\n            }\r\n            if (this.mediator.playShowAnimation) {\r\n                this.mediator.playShowAnimation(this.__showAnimationPlayed.bind(this));\r\n            } else {\r\n                EventDispatcher.Main.emit(Event.SHOW, this.info!.key);\r\n            }\r\n        }\r\n    }\r\n\r\n    private __showAnimationPlayed(): void {\r\n        EventDispatcher.Main.emit(Event.SHOW, this.info!.key);\r\n    }\r\n\r\n    hide(): void {\r\n        if (this.__loadState == LoadState.Loading) {\r\n            this.__loadState = LoadState.Null;\r\n        } else if (this.__loadState == LoadState.Loaded) {\r\n            //\u5982\u679C\u5728\u663E\u793A\u4E2D\r\n            if (this.__showing) {\r\n                if (this.mediator.playHideAnimation) {\r\n                    this.mediator.playHideAnimation(this.__hideAnimationPlayed.bind(this));\r\n                } else {\r\n                    this.__hide();\r\n                }\r\n            }\r\n        }\r\n    }\r\n\r\n    private __hideAnimationPlayed(): void {\r\n        if (this.__showing) {\r\n            this.__hide();\r\n        }\r\n    }\r\n\r\n    private __hide(): void {\r\n        this.mediator!.viewComponent!.visible = false;\r\n        this.mediator!.hide();\r\n        this.__showing = false;\r\n        EventDispatcher.Main.emit(Event.HIDE, this.info!.key);\r\n    }\r\n\r\n    destroy(): void {\r\n        console.log(\"UI\u9500\u6BC1=>\" + this.info?.key);\r\n        if (this.assetsRequest) {\r\n            this.assetsRequest.dispose();\r\n            this.assetsRequest = null;\r\n        }\r\n        this.mediator!.destroy();\r\n        this.mediator = undefined;\r\n        this.info = undefined;\r\n        this.data = null;\r\n    }\r\n\r\n    private getLayerChildCount(): number {\r\n        return this.layer.getCount();\r\n    }\r\n\r\n    private get layer(): ILayer {\r\n        let l: ILayer | undefined = LayerManager.getLayer(this.info!.layer);\r\n        if (l === undefined) {\r\n            throw new Error(\"layer\uFF1A\" + this.info!.layer + \"\u4E0D\u5B58\u5728\uFF01\");\r\n        }\r\n        return l;\r\n    }\r\n\r\n    /**\r\n     * \u83B7\u53D6\u7EC4\u4EF6\r\n     * @param path \r\n     */\r\n    getComponent(path: string): any {\r\n        if (!this.mediator) {\r\n            return null;\r\n        }\r\n        return this.mediator.getUIComponent(path);\r\n    }\r\n}\r\n", "import { Color, Node } from \"cc\";\r\nimport { GUIManager } from \"./gui/GUIManager\";\r\nimport { Layer } from \"./gui/layer/Layer\";\r\nimport { LayerManager } from \"./gui/layer/LayerManager\";\r\nimport { FGUILoader } from \"./gui/res/FGUILoader\";\r\nimport { Event, EventDispatcher, I18N, IEnginePlugin, Logger, Res, ResURL } from \"dream-cc-core\";\r\nimport { GRoot, registerFont, SmartLoader, UIObjectFactory, UIPackage } from \"fairygui-cc\";\r\n\r\n/**\r\n * GUI\u63D2\u4EF6\r\n */\r\nexport class GUIPlugin extends EventDispatcher implements IEnginePlugin {\r\n\r\n    /**\r\n     * \u540D\u79F0\r\n     */\r\n    readonly name = \"GUIPlugin\";\r\n\r\n    /**\r\n     * UI\u8D44\u6E90\u5305URL\r\n     * @param packname \r\n     * @param type \r\n     * @param bundle \r\n     * @returns \r\n     */\r\n    static uiPackageURL: (packname: string, type?: any, bundle?: string) => ResURL;\r\n\r\n    /**UI\u906E\u7F69\u989C\u8272\u503C */\r\n    static MaskColor: Color = new Color(0, 0, 0, 255 * 0.5);\r\n    /**\u900F\u660E\u906E\u7F69\u989C\u8272 */\r\n    static AlphaMaskColor: Color = new Color(0, 0, 0, 0);\r\n\r\n    /**\r\n     * \u521D\u59CB\u5316\r\n     * @param root          fgui\u6839\u8282\u70B9\r\n     * @param guiconfig     UI\u914D\u7F6E\r\n     * @param callback      \u56DE\u8C03\r\n     * @param progress      \u8FDB\u5EA6\u6C47\u62A5\r\n     * @param layer         \u5C42\u7EA7\u914D\u7F6E\r\n     * @param assets        \u516C\u5171\u8D44\u6E90\r\n     * @param fonts         \u5B57\u4F53\r\n     */\r\n    setup(root: Node, guiconfig: ResURL, layer?: { layers: Array<string>, fullScrene: Array<string> }, assets?: Array<ResURL>, fonts?: Array<{ name: string, url: ResURL }>, language?: ResURL): void {\r\n        Logger.log(\"Engine Init...\", \"gui\");\r\n        //\u6CE8\u518Cfgui\u52A0\u8F7D\u5668\r\n        Res.setLoader(Res.TYPE.FGUI, FGUILoader);\r\n        //\u52A0\u8F7D\u5668\u6269\u5C55\r\n        UIObjectFactory.setLoaderExtension(SmartLoader);\r\n\r\n        GRoot.create(root);\r\n\r\n        //\u521B\u5EFA\u5C42\u7EA7\r\n        this.__InitLayer(layer);\r\n        if (assets && assets.length > 0) {\r\n            this.__loadCommonAssets(assets, guiconfig, fonts, language);\r\n        } else {\r\n            if (fonts && fonts.length > 0) {\r\n                this.__loadFonts(fonts, guiconfig, language);\r\n            } else {\r\n                this.__initUI(guiconfig, language);\r\n            }\r\n        }\r\n    }\r\n\r\n    private __InitLayer(layer?: { layers: Array<string>, fullScrene: Array<string> }): void {\r\n        if (layer == undefined) {\r\n            let layers = [\r\n                \"BattleDamage\",\r\n                \"FullScreen\",\r\n                \"Window\",\r\n                \"Pannel\",\r\n                \"Tooltip\",\r\n                \"Alert\",\r\n                \"Guide\",\r\n                \"LoadingView\"\r\n            ]\r\n            let fullScrene = [\r\n                \"FullScreen\"\r\n            ]\r\n            layer = { layers, fullScrene };\r\n        }\r\n        if (layer.layers && layer.layers.length > 0) {\r\n            for (let index = 0; index < layer.layers.length; index++) {\r\n                const layerKey = layer.layers[index];\r\n                if (layer.fullScrene && layer.fullScrene.length > 0) {\r\n                    LayerManager.addLayer(layerKey, new Layer(layerKey, layer.fullScrene.indexOf(layerKey) >= 0));\r\n                } else {\r\n                    LayerManager.addLayer(layerKey, new Layer(layerKey))\r\n                }\r\n            }\r\n        }\r\n    }\r\n\r\n    private __loadCommonAssets(assets: Array<ResURL>, guiconfig: ResURL, fonts?: Array<{ name: string, url: ResURL }>, language?: ResURL): void {\r\n        let reqeust = Res.create(\r\n            assets,\r\n            \"Engine\",\r\n            (progress: number) => {\r\n                //\u8FDB\u5EA6\r\n                let v = 0.2 + progress * 0.2;\r\n                this.emit(Event.PROGRESS, Event.create(Event.PROGRESS, this, null, null, v));\r\n            },\r\n            (err?: Error) => {\r\n                if (err) {\r\n                    reqeust.dispose();\r\n                    reqeust = null;\r\n                    this.__onError(err);\r\n                    return;\r\n                }\r\n                if (fonts && fonts.length > 0) {\r\n                    this.__loadFonts(fonts, guiconfig, language);\r\n                } else {\r\n                    this.__initUI(guiconfig, language);\r\n                }\r\n            }\r\n        );\r\n        reqeust.load();\r\n    }\r\n\r\n    private __loadFonts(fonts: Array<{ name: string, url: ResURL }>, guiconfig: ResURL, language?: ResURL): void {\r\n        let urls = [];\r\n        let fontNames = new Map<string, string>();\r\n        for (let index = 0; index < fonts.length; index++) {\r\n            const config = fonts[index];\r\n            urls.push(config.url);\r\n            fontNames.set(Res.url2Key(config.url), config.name);\r\n        }\r\n        let request = Res.create(\r\n            urls,\r\n            \"Engine\",\r\n            (progress: number) => {\r\n                //\u8FDB\u5EA6\r\n                let v = 0.4 + progress * 0.2;\r\n                this.emit(Event.PROGRESS, Event.create(Event.PROGRESS, this, null, null, v));\r\n            },\r\n            (err?: Error) => {\r\n                if (err) {\r\n                    request.dispose();\r\n                    request = null;\r\n                    this.__onError(err);\r\n                    return;\r\n                }\r\n                let refs = request.getRefList();\r\n                //\u5B57\u4F53\u6CE8\u518C\r\n                for (let index = 0; index < refs.length; index++) {\r\n                    const ref = refs[index];\r\n                    const name = fontNames.get(ref.key);\r\n                    registerFont(name, ref.content);\r\n                }\r\n                this.__initUI(guiconfig, language);\r\n            }\r\n        );\r\n        request.load();\r\n    }\r\n\r\n    private __initUI(guiconfig: ResURL, language?: ResURL): void {\r\n        if (guiconfig) {\r\n            //\u52A0\u8F7Dguiconfig.json\r\n            let request = Res.create(\r\n                guiconfig,\r\n                \"Engine\",\r\n                (progress: number) => {\r\n                    const v = 0.6 + progress * 0.2;\r\n                    this.emit(Event.PROGRESS, Event.create(Event.PROGRESS, this, null, null, v));\r\n                },\r\n                (err?: Error) => {\r\n                    if (err) {\r\n                        request.dispose();\r\n                        request = null;\r\n                        this.__onError(err);\r\n                        return;\r\n                    }\r\n                    let ref = request.getRef();\r\n                    let list = ref.content.json;\r\n                    for (let index = 0; index < list.length; index++) {\r\n                        const element = list[index];\r\n                        GUIManager.register(element);\r\n                    }\r\n                    if (language) {\r\n                        this.__loadLangenge(language);\r\n                    } else {\r\n                        this.__allComplete();\r\n                    }\r\n                }\r\n            );\r\n            request.load();\r\n        } else {\r\n            if (language) {\r\n                this.__loadLangenge(language);\r\n            } else {\r\n                this.__allComplete();\r\n            }\r\n        }\r\n    }\r\n\r\n    /**\r\n     * \u52A0\u8F7DFGUI\u8BED\u8A00\u5305\r\n     * @param url \r\n     * @param p_progress \r\n     * @param cb \r\n     */\r\n    private __loadLangenge(url: ResURL): void {\r\n        let request = Res.create(\r\n            url,\r\n            \"Engine\",\r\n            (progress: number) => {\r\n                const v = 0.8 + progress * 0.2;\r\n                this.emit(Event.PROGRESS, Event.create(Event.PROGRESS, this, null, null, v));\r\n            },\r\n            (err?: Error) => {\r\n                if (err) {\r\n                    request.dispose();\r\n                    request = null;\r\n                    //\u8BED\u8A00\u5305\u62A5\u9519\u4E0D\u5F71\u54CD\u6E38\u620F\u8FD0\u884C\uFF0C\u5FFD\u7565\r\n                    this.__allComplete();\r\n                    return;\r\n                }\r\n                let ref = request.getRef();\r\n                UIPackage.setStringsSource(this.parseXML(ref.content.text));\r\n                this.__allComplete();\r\n            }\r\n        );\r\n        request.load();\r\n    }\r\n\r\n    private parseXML(value: string): string {\r\n        var xml = new DOMParser().parseFromString(value, \"text/xml\").documentElement;\r\n        var nodes = xml.childNodes;\r\n        var length1: number = nodes.length;\r\n        for (var i1: number = 0; i1 < length1; i1++) {\r\n            var cxml: any = nodes[i1];\r\n            if (cxml.tagName == \"string\") {\r\n                var key: string = cxml.getAttribute(\"name\");\r\n                var text: string = cxml.childNodes.length > 0 ? cxml.firstChild.nodeValue : \"\";\r\n                var i: number = key.indexOf(\"-\");\r\n                if (i == -1)\r\n                    continue;\r\n                let t_str = I18N.tr(text);\r\n                cxml.textContent = t_str;\r\n            }\r\n        }\r\n        const serializer = new XMLSerializer();\r\n        return serializer.serializeToString(xml);\r\n    }\r\n\r\n    private __onError(err: Error): void {\r\n        Logger.error(\"Engine Init Error:\" + err.message, \"gui\");\r\n    }\r\n\r\n    private __allComplete(err?: Error): void {\r\n        if (err) {\r\n            Logger.error(\"Engine Init Error\" + err.message, \"gui\");\r\n            return;\r\n        }\r\n        Logger.log(\"Engine Init Completed\" + err.message, \"gui\");\r\n        this.emit(Event.COMPLETE, Event.create(Event.COMPLETE, this));\r\n    }\r\n}", "\r\n\r\n\r\n/**\r\n * \u754C\u9762\u72B6\u6001\r\n */\r\nexport enum GUIState {\r\n    /**\r\n     * \u672A\u4F7F\u7528\u72B6\u6001\r\n     */\r\n    Null,\r\n    /**\r\n     * \u663E\u793A\u5904\u7406\u4E2D\r\n     */\r\n    Showing,\r\n    /**\r\n     * \u5DF2\u663E\u793A\r\n     */\r\n    Showed,\r\n    /**\r\n     * \u5173\u95ED\u5904\u7406\u4E2D\r\n     */\r\n    Closeing,\r\n    /**\r\n     * \u5DF2\u5173\u95ED\r\n     */\r\n    Closed\r\n}", "import { GUIProxy } from \"./GUIProxy\";\r\nimport { IGUIInfo } from \"./IGUIInfo\";\r\nimport { IGUIManager } from \"./IGUIManager\";\r\nimport { IGUIMediator } from \"./IGUIMediator\";\r\nimport { GUIState } from \"./GUIState\";\r\nimport { GUIManager } from \"./GUIManager\";\r\nimport { LoadingView } from \"./loadingView/LoadingView\";\r\nimport { LayerManager } from \"./layer/LayerManager\";\r\nimport { Layer } from \"./layer/Layer\";\r\nimport { IRelationInfo } from \"./relations/IRelationInfo\";\r\nimport { IRelationList } from \"./relations/IRelationList\";\r\nimport { RelationManager } from \"./relations/RelationManager\";\r\nimport { Event, EventDispatcher, TickerManager, Timer } from \"dream-cc-core\";\r\n\r\n\r\n\r\n\r\n\r\n\r\n/**\r\n * GUI\u7BA1\u7406\u5668\r\n */\r\nexport class GUIManagerImpl implements IGUIManager {\r\n\r\n    /**\u5DF2\u6CE8\u518C*/\r\n    private __registered: Map<string, IGUIInfo> = new Map<string, IGUIInfo>();\r\n    /**\u5B9E\u4F8B */\r\n    private __instances: Map<string, GUIProxy> = new Map<string, GUIProxy>();\r\n\r\n    /**\r\n     * \u5220\u9664\u5217\u8868\r\n     */\r\n    private __destryList: Array<string> = [];\r\n\r\n    constructor() {\r\n        TickerManager.addTicker(this);\r\n\r\n        //\u76D1\u542C\u6253\u5F00\u548C\u5173\u95ED\u4E8B\u4EF6\r\n        EventDispatcher.Main.on(Event.SHOW, this.__showedHandler, this);\r\n        EventDispatcher.Main.on(Event.HIDE, this.__closedHandler, this);\r\n    }\r\n\r\n    /**\u83B7\u53D6\u67D0\u4E2A\u7EC4\u4EF6 */\r\n    getUIComponent(key: string, path: string) {\r\n        if (!this.__instances.has(key)) {\r\n            throw new Error(\"GUI:\" + key + \"\u5B9E\u4F8B\uFF0C\u4E0D\u5B58\u5728\uFF01\");\r\n        }\r\n        let guiProxy: GUIProxy = this.__instances.get(key);\r\n        return guiProxy.getComponent(path);\r\n    }\r\n    /**\r\n     * \u83B7\u53D6\u754C\u9762\u7684mediator\r\n     * @param key \r\n     */\r\n    getMediatorByKey(key: string): IGUIMediator {\r\n        if (!this.__instances.has(key)) {\r\n            return null;\r\n        }\r\n        return this.__instances.get(key).mediator;\r\n    }\r\n\r\n    private __showedHandler(e: Event): void {\r\n        let guiKey: string = e.data;\r\n        this.setState(guiKey, GUIState.Showed);\r\n    }\r\n\r\n    private __closedHandler(e: Event): void {\r\n        let guiKey: string = e.data;\r\n        this.setState(guiKey, GUIState.Closed);\r\n    }\r\n\r\n    register(info: IGUIInfo): void {\r\n        if (this.__registered.has(info.key)) {\r\n            throw new Error(\"\u91CD\u590D\u6CE8\u518C\uFF01\");\r\n        }\r\n        this.__registered.set(info.key, info);\r\n    }\r\n\r\n    unregister(key: string): void {\r\n        if (!this.__registered.has(key)) {\r\n            throw new Error(\"\u672A\u627E\u5230\u8981\u6CE8\u9500\u7684\u754C\u9762\u4FE1\u606F\uFF01\");\r\n        }\r\n        this.__registered.delete(key);\r\n    }\r\n\r\n    tick(dt: number): void {\r\n        this.__destryList.length = 0;\r\n        let currentTime: number = Timer.currentTime;\r\n        // value\u548Ckey\u5C31\u662Fmap\u7684key\uFF0Cvalue\uFF0Cmap\u662F\u5B57\u5178\u672C\u8EAB\r\n        this.__instances.forEach((value, key, map) => {\r\n            if (value.info.state == GUIState.Showed) {\r\n                value.tick(dt);\r\n            } else if (value.info.state == GUIState.Closed) {\r\n                if (!value.info!.permanence) {\r\n                    if (currentTime - value.closeTime > GUIManager.GUI_GC_INTERVAL) {\r\n                        this.__destryList.push(key);\r\n                    }\r\n                }\r\n            }\r\n        });\r\n        if (this.__destryList.length > 0) {\r\n            let gui: GUIProxy;\r\n            for (let index = 0; index < this.__destryList.length; index++) {\r\n                const key = this.__destryList[index];\r\n                gui = this.__instances.get(key)!;\r\n                gui.info.state = GUIState.Null;//\u6807\u8BB0\u4E3Anull;\r\n                this.__instances.delete(key);\r\n                gui.destroy();\r\n            }\r\n        }\r\n    }\r\n\r\n\r\n    open(key: string, data?: any): void {\r\n        this.__open(key, data);\r\n        this.__checkRelation(key, true);\r\n    }\r\n\r\n    private __open(key: string, data?: any): void {\r\n        let state: GUIState = this.getState(key);\r\n        let guiProxy: GUIProxy;\r\n        //\u6CA1\u6253\u5F00\u8FC7\uFF01\r\n        if (state == GUIState.Null) {\r\n            let info: IGUIInfo = this.__registered.get(key)!;\r\n            guiProxy = new GUIProxy(info);\r\n            guiProxy.info.state = GUIState.Showing;\r\n            this.__instances.set(info.key, guiProxy);\r\n            this.checkFullLayer(guiProxy);\r\n            guiProxy.show(data);\r\n            return;\r\n        }\r\n        //\u6253\u5F00\u4E2D\r\n        if (state == GUIState.Showing) {\r\n            guiProxy = this.__instances.get(key)!;\r\n            this.checkFullLayer(guiProxy);\r\n            //\u53EA\u662F\u66F4\u65B0\u6570\u636E\r\n            guiProxy.show(data);\r\n            return;\r\n        }\r\n        //\u5DF2\u7ECF\u6253\u5F00\r\n        if (state == GUIState.Showed) {\r\n            guiProxy = this.__instances.get(key)!;\r\n            this.checkFullLayer(guiProxy);\r\n            guiProxy.showedUpdate(data);\r\n            //\u754C\u9762\u5DF2\u6253\u5F00\uFF0C\u5219\u9690\u85CF\u8FDB\u5EA6\u6761\r\n            LoadingView.hide();\r\n            return;\r\n        }\r\n        //\u5173\u95ED/\u5173\u95ED\u4E2D\r\n        if (state == GUIState.Closeing || state == GUIState.Closed) {\r\n            guiProxy = this.__instances.get(key)!;\r\n            guiProxy.info.state = GUIState.Showing;\r\n            this.checkFullLayer(guiProxy);\r\n            guiProxy.show(data);\r\n            return;\r\n        }\r\n    }\r\n\r\n    //\u5168\u5C4F\u5C42\u540C\u65F6\u53EA\u80FD\u6253\u5F00\u4E00\u4E2A\u754C\u9762\r\n    private checkFullLayer(guiProxy: GUIProxy): void {\r\n        let layer: Layer = LayerManager.getLayer(guiProxy.info.layer) as Layer;\r\n        if (layer.isFullScrene) {\r\n            for (let index = 0; index < layer.openRecord.length; index++) {\r\n                const guiKey = layer.openRecord[index];\r\n                //\u65B0\u6253\u5F00\u7684\u754C\u9762\u4E5F\u53EF\u80FD\u5728\u8BB0\u5F55\u91CC\r\n                if (guiKey != guiProxy.info.key) {\r\n                    this.__close(guiKey);\r\n                }\r\n            }\r\n            layer.openRecord.push(guiProxy.info.key);\r\n        }\r\n    }\r\n\r\n    close(key: string, checkLayer: boolean = true): void {\r\n        this.__close(key, checkLayer);\r\n        this.__checkRelation(key, false);\r\n    }\r\n\r\n    closeAll() {\r\n        this.__instances.forEach((value, key, map) => {\r\n            this.close(key, false);\r\n        });\r\n    }\r\n\r\n    private __close(key: string, checkLayer: boolean = false): void {\r\n        let state: GUIState = this.getState(key);\r\n        let guiProxy: GUIProxy;\r\n        //\u5173\u95ED\u4E2D/\u5DF2\u5173\u95ED\r\n        if (state == GUIState.Null || state == GUIState.Closed || state == GUIState.Closeing) {\r\n            return;\r\n        }\r\n        guiProxy = this.__instances.get(key)!;\r\n        guiProxy.closeTime = Timer.currentTime;\r\n        guiProxy.info.state = GUIState.Closeing;\r\n        guiProxy.hide();\r\n\r\n        if (!checkLayer) {\r\n            return;\r\n        }\r\n        //\u901A\u8FC7\u8BB0\u5F55\u627E\u5230\u8981\u6253\u5F00\u7684\u754C\u9762\r\n        let layer: Layer = LayerManager.getLayer(guiProxy.info.layer) as Layer;\r\n        if (layer.isFullScrene && layer.openRecord.length > 1) {\r\n            layer.openRecord.pop();\r\n            let guikey: string = layer.openRecord.pop();\r\n            // console.log(\"\u5173\u95ED\uFF1A\"+key+\"\u65F6\uFF0C\u56DE\u5230\uFF1A\"+guikey);\r\n            this.__open(guikey);\r\n        }\r\n    }\r\n\r\n    /**\r\n     * \u68C0\u6D4BUI\u5173\u8054\u5173\u7CFB\r\n     * @param key \r\n     */\r\n    private __checkRelation(key: string, isOpen: boolean): void {\r\n        //\u5173\u8054UI\r\n        let relation: IRelationInfo = RelationManager.getRelation(key);\r\n        let relationList: IRelationList;\r\n        if (relation) {\r\n            //\u6253\u5F00\r\n            if (isOpen) {\r\n                relationList = relation.show;\r\n            } else {//\u5173\u95ED\r\n                relationList = relation.hide;\r\n            }\r\n            let guiKey: string;\r\n            for (let index = 0; index < relationList.show.length; index++) {\r\n                guiKey = relationList.show[index];\r\n                this.__open(guiKey);\r\n            }\r\n            for (let index = 0; index < relationList.hide.length; index++) {\r\n                guiKey = relationList.hide[index];\r\n                this.__close(guiKey);\r\n            }\r\n        }\r\n    }\r\n\r\n    /**\r\n     * \u83B7\u53D6\u754C\u9762\u72B6\u6001\r\n     * @param key \r\n     */\r\n    getState(key: string): GUIState {\r\n        if (!this.__registered.has(key)) {\r\n            throw new Error(\"GUI:\" + key + \"\u672A\u6CE8\u518C\uFF01\")\r\n        }\r\n        //\u4E0D\u5B58\u5728\r\n        if (!this.__instances.has(key)) {\r\n            return GUIState.Null;\r\n        }\r\n        let proxy: GUIProxy = this.__instances.get(key);\r\n        return proxy.info.state;\r\n    }\r\n\r\n    setState(key: string, state: GUIState): void {\r\n        if (!this.__registered.has(key)) {\r\n            throw new Error(\"GUI:\" + key + \"\u672A\u6CE8\u518C\uFF01\")\r\n        }\r\n        let info: IGUIInfo = this.__registered.get(key);\r\n        info.state = state;\r\n    }\r\n\r\n    /**\r\n     * \u662F\u5426\u5DF2\u6253\u5F00\u6216\u6253\u5F00\u4E2D\r\n     * @param key \r\n     * @returns \r\n     */\r\n    isOpen(key: string): boolean {\r\n        let state: GUIState = this.getState(key);\r\n        if (state == GUIState.Showing || state == GUIState.Showed) {\r\n            return true;\r\n        }\r\n        return false;\r\n    }\r\n}\r\n", "import { Color } from \"cc\";\r\nimport { AsyncOperation, GComponent, GGraph, GObject, UIPackage } from \"fairygui-cc\";\r\nimport { GUIPlugin } from \"../GUIPlugin\";\r\nimport { BaseMediator } from \"./BaseMediator\";\r\nimport { GUIManager } from \"./GUIManager\";\r\nimport { IGUIInfo } from \"./IGUIInfo\";\r\nimport { IGUIMediator } from \"./IGUIMediator\";\r\nimport { SubGUIMediator } from \"./SubGUIMediator\";\r\nimport { ITabData } from \"./tabs/ITabData\";\r\nimport { TabContainer } from \"./tabs/TabContainer\";\r\nimport { Module, ModuleManager, ResURL } from \"dream-cc-core\";\r\n\r\n\r\n/**\r\n * UI\u903B\u8F91\u7C7B\r\n */\r\nexport class GUIMediator extends BaseMediator implements IGUIMediator {\r\n\r\n    info: IGUIInfo | null = null;\r\n    /**\u6A21\u5757*/\r\n    local_module: Module;\r\n    /**\u4F9D\u8D56\u7684\u914D\u7F6E\u8868 */\r\n    configs: Array<string>;\r\n    /**\u4F9D\u8D56\u7684\u8D44\u6E90*/\r\n    assets: Array<ResURL>;\r\n    /**\u662F\u5426\u663E\u793A\u8FDB\u5EA6\u754C\u9762 */\r\n    showLoadingView: boolean = false;\r\n    /**\u663E\u793A\u754C\u9762\u65F6\u662F\u5426\u5173\u95ED\u8FDB\u5EA6\u6761*/\r\n    closeLoadingView: boolean = true;\r\n    /**\u754C\u9762\u4ECE\u5F00\u59CB\u52A0\u8F7D\u5230\u5E95\u5C42\u8C03\u7528Show\u65B9\u6CD5\u4E4B\u524D\u7684\u8FDB\u5EA6\u603B\u6BD4\u503C */\r\n    loadingViewTotalRatio: number = 1;\r\n    /**\u6839\u8282\u70B9 */\r\n    viewComponent: GComponent | null = null;\r\n    /**\u9875\u7B7E\u5BB9\u5668*/\r\n    tabContainer: TabContainer;\r\n    /**\r\n     * \u64AD\u653E\u663E\u793A\u52A8\u753B\r\n     * @param complete \r\n     */\r\n    playShowAnimation?: (complete: () => void) => void;\r\n    /**\r\n     * \u754C\u9762\u5173\u95ED\u65F6\u64AD\u653E\u7684\u52A8\u753B\r\n     * @param complete \r\n     */\r\n    playHideAnimation?: (complete: () => void) => void;\r\n    /**\u906E\u7F69 */\r\n    private __mask: GGraph | null = null;\r\n\r\n    /**\u521B\u5EFAUI\u5B8C\u6210\u56DE\u8C03*/\r\n    private __createdCallBack: () => void;\r\n\r\n    /**\u5B50Mediator(\u7528\u4E8E\u4EE3\u7801\u62C6\u5206),\u8BB0\u4F4F\u53EA\u80FD\u5728Init\u51FD\u6570\u4E2D\u8D4B\u503C*/\r\n    protected $subMediators: Array<SubGUIMediator>;\r\n\r\n    constructor() {\r\n        super();\r\n    }\r\n\r\n    /**\r\n     * \u521B\u5EFAUI\r\n     * @param info \r\n     * @param created \r\n     */\r\n    createUI(info: any, created: () => void): void {\r\n        this.info = info;\r\n        if (this.info == null) {\r\n            throw new Error(\"GUI \u4FE1\u606F\u4E0D\u80FD\u4E3A\u7A7A\");\r\n        }\r\n        this.__createdCallBack = created;\r\n        this.__createUI(true);\r\n    }\r\n\r\n    private __asyncCreator: AsyncOperation\r\n    private __createUI(async: boolean): void {\r\n        let packageName: string = this.info.packageName;\r\n        let com_name: string = this.info!.comName;\r\n        if (this.info!.comName.startsWith(\"UI_\")) {\r\n            com_name = this.info!.comName.substring(\"UI_\".length);\r\n        }\r\n        if (async) {\r\n            this.__asyncCreator = new AsyncOperation();\r\n            this.__asyncCreator.callback = this.__uiCreated.bind(this);\r\n            this.__asyncCreator.createObject(packageName, com_name);\r\n        } else {\r\n            try {\r\n                let ui: GObject = UIPackage.createObject(packageName, com_name);\r\n                this.__uiCreated(ui);\r\n            } catch (err) {\r\n                throw new Error(\"\u521B\u5EFA\u754C\u9762\u5931\u8D25\uFF1A\" + this.info!.packageName + \" \" + com_name);\r\n            }\r\n        }\r\n    }\r\n\r\n    private __uiCreated(ui: GObject): void {\r\n        let uiCom: GComponent = ui.asCom;\r\n        uiCom.makeFullScreen();\r\n        //\u5982\u679C\u9700\u8981\u906E\u7F69\r\n        if (this.info!.modal) {\r\n            this.ui = uiCom;\r\n            this.viewComponent = new GComponent();\r\n            this.viewComponent.makeFullScreen();\r\n\r\n            this.__mask = new GGraph();\r\n            this.__mask.touchable = true;\r\n            this.__mask.makeFullScreen();\r\n\r\n            this.__mask.drawRect(0, Color.BLACK, this.info.maskAlpha ? GUIPlugin.AlphaMaskColor : GUIPlugin.MaskColor);\r\n\r\n            this.viewComponent.addChild(this.__mask);\r\n            if (this.info!.modalClose) {\r\n                this.__mask.onClick(this._maskClickHandler, this);\r\n            }\r\n            this.viewComponent.addChild(this.ui!);\r\n        } else {\r\n            this.ui = this.viewComponent = uiCom;\r\n        }\r\n        this.ui.name = this.info.key;\r\n        if (this.__createdCallBack) {\r\n            this.__createdCallBack();\r\n            this.__createdCallBack = null;\r\n        }\r\n    }\r\n\r\n    protected _maskClickHandler(): void {\r\n        GUIManager.close(this.info.key);\r\n    }\r\n\r\n    init(): void {\r\n        super.init();\r\n    }\r\n\r\n    show(data?: ITabData): void {\r\n        super.show(data);\r\n        if (this.$subMediators) {\r\n            for (let index = 0; index < this.$subMediators.length; index++) {\r\n                const element = this.$subMediators[index];\r\n                element.show(data);\r\n            }\r\n        }\r\n        if (this.tabContainer) {\r\n            this.tabContainer.show(data);\r\n        }\r\n    }\r\n\r\n    showedUpdate(data?: ITabData): void {\r\n        super.showedUpdate(data);\r\n        if (this.$subMediators) {\r\n            for (let index = 0; index < this.$subMediators.length; index++) {\r\n                const element = this.$subMediators[index];\r\n                element.showedUpdate(data);\r\n            }\r\n        }\r\n        if (this.tabContainer) {\r\n            this.tabContainer.showedUpdate(data);\r\n        }\r\n    }\r\n\r\n    hide(): void {\r\n        super.hide();\r\n        if (this.$subMediators) {\r\n            for (let index = 0; index < this.$subMediators.length; index++) {\r\n                const element = this.$subMediators[index];\r\n                element.hide();\r\n            }\r\n        }\r\n        if (this.tabContainer) {\r\n            this.tabContainer.hide();\r\n        }\r\n    }\r\n\r\n    /**\r\n     * \u5173\u95ED\r\n     * @param checkLayer \u662F\u5426\u68C0\u67E5\u5168\u5C4F\u5C42\u8BB0\u5F55\r\n     */\r\n    close(checkLayer: boolean = true): void {\r\n        GUIManager.close(this.info.key, checkLayer);\r\n    }\r\n\r\n    tick(dt: number): void {\r\n        if (this.$subMediators) {\r\n            for (let index = 0; index < this.$subMediators.length; index++) {\r\n                const element = this.$subMediators[index];\r\n                element.tick(dt);\r\n            }\r\n        }\r\n    }\r\n\r\n    destroy(): void {\r\n        super.destroy();\r\n        if (this.__mask) {\r\n            this.__mask.offClick(this._maskClickHandler, this);\r\n            this.__mask.dispose();\r\n            this.__mask = null;\r\n        }\r\n        (<GComponent>this.viewComponent).dispose();\r\n        //\u5B50\u754C\u9762\u903B\u8F91\u7C7B\r\n        if (this.$subMediators) {\r\n            for (let index = 0; index < this.$subMediators.length; index++) {\r\n                const element = this.$subMediators[index];\r\n                element.destroy();\r\n            }\r\n        }\r\n        //\u4F9D\u8D56\u7684\u914D\u7F6E\r\n        this.configs = null;\r\n        this.assets = null;\r\n        if (this.tabContainer) {\r\n            this.tabContainer.destroy();\r\n            this.tabContainer = null;\r\n        }\r\n        if (this.local_module) {\r\n            ModuleManager.single.dispose(this.info.bundleName);\r\n            this.local_module = null;\r\n        }\r\n        this.info = null;\r\n    }\r\n}\r\n", "\r\nimport { GComponent } from \"fairygui-cc\";\r\nimport { BaseMediator } from \"./BaseMediator\";\r\nimport { GUIMediator } from \"./GUIMediator\";\r\n\r\n\r\n/**\r\n * \u5B50UI \u903B\u8F91\u5212\u5206\r\n */\r\nexport class SubGUIMediator extends BaseMediator {\r\n\r\n    /**\u6240\u5C5EGUI*/\r\n    owner: GUIMediator | null;\r\n\r\n    constructor(ui: GComponent | null, owner: GUIMediator | null) {\r\n        super();\r\n        if (ui == null) {\r\n            throw new Error(\"ui\u7EC4\u4EF6\u4E3A\u7A7A\");\r\n        }\r\n        this.ui = ui;\r\n        this.owner = owner;\r\n        this.inited = true;\r\n    }\r\n    \r\n    /**\r\n     * \u5B50\u7C7B\u5FC5\u987B\u5728\u6784\u9020\u51FD\u6570\u4E2D\u8C03\u7528\r\n     */\r\n    init(): void {\r\n\r\n    }\r\n\r\n    show(data: any): void {\r\n        super.show(data);\r\n    }\r\n\r\n    hide(): void {\r\n        super.hide();\r\n    }\r\n\r\n    destroy(): void {\r\n        super.destroy();\r\n        this.owner = null;\r\n        this.ui = null;\r\n    }\r\n}\r\n", "import { ITabPage } from \"./ITabPage\";\r\nimport { ITabData } from \"./ITabData\";\r\nimport { GComponent } from \"fairygui-cc\";\r\nimport { TabPage } from \"./TabPage\";\r\nimport { Binder } from \"dream-cc-core\";\r\n\r\n\r\n\r\n\r\n\r\n/**\r\n * \u9875\u7B7E\u5BB9\u5668\u7EC4\u4EF6\r\n */\r\nexport class TabContainer extends Binder {\r\n    /**Tab\u5BB9\u5668 */\r\n    ui: GComponent;\r\n    /**\u6240\u5C5E*/\r\n    owner: any;\r\n\r\n    private __pageInstanceMap: Map<number, ITabPage>;\r\n    /**\u5F53\u524D\u9875\u7B7E\u7D22\u5F15 */\r\n    currentIndex: number;\r\n    /**\u5F53\u524D\u9875\u7B7E */\r\n    currentPage: ITabPage;\r\n    /**\u9875\u7B7E\u521B\u5EFA\u51FD\u6570*/\r\n    private __createPage: (index: number) => ITabPage;\r\n    private __showing: boolean;\r\n\r\n    constructor(content: GComponent, createPage: (index: number) => ITabPage, owner: any) {\r\n        super();\r\n        this.__pageInstanceMap = new Map<number, ITabPage>();\r\n        this.ui = content;\r\n        this.__createPage = createPage;\r\n        this.owner = owner;\r\n        this.init();\r\n    }\r\n\r\n    /**\u5207\u6362\u5230\u67D0\u4E2A\u9875\u7B7E */\r\n    switchPage(index: number, data?: any): void {\r\n        if (index == this.currentIndex) {\r\n            return;\r\n        }\r\n        this.currentIndex = index;\r\n        //\u5148\u9690\u85CF\u5F53\u524D\u9875\u7B7E\r\n        if (this.currentPage) {\r\n            if (this.currentPage.ui.parent) {\r\n                this.currentPage.hide();\r\n                this.ui.removeChild(this.currentPage.ui);\r\n            }\r\n            this.currentPage = null;\r\n        }\r\n        this.currentPage = this.getPage(index);\r\n        if (this.__showing) {\r\n            //\u663E\u793A\r\n            this.currentPage.show(data);\r\n            this.ui.addChild(this.currentPage.ui);\r\n        }\r\n    }\r\n\r\n    init(): void {\r\n        super.init();\r\n    }\r\n\r\n    show(data?: ITabData): void {\r\n        this.__showing = true;\r\n        let page: number = data ? data.page || 0 : 0;\r\n        let pageData: ITabData = data ? data.pageData || null : null;\r\n        this.switchPage(page, pageData);\r\n        this.bindByRecords();\r\n    }\r\n\r\n    showedUpdate(data?: ITabData): void {\r\n        let page: number = data ? data.page || 0 : this.currentIndex;\r\n        let pageData: ITabData = data ? data.pageData || null : null;\r\n        if (page == this.currentIndex) {\r\n            this.currentPage.showedUpdate(pageData);\r\n        } else {\r\n            this.switchPage(page, pageData);\r\n        }\r\n    }\r\n\r\n    hide(): void {\r\n        if (this.currentPage) {\r\n            this.currentPage.hide();\r\n            this.ui.removeChild(this.currentPage.ui);\r\n            this.currentPage = null;\r\n        }\r\n        this.currentIndex = -1;\r\n        this.__showing = false;\r\n        this.unbindByRecords();\r\n    }\r\n\r\n    private getPage(index: number): ITabPage {\r\n        if (this.__pageInstanceMap.has(index)) {\r\n            return this.__pageInstanceMap.get(index);\r\n        }\r\n        if (!this.__createPage) {\r\n            throw new Error(\"Page\u521B\u5EFA\u51FD\u6570\u672A\u5B9A\u4E49\uFF01\");\r\n        }\r\n        let result: ITabPage = this.__createPage(index);\r\n        result.owner = this.owner;\r\n        result.ui.setSize(this.ui.width, this.ui.height);\r\n        result.init();\r\n        this.__pageInstanceMap.set(index, result);\r\n        return result;\r\n    }\r\n\r\n    destroy(): void {\r\n        super.destroy();\r\n        let values: IterableIterator<ITabPage> = this.__pageInstanceMap.values();\r\n        let page: TabPage;\r\n        for (let index = 0; index < this.__pageInstanceMap.size; index++) {\r\n            page = values.next().value;\r\n            page.destroy();\r\n        }\r\n        this.__pageInstanceMap.clear();\r\n        this.__pageInstanceMap = null;\r\n        this.ui = null;\r\n        this.currentPage = null;\r\n        this.currentIndex = undefined;\r\n    }\r\n}", "import { Binder } from \"dream-cc-core\";\r\nimport { ITabData } from \"./ITabData\";\r\nimport { ITabPage } from \"./ITabPage\";\r\n\r\n\r\n\r\n\r\nexport class TabPage extends Binder implements ITabPage {\r\n\r\n    /**\r\n     * UI\r\n     */\r\n    ui: any;\r\n\r\n    /**\r\n     * \u6240\u5C5E\u7684Mediator\r\n     */\r\n    owner: any;\r\n\r\n    constructor() {\r\n        super();\r\n    }\r\n\r\n    init(): void {\r\n        super.init();\r\n    }\r\n\r\n    show(data?: ITabData): void {\r\n        this.bindByRecords();\r\n    }\r\n\r\n    showedUpdate(data?: ITabData): void {\r\n\r\n    }\r\n\r\n    hide(): void {\r\n        this.unbindByRecords();\r\n    }\r\n\r\n    destroy(): void {\r\n        super.destroy();\r\n    }\r\n}"],
+  "mappings": "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",
+  "names": ["Injector", "Injector", "Injector", "TooltipPosMode", "GRoot", "findex", "assetManager", "UIPackage", "Res", "assetManager", "bundle", "Injector", "assetManager", "Node", "Event", "EventDispatcher", "Res", "GRoot", "UIPackage", "Event", "EventDispatcher", "Res", "assetManager", "Event", "Res", "EventDispatcher", "Node", "GUIState", "Event", "EventDispatcher", "Injector", "Color", "GComponent", "UIPackage", "ModuleManager", "UIPackage", "GComponent", "Color", "Binder", "Binder"]
+}
+

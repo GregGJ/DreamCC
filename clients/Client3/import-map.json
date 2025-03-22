@@ -1,6 +1,7 @@
-
 {
     "imports": {
-        "dream-cc-core":"./libs/dream-cc-core.mjs"
+        "dream-cc-core": "./assets/libs/dream-cc-core.mjs",
+        "fairygui-cc": "./assets/libs/fairygui-cc.mjs",
+        "dream-cc-gui":"./assets/libs/dream-cc-gui.mjs"
     }
 }

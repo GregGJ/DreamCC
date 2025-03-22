@@ -1,0 +1,22 @@
+[
+     {
+          "key": "Home",
+          "layer": "FullScreen",
+          "modal": false,
+          "modalClose": false,
+          "permanence": true,
+          "bundleName": "Home",
+          "packageName": "Home",
+          "comName": "Home"
+     },
+     {
+          "key": "Map",
+          "layer": "FullScreen",
+          "modal": false,
+          "modalClose": false,
+          "permanence": true,
+          "bundleName": "Map",
+          "packageName": "Map",
+          "comName": "UI_Map"
+     }
+]

@@ -4,10 +4,15 @@
   /* Add your custom configuration here. */
   "compilerOptions": {
     "strict": false,
-    "baseUrl": ".",
     "paths": {
       "dream-cc-core": [
-        "./libs/dream-cc-core"
+        "./assets/libs/dream-cc-core",
+      ],
+      "fairygui-cc": [
+        "./assets/libs/fairygui-cc",
+      ],
+      "dream-cc-gui": [
+        "./assets/libs/dream-cc-gui"
       ]
     }
   }

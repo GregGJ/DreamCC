@@ -1,0 +1,86 @@
+<div>
+    <div style="margin-left: 5px; margin-right: 5px;">
+        <div style="font-size: larger;color:rgb(255, 255, 255);">
+            <ui-label>配置:</ui-label>
+        </div>
+        <ui-prop resize>
+            <ui-label slot="label">UI配置文件</ui-label>
+            <ui-file slot="content" type="file" v-bind:value="guiconfigFile"
+                @change="guiConfigPathChanged($event.target.value)"></ui-file>
+        </ui-prop>
+        <ui-prop resize>
+            <ui-label slot="label">UI枚举定义类</ui-label>
+            <ui-file slot="content" type="file" v-bind:value="guiEnumFile"
+                @change="guiEnumFileChanged($event.target.value)" extensions="ts"></ui-file>
+        </ui-prop>
+        <ui-prop resize>
+            <ui-label slot="label">Layer枚举定义类</ui-label>
+            <ui-file slot="content" type="file" v-bind:value="layerEnumFile"
+                @change="layerEnumFileChanged($event.target.value)" extensions="ts"></ui-file>
+        </ui-prop>
+        <ui-prop resize>
+            <ui-label slot="label">模块存放路径</ui-label>
+            <ui-file slot="content" type="directory" v-bind:value="modulesPath"
+                @change="modulesPathChanged($event.target.value)"></ui-file>
+        </ui-prop>
+    </div>
+    <!--模块-->
+    <div style="margin-left: 5px; margin-right: 5px;">
+        <div style="font-size: larger;color:rgb(255, 255, 255);">
+            <ui-label>代码包:</ui-label>
+        </div>
+        <ui-prop resize>
+            <ui-input slot="label" placeholder="过滤" v-bind:value="moduleFilter"
+                @change="moduleFilterChanged($event.target.value)"></ui-input>
+            <ui-select slot="content" style="width: 100%;" tabindex="-1"
+                @change="moduleNameChanged($event.target.value)">
+                <option v-for="(module,index) in modules">{{module}}</option>
+            </ui-select>
+        </ui-prop>
+
+        <div style="font-size: larger;color:rgb(255, 255, 255);">
+            <ui-label>依赖组件:</ui-label>
+        </div>
+        <ui-prop>
+            <ui-select tabindex="-1" style="width: 100%;" @change="componentChanged($event.target.value)"
+                v-bind:value="componentName">
+                <option v-for="(component,index) in components">{{component}}</option>
+            </ui-select>
+        </ui-prop>
+    </div>
+    <!--层级-->
+    <div style="margin-left: 5px; margin-right: 5px;">
+        <div style="font-size: larger;color:rgb(255, 255, 255);">
+            <ui-label slot="label">层级:</ui-label>
+        </div>
+        <ui-select slot="label" tabindex="-1" style="width: 100%;" @change="layerChanged($event.target.value)">
+            <option v-for="(layer,index) in layers">{{layer}}</option>
+        </ui-select>
+    </div>
+    <!--checkbox-->
+    <div style="margin-left: 5px; margin-right: 5px;font-size: 30;">
+        <ui-checkbox v-bind:value="permanence" @change="permanenceChanged($event.target.value)">永不销毁</ui-checkbox>
+        <ui-checkbox v-bind:value="modal" @change="modalChanged($event.target.value)">是否使用蒙版</ui-checkbox>
+        <ui-checkbox v-bind:value="modalClose" @change="modalCloseChanged($event.target.value)">蒙版点击时关闭UI</ui-checkbox>
+    </div>
+    <!--uiName-->
+    <div style="margin-left: 5px; margin-right: 5px;">
+        <div style="font-size: larger;color:rgb(255, 255, 255);">
+            <ui-label slot="label">UI名称:</ui-label>
+        </div>
+        <ui-input slot="label" placeholder="UI名称" v-bind:value="uiName"
+            @change="uiNameChanged($event.target.value)"></ui-input>
+    </div>
+    <!--uiCommant-->
+    <div style="margin-left: 5px; margin-right: 5px;">
+        <div style="font-size: larger;color:rgb(255, 255, 255);">
+            <ui-label slot="label">UI注释:</ui-label>
+        </div>
+        <ui-input slot="label" placeholder="UI注释" v-bind:value="uiComments"
+            @change="uiCommentsChanged($event.target.value)"></ui-input>
+    </div>
+    <!--创建按钮-->
+    <div style="margin-left: 5px; margin-right: 5px;margin-top: 10px;">
+        <ui-button class="green" style="width: 100%;" @click="createButtonClick">创建UI</ui-button>
+    </div>
+</div>
