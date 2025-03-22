@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1920,1080">
+  <displayList>
+    <image id="n0_gssq" name="n0" src="gssq1" fileName="images/homeMenu_bg_0.png" xy="-1,-1">
+      <relation target="" sidePair="width-width,height-height"/>
+    </image>
+    <movieclip id="n2_gssq" name="logo" src="gssqk" fileName="components/Logo.jta" xy="148,1" playing="false">
+      <relation target="" sidePair="left-left%,top-top%"/>
+    </movieclip>
+    <component id="n10_gssq" name="menu" src="gssq81" fileName="Menu.xml" xy="103,632">
+      <relation target="" sidePair="left-left%,bottom-bottom%"/>
+    </component>
+  </displayList>
+</component>

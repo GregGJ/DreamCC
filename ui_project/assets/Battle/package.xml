@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<packageDescription id="xqz4mczv">
+  <resources>
+    <component id="d1aq0" name="BattleView.xml" path="/" exported="true"/>
+    <component id="id0z3c" name="BottomUI.xml" path="/bottom/"/>
+    <image id="u6wq3d" name="base_powers_bg.png" path="/bottom/"/>
+    <image id="u6wq3e" name="bg_bottom_bar.png" path="/bottom/"/>
+    <image id="u6wq3f" name="bg_bottom_center.png" path="/bottom/"/>
+    <image id="u6wq3g" name="bg_bottom_left.png" path="/bottom/"/>
+    <image id="u6wq3h" name="bg_bottom_nextwave.png" path="/bottom/"/>
+    <image id="u6wq3i" name="bg_bottom_right.png" path="/bottom/" scale="9grid" scale9grid="112,38,5,10"/>
+    <image id="u6wq3j" name="base.png" path="/bottom/"/>
+    <image id="u6wq3l" name="heroPortrait_0001.png" path="/bottom/"/>
+    <component id="u6wq3m" name="Hero.xml" path="/bottom/"/>
+    <component id="u6wq3n" name="Skill.xml" path="/bottom/"/>
+    <component id="u6wq3o" name="TopUI.xml" path="/top/"/>
+    <image id="u6wq3p" name="top_left.png" path="/top/"/>
+    <image id="u6wq3q" name="heroPortrait_0001(1).png" path="/bottom/"/>
+    <image id="u6wq3r" name="pause_base.png" path="/top/"/>
+    <image id="u6wq3s" name="pause_btn_0001.png" path="/top/"/>
+    <image id="u6wq3t" name="pause_btn_0002.png" path="/top/"/>
+    <component id="u6wq3u" name="InfoUI.xml" path="/top/"/>
+    <component id="u6wq3v" name="PuaseButton.xml" path="/top/"/>
+    <image id="u6wq3w" name="nextwave_0001.png" path="/bottom/"/>
+    <image id="u6wq3x" name="nextwave_0002.png" path="/bottom/"/>
+    <image id="u6wq3y" name="nextwave_0032.png" path="/bottom/"/>
+    <component id="u6wq3z" name="StartButton.xml" path="/bottom/"/>
+    <component id="u6wq40" name="StartButtonGroup.xml" path="/bottom/"/>
+    <image id="9btn41" name="defeat_bg_notxt.png" path="/defeated/"/>
+    <component id="9btn42" name="DefeatedView.xml" path="/defeated/"/>
+    <component id="9btn43" name="DefeatedWindow.xml" path="/defeated/" exported="true"/>
+    <image id="9btn44" name="victoryBadges_notxt_0001.png" path="/settlement/images/"/>
+    <image id="9btn45" name="victoryStars_0028.png" path="/settlement/images/"/>
+    <image id="9btn46" name="victoryStars_0029.png" path="/settlement/images/"/>
+    <image id="9btn47" name="victoryStars_0030.png" path="/settlement/images/"/>
+    <image id="9btn48" name="victoryStars_0031.png" path="/settlement/images/"/>
+    <image id="9btn49" name="victoryStars_0032.png" path="/settlement/images/"/>
+    <image id="9btn4a" name="victoryStars_0033.png" path="/settlement/images/"/>
+    <image id="9btn4b" name="victoryStars_0034.png" path="/settlement/images/"/>
+    <image id="9btn4c" name="victoryStars_0035.png" path="/settlement/images/"/>
+    <image id="9btn4d" name="victoryStars_0036.png" path="/settlement/images/"/>
+    <image id="9btn4e" name="victoryStars_0037.png" path="/settlement/images/"/>
+    <image id="9btn4f" name="victoryStars_0038.png" path="/settlement/images/"/>
+    <image id="9btn4g" name="victoryStars_0039.png" path="/settlement/images/"/>
+    <image id="9btn4h" name="victoryStars_0040.png" path="/settlement/images/"/>
+    <image id="9btn4i" name="victoryStars_0041.png" path="/settlement/images/"/>
+    <image id="9btn4j" name="victoryStars_0042.png" path="/settlement/images/"/>
+    <image id="9btn4k" name="victoryStars_0043.png" path="/settlement/images/"/>
+    <image id="9btn4l" name="victoryStars_0044.png" path="/settlement/images/"/>
+    <image id="9btn4m" name="victoryStars_0045.png" path="/settlement/images/"/>
+    <image id="9btn4n" name="victoryStars_0046.png" path="/settlement/images/"/>
+    <image id="9btn4o" name="victoryStars_0047.png" path="/settlement/images/"/>
+    <image id="9btn4p" name="victoryStars_0048.png" path="/settlement/images/"/>
+    <image id="9btn4q" name="victoryStars_0049.png" path="/settlement/images/"/>
+    <image id="9btn4r" name="victoryStars_0050.png" path="/settlement/images/"/>
+    <image id="9btn4s" name="victoryStars_0051.png" path="/settlement/images/"/>
+    <image id="9btn4t" name="victoryStars_0052.png" path="/settlement/images/"/>
+    <image id="9btn4u" name="victoryStars_0027.png" path="/settlement/images/"/>
+    <image id="9btn4v" name="victoryStars_0053.png" path="/settlement/images/"/>
+    <image id="9btn4w" name="victoryStars_0026.png" path="/settlement/images/"/>
+    <image id="9btn4x" name="victoryStars_0024.png" path="/settlement/images/"/>
+    <image id="9btn4y" name="victoryBadges_notxt_0002.png" path="/settlement/images/"/>
+    <image id="9btn4z" name="victoryBadges_notxt_0003.png" path="/settlement/images/"/>
+    <image id="9btn50" name="victoryStars_0001.png" path="/settlement/images/"/>
+    <image id="9btn51" name="victoryStars_0002.png" path="/settlement/images/"/>
+    <image id="9btn52" name="victoryStars_0003.png" path="/settlement/images/"/>
+    <image id="9btn53" name="victoryStars_0004.png" path="/settlement/images/"/>
+    <image id="9btn54" name="victoryStars_0005.png" path="/settlement/images/"/>
+    <image id="9btn55" name="victoryStars_0006.png" path="/settlement/images/"/>
+    <image id="9btn56" name="victoryStars_0007.png" path="/settlement/images/"/>
+    <image id="9btn57" name="victoryStars_0008.png" path="/settlement/images/"/>
+    <image id="9btn58" name="victoryStars_0009.png" path="/settlement/images/"/>
+    <image id="9btn59" name="victoryStars_0010.png" path="/settlement/images/"/>
+    <image id="9btn5a" name="victoryStars_0011.png" path="/settlement/images/"/>
+    <image id="9btn5b" name="victoryStars_0012.png" path="/settlement/images/"/>
+    <image id="9btn5c" name="victoryStars_0013.png" path="/settlement/images/"/>
+    <image id="9btn5d" name="victoryStars_0014.png" path="/settlement/images/"/>
+    <image id="9btn5e" name="victoryStars_0015.png" path="/settlement/images/"/>
+    <image id="9btn5f" name="victoryStars_0016.png" path="/settlement/images/"/>
+    <image id="9btn5g" name="victoryStars_0017.png" path="/settlement/images/"/>
+    <image id="9btn5h" name="victoryStars_0018.png" path="/settlement/images/"/>
+    <image id="9btn5i" name="victoryStars_0019.png" path="/settlement/images/"/>
+    <image id="9btn5j" name="victoryStars_0020.png" path="/settlement/images/"/>
+    <image id="9btn5k" name="victoryStars_0021.png" path="/settlement/images/"/>
+    <image id="9btn5l" name="victoryStars_0022.png" path="/settlement/images/"/>
+    <image id="9btn5m" name="victoryStars_0023.png" path="/settlement/images/"/>
+    <image id="9btn5n" name="victoryStars_0025.png" path="/settlement/images/"/>
+    <image id="9btn5o" name="victoryStars_0054.png" path="/settlement/images/"/>
+    <component id="9btn5p" name="SettlementView.xml" path="/settlement/"/>
+    <movieclip id="9btn5q" name="StarAni.jta" path="/settlement/"/>
+    <component id="9btn5r" name="SettlementWindow.xml" path="/settlement/" exported="true"/>
+    <image id="ptu95s" name="gui_ring.png" path="/menu/images/"/>
+    <component id="ptu95t" name="MeneView.xml" path="/menu/"/>
+    <image id="97pi8a" name="glow_ico_main.png" path="/menu/images/"/>
+    <image id="97pi8b" name="glow_ico_sell.png" path="/menu/images/"/>
+    <image id="97pi8c" name="glow_ico_special.png" path="/menu/images/"/>
+    <image id="97pi8d" name="glow_ico_sub.png" path="/menu/images/"/>
+    <component id="97pi8e" name="BuildButton.xml" path="/menu/components/" exported="true"/>
+    <image id="97pi8f" name="price_tag.png" path="/menu/images/"/>
+    <image id="97pi8g" name="price_tag_disabled.png" path="/menu/images/"/>
+    <component id="97pi8j" name="UpLevelButton.xml" path="/menu/components/" exported="true"/>
+    <image id="97pi8k" name="main_icons_0005.png" path="/menu/images/"/>
+    <image id="97pi8l" name="main_icons_0005_disabled.png" path="/menu/images/"/>
+    <image id="97pi8m" name="ico_sell_0001.png" path="/menu/images/"/>
+    <image id="97pi8n" name="ico_sell_0001_disabled.png" path="/menu/images/"/>
+    <component id="97pi8o" name="SoldButton.xml" path="/menu/components/" exported="true"/>
+    <image id="97pi8p" name="sub_icons_0001.png" path="/menu/images/"/>
+    <image id="97pi8q" name="sub_icons_0001_disabled.png" path="/menu/images/"/>
+    <component id="97pi8r" name="RallyButton.xml" path="/menu/components/" exported="true"/>
+    <component id="97pi8s" name="MeneWindow.xml" path="/menu/" exported="true"/>
+    <component id="97pi8u" name="Content.xml" path="/menu/"/>
+    <image id="ksqm8v" name="rally_circle.png" path="/menu/images/" disableTrim="true"/>
+    <image id="ksqm8w" name="range_circle.png" path="/menu/images/"/>
+    <component id="ksqm8x" name="RangeCircle1.xml" path="/menu/components/"/>
+    <component id="ksqm8y" name="RangeCircle2.xml" path="/menu/components/"/>
+    <component id="ksqm8z" name="RangeCircleView1.xml" path="/menu/components/" exported="true"/>
+    <component id="ksqm90" name="RangeCircleView2.xml" path="/menu/components/" exported="true"/>
+  </resources>
+  <publish name="" genCode="true"/>
+</packageDescription>

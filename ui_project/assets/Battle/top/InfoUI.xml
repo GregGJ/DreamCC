@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="524,108">
+  <displayList>
+    <image id="n0_u6wq" name="n0" src="u6wq3p" fileName="top/top_left.png" xy="0,0"/>
+    <text id="n1_u6wq" name="txt_hp" xy="107,59" size="42,29" fontSize="20" color="#ffffff" vAlign="middle" autoSize="none" autoClearText="true" text="100"/>
+    <text id="n2_u6wq" name="txt_gold" xy="187,59" size="72,29" fontSize="20" color="#ffffff" vAlign="middle" autoSize="none" autoClearText="true" text="1000"/>
+    <text id="n3_u6wq" name="txt_wave" xy="339,58" size="105,29" fontSize="20" color="#ffffff" vAlign="middle" autoSize="none" autoClearText="true" text="1000"/>
+  </displayList>
+</component>

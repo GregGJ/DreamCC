@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="889,448">
+  <controller name="c1" pages="0,,1," selected="0">
+    <action type="play_transition" fromPage="0" toPage="1" transition="showSlot"/>
+  </controller>
+  <displayList>
+    <component id="n9_gssq" name="menu002" src="eex09t" fileName="Menu002.xml" xy="441,28">
+      <gearDisplay controller="c1" pages="1"/>
+    </component>
+    <component id="n3_gssq" name="menu001" src="eex09s" fileName="Menu001.xml" xy="0,0" aspect="true"/>
+  </displayList>
+  <transition name="showSlot">
+    <item time="0" type="Alpha" target="n9_gssq" tween="true" startValue="0" endValue="0" duration="3"/>
+    <item time="0" type="XY" target="n9_gssq" tween="true" startValue="0,28,0,0.063" endValue="441,28,0.496,0.063" duration="24"/>
+    <item time="3" type="Alpha" target="n9_gssq" tween="true" startValue="0" endValue="1" duration="21"/>
+  </transition>
+</component>

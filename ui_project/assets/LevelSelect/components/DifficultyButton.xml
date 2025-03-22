@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="64,60" extention="Button">
+  <controller name="button" pages="0,up,1,down,2,over,3,selectedOver" selected="0"/>
+  <controller name="c1" pages="0,,1,,2," selected="0"/>
+  <displayList>
+    <image id="n0_lkyt" name="n0" src="lkytw" fileName="images/levelSelect_difficulty_0001.png" xy="0,0">
+      <gearDisplay controller="button" pages="0,2"/>
+      <gearDisplay2 controller="c1" pages="0" condition="0"/>
+      <relation target="" sidePair="width-width,height-height"/>
+    </image>
+    <image id="n1_lkyt" name="n1" src="lkytx" fileName="images/levelSelect_difficulty_0002.png" xy="0,0">
+      <gearDisplay controller="button" pages="1,3"/>
+      <gearDisplay2 controller="c1" pages="0" condition="0"/>
+      <relation target="" sidePair="width-width,height-height"/>
+    </image>
+    <image id="n2_lkyt" name="n2" src="lkyty" fileName="images/levelSelect_difficulty_0003.png" xy="0,0">
+      <gearDisplay controller="button" pages="0,2"/>
+      <gearDisplay2 controller="c1" pages="1" condition="0"/>
+    </image>
+    <image id="n3_lkyt" name="n3" src="lkytz" fileName="images/levelSelect_difficulty_0004.png" xy="0,0">
+      <gearDisplay controller="button" pages="1,3"/>
+      <gearDisplay2 controller="c1" pages="1" condition="0"/>
+    </image>
+    <image id="n4_lkyt" name="n4" src="lkyt10" fileName="images/levelSelect_difficulty_0005.png" xy="0,0">
+      <gearDisplay controller="button" pages="0,2"/>
+      <gearDisplay2 controller="c1" pages="2" condition="0"/>
+    </image>
+    <image id="n5_lkyt" name="n5" src="lkyt11" fileName="images/levelSelect_difficulty_0006.png" xy="0,0">
+      <gearDisplay controller="button" pages="1,3"/>
+      <gearDisplay2 controller="c1" pages="2" condition="0"/>
+    </image>
+  </displayList>
+  <Button/>
+</component>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="422,34" extention="Slider">
+  <displayList>
+    <image id="n0_gssq" name="n0" src="gssqh" fileName="images/options_barBg.png" xy="0,0" size="422,34">
+      <relation target="" sidePair="width-width,height-height"/>
+    </image>
+    <image id="n1_gssq" name="bar" src="gssqg" fileName="images/options_bar.png" xy="14,11" size="396,15"/>
+    <component id="n2_gssq" name="grip" src="gssqi" fileName="components/SondSlider_grip.xml" xy="380,-13">
+      <relation target="n1_gssq" sidePair="right-right"/>
+    </component>
+  </displayList>
+  <Slider/>
+</component>

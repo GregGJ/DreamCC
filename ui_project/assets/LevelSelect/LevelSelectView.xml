@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1202,720" opaque="false">
+  <controller name="c1" pages="0,,1,,2," selected="0"/>
+  <displayList>
+    <component id="n33_lkyt" name="n33" src="lkyt1s" fileName="components/bckground.xml" xy="0,0"/>
+    <component id="n2_lkyt" name="btn_c" src="lkytd" fileName="components/CampaignButton.xml" xy="1106,165">
+      <Button checked="true" controller="c1" page="0"/>
+    </component>
+    <component id="n3_lkyt" name="btn_h" src="lkyte" fileName="components/HeroicButton.xml" xy="1106,269">
+      <Button controller="c1" page="1"/>
+    </component>
+    <component id="n4_lkyt" name="btn_i" src="lkytg" fileName="components/IronButton.xml" xy="1106,373">
+      <Button controller="c1" page="2"/>
+    </component>
+    <component id="n5_lkyt" name="btn_close" src="vjqlb" fileName="buttons/closeButton/CloseButton.xml" pkg="xg9d8gh1" xy="1157,23"/>
+    <loader id="n9_lkyt" name="img_thumb" xy="228,183" size="342,246"/>
+    <image id="n10_lkyt" name="n10" src="lkytl" fileName="images/levelSelect_thumbFrame.png" xy="214,165"/>
+    <component id="n15_lkyt" name="btn_battle" src="lkytu" fileName="components/BattleButton.xml" xy="810,471"/>
+    <loader id="n16_lkyt" name="img_pass_diff" xy="698,516" size="64,60" fill="scaleFree"/>
+    <component id="n17_lkyt" name="btn_difficulty" src="lkyt17" fileName="components/DifficultyButton.xml" xy="986,516"/>
+    <image id="n19_lkyt" name="n19" src="lkyt1b" fileName="images/levelSelect_badges_0002.png" xy="309,487" group="n24_lkyt"/>
+    <image id="n18_lkyt" name="star_1" src="lkyt1a" fileName="images/levelSelect_badges_0001.png" xy="309,487" group="n24_lkyt"/>
+    <image id="n20_lkyt" name="n20" src="lkyt1b" fileName="images/levelSelect_badges_0002.png" xy="345,487" group="n24_lkyt"/>
+    <image id="n21_lkyt" name="star_2" src="lkyt1a" fileName="images/levelSelect_badges_0001.png" xy="345,487" group="n24_lkyt"/>
+    <image id="n22_lkyt" name="n22" src="lkyt1b" fileName="images/levelSelect_badges_0002.png" xy="381,487" group="n24_lkyt"/>
+    <image id="n23_lkyt" name="star_3" src="lkyt1a" fileName="images/levelSelect_badges_0001.png" xy="381,487" group="n24_lkyt"/>
+    <image id="n26_lkyt" name="n26" src="lkyt1d" fileName="images/levelSelect_badges_0004.png" xy="415,488" group="n24_lkyt"/>
+    <image id="n25_lkyt" name="star_4" src="lkyt1c" fileName="images/levelSelect_badges_0003.png" xy="415,488" group="n24_lkyt"/>
+    <image id="n28_lkyt" name="n28" src="lkyt19" fileName="images/levelSelect_badges_0006.png" xy="452,488" group="n24_lkyt"/>
+    <image id="n27_lkyt" name="star_5" src="lkyt18" fileName="images/levelSelect_badges_0005.png" xy="452,488" group="n24_lkyt"/>
+    <group id="n24_lkyt" name="stars" xy="309,487" size="177,33"/>
+    <component id="n57_id0z" name="title_2" src="id0z1t" fileName="components/Title.xml" xy="879,108" size="332,39" group="n32_lkyt">
+      <Label titleFontSize="28"/>
+    </component>
+    <text id="n14_lkyt" name="txt_desc" xy="702,138" size="347,218" group="n32_lkyt" font="KaiTi" fontSize="20" color="#564d2d" autoSize="height" autoClearText="true" text="你好，英勇而尊贵的战士！作为陛下军队的将军，迪纳斯国王需要你的帮助。&#xA;abcdefghijklnmopqrstwvxyz&#xA;南港市的居民报告称受到拦路强盗和其他不法歹徒的攻击。你必须带领一队人马前往南港，支援那座城市的防御。&#xA;&#xA;祝你好运，将军！">
+      <gearSize controller="c1" pages="1,2" values="347,150,1,1|347,218,1,1" default="347,249,1,1"/>
+    </text>
+    <component id="n58_id0z" name="title_3" src="id0z1t" fileName="components/Title.xml" xy="879,376" size="324,35" group="n35_lkyt">
+      <gearDisplay controller="c1" pages="1,2"/>
+      <Label title="1234" titleFontSize="25"/>
+    </component>
+    <image id="n29_lkyt" name="n29" src="lkyt1e" fileName="images/levelSelect_modebg_notxt_0001.png" xy="689,389" group="n35_lkyt"/>
+    <image id="n34_lkyt" name="n34" src="lkyt1q" fileName="images/levelSelect_modeRules_0010.png" xy="709,406" group="n35_lkyt"/>
+    <text id="n36_lkyt" name="n36" xy="780,411" size="64,23" group="n35_lkyt" fontSize="15" color="#7a6c3e" text="最大等级"/>
+    <text id="n37_lkyt" name="txt_lvl_limit" xy="780,434" size="65,26" group="n35_lkyt" fontSize="18" color="#645934" align="center" autoSize="none" text="1"/>
+    <image id="n39_lkyt" name="n39" src="lkyt1r" fileName="images/levelSelect_modeRules_0011.png" xy="903,407" group="n35_lkyt"/>
+    <image id="n38_lkyt" name="img_hero" src="lkyt1p" fileName="images/levelSelect_modeRules_0009.png" xy="903,407" group="n35_lkyt"/>
+    <text id="n40_lkyt" name="n40" xy="967,403" size="40,54" group="n35_lkyt" fontSize="18" color="#645934" align="center" vAlign="middle" autoSize="none" text="英雄"/>
+    <group id="n35_lkyt" name="n35" xy="689,358" size="376,110" group="n32_lkyt" advanced="true">
+      <gearDisplay controller="c1" pages="1,2"/>
+      <relation target="n14_lkyt" sidePair="top-bottom"/>
+    </group>
+    <image id="n31_lkyt" name="n31" src="lkyt1f" fileName="images/levelSelect_modebg_notxt_0002.png" xy="691,465" group="n52_lkyt"/>
+    <image id="n41_lkyt" name="n41" src="lkyt1h" fileName="images/levelSelect_modeRules_0001.png" xy="748,475" group="n52_lkyt"/>
+    <image id="n42_lkyt" name="img_dis_1" src="lkyt1i" fileName="images/levelSelect_modeRules_0002.png" xy="748,475" group="n52_lkyt"/>
+    <image id="n44_lkyt" name="n44" src="lkyt1j" fileName="images/levelSelect_modeRules_0003.png" xy="814,475" group="n52_lkyt"/>
+    <image id="n45_lkyt" name="img_dis_2" src="lkyt1k" fileName="images/levelSelect_modeRules_0004.png" xy="814,475" group="n52_lkyt"/>
+    <image id="n46_lkyt" name="n46" src="lkyt1l" fileName="images/levelSelect_modeRules_0005.png" xy="880,475" group="n52_lkyt"/>
+    <image id="n47_lkyt" name="img_dis_3" src="lkyt1m" fileName="images/levelSelect_modeRules_0006.png" xy="880,475" group="n52_lkyt"/>
+    <image id="n50_lkyt" name="n50" src="lkyt1n" fileName="images/levelSelect_modeRules_0007.png" xy="946,475" group="n52_lkyt"/>
+    <image id="n51_lkyt" name="img_dis_4" src="lkyt1o" fileName="images/levelSelect_modeRules_0008.png" xy="946,475" group="n52_lkyt"/>
+    <group id="n52_lkyt" name="n52" xy="691,465" size="376,80" group="n32_lkyt" advanced="true">
+      <gearDisplay controller="c1" pages="2"/>
+      <relation target="n35_lkyt" sidePair="top-bottom"/>
+    </group>
+    <group id="n32_lkyt" name="right" xy="689,88" size="378,456"/>
+    <component id="n56_id0z" name="title_1" src="id0z1t" fileName="components/Title.xml" xy="400,146" size="364,48">
+      <Label titleFontSize="35"/>
+    </component>
+  </displayList>
+</component>

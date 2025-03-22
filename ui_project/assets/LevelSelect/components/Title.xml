@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="324,36" pivot="0.5,0.5" anchor="true" extention="Label">
+  <displayList>
+    <text id="n1_id0z" name="title" xy="132,1" size="56,36" fontSize="26" color="#645934" text="1234"/>
+    <image id="n2_id0z" name="n2" src="lkyth" fileName="images/levelSelect_volutas_0001.png" xy="204,8">
+      <relation target="" sidePair="middle-middle"/>
+      <relation target="n1_id0z" sidePair="right-right"/>
+    </image>
+    <image id="n3_id0z" name="n3" src="lkyth" fileName="images/levelSelect_volutas_0001.png" xy="0,8" pivot="1,0" anchor="true" scale="-1,1">
+      <relation target="" sidePair="middle-middle"/>
+    </image>
+  </displayList>
+  <relation target="n2_id0z" sidePair="rightext-right"/>
+  <relation target="n1_id0z" sidePair="bottomext-bottom"/>
+</component>

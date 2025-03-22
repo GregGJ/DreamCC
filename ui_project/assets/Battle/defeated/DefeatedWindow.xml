@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="640,540">
+  <displayList>
+    <component id="n0_9btn" name="ui_view" src="9btn42" fileName="defeated/DefeatedView.xml" xy="0,0">
+      <relation target="" sidePair="center-center,middle-middle"/>
+    </component>
+  </displayList>
+</component>

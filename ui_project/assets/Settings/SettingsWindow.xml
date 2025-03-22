@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="720,570" opaque="false">
+  <displayList>
+    <component id="n0_gssq" name="view" src="u33a0" fileName="SettingsView.xml" xy="0,0">
+      <relation target="" sidePair="center-center,middle-middle"/>
+    </component>
+  </displayList>
+</component>

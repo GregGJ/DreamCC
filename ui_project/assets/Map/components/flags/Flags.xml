@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="88,120" pivot="0.5,0.84" anchor="true" extention="Button" hitTest="n0_eex0">
+  <controller name="c1" pages="0,未通关,1,已通战役,2,已通英雄,3,已通钢铁" selected="0"/>
+  <controller name="button" pages="3,up,4,down,5,over,6,selectedOver" selected="0"/>
+  <displayList>
+    <movieclip id="n4_eex0" name="ani_wing" src="eex0mo" fileName="components/flags/wingAni.jta" xy="0,0" playing="false"/>
+    <movieclip id="n1_eex0" name="ani_flags" src="eex0m8" fileName="components/flags/flagsAni.jta" xy="0,0"/>
+    <image id="n0_eex0" name="n0" src="eex0io" fileName="images/flags/map_flag_0180.png" xy="0,0">
+      <gearDisplay controller="button" pages="4,5,6"/>
+      <gearDisplay2 controller="c1" pages="0" condition="0"/>
+    </image>
+    <image id="n3_eex0" name="n3" src="eex0lx" fileName="images/flags/map_flag_0182.png" xy="0,0">
+      <gearDisplay controller="button" pages="4,5,6"/>
+      <gearDisplay2 controller="c1" pages="3" condition="0"/>
+    </image>
+    <image id="n2_eex0" name="n2" src="eex0kn" fileName="images/flags/map_flag_0181.png" xy="0,0">
+      <gearDisplay controller="button" pages="4,5,6"/>
+      <gearDisplay2 controller="c1" pages="1,2" condition="0"/>
+    </image>
+    <movieclip id="n6_eex0" name="ani_star_0" src="eex0na" fileName="components/flags/starAni.jta" xy="13,12" playing="false">
+      <gearDisplay controller="c1" pages="1,2,3"/>
+    </movieclip>
+    <movieclip id="n7_eex0" name="ani_star_1" src="eex0na" fileName="components/flags/starAni.jta" xy="28,12" playing="false">
+      <gearDisplay controller="c1" pages="1,2,3"/>
+    </movieclip>
+    <movieclip id="n8_eex0" name="ani_star_2" src="eex0na" fileName="components/flags/starAni.jta" xy="43,12" playing="false">
+      <gearDisplay controller="c1" pages="1,2,3"/>
+    </movieclip>
+  </displayList>
+  <Button/>
+</component>

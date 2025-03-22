@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1202,720" opaque="false">
+  <displayList>
+    <component id="n33_lkyt" name="view" src="lkyt1g" fileName="LevelSelectView.xml" xy="0,0">
+      <relation target="" sidePair="center-center,middle-middle"/>
+    </component>
+  </displayList>
+</component>

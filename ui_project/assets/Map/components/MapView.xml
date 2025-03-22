@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1920,1080">
+  <displayList>
+    <image id="n0_eex0" name="background" src="gssq1" fileName="images/map_background_0.png" xy="0,0">
+      <relation target="" sidePair="center-center,middle-middle"/>
+    </image>
+    <component id="n30_9bds" name="layer_path" src="9bdsnb" fileName="components/layers/PathLayer.xml" xy="0,0"/>
+    <component id="n31_9bds" name="layer_flags" src="9bdsnc" fileName="components/layers/FlagsLayer.xml" xy="0,0"/>
+  </displayList>
+</component>

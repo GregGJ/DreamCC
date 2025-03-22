@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<branchDescription>
+  <resources>
+    <image id="gssq92" name="homeMenu_btnStart_0003.png" path="/images/buttons/"/>
+    <image id="gssq94" name="homeMenu_btnCredits_0003.png" path="/images/buttons/"/>
+    <image id="gssq95" name="homeMenu_btnOptions_0001.png" path="/images/buttons/"/>
+    <image id="gssq96" name="homeMenu_btnOptions_0002.png" path="/images/buttons/"/>
+    <image id="gssq97" name="homeMenu_btnOptions_0003.png" path="/images/buttons/"/>
+    <image id="gssq98" name="homeMenu_btnSlot_0001.png" path="/images/buttons/"/>
+    <image id="gssq99" name="homeMenu_btnSlot_0002.png" path="/images/buttons/"/>
+    <image id="gssq9a" name="homeMenu_btnSlot_0003.png" path="/images/buttons/"/>
+    <image id="gssq9b" name="homeMenu_btnSlot_0004.png" path="/images/buttons/"/>
+    <image id="gssq9c" name="homeMenu_btnCredits_0002.png" path="/images/buttons/"/>
+    <image id="gssq9d" name="homeMenu_btnSlot_0005.png" path="/images/buttons/"/>
+    <image id="gssq9e" name="homeMenu_btnSlot_0007.png" path="/images/buttons/"/>
+    <image id="gssq9f" name="homeMenu_btnSlot_0008.png" path="/images/buttons/"/>
+    <image id="gssq9g" name="homeMenu_btnSlot_0009.png" path="/images/buttons/"/>
+    <image id="gssq9h" name="homeMenu_btnSlot_0010.png" path="/images/buttons/"/>
+    <image id="gssq9i" name="homeMenu_btnSlot_0011.png" path="/images/buttons/"/>
+    <image id="gssq9j" name="homeMenu_btnSlot_0012.png" path="/images/buttons/"/>
+    <image id="gssq9k" name="homeMenu_btnStart_0001.png" path="/images/buttons/"/>
+    <image id="gssq9l" name="homeMenu_btnStart_0002.png" path="/images/buttons/"/>
+    <image id="gssq9m" name="homeMenu_btnSlot_0006.png" path="/images/buttons/"/>
+    <image id="gssq9n" name="homeMenu_btnCredits_0001.png" path="/images/buttons/"/>
+  </resources>
+</branchDescription>

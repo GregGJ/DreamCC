@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="100,100">
+  <displayList>
+    <movieclip id="n0_eex0" name="n0" src="eex0na" fileName="components/flags/starAni.jta" xy="1,-2"/>
+    <movieclip id="n1_eex0" name="n1" src="eex0na" fileName="components/flags/starAni.jta" xy="17,-2"/>
+    <movieclip id="n2_eex0" name="n2" src="eex0na" fileName="components/flags/starAni.jta" xy="35,-2"/>
+  </displayList>
+</component>

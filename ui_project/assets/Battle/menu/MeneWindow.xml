@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="300,300" opaque="false">
+  <displayList>
+    <component id="n1_97pi" name="ui_view" src="ptu95t" fileName="menu/MeneView.xml" xy="150,150"/>
+    <component id="n2_rk4i" name="ui_circle" src="97pi8u" fileName="menu/Content.xml" xy="0,0"/>
+  </displayList>
+</component>

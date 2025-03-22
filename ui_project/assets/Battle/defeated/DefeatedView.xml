@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="640,540">
+  <displayList>
+    <image id="n0_9btn" name="n0" src="9btn41" fileName="defeated/defeat_bg_notxt.png" xy="0,0"/>
+    <component id="n1_9btn" name="btn_restart" src="gssq35" fileName="buttons/button003/Button003.xml" pkg="xg9d8gh1" xy="128,401">
+      <Button title="重新开始"/>
+    </component>
+    <component id="n2_9btn" name="btn_exit" src="gssq35" fileName="buttons/button003/Button003.xml" pkg="xg9d8gh1" xy="339,399">
+      <Button title="退出"/>
+    </component>
+    <text id="n3_9btn" name="txt_info" xy="129,207" size="384,150" fontSize="18" align="center" vAlign="middle" autoSize="none" text=""/>
+  </displayList>
+</component>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="226,184" extention="Button">
+  <controller name="button" pages="0,up,1,down,2,over,3,selectedOver" selected="0"/>
+  <displayList>
+    <image id="n0_gssq" name="n0" src="gssqh" fileName="images/buttons/mapButtons-notxt_0001.png" xy="0,0">
+      <gearDisplay controller="button" pages="0"/>
+      <relation target="" sidePair="width-width,height-height"/>
+    </image>
+    <image id="n1_gssq" name="n1" src="gssq7" fileName="images/buttons/mapButtons-notxt_0003.png" xy="0,0">
+      <gearDisplay controller="button" pages="1"/>
+      <relation target="" sidePair="width-width,height-height"/>
+    </image>
+    <image id="n2_gssq" name="n2" src="gssq6" fileName="images/buttons/mapButtons-notxt_0002.png" xy="0,0">
+      <gearDisplay controller="button" pages="2"/>
+      <relation target="" sidePair="width-width,height-height"/>
+    </image>
+    <image id="n3_gssq" name="n3" src="gssq6" fileName="images/buttons/mapButtons-notxt_0002.png" xy="0,0">
+      <gearDisplay controller="button" pages="3"/>
+      <relation target="" sidePair="width-width,height-height"/>
+    </image>
+    <text id="n4_gssq" name="title" xy="47,117" size="133,31" font="ui://xg9d8gh1gssq34" fontSize="18" color="#e9e9b2" align="center" vAlign="middle" autoSize="none" strokeColor="#000000" strokeSize="2" text="英雄殿堂"/>
+    <loader id="n5_gssq" name="icon" xy="74,43" size="82,70"/>
+  </displayList>
+  <Button/>
+</component>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="660,663">
+  <controller name="c1" pages="0,战役,1,英雄,2,钢铁" selected="0"/>
+  <displayList>
+    <component id="n6_9btn" name="ui_view" src="9btn5p" fileName="settlement/SettlementView.xml" xy="0,0">
+      <relation target="" sidePair="center-center,middle-middle"/>
+    </component>
+  </displayList>
+</component>

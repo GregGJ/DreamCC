@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1920,98">
+  <displayList>
+    <image id="n20_u6wq" name="n20" src="u6wq3e" fileName="bottom/bg_bottom_bar.png" xy="0,78">
+      <relation target="" sidePair="width-width,bottom-bottom"/>
+    </image>
+    <image id="n21_u6wq" name="n21" src="u6wq3f" fileName="bottom/bg_bottom_center.png" xy="1179,58">
+      <relation target="" sidePair="right-right,bottom-bottom"/>
+    </image>
+    <component id="n19_u6wq" name="n19" src="u6wq3n" fileName="bottom/Skill.xml" xy="138,6">
+      <relation target="" sidePair="left-left,bottom-bottom"/>
+    </component>
+    <component id="n23_u6wq" name="n23" src="u6wq3m" fileName="bottom/Hero.xml" xy="34,-44">
+      <relation target="" sidePair="left-left,bottom-bottom"/>
+    </component>
+    <component id="n24_u6wq" name="ui_start" src="u6wq40" fileName="bottom/StartButtonGroup.xml" xy="1640,23">
+      <relation target="" sidePair="right-right,bottom-bottom"/>
+    </component>
+  </displayList>
+</component>

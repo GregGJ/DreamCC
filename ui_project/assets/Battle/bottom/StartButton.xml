@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="74,74" extention="Button">
+  <controller name="button" pages="0,up,1,down,2,over,3,selectedOver,4,disabled,5,selectedDisabled" selected="4"/>
+  <displayList>
+    <image id="n0_u6wq" name="n0" src="u6wq3w" fileName="bottom/nextwave_0001.png" xy="0,0">
+      <gearDisplay controller="button" pages="0,2"/>
+      <relation target="" sidePair="width-width,height-height"/>
+    </image>
+    <image id="n1_u6wq" name="n1" src="u6wq3x" fileName="bottom/nextwave_0002.png" xy="0,0">
+      <gearDisplay controller="button" pages="1,3"/>
+      <relation target="" sidePair="width-width,height-height"/>
+    </image>
+    <image id="n2_u6wq" name="n2" src="u6wq3y" fileName="bottom/nextwave_0032.png" xy="0,0">
+      <gearDisplay controller="button" pages="4,5"/>
+    </image>
+  </displayList>
+  <Button/>
+</component>

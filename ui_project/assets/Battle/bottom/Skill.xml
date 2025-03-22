@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="405,92">
+  <displayList>
+    <image id="n19_u6wq" name="n19" src="u6wq3i" fileName="bottom/bg_bottom_right.png" xy="0,42" size="405,50" group="n24_u6wq"/>
+    <image id="n22_u6wq" name="n22" src="u6wq3d" fileName="bottom/base_powers_bg.png" xy="59,0" group="n24_u6wq"/>
+    <group id="n24_u6wq" name="n24" xy="0,0" size="405,92"/>
+  </displayList>
+</component>

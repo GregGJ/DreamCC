@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="570,448">
+  <displayList>
+    <image id="n3_gssq" name="n3" src="gssql" fileName="images/homeMenu_buttonsBg.png" xy="0,0">
+      <relation target="" sidePair="width-width,height-height"/>
+    </image>
+    <component id="n6_gssq" name="btn_start" src="gssq6v" fileName="components/StartButton.xml" xy="179,108"/>
+    <component id="n7_gssq" name="btn_options" src="gssq74" fileName="components/OptionsButton.xml" xy="213,259"/>
+    <component id="n8_gssq" name="n8" src="gssq7d" fileName="components/CreditsButton.xml" xy="230,362"/>
+  </displayList>
+</component>

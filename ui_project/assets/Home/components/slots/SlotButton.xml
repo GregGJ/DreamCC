@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="242,120" extention="Button">
+  <controller name="button" pages="0,up,1,down,2,over,3,selectedOver" selected="3"/>
+  <controller name="c1" pages="0,存档1,1,存档2,2,存档3" selected="0"/>
+  <displayList>
+    <image id="n0_gssq" name="n0" src="gssq8m" fileName="images/buttons/homeMenu_btnSlot_0001.png" xy="0,0">
+      <gearDisplay controller="button" pages="0"/>
+      <gearDisplay2 controller="c1" pages="0" condition="0"/>
+      <relation target="" sidePair="width-width,height-height"/>
+    </image>
+    <image id="n1_gssq" name="n1" src="gssq8o" fileName="images/buttons/homeMenu_btnSlot_0003.png" xy="0,0">
+      <gearDisplay controller="button" pages="1"/>
+      <gearDisplay2 controller="c1" pages="0" condition="0"/>
+      <relation target="" sidePair="width-width,height-height"/>
+    </image>
+    <image id="n2_gssq" name="n2" src="gssq8n" fileName="images/buttons/homeMenu_btnSlot_0002.png" xy="0,0">
+      <gearDisplay controller="button" pages="2,3"/>
+      <gearDisplay2 controller="c1" pages="0" condition="0"/>
+      <relation target="" sidePair="width-width,height-height"/>
+    </image>
+    <image id="n4_gssq" name="n4" src="gssq8s" fileName="images/buttons/homeMenu_btnSlot_0007.png" xy="0,0">
+      <gearDisplay controller="button" pages="0"/>
+      <gearDisplay2 controller="c1" pages="1" condition="0"/>
+    </image>
+    <image id="n5_gssq" name="n5" src="gssq8t" fileName="images/buttons/homeMenu_btnSlot_0008.png" xy="0,0">
+      <gearDisplay controller="button" pages="2,3"/>
+      <gearDisplay2 controller="c1" pages="1" condition="0"/>
+    </image>
+    <image id="n6_gssq" name="n6" src="gssq8u" fileName="images/buttons/homeMenu_btnSlot_0009.png" xy="0,0">
+      <gearDisplay controller="button" pages="1"/>
+      <gearDisplay2 controller="c1" pages="1" condition="0"/>
+    </image>
+    <image id="n7_gssq" name="n7" src="gssq8v" fileName="images/buttons/homeMenu_btnSlot_0010.png" xy="0,0">
+      <gearDisplay controller="button" pages="0"/>
+      <gearDisplay2 controller="c1" pages="2" condition="0"/>
+    </image>
+    <image id="n8_gssq" name="n8" src="gssq8w" fileName="images/buttons/homeMenu_btnSlot_0011.png" xy="0,0">
+      <gearDisplay controller="button" pages="2,3"/>
+      <gearDisplay2 controller="c1" pages="2" condition="0"/>
+    </image>
+    <image id="n9_gssq" name="n9" src="gssq8x" fileName="images/buttons/homeMenu_btnSlot_0012.png" xy="0,0">
+      <gearDisplay controller="button" pages="1"/>
+      <gearDisplay2 controller="c1" pages="2" condition="0"/>
+    </image>
+    <text id="n10_gssq" name="txt_star" xy="54,70" size="58,19" fontSize="12" vAlign="middle" autoSize="none" text="100/100"/>
+    <text id="n11_gssq" name="txt_heroic" xy="145,69" size="28,19" fontSize="12" vAlign="middle" autoSize="none" text=""/>
+    <text id="n12_gssq" name="txt_iron" xy="191,66" size="40,19" fontSize="12" text=""/>
+    <component id="n13_gssq" name="btn_close" src="gssq9r" fileName="components/CloseButton.xml" xy="186,11"/>
+  </displayList>
+  <Button/>
+</component>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="82,74" pivot="0.5,0.5" anchor="true" extention="Button">
+  <controller name="button" pages="0,up,1,down,2,over,3,selectedOver,4,disabled,5,selectedDisabled" selected="0"/>
+  <displayList>
+    <loader id="n0_97pi" name="img_up" xy="0,0" size="82,74">
+      <relation target="" sidePair="width-width,height-height"/>
+    </loader>
+    <image id="n1_97pi" name="n1" src="97pi8a" fileName="menu/images/glow_ico_main.png" xy="-4,-4">
+      <gearDisplay controller="button" pages="1,2,3"/>
+    </image>
+    <loader id="n6_97pi" name="img_disabled" xy="0,0" size="82,74">
+      <gearDisplay controller="button" pages="4,5"/>
+    </loader>
+    <image id="n3_97pi" name="n3" src="97pi8f" fileName="menu/images/price_tag.png" xy="16,60" group="n7_97pi">
+      <gearDisplay controller="button" pages="0,1,2,3"/>
+    </image>
+    <image id="n5_97pi" name="n5" src="97pi8g" fileName="menu/images/price_tag_disabled.png" xy="16,61" group="n7_97pi">
+      <gearDisplay controller="button" pages="3,4,5"/>
+    </image>
+    <text id="n4_97pi" name="title" xy="19,62" size="44,26" group="n7_97pi" fontSize="18" color="#ffcc00" align="center" vAlign="middle" autoSize="none" autoClearText="true" text="600">
+      <gearColor controller="button" pages="4,5" values="#666666,#000000|#999999,#000000" default="#ffcc00,#000000"/>
+    </text>
+    <group id="n7_97pi" name="n7" xy="16,60" size="50,32"/>
+  </displayList>
+  <Button/>
+</component>

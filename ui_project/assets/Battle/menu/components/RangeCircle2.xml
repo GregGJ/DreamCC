@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1,1">
+  <displayList>
+    <image id="n0_ksqm" name="n0" src="ksqm8w" fileName="menu/images/range_circle.png" xy="-164,-164" size="164,164">
+      <relation target="" sidePair="width-width,height-height,right-left,bottom-top"/>
+    </image>
+    <image id="n1_ksqm" name="n1" src="ksqm8w" fileName="menu/images/range_circle.png" xy="164,-164" size="164,164" scale="-1,1">
+      <relation target="" sidePair="width-width,height-height,left-right,bottom-top"/>
+    </image>
+    <image id="n2_ksqm" name="n2" src="ksqm8w" fileName="menu/images/range_circle.png" xy="-164,164" size="164,164" scale="1,-1">
+      <relation target="" sidePair="width-width,height-height,right-left,top-bottom"/>
+    </image>
+    <image id="n3_ksqm" name="n3" src="ksqm8w" fileName="menu/images/range_circle.png" xy="164,164" size="164,164" scale="-1,-1">
+      <relation target="" sidePair="width-width,height-height,left-right,top-bottom"/>
+    </image>
+  </displayList>
+</component>

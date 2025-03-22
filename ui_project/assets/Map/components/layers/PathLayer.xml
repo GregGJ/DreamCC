@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1920,1080">
+  <displayList>
+    <movieclip id="n0_9bds" name="mc_path_1" src="eex0gu" fileName="components/mapPaths/map_path_1.jta" xy="312,805" playing="false"/>
+    <movieclip id="n1_9bds" name="mc_path_2" src="eex0ly" fileName="components/mapPaths/map_path_2.jta" xy="351,770"/>
+    <movieclip id="n2_9bds" name="mc_path_3" src="eex0lz" fileName="components/mapPaths/map_path_3.jta" xy="511,740"/>
+    <movieclip id="n3_9bds" name="mc_path_4" src="eex0m0" fileName="components/mapPaths/map_path_4.jta" xy="465,624"/>
+    <movieclip id="n4_9bds" name="mc_path_5" src="eex0m1" fileName="components/mapPaths/map_path_5.jta" xy="357,309"/>
+    <movieclip id="n5_9bds" name="mc_path_6" src="eex0m2" fileName="components/mapPaths/map_path_6.jta" xy="407,190"/>
+    <movieclip id="n6_9bds" name="mc_path_7" src="eex0m3" fileName="components/mapPaths/map_path_7.jta" xy="751,141"/>
+    <movieclip id="n7_9bds" name="mc_path_8" src="eex0m4" fileName="components/mapPaths/map_path_8.jta" xy="795,66"/>
+    <movieclip id="n8_9bds" name="mc_path_9" src="eex0m5" fileName="components/mapPaths/map_path_9.jta" xy="1093,279"/>
+    <movieclip id="n9_9bds" name="mc_path_10" src="eex0m6" fileName="components/mapPaths/map_path_10.jta" xy="1552,481"/>
+    <movieclip id="n10_9bds" name="mc_path_11" src="eex0m7" fileName="components/mapPaths/map_path_11.jta" xy="1692,555"/>
+    <movieclip id="n11_9bds" name="mc_path_23" src="eex0mp" fileName="components/mapPaths/map_path_23.jta" xy="1340,191"/>
+    <movieclip id="n12_9bds" name="mc_path_24" src="eex0mq" fileName="components/mapPaths/map_path_24.jta" xy="1345,132"/>
+    <movieclip id="n13_9bds" name="mc_path_25" src="eex0mr" fileName="components/mapPaths/map_path_25.jta" xy="1412,116"/>
+  </displayList>
+</component>

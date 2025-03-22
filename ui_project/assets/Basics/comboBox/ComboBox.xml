@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="155,31" extention="ComboBox">
+  <controller name="button" pages="0,up,1,down,2,over,3,selectedOver" selected="0"/>
+  <displayList>
+    <graph id="n7_p1ln" name="n7" xy="0,0" size="155,31" type="rect" lineColor="#ff2c201b" fillColor="#ff413129">
+      <relation target="" sidePair="width-width,height-height"/>
+    </graph>
+    <graph id="n8_p1ln" name="n8" xy="135,1" size="19,29" type="rect" lineSize="0" fillColor="#ff5b4b33">
+      <relation target="" sidePair="height-height,right-right,top-top"/>
+    </graph>
+    <image id="n4_p1ln" name="n4" src="p1ln1d" fileName="comboBox/3421.png" xy="138,12">
+      <gearDisplay controller="button" pages="0"/>
+      <relation target="" sidePair="middle-middle,right-right"/>
+    </image>
+    <image id="n5_p1ln" name="n5" src="p1ln1a" fileName="comboBox/3422.png" xy="138,12">
+      <gearDisplay controller="button" pages="1,2,3"/>
+      <relation target="" sidePair="middle-middle,right-right"/>
+    </image>
+    <text id="n3_p1ln" name="title" xy="0,0" size="135,30" fontSize="20" color="#fff0ad" align="center" vAlign="middle" autoSize="none" singleLine="true" text="测试六个字">
+      <relation target="" sidePair="width-width,height-height"/>
+    </text>
+  </displayList>
+  <ComboBox dropdown="ui://xg9d8gh1p1ln18"/>
+</component>

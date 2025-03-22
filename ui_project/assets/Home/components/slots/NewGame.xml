@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="242,120">
+  <controller name="c1" pages="0,新游戏,1,存档" selected="0"/>
+  <displayList>
+    <component id="n0_gssq" name="btn_new_game" src="gssq7z" fileName="components/slots/NewGameButton.xml" xy="0,0">
+      <gearDisplay controller="c1" pages="0"/>
+      <relation target="" sidePair="width-width,height-height"/>
+    </component>
+    <component id="n1_gssq" name="btn_slot" src="gssq80" fileName="components/slots/SlotButton.xml" xy="0,0">
+      <gearDisplay controller="c1" pages="1"/>
+      <relation target="" sidePair="width-width,height-height"/>
+    </component>
+  </displayList>
+</component>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<packageDescription id="5gta1jjs">
+  <resources>
+    <component id="gssq0" name="Home.xml" path="/" exported="true"/>
+    <image id="gssq1" name="homeMenu_bg_0.png" path="/images/"/>
+    <image id="gssq3" name="homeMenu_logo_0001.png" path="/images/"/>
+    <image id="gssq4" name="homeMenu_logo_0015.png" path="/images/"/>
+    <image id="gssq5" name="homeMenu_logo_0014.png" path="/images/"/>
+    <image id="gssq6" name="homeMenu_logo_0013.png" path="/images/"/>
+    <image id="gssq7" name="homeMenu_logo_0012.png" path="/images/"/>
+    <image id="gssq8" name="homeMenu_logo_0011.png" path="/images/"/>
+    <image id="gssq9" name="homeMenu_logo_0010.png" path="/images/"/>
+    <image id="gssqa" name="homeMenu_logo_0016.png" path="/images/"/>
+    <image id="gssqb" name="homeMenu_logo_0009.png" path="/images/"/>
+    <image id="gssqc" name="homeMenu_logo_0007.png" path="/images/"/>
+    <image id="gssqd" name="homeMenu_logo_0006.png" path="/images/"/>
+    <image id="gssqe" name="homeMenu_logo_0005.png" path="/images/"/>
+    <image id="gssqf" name="homeMenu_logo_0004.png" path="/images/"/>
+    <image id="gssqg" name="homeMenu_logo_0003.png" path="/images/"/>
+    <image id="gssqh" name="homeMenu_logo_0002.png" path="/images/"/>
+    <image id="gssqi" name="homeMenu_logo_0008.png" path="/images/"/>
+    <image id="gssqj" name="homeMenu_logo_0017.png" path="/images/"/>
+    <movieclip id="gssqk" name="Logo.jta" path="/components/"/>
+    <image id="gssql" name="homeMenu_buttonsBg.png" path="/images/"/>
+    <component id="gssq6v" name="StartButton.xml" path="/components/"/>
+    <component id="gssq74" name="OptionsButton.xml" path="/components/"/>
+    <component id="gssq7d" name="CreditsButton.xml" path="/components/"/>
+    <image id="gssq7e" name="homeMenu_submenues_0001.png" path="/images/"/>
+    <component id="gssq7y" name="NewGame.xml" path="/components/slots/"/>
+    <component id="gssq7z" name="NewGameButton.xml" path="/components/slots/"/>
+    <component id="gssq80" name="SlotButton.xml" path="/components/slots/"/>
+    <component id="gssq81" name="Menu.xml" path="/"/>
+    <image id="gssq8h" name="homeMenu_btnStart_0003.png" path="/images/buttons/"/>
+    <image id="gssq8i" name="homeMenu_btnCredits_0003.png" path="/images/buttons/"/>
+    <image id="gssq8j" name="homeMenu_btnOptions_0001.png" path="/images/buttons/"/>
+    <image id="gssq8k" name="homeMenu_btnOptions_0002.png" path="/images/buttons/"/>
+    <image id="gssq8l" name="homeMenu_btnOptions_0003.png" path="/images/buttons/"/>
+    <image id="gssq8m" name="homeMenu_btnSlot_0001.png" path="/images/buttons/"/>
+    <image id="gssq8n" name="homeMenu_btnSlot_0002.png" path="/images/buttons/"/>
+    <image id="gssq8o" name="homeMenu_btnSlot_0003.png" path="/images/buttons/"/>
+    <image id="gssq8p" name="homeMenu_btnSlot_0004.png" path="/images/buttons/"/>
+    <image id="gssq8q" name="homeMenu_btnCredits_0002.png" path="/images/buttons/"/>
+    <image id="gssq8r" name="homeMenu_btnSlot_0005.png" path="/images/buttons/"/>
+    <image id="gssq8s" name="homeMenu_btnSlot_0007.png" path="/images/buttons/"/>
+    <image id="gssq8t" name="homeMenu_btnSlot_0008.png" path="/images/buttons/"/>
+    <image id="gssq8u" name="homeMenu_btnSlot_0009.png" path="/images/buttons/"/>
+    <image id="gssq8v" name="homeMenu_btnSlot_0010.png" path="/images/buttons/"/>
+    <image id="gssq8w" name="homeMenu_btnSlot_0011.png" path="/images/buttons/"/>
+    <image id="gssq8x" name="homeMenu_btnSlot_0012.png" path="/images/buttons/"/>
+    <image id="gssq8y" name="homeMenu_btnStart_0001.png" path="/images/buttons/"/>
+    <image id="gssq8z" name="homeMenu_btnStart_0002.png" path="/images/buttons/"/>
+    <image id="gssq90" name="homeMenu_btnSlot_0006.png" path="/images/buttons/"/>
+    <image id="gssq91" name="homeMenu_btnCredits_0001.png" path="/images/buttons/"/>
+    <image id="gssq9o" name="homeMenu_btnSlot_delete_0001.png" path="/images/buttons/"/>
+    <image id="gssq9p" name="homeMenu_btnSlot_delete_0002.png" path="/images/buttons/"/>
+    <image id="gssq9q" name="homeMenu_btnSlot_delete_0003.png" path="/images/buttons/"/>
+    <component id="gssq9r" name="CloseButton.xml" path="/components/"/>
+    <component id="eex09s" name="Menu001.xml" path="/"/>
+    <component id="eex09t" name="Menu002.xml" path="/"/>
+  </resources>
+  <publish name="" genCode="true"/>
+</packageDescription>

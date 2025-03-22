@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="300,300" pivot="0.5,0.5" anchor="true">
+  <displayList>
+    <image id="n0_ptu9" name="bg" src="ptu95s" fileName="menu/images/gui_ring.png" xy="45,45"/>
+    <component id="n4_97pi" name="content" src="97pi8u" fileName="menu/Content.xml" xy="149,140"/>
+  </displayList>
+</component>

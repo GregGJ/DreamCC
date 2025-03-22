@@ -1,0 +1,34 @@
+{
+  "libview.firstColumnWidth": 283,
+  "libview.iconScale": 0,
+  "doc.openedDocs": [
+    "ui://5gta1jjsgssq0",
+    "ui://5gta1jjsgssq81",
+    "ui://5gta1jjseex09t",
+    "ui://04j85c0plkyt0",
+    "ui://04j85c0plkyt1g"
+  ],
+  "libview.syncEditor": 1,
+  "test.device": "720p Phone",
+  "canvasColor": 10066329,
+  "auxline2": true,
+  "doc.activeDoc": "ui://5gta1jjsgssq0",
+  "libview.twoColumn": false,
+  "libview.expandedNodes": [
+    "5gta1jjs",
+    "/",
+    "5gta1jjs",
+    "/components/",
+    "5gta1jjs",
+    "/components/slots/",
+    "04j85c0p",
+    "/"
+  ],
+  "auxline1": true,
+  "snapToGrid": true,
+  "test.orientation": "landscape",
+  "backgroundColor": 6710886,
+  "libview.currentGroup": "",
+  "gridSize": 30,
+  "gridColor": 80
+}

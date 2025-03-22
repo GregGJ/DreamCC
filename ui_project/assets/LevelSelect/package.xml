@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<packageDescription id="04j85c0p">
+  <resources>
+    <component id="lkyt0" name="LevelSelectWindow.xml" path="/" exported="true"/>
+    <image id="lkyt2" name="levelSelect_Mode_notxt_0002.png" path="/images/buttons/"/>
+    <image id="lkyt3" name="levelSelect_Mode_notxt_0003.png" path="/images/buttons/"/>
+    <image id="lkyt4" name="levelSelect_Mode_notxt_0004.png" path="/images/buttons/"/>
+    <image id="lkyt5" name="levelSelect_Mode_notxt_0005.png" path="/images/buttons/"/>
+    <image id="lkyt6" name="levelSelect_Mode_notxt_0006.png" path="/images/buttons/"/>
+    <image id="lkyt7" name="levelSelect_Mode_notxt_0007.png" path="/images/buttons/"/>
+    <image id="lkyt8" name="levelSelect_Mode_notxt_0008.png" path="/images/buttons/"/>
+    <image id="lkyt9" name="levelSelect_Mode_notxt_0009.png" path="/images/buttons/"/>
+    <image id="lkyta" name="levelSelect_Mode_notxt_0010.png" path="/images/buttons/"/>
+    <image id="lkytb" name="levelSelect_Mode_notxt_0011.png" path="/images/buttons/"/>
+    <image id="lkytc" name="levelSelect_Mode_notxt_0001.png" path="/images/buttons/"/>
+    <component id="lkytd" name="CampaignButton.xml" path="/components/"/>
+    <component id="lkyte" name="HeroicButton.xml" path="/components/"/>
+    <component id="lkytg" name="IronButton.xml" path="/components/"/>
+    <image id="lkyth" name="levelSelect_volutas_0001.png" path="/images/"/>
+    <image id="lkyti" name="levelSelect_volutas_0002.png" path="/images/"/>
+    <image id="lkytj" name="levelSelect_volutas_0003.png" path="/images/"/>
+    <image id="lkytl" name="levelSelect_thumbFrame.png" path="/images/"/>
+    <image id="lkyto" name="levelSelect_startMode_notxt_0001.png" path="/images/buttons/"/>
+    <image id="lkytp" name="levelSelect_startMode_notxt_0002.png" path="/images/buttons/"/>
+    <image id="lkytq" name="levelSelect_startMode_notxt_0003.png" path="/images/buttons/"/>
+    <image id="lkytr" name="levelSelect_startMode_notxt_0004.png" path="/images/buttons/"/>
+    <image id="lkyts" name="levelSelect_startMode_notxt_0005.png" path="/images/buttons/"/>
+    <image id="lkytt" name="levelSelect_startMode_notxt_0006.png" path="/images/buttons/"/>
+    <component id="lkytu" name="BattleButton.xml" path="/components/"/>
+    <image id="lkytw" name="levelSelect_difficulty_0001.png" path="/images/"/>
+    <image id="lkytx" name="levelSelect_difficulty_0002.png" path="/images/"/>
+    <image id="lkyty" name="levelSelect_difficulty_0003.png" path="/images/"/>
+    <image id="lkytz" name="levelSelect_difficulty_0004.png" path="/images/"/>
+    <image id="lkyt10" name="levelSelect_difficulty_0005.png" path="/images/"/>
+    <image id="lkyt11" name="levelSelect_difficulty_0006.png" path="/images/"/>
+    <image id="lkyt12" name="levelSelect_difficulty_0007.png" path="/images/"/>
+    <image id="lkyt13" name="levelSelect_difficulty_0008.png" path="/images/"/>
+    <component id="lkyt17" name="DifficultyButton.xml" path="/components/"/>
+    <image id="lkyt18" name="levelSelect_badges_0005.png" path="/images/"/>
+    <image id="lkyt19" name="levelSelect_badges_0006.png" path="/images/"/>
+    <image id="lkyt1a" name="levelSelect_badges_0001.png" path="/images/"/>
+    <image id="lkyt1b" name="levelSelect_badges_0002.png" path="/images/"/>
+    <image id="lkyt1c" name="levelSelect_badges_0003.png" path="/images/"/>
+    <image id="lkyt1d" name="levelSelect_badges_0004.png" path="/images/"/>
+    <image id="lkyt1e" name="levelSelect_modebg_notxt_0001.png" path="/images/"/>
+    <image id="lkyt1f" name="levelSelect_modebg_notxt_0002.png" path="/images/"/>
+    <component id="lkyt1g" name="LevelSelectView.xml" path="/"/>
+    <image id="lkyt1h" name="levelSelect_modeRules_0001.png" path="/images/"/>
+    <image id="lkyt1i" name="levelSelect_modeRules_0002.png" path="/images/"/>
+    <image id="lkyt1j" name="levelSelect_modeRules_0003.png" path="/images/"/>
+    <image id="lkyt1k" name="levelSelect_modeRules_0004.png" path="/images/"/>
+    <image id="lkyt1l" name="levelSelect_modeRules_0005.png" path="/images/"/>
+    <image id="lkyt1m" name="levelSelect_modeRules_0006.png" path="/images/"/>
+    <image id="lkyt1n" name="levelSelect_modeRules_0007.png" path="/images/"/>
+    <image id="lkyt1o" name="levelSelect_modeRules_0008.png" path="/images/"/>
+    <image id="lkyt1p" name="levelSelect_modeRules_0009.png" path="/images/"/>
+    <image id="lkyt1q" name="levelSelect_modeRules_0010.png" path="/images/"/>
+    <image id="lkyt1r" name="levelSelect_modeRules_0011.png" path="/images/"/>
+    <component id="lkyt1s" name="bckground.xml" path="/components/"/>
+    <component id="id0z1t" name="Title.xml" path="/components/"/>
+  </resources>
+  <publish name="" genCode="true"/>
+</packageDescription>

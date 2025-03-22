@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="56,50" pivot="0.5,0.5" anchor="true" extention="Button">
+  <controller name="button" pages="0,up,1,down,2,over,3,selectedOver,6,disabled,7,selectedDisabled" selected="0"/>
+  <displayList>
+    <image id="n0_97pi" name="bg" src="97pi8m" fileName="menu/images/ico_sell_0001.png" xy="0,0">
+      <gearDisplay controller="button" pages="0,1,2,3"/>
+      <relation target="" sidePair="width-width,height-height"/>
+    </image>
+    <image id="n1_97pi" name="n1" src="97pi8b" fileName="menu/images/glow_ico_sell.png" xy="-4,-5">
+      <gearDisplay controller="button" pages="2,3"/>
+    </image>
+    <image id="n2_97pi" name="n2" src="97pi8n" fileName="menu/images/ico_sell_0001_disabled.png" xy="0,0">
+      <gearDisplay controller="button" pages="6,7"/>
+    </image>
+  </displayList>
+  <Button/>
+</component>

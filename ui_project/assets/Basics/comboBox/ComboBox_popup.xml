@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="150,200">
+  <displayList>
+    <graph id="n2_p1ln" name="n2" xy="0,0" size="150,200" type="rect" lineColor="#ff2c201b" fillColor="#ff413129">
+      <relation target="" sidePair="width-width,height-height"/>
+    </graph>
+    <list id="n1_p1ln" name="list" xy="0,0" size="150,200" overflow="scroll" defaultItem="ui://xg9d8gh1p1ln17">
+      <relation target="" sidePair="width-width"/>
+    </list>
+  </displayList>
+  <relation target="n1_p1ln" sidePair="height-height"/>
+</component>

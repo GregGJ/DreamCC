@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1920,1080" opaque="false">
+  <displayList>
+    <component id="n16_u6wq" name="ui_top" src="u6wq3o" fileName="top/TopUI.xml" xy="0,0">
+      <relation target="" sidePair="width-width,top-top"/>
+    </component>
+    <component id="n17_u6wq" name="ui_bottom" src="id0z3c" fileName="bottom/BottomUI.xml" xy="0,982">
+      <relation target="" sidePair="width-width,bottom-bottom"/>
+    </component>
+  </displayList>
+</component>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="280,75">
+  <displayList>
+    <image id="n24_u6wq" name="n24" src="u6wq3i" fileName="bottom/bg_bottom_right.png" xy="0,25" size="280,50"/>
+    <image id="n25_u6wq" name="n25" src="u6wq3h" fileName="bottom/bg_bottom_nextwave.png" xy="53,0"/>
+    <component id="n26_u6wq" name="btn_start" src="u6wq3z" fileName="bottom/StartButton.xml" xy="138,30" pivot="0.5,0.5" anchor="true" size="74,74"/>
+  </displayList>
+  <transition name="t0">
+    <item time="0" type="Size" target="n26_u6wq" tween="true" startValue="74,74" endValue="72,72" duration="12"/>
+    <item time="12" type="Size" target="n26_u6wq" tween="true" startValue="72,72" endValue="74,74" duration="12"/>
+  </transition>
+</component>

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<packageDescription id="xg9d8gh1">
+  <resources>
+    <image id="gq8s0" name="3091.png" path="/buttons/button002/" exported="true"/>
+    <image id="gq8s1" name="3133.png" path="/buttons/button001/" exported="true" scale="9grid" scale9grid="49,18,4,5"/>
+    <image id="gq8s2" name="3137.png" path="/buttons/button001/" exported="true" scale="9grid" scale9grid="48,18,17,5"/>
+    <image id="gq8s3" name="3140.png" path="/buttons/button001/" exported="true" scale="9grid" scale9grid="48,18,3,6"/>
+    <image id="gq8s4" name="3085.png" path="/buttons/button002/" exported="true"/>
+    <image id="gq8s5" name="3088.png" path="/buttons/button002/" exported="true"/>
+    <component id="gq8s6" name="Button001.xml" path="/buttons/button001/" exported="true"/>
+    <component id="gq8s7" name="Button2.xml" path="/buttons/button002/" exported="true"/>
+    <image id="vjql2" name="3317.png" path="/backgrounds/" exported="true" scale="9grid" scale9grid="107,109,7,23"/>
+    <image id="vjql8" name="3439.png" path="/buttons/closeButton/"/>
+    <image id="vjql9" name="3437.png" path="/buttons/closeButton/"/>
+    <image id="vjqla" name="3438.png" path="/buttons/closeButton/"/>
+    <component id="vjqlb" name="CloseButton.xml" path="/buttons/closeButton/" exported="true"/>
+    <image id="vjqlc" name="3544.png" path="/buttons/backButton/"/>
+    <image id="vjqld" name="3545.png" path="/buttons/backButton/"/>
+    <image id="vjqle" name="3543.png" path="/buttons/backButton/"/>
+    <component id="vjqlf" name="BackButton.xml" path="/buttons/backButton/" exported="true"/>
+    <image id="vjqlr" name="4561.png" path="/images/star/" exported="true"/>
+    <image id="vjql11" name="4548.png" path="/images/star/"/>
+    <image id="vjqlz" name="4549.png" path="/images/star/"/>
+    <component id="vjqlg" name="SamllStar.xml" path="/images/star/" exported="true"/>
+    <image id="p1ln12" name="3369.png" path="/backgrounds/" exported="true"/>
+    <image id="p1ln13" name="3570.png" path="/backgrounds/" exported="true" scale="9grid" scale9grid="40,34,79,67"/>
+    <image id="p1ln1m" name="n10.png" path="/images/star/" scale9grid="0,0,-4,-5"/>
+    <image id="p1ln1n" name="n11.png" path="/images/heroic/" scale9grid="0,0,-4,-3"/>
+    <image id="p1ln1o" name="n12.png" path="/images/iron/" scale9grid="0,0,-10,-2"/>
+    <image id="p1ln1q" name="n14.png" path="/images/star/" scale9grid="0,0,-9,-9"/>
+    <image id="p1ln1r" name="n15.png" path="/images/heroic/" scale9grid="0,0,-5,-4"/>
+    <image id="p1ln1s" name="n16.png" path="/images/iron/" scale9grid="0,0,-9,-3"/>
+    <component id="p1ln14" name="HeroicState.xml" path="/images/heroic/" exported="true"/>
+    <component id="p1ln15" name="IronState.xml" path="/images/iron/" exported="true"/>
+    <component id="p1ln16" name="StarState.xml" path="/images/star/" exported="true"/>
+    <component id="p1ln17" name="ComboBox_item.xml" path="/comboBox/"/>
+    <component id="p1ln18" name="ComboBox_popup.xml" path="/comboBox/"/>
+    <component id="p1ln19" name="ComboBox.xml" path="/comboBox/" exported="true"/>
+    <image id="p1ln1a" name="3422.png" path="/comboBox/"/>
+    <image id="p1ln1d" name="3421.png" path="/comboBox/"/>
+    <image id="p1ln1e" name="4180.png" path="/backgrounds/" exported="true" scale="9grid" scale9grid="40,5,80,10"/>
+    <image id="kqkx2f" name="0.png" path="/images/icons/" exported="true" scale9grid="0,0,-9,-19"/>
+    <image id="kqkx2g" name="1.png" path="/images/icons/" exported="true" scale9grid="0,0,-10,-18"/>
+    <image id="kqkx2h" name="2.png" path="/images/icons/" exported="true" scale9grid="0,0,-2,-15"/>
+    <image id="kqkx2i" name="3.png" path="/images/icons/" exported="true" scale9grid="0,0,-1,-18"/>
+    <image id="pg0a1y" name="1403.png" path="/images/towers/builders/" exported="true"/>
+    <image id="pg0a1z" name="1405.png" path="/images/towers/builders/" exported="true"/>
+    <image id="pg0a20" name="1408.png" path="/images/towers/builders/" exported="true"/>
+    <image id="pg0a21" name="1410.png" path="/images/towers/builders/" exported="true"/>
+    <image id="pg0a22" name="1414.png" path="/images/towers/builders/" exported="true"/>
+    <image id="pg0a23" name="1415.png" path="/images/towers/builders/" exported="true"/>
+    <image id="pg0a24" name="1416.png" path="/images/towers/builders/" exported="true"/>
+    <image id="pg0a25" name="1417.png" path="/images/towers/builders/" exported="true"/>
+    <image id="pg0a26" name="1418.png" path="/images/towers/builders/" exported="true"/>
+    <image id="pg0a27" name="1420.png" path="/images/towers/builders/" exported="true"/>
+    <image id="pg0a28" name="1422.png" path="/images/towers/builders/" exported="true"/>
+    <image id="pg0a29" name="1424.png" path="/images/towers/builders/" exported="true"/>
+    <image id="pg0a2a" name="1426.png" path="/images/towers/builders/" exported="true"/>
+    <image id="pg0a2b" name="1428.png" path="/images/towers/builders/" exported="true"/>
+    <image id="pg0a2c" name="1430.png" path="/images/towers/builders/" exported="true"/>
+    <image id="pg0a2d" name="1432.png" path="/images/towers/builders/" exported="true"/>
+    <image id="pg0a2e" name="1434.png" path="/images/towers/builders/" exported="true"/>
+    <image id="pg0a2f" name="1436.png" path="/images/towers/builders/" exported="true"/>
+    <image id="pg0a2g" name="1438.png" path="/images/towers/builders/" exported="true"/>
+    <image id="pg0a2h" name="1440.png" path="/images/towers/builders/" exported="true"/>
+    <image id="pg0a2i" name="1442.png" path="/images/towers/builders/" exported="true"/>
+    <image id="pg0a2j" name="1444.png" path="/images/towers/builders/" exported="true"/>
+    <image id="pg0a2k" name="1446.png" path="/images/towers/builders/" exported="true"/>
+    <image id="pg0a2l" name="1448.png" path="/images/towers/builders/" exported="true"/>
+    <image id="pg0a2m" name="1450.png" path="/images/towers/builders/" exported="true"/>
+    <image id="pg0a2n" name="1452.png" path="/images/towers/builders/" exported="true"/>
+    <image id="pg0a2o" name="1454.png" path="/images/towers/builders/" exported="true"/>
+    <image id="pg0a2p" name="1456.png" path="/images/towers/builders/" exported="true"/>
+    <image id="pg0a2q" name="1458.png" path="/images/towers/builders/" exported="true"/>
+    <image id="pg0a2r" name="1460.png" path="/images/towers/builders/" exported="true"/>
+    <image id="pg0a2s" name="1462.png" path="/images/towers/builders/" exported="true"/>
+    <image id="pg0a2t" name="1464.png" path="/images/towers/builders/" exported="true"/>
+    <image id="pg0a2u" name="1466.png" path="/images/towers/builders/" exported="true"/>
+    <image id="pg0a2v" name="1468.png" path="/images/towers/builders/" exported="true"/>
+    <image id="pg0a2w" name="1470.png" path="/images/towers/builders/" exported="true"/>
+    <image id="pg0a2x" name="1472.png" path="/images/towers/builders/" exported="true"/>
+    <image id="pg0a2y" name="1474.png" path="/images/towers/builders/" exported="true"/>
+    <image id="pg0a2z" name="1476.png" path="/images/towers/builders/" exported="true"/>
+    <image id="pg0a30" name="1478.png" path="/images/towers/builders/" exported="true"/>
+    <image id="pg0a31" name="1480.png" path="/images/towers/builders/" exported="true"/>
+    <image id="pg0a1x" name="1482.png" path="/images/towers/builders/" exported="true"/>
+    <image id="xh2d32" name="3424.png" path="/images/icons/" exported="true"/>
+    <image id="jieg33" name="3289.png" path="/images/logo/" exported="true"/>
+    <image id="gssq3" name="options_button_bg_0001.png" path="/buttons/button003/"/>
+    <image id="gssq4" name="options_button_bg_0002.png" path="/buttons/button003/"/>
+    <component id="gssq35" name="Button003.xml" path="/buttons/button003/" exported="true"/>
+    <image id="lkyt36" name="levelSelect_background.png" path="/backgrounds/" exported="true"/>
+  </resources>
+  <publish name="" genCode="true"/>
+</packageDescription>

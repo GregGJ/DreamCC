@@ -1,0 +1,11 @@
+{
+  "name": "fgui-dream-cc",
+  "displayName": "fgui-dream-cc",
+  "description": "fgui导出dream-cc框架UI资源插件",
+  "version": "1.0",
+  "author": {
+    "name": "Greg"
+  },
+  "icon": "",
+  "main": "main.js"
+}

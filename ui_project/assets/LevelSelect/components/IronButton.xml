@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="116,102" extention="Button">
+  <controller name="button" pages="2,up,3,down,4,over,5,selectedOver,6,disabled,7,selectedDisabled" selected="0"/>
+  <displayList>
+    <image id="n0_lkyt" name="n0" src="lkyt9" fileName="images/levelSelect_Mode_notxt_0009.png" xy="0,0">
+      <gearDisplay controller="button" pages="2"/>
+    </image>
+    <image id="n1_lkyt" name="n1" src="lkyta" fileName="images/levelSelect_Mode_notxt_0010.png" xy="0,0">
+      <gearDisplay controller="button" pages="2,4"/>
+      <relation target="" sidePair="width-width,height-height"/>
+    </image>
+    <image id="n5_lkyt" name="n5" src="lkytb" fileName="images/levelSelect_Mode_notxt_0011.png" xy="0,0">
+      <gearDisplay controller="button" pages="3,5"/>
+    </image>
+    <image id="n6_lkyt" name="n6" src="lkyt8" fileName="images/levelSelect_Mode_notxt_0008.png" xy="0,0">
+      <gearDisplay controller="button" pages="6,7"/>
+    </image>
+    <text id="n4_lkyt" name="title" xy="-14,41" size="116,32" fontSize="20" color="#ff9966" align="center" vAlign="middle" autoSize="none" strokeColor="#000000" singleLine="true" autoClearText="true" text="英雄">
+      <gearXY controller="button" pages="3,5" values="-4,41|-4,41" default="-14,41"/>
+      <gearColor controller="button" default="#ff9966,#000000"/>
+    </text>
+  </displayList>
+  <Button mode="Radio"/>
+</component>

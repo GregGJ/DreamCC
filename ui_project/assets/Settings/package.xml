@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<packageDescription id="dvjsr70c">
+  <resources>
+    <component id="u33a0" name="SettingsView.xml" path="/"/>
+    <image id="gssq2" name="options_bg_notxt.png" path="/images/"/>
+    <image id="gssq5" name="options_comboBox_0001.png" path="/images/"/>
+    <image id="gssq6" name="options_comboBox_0002.png" path="/images/"/>
+    <image id="gssq7" name="options_difArrows_0001.png" path="/images/"/>
+    <image id="gssq8" name="options_difArrows_0002.png" path="/images/"/>
+    <image id="gssq9" name="options_sounds_0001.png" path="/images/"/>
+    <image id="gssqa" name="options_sounds_0002.png" path="/images/"/>
+    <image id="gssqb" name="options_sounds_0003.png" path="/images/"/>
+    <image id="gssqc" name="options_sounds_0004.png" path="/images/"/>
+    <image id="gssqd" name="options_sounds_0005.png" path="/images/"/>
+    <image id="gssqe" name="options_sounds_0006.png" path="/images/"/>
+    <image id="gssqf" name="select_bg.png" path="/images/"/>
+    <image id="gssqg" name="options_bar.png" path="/images/"/>
+    <image id="gssqh" name="options_barBg.png" path="/images/" scale="9grid" scale9grid="29,8,355,16"/>
+    <component id="gssqi" name="SondSlider_grip.xml" path="/components/"/>
+    <component id="gssqj" name="SondSlider.xml" path="/components/"/>
+    <component id="gssql" name="DifficultyButton.xml" path="/components/"/>
+    <component id="gssqm" name="background.xml" path="/components/"/>
+    <component id="gssqn" name="SettingsWindow.xml" path="/" exported="true"/>
+  </resources>
+  <publish name="" genCode="true"/>
+</packageDescription>

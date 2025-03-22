@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="448,420">
+  <displayList>
+    <image id="n10_eex0" name="n10" src="gssq7e" fileName="images/homeMenu_submenues_0001.png" xy="0,-2">
+      <relation target="" sidePair="width-width,height-height"/>
+    </image>
+    <list id="n14_uemn" name="list" xy="73,59" size="287,354" overflow="scroll" defaultItem="ui://5gta1jjsgssq7y" autoItemSize="false" align="center" autoClearItems="true">
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+    </list>
+  </displayList>
+</component>
