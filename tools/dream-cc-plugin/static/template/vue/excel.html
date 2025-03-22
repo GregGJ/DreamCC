@@ -1,0 +1,62 @@
+<div>
+    <div style="font-size: larger;color:aqua;">
+        <ui-label slot="label">表头:</ui-label>
+    </div>
+
+    <div style="margin-left: 30px;">
+        <ui-prop>
+            <ui-prop resize-group="group">
+                <ui-label slot="label">属性字段名</ui-label>
+                <ui-num-input slot="content" step="1" min="1" v-bind:value="titleIndex"
+                    @change="titleIndexChanged($event.target.value)"></ui-num-input>
+            </ui-prop>
+
+            <ui-prop resize-group="group">
+                <ui-label slot="label">属性类型</ui-label>
+                <ui-num-input slot="content" step="1" min="1" v-bind:value="typeIndex"
+                    @change="typeIndexChanged($event.target.value)"></ui-num-input>
+            </ui-prop>
+            <ui-prop resize-group="group">
+                <ui-label slot="label">属性注释</ui-label>
+                <ui-num-input slot="content" step="1" min="-1" v-bind:value="commentsIndex"
+                    @change="commentsIndexChanged($event.target.value)"></ui-num-input>
+            </ui-prop>
+
+            <ui-prop resize-group="group">
+                <ui-label slot="label">数据开始行</ui-label>
+                <ui-num-input slot="content" step="1" min="1" v-bind:value="dataIndex"
+                    @change="dataIndexChanged($event.target.value)"></ui-num-input>
+            </ui-prop>
+        </ui-prop>
+    </div>
+
+    <div style="font-size: larger;color:aqua;">
+        <ui-label slot="label">路径:</ui-label>
+    </div>
+    <div style="margin-left: 30px;">
+        <ui-prop>
+            <ui-prop resize>
+                <ui-label slot="label">配置表文件夹</ui-label>
+                <ui-file slot="content" type="directory" v-bind:value="excelFolder"
+                    @change="excelFolderChanged($event.target.value)"></ui-file>
+            </ui-prop>
+
+            <ui-prop resize>
+                <ui-label slot="label">导出数据文件夹</ui-label>
+                <ui-file slot="content" type="directory" v-bind:value="dataFolder"
+                    @change="dataFolderChanged($event.target.value)"></ui-file>
+            </ui-prop>
+
+            <ui-prop resize>
+                <ui-label slot="label">导出数据定义脚本文件夹</ui-label>
+                <ui-file slot="content" type="directory" v-bind:value="scriptFolder"
+                    @change="scriptFolderChanged($event.target.value)"></ui-file>
+            </ui-prop>
+        </ui-prop>
+
+        <div style="margin-top: 10px;">
+            <ui-button id="exportButton" style="width: 100%;" @click="exportButtonClick"
+                type="success">Export</ui-button>
+        </div>
+    </div>
+</div>

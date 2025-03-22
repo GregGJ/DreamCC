@@ -1,0 +1,84 @@
+{
+    "package_version": 2,
+    "version": "1.0.3",
+    "name": "dream-cc-plugin",
+    "description": "i18n:dream-cc-plugin.description",
+    "main": "./dist/main.js",
+    "dependencies": {
+        "fs-extra": "^10.0.0",
+        "node-xlsx": "^0.23.0",
+        "vue": "^3.1.4"
+    },
+    "devDependencies": {
+        "@types/fs-extra": "^9.0.5",
+        "@types/node": "^16.0.1",
+        "@types/node-xlsx": "^0.21.0",
+        "typescript": "^4.3.4"
+    },
+    "panels": {
+        "gui": {
+            "title": "i18n:dream-cc-plugin.guiPanelTitle",
+            "type": "dockable",
+            "main": "dist/panels/gui",
+            "size": {
+                "min-width": 500,
+                "min-height": 480,
+                "width": 500,
+                "height": 480
+            }
+        },
+        "excel": {
+            "title": "i18n:dream-cc-plugin.excelPanelTitle",
+            "type": "dockable",
+            "main": "dist/panels/excel",
+            "size": {
+                "min-width": 500,
+                "min-height": 300,
+                "width": 500,
+                "height": 300
+            }
+        }
+    },
+    "contributions": {
+        "menu": [
+            {
+                "path": "i18n:dream-cc-plugin.panelPath",
+                "label": "i18n:dream-cc-plugin.open_gui",
+                "message": "open-gui"
+            },
+            {
+                "path": "i18n:dream-cc-plugin.panelPath",
+                "label": "i18n:dream-cc-plugin.initProject",
+                "message": "initProject"
+            },
+            {
+                "path": "i18n:dream-cc-plugin.panelPath",
+                "label": "i18n:dream-cc-plugin.clearSetting",
+                "message": "clearSetting"
+            }
+        ],
+        "messages": {
+            "initProject": {
+                "methods": [
+                    "initProject"
+                ]
+            },
+            "open-gui": {
+                "methods": [
+                    "openGUI"
+                ]
+            },
+            "clearSetting": {
+                "methods": [
+                    "clearSetting"
+                ]
+            }
+        }
+    },
+    "author": "Greg",
+    "editor": ">=3.7.0",
+    "scripts": {
+        "build": "tsc -b",
+        "watch": "tsc -w"
+    }
+}

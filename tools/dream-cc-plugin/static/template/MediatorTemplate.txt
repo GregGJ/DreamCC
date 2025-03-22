@@ -1,0 +1,49 @@
+import { _decorator, Component } from 'cc';
+import { IGUIMediator,IViewCreator,GUIMediator, ITabData} from 'dream-cc-gui';
+import { TestModuleBinder, UI_TestGUI } from "./TestModuleBinder";
+
+const { ccclass, property } = _decorator;
+
+@ccclass('TestGUIViewCreator')
+export default class TestGUIViewCreator extends Component implements IViewCreator {
+
+    createMediator(): IGUIMediator {
+        TestModuleBinder.bindAll();
+        return new TestGUIMediator();
+    }
+}
+
+export class TestGUIMediator extends GUIMediator {
+
+    constructor() {
+        super();
+    }
+
+    init() {
+        super.init();
+
+    }
+
+    show(data?: ITabData): void {
+        super.show(data);
+
+    }
+
+    showedUpdate(data?: any): void {
+
+    }
+
+    hide(): void {
+        super.hide();
+
+    }
+
+    destroy(): void {
+        super.destroy();
+
+    }
+
+    private get view(): UI_TestGUI {
+        return this.ui as UI_TestGUI;
+    }
+}
