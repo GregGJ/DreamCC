@@ -1,6 +1,5 @@
 import { Module, ResURL } from "dream-cc-core";
 import { IViewComponent } from "./IViewComponent";
-import { ITabData } from "./tabs/ITabData";
 
 
 
@@ -74,13 +73,13 @@ export interface IGUIMediator {
      * 显示(内部接口，请勿调用)
      * @param data 
      */
-    show(data?: ITabData): void;
+    show(data?: any): void;
 
     /**
      * 当已经处在显示中 GUIManager.call时 则调用该方法而不调用showedUpdate
      * @param data 
      */
-    showedUpdate(data?: ITabData): void;
+    showedUpdate(data?: any): void;
 
     /**
      * 隐藏(内部接口，请勿调用)

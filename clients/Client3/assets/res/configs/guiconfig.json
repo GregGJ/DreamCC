@@ -18,5 +18,35 @@
           "bundleName": "Map",
           "packageName": "Map",
           "comName": "UI_Map"
+     },
+     {
+          "key": "LevelSelect",
+          "layer": "Window",
+          "modal": false,
+          "modalClose": false,
+          "permanence": true,
+          "bundleName": "LevelSelect",
+          "packageName": "LevelSelect",
+          "comName": "UI_LevelSelectWindow"
+     },
+     {
+          "key": "Battle",
+          "layer": "FullScreen",
+          "modal": false,
+          "modalClose": false,
+          "permanence": true,
+          "bundleName": "Battle",
+          "packageName": "Battle",
+          "comName": "UI_BattleView"
+     },
+     {
+          "key": "Settings",
+          "layer": "Window",
+          "modal": false,
+          "modalClose": false,
+          "permanence": true,
+          "bundleName": "Settings",
+          "packageName": "Settings",
+          "comName": "UI_SettingsWindow"
      }
 ]

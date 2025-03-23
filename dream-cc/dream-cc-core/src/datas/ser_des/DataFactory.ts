@@ -40,21 +40,21 @@ export class DataFactory {
      * @param type 
      * @param key 
      */
-    static createProperty(key: string, data: any): ISerDesProperty {
+    static createProperty(data: any): ISerDesProperty {
         let result: ISerDesProperty;
         if (data instanceof Array) {
-            result = new ArrayProperty(key);
+            result = new ArrayProperty();
         } else {
             //字符串
             if (typeof data === 'string') {
-                result = new StringProperty(key);
+                result = new StringProperty();
             } else {
                 let numValue: number = Number(data);
                 //非数字
                 if (isNaN(numValue)) {
-                    result = new DictionaryProperty(key);
+                    result = new DictionaryProperty();
                 } else {
-                    result = new NumberProperty(key);
+                    result = new NumberProperty();
                 }
             }
         }

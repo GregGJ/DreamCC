@@ -34,7 +34,7 @@ export { IViewCreator } from "./gui/IViewCreator";
 export { SubGUIMediator } from "./gui/SubGUIMediator";
 
 
-export { ITabData } from "./gui/tabs/ITabData";
+export { TabData } from "./gui/tabs/TabData";
 export { ITabPage } from "./gui/tabs/ITabPage";
 export { TabContainer } from "./gui/tabs/TabContainer";
 export { TabPage } from "./gui/tabs/TabPage";

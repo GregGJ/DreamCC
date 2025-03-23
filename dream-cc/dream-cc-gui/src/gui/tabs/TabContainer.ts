@@ -1,8 +1,8 @@
 import { ITabPage } from "./ITabPage";
-import { ITabData } from "./ITabData";
 import { GComponent } from "fairygui-cc";
 import { TabPage } from "./TabPage";
 import { Binder } from "dream-cc-core";
+import { TabData } from "./TabData";
 
 
 
@@ -61,17 +61,17 @@ export class TabContainer extends Binder {
         super.init();
     }
 
-    show(data?: ITabData): void {
+    show(data?: any): void {
         this.__showing = true;
         let page: number = data ? data.page || 0 : 0;
-        let pageData: ITabData = data ? data.pageData || null : null;
+        let pageData: TabData = data ? data.pageData || null : null;
         this.switchPage(page, pageData);
         this.bindByRecords();
     }
 
-    showedUpdate(data?: ITabData): void {
+    showedUpdate(data?: any): void {
         let page: number = data ? data.page || 0 : this.currentIndex;
-        let pageData: ITabData = data ? data.pageData || null : null;
+        let pageData: TabData = data ? data.pageData || null : null;
         if (page == this.currentIndex) {
             this.currentPage.showedUpdate(pageData);
         } else {

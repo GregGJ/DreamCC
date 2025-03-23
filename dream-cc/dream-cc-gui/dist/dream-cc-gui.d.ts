@@ -310,13 +310,6 @@ declare enum GUIState {
     Closed = 4
 }
 
-interface ITabData {
-    page?: number;
-    pageData?: ITabData;
-    next?: ITabData;
-    data?: any;
-}
-
 /**
      * GUI 管理器
      */
@@ -345,7 +338,7 @@ declare class GUIManager {
      * @param key
      * @param data
      */
-    static open(key: string, data?: ITabData): void;
+    static open(key: string, data?: any): void;
     /**
      * 关闭
      * @param key
@@ -487,12 +480,12 @@ interface IGUIMediator {
      * 显示(内部接口，请勿调用)
      * @param data
      */
-    show(data?: ITabData): void;
+    show(data?: any): void;
     /**
      * 当已经处在显示中 GUIManager.call时 则调用该方法而不调用showedUpdate
      * @param data
      */
-    showedUpdate(data?: ITabData): void;
+    showedUpdate(data?: any): void;
     /**
      * 隐藏(内部接口，请勿调用)
      * @param info
@@ -542,8 +535,8 @@ interface ITabPage {
      * 显示
      * @param data
      */
-    show(data?: ITabData): void;
-    showedUpdate(data?: ITabData): void;
+    show(data?: any): void;
+    showedUpdate(data?: any): void;
     /**
      * 隐藏
      */
@@ -574,8 +567,8 @@ declare class TabContainer extends Binder {
     /**切换到某个页签 */
     switchPage(index: number, data?: any): void;
     init(): void;
-    show(data?: ITabData): void;
-    showedUpdate(data?: ITabData): void;
+    show(data?: any): void;
+    showedUpdate(data?: any): void;
     hide(): void;
     private getPage;
     destroy(): void;
@@ -630,8 +623,8 @@ declare class GUIMediator extends BaseMediator implements IGUIMediator {
     private __uiCreated;
     protected _maskClickHandler(): void;
     init(): void;
-    show(data?: ITabData): void;
-    showedUpdate(data?: ITabData): void;
+    show(data?: any): void;
+    showedUpdate(data?: any): void;
     hide(): void;
     /**
      * 关闭
@@ -771,6 +764,11 @@ interface IViewCreator {
     createMediator(): IGUIMediator;
 }
 
+declare class TabData {
+    page?: number;
+    pageData?: TabData;
+}
+
 declare class TabPage extends Binder implements ITabPage {
     /**
      * UI
@@ -782,8 +780,8 @@ declare class TabPage extends Binder implements ITabPage {
     owner: any;
     constructor();
     init(): void;
-    show(data?: ITabData): void;
-    showedUpdate(data?: ITabData): void;
+    show(data?: any): void;
+    showedUpdate(data?: any): void;
     hide(): void;
     destroy(): void;
 }
@@ -847,4 +845,4 @@ declare class GUIPlugin extends EventDispatcher implements IEnginePlugin {
     private __allComplete;
 }
 
-export { Alert, BaseMediator, FGUILoader, FGUIResource, GUIManager, GUIMediator, GUIPlugin, GUIProxy, GUIState, IAlert, IGUIInfo, IGUIManager, IGUIMediator, ILayer, ILayerManager, ILoadingView, IRelationInfo, IRelationList, ITabData, ITabPage, ITooltipData, IViewComponent, IViewCreator, Layer, LayerManager, LoadingView, RelationManager, SubGUIMediator, TabContainer, TabPage, TooltipManagerImpl, TooltipPosMode };
+export { Alert, BaseMediator, FGUILoader, FGUIResource, GUIManager, GUIMediator, GUIPlugin, GUIProxy, GUIState, IAlert, IGUIInfo, IGUIManager, IGUIMediator, ILayer, ILayerManager, ILoadingView, IRelationInfo, IRelationList, ITabPage, ITooltipData, IViewComponent, IViewCreator, Layer, LayerManager, LoadingView, RelationManager, SubGUIMediator, TabContainer, TabData, TabPage, TooltipManagerImpl, TooltipPosMode };

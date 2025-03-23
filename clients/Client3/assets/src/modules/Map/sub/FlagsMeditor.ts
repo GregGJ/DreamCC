@@ -1,8 +1,8 @@
 import { EventKeyboard, Input, KeyCode, input } from "cc";
 import { DEBUG } from "cc/env";
-import { DictionaryProperty, ModuleManager } from "dream-cc-core";
+import { ConfigManager, DictionaryProperty, ModuleManager } from "dream-cc-core";
 import { GUIManager, GUIMediator, SubGUIMediator } from "dream-cc-gui";
-import { FGUIEvent, GComponent, GObject } from "fairygui-cc";
+import { FGUIEvent, GComponent, GMovieClip, GObject } from "fairygui-cc";
 import { MapAniUtils } from "../MapAniUtils";
 import { UI_Flags, UI_Map } from "../MapBinder";
 import { RecordPropertys } from "../../../models/playerPrefs/RecordPropertys";
@@ -10,6 +10,11 @@ import { EXI_Playerprefs } from "../../../models_exi/EXI_Playerprefs";
 import { ModuleKeys } from "../../../games/ModuleKeys";
 import { GameMode } from "../../../games/enums/GameMode";
 import { VictoryData } from "../datas/VictoryData";
+import { LevelAccessor } from "../../../games/configs/LevelAccessor";
+import { ConfigKeys } from "../../../games/configs/ConfigKeys";
+import { GUIKeys } from "../../../games/consts/GUIKeys";
+import { GameDifficulty } from "../../../games/enums/GameDifficulty";
+import { MapPathAccessor } from "../../../games/configs/MapPathAccessor";
 
 
 
@@ -46,14 +51,17 @@ export class FlagsMeditor extends SubGUIMediator {
             value.visible = false;
         })
         //关卡配置
-        this.__levelConfigs = ConfigManager.GetAccessor(ConfigKeys.Level_Level) as LevelAccessor;
-        //关卡记录
-        this.__levels = GameModel.single.currentSlot!.Get(RecordPropertys.LEVELS) as DictionaryProperty;
+        this.__levelConfigs = ConfigManager.getAccessor(ConfigKeys.Level_Level) as LevelAccessor;
+
     }
 
     show(data: any): void {
         super.show(data);
+        //当前关卡记录
+        this.__levels = this.recordModule.currentGame.get(RecordPropertys.LEVELS) as DictionaryProperty;
+        
         this.__victoryData = data as VictoryData;
+        
         if (DEBUG) {
             // this.OpenToLevel(13);
             input.on(Input.EventType.KEY_DOWN, this.__keyDownHandler, this);
@@ -118,10 +126,10 @@ export class FlagsMeditor extends SubGUIMediator {
      */
     OpenToLevel(level: number): void {
         this.__currentLevel = level - 2;
-        GameModel.single.OpenToLevel(level);
+        this.recordModule.openToLevel(level);
         for (let curLevel = 1; curLevel < level - 1; curLevel++) {
             //显示路径
-            let config = this.__levelConfigs!.Get<Level.Level>(["id", "difficulty", "mode"], [curLevel, GameDifficulty.EASY, GameMode.CAMPAIGN]);
+            let config = this.__levelConfigs!.get<Config.Level.Level>(["id", "difficulty", "mode"], [curLevel, GameDifficulty.EASY, GameMode.CAMPAIGN]);
             this.__unlockLevels(config.unlocks, false);
         }
     }
@@ -129,15 +137,15 @@ export class FlagsMeditor extends SubGUIMediator {
     private __refreshLevels1(): void {
         //遍历所有关卡
         for (let levelId = 1; levelId < this.__levelConfigs!.maxLevel; levelId++) {
-            const flags = this.view.m_mapView.m_layer_flags.getChild("flags_" + (levelId - 1)) as Flags;
+            const flags = this.view.m_mapView.m_layer_flags.getChild("flags_" + (levelId - 1)) as UI_Flags;
             if (!flags) {
                 // throw new Error("UI不存在:flags_" + index);
                 continue;
             }
-            flags.ani_star_0.visible = false;
-            flags.ani_star_1.visible = false;
-            flags.ani_star_2.visible = false;
-            flags.ani_wing.visible = false;
+            flags.m_ani_star_0.visible = false;
+            flags.m_ani_star_1.visible = false;
+            flags.m_ani_star_2.visible = false;
+            flags.m_ani_wing.visible = false;
 
             flags.data = levelId;
             //关卡记录数据
@@ -263,7 +271,7 @@ export class FlagsMeditor extends SubGUIMediator {
         level.update(GameMode.HEROIC.toString(), newHeroic);
         level.update(GameMode.IRON.toString(), newIron);
         level.update(RecordPropertys.STARS, newStars);
-        GameModel.single.SavePlayerPrefs(true);
+        this.recordModule.save();
     }
 
     private __isFirst(difficulty: number): boolean {
@@ -316,7 +324,7 @@ export class FlagsMeditor extends SubGUIMediator {
         const campaign = level.get(GameMode.CAMPAIGN.toString()).getValue();
         const heroic = level.get(GameMode.HEROIC.toString()).getValue();
         const iron = level.get(GameMode.IRON.toString()).getValue();
-        let config = this.__levelConfigs!.Get<Level.Level>(["id", "difficulty", "mode"], [levelId, this.__victoryData!.difficulty, this.__victoryData!.mode])
+        let config = this.__levelConfigs!.get<Config.Level.Level>(["id", "difficulty", "mode"], [levelId, this.__victoryData.difficulty, this.__victoryData.mode])
         if (this.__victoryData!.mode == GameMode.CAMPAIGN && this.__victoryData!.difficulty > campaign) {
             return config.unlocks;
         }
@@ -348,19 +356,19 @@ export class FlagsMeditor extends SubGUIMediator {
         if (level) {
             return;
         }
-        const flags = this.view.m_mapView.m_layer_flags.getChild("flags_" + (levelId - 1)) as Flags;
+        const flags = this.view.m_mapView.m_layer_flags.getChild("flags_" + (levelId - 1)) as UI_Flags;
         if (!flags) {
             return;
         }
-        flags.c1.selectedIndex = 0;
-        flags.ani_wing.visible = false;
-        flags.ani_star_0.visible = false;
-        flags.ani_star_1.visible = false;
-        flags.ani_star_2.visible = false;
+        flags.m_c1.selectedIndex = 0;
+        flags.m_ani_wing.visible = false;
+        flags.m_ani_star_0.visible = false;
+        flags.m_ani_star_1.visible = false;
+        flags.m_ani_star_2.visible = false;
 
         //地图路径配置
-        let configAcc = ConfigManager.GetAccessor(ConfigKeys.Maps_MapPath) as MapPathAccessor;
-        let mapPathConfig = configAcc.Get<Maps.MapPath>(["level"], [levelId]);
+        let configAcc = ConfigManager.getAccessor(ConfigKeys.Maps_MapPath) as MapPathAccessor;
+        let mapPathConfig = configAcc.get<Config.Maps.MapPath>(["level"], [levelId]);
         if (mapPathConfig) {
             let mapPath = this.view.m_mapView.m_layer_path.getChild(mapPathConfig.pathAni) as GMovieClip;
             if (mapPath) {
@@ -395,9 +403,9 @@ export class FlagsMeditor extends SubGUIMediator {
             //关卡记录
             let level = this.__levels!.get(levelId.toString()) as DictionaryProperty;
             if (!level) {
-                level = GameModel.single.CreateLevelPref(levelId);
+                level = this.recordModule.createLevelRecord(levelId);
                 this.__levels!.add(level);
-                GameModel.single.SavePlayerPrefs(false);
+                this.recordModule.save();
             }
             const campaign = level.get(GameMode.CAMPAIGN.toString()).getValue();
             const heroic = level.get(GameMode.HEROIC.toString()).getValue();
@@ -422,7 +430,7 @@ export class FlagsMeditor extends SubGUIMediator {
             level.update(RecordPropertys.STARS, vData.stars);
         }
         //保存
-        GameModel.single.SavePlayerPrefs();
+        this.recordModule.save();
     }
 
     private get view(): UI_Map {

@@ -6,6 +6,7 @@ import { SerDesMode } from "../SerDesMode";
 import { ArrayValue } from "../values/ArrayValue";
 import { DictionaryValue } from "../values/DictionaryValue";
 import { ISerDesValue } from "../values/ISerDesValue";
+import { DictionaryProperty } from "../propertys/DictionaryProperty";
 
 
 
@@ -21,22 +22,25 @@ export class JSONSerialization implements ISerialization {
     encode(target: any, data: any): any {
         //数组
         if (target instanceof ArrayValue) {
-            let result = [];
-            let item: ISerDesValue;
+            let result_value = [];
+            let item_value: ISerDesValue;
             for (let i: number = 0; i < target.elements.length; i++) {
-                item = target.elements[i];
-                result.push(item.encode(SerDesMode.JSON, data));
+                item_value = target.elements[i];
+                result_value.push(item_value.encode(SerDesMode.JSON, data));
             }
-            return result;
+            return result_value;
         }
         if (target instanceof DictionaryValue) {
-            let result: any = {};
-            let item: ISerDesProperty;
+            let result_property: any = {};
+            let item_property: ISerDesProperty;
             for (let index = 0; index < target.elements.length; index++) {
-                item = target.elements[index] as ISerDesProperty;
-                result[item.key] = item.encode(SerDesMode.JSON, data);
+                item_property = target.elements[index] as ISerDesProperty;
+                result_property[item_property.key] = item_property.encode(SerDesMode.JSON, data);
             }
-            return result;
+            if (target instanceof DictionaryProperty) {
+                result_property["key"] = target.key;
+            }
+            return result_property;
         }
         return target.value;
     }

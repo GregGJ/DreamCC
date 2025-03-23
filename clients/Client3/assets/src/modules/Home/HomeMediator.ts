@@ -1,5 +1,5 @@
 import { _decorator, Component } from 'cc';
-import { IGUIMediator, IViewCreator, GUIMediator, ITabData, GUIManager } from 'dream-cc-gui';
+import { IGUIMediator, IViewCreator, GUIMediator, GUIManager } from 'dream-cc-gui';
 import { ArrayProperty, AudioManager, DictionaryProperty, NumberProperty } from 'dream-cc-core';
 import { GamePath } from '../../games/GamePath';
 import { ModuleKeys } from '../../games/ModuleKeys';
@@ -43,13 +43,12 @@ export class HomeMediator extends GUIMediator {
         this.listView.backToPool = this.__recordListItemBackToPool.bind(this);
     }
 
-    show(data?: ITabData): void {
+    show(data?: any): void {
         super.show(data);
         this.view.m_logo.playing = true;
         this.view.m_logo.setPlaySettings(0, -1, 1);
 
         AudioManager.playMusic(GamePath.soundURL("MusicMainMenu"));
-        this.recordModule.clear();
         this.__refreshRecord();
     }
 
@@ -76,7 +75,7 @@ export class HomeMediator extends GUIMediator {
     }
 
     private __optionButtonClick(): void {
-        console.log("option button click");
+        GUIManager.open(GUIKeys.Settings);
     }
 
     private __refreshRecord(): void {
@@ -116,20 +115,20 @@ export class HomeMediator extends GUIMediator {
         this.__refreshRecord();
     }
 
-    private __slotClick(e:FGUIEvent): void {
+    private __slotClick(e: FGUIEvent): void {
         const target = GObject.cast(e.currentTarget) as UI_SlotButton;
         const newGame = target.parent as UI_NewGame;
-        this.recordModule.currentLevel = newGame.data;
+        this.recordModule.currentGame = newGame.data;
         console.log("读取游戏记录并开始游戏");
         GUIManager.open(GUIKeys.Map);
     }
 
-    private __slotCloseClick(e:FGUIEvent): void {
-        e.propagationStopped=true;
-        const target=GObject.cast(e.currentTarget).asCom;
+    private __slotCloseClick(e: FGUIEvent): void {
+        e.propagationStopped = true;
+        const target = GObject.cast(e.currentTarget).asCom;
         const slotButton = target.parent as UI_SlotButton;
         const newGame = slotButton.parent as UI_NewGame;
-        const data=newGame.data as DictionaryProperty;
+        const data = newGame.data as DictionaryProperty;
         this.recordModule.removeGameRecord(data);
         this.__refreshRecord();
     }

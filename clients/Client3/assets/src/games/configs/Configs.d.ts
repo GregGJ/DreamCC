@@ -11,6 +11,14 @@ declare namespace Config {
          str_list: Array<string>;
       }
    }
+   namespace Language {
+      export interface Zh_cn {
+         /** key */
+         id: string;
+         /** 值 */
+         value: string;
+      }
+   }
    namespace Level {
       export interface Level {
          /** id */
@@ -80,32 +88,6 @@ declare namespace Config {
       }
    }
    namespace Skills {
-      export interface PassiveSkill {
-         /** id */
-         id: number;
-         /** 名称 */
-         name: string;
-         /** 图标 */
-         icon: string;
-         /** 类型 */
-         type: number;
-         /** 触发条件 */
-         triggerCondition: number;
-         /** 触发条件数据 */
-         triggerArgs: Array<number>;
-         /** 触发概率 */
-         trigger: number;
-         /** 额外作用 */
-         cmd: string;
-         /** 作用参数 */
-         cmdArgs: Array<number>;
-         /** 陷阱ID */
-         trapID: number;
-         /** 附加Buffer */
-         buffers: Array<number>;
-         /** 描述 */
-         desc: string;
-      }
       export interface Skill {
          /** 类型 */
          type: number;
@@ -131,6 +113,32 @@ declare namespace Config {
          targetType: number;
          /** 攻击距离 */
          attackRange: number;
+      }
+      export interface PassiveSkill {
+         /** id */
+         id: number;
+         /** 名称 */
+         name: string;
+         /** 图标 */
+         icon: string;
+         /** 类型 */
+         type: number;
+         /** 触发条件 */
+         triggerCondition: number;
+         /** 触发条件数据 */
+         triggerArgs: Array<number>;
+         /** 触发概率 */
+         trigger: number;
+         /** 额外作用 */
+         cmd: string;
+         /** 作用参数 */
+         cmdArgs: Array<number>;
+         /** 陷阱ID */
+         trapID: number;
+         /** 附加Buffer */
+         buffers: Array<number>;
+         /** 描述 */
+         desc: string;
       }
    }
    namespace Tower {

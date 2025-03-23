@@ -448,6 +448,102 @@ declare class PropertyBinder {
 }
 
 /**
+ * 配置存取器接口
+ */
+interface IConfigAccessor {
+    /**
+     * 表名
+     */
+    sheetName: string;
+    /**
+     * 保存
+     * @param value
+     */
+    save(value: any): boolean;
+    /**
+     * 获取所有元素
+     */
+    getElements<T>(): Array<T>;
+    /**
+     * 清理
+     */
+    destroy(): void;
+}
+
+/**
+ * 配置存储器
+ */
+declare class ConfigStorage {
+    key: string;
+    keys: Array<string>;
+    map: Map<string, any>;
+    constructor(keys: Array<string>);
+    save(value: any, sheet: string): void;
+    get<T>(key: string): T | undefined;
+    destroy(): void;
+}
+
+/**
+ * 配置存取器基类
+ */
+declare class BaseConfigAccessor implements IConfigAccessor {
+    /**
+     * 表名
+     */
+    sheetName: string;
+    protected $configs: Array<any>;
+    protected $storages: Map<string, ConfigStorage>;
+    constructor();
+    /**
+    * 子类构造函数中调用，增加存储方式
+    * @param keys
+    */
+    protected addStorage(keys: Array<string>): void;
+    save(value: any): boolean;
+    /**
+     * 通过单key单值获取项内容
+     * @param key
+     * @param value
+     * @returns
+     */
+    getOne<T>(key: string, value: any): T;
+    /**
+      * 获取
+      * @param keys
+      * @param values
+      * @returns
+      */
+    get<T>(keys?: Array<string>, values?: Array<any>): T | undefined;
+    /**
+     * 获取存储器
+     * @param keys
+     * @returns
+     */
+    getStorage(keys: Array<string>): ConfigStorage | undefined;
+    /**
+     * 获取
+     * @param key
+     * @param value
+     * @returns
+     */
+    getElements<T>(): Array<T>;
+    destroy(): void;
+}
+
+/**
+ * 以id为key的配置存储器
+ */
+declare class IDConfigAccessor extends BaseConfigAccessor {
+    constructor();
+    /**
+     * 通过ID获取配置项内容
+     * @param id
+     * @returns
+     */
+    getByID<T>(id: number): T;
+}
+
+/**
  * 事件类型
  */
 type EventType$1 = number | string;
@@ -631,6 +727,102 @@ declare class EventDispatcher implements IEventDispatcher {
     hasEvent(type: EventType$1): boolean;
     hasEventHandler(type: EventType$1, handler: (e: Event) => void, caller: any): boolean;
     destroy(): boolean;
+}
+
+/**
+ * 加载器接口
+ * @event Event.COMPLETE 加载完成
+ * @event Event.ERROR 加载错误
+ * @event Event.PROGRESS 加载进度
+ */
+interface ILoader extends IEventDispatcher, IPoolable {
+    /**
+     * 加载
+     * @param url
+     */
+    load(url: ResURL): void;
+}
+
+declare class LocalConfigLoader extends EventDispatcher implements ILoader {
+    private __url;
+    constructor();
+    load(url: ResURL): void;
+    private __load;
+    private __parseConfig;
+    reset(): void;
+}
+
+/**
+ * 远程配置加载器
+ */
+declare class RemoteConfigLoader extends EventDispatcher implements ILoader {
+    /**
+     * 强制加载最新版本
+     */
+    static force: boolean;
+    url?: ResURL;
+    constructor();
+    load(url: ResURL): void;
+    private __parseConfig;
+    reset(): void;
+}
+
+/**
+ * 配置表管理器
+ */
+declare class ConfigManager {
+    static KEY: string;
+    /**
+      * 注册存取器
+      * @param sheet
+      * @param accessors
+      */
+    static register(sheet: string, accessors: new () => IConfigAccessor): void;
+    /**
+     * 注销
+     * @param sheet
+     */
+    static unregister(sheet: string): void;
+    /**
+     * 获取存取器类
+     * @param sheet
+     * @returns
+     */
+    static getAccessorClass(sheet: string): new () => IConfigAccessor;
+    /**
+     * 获取配置存取器
+     * @param sheet
+     */
+    static getAccessor(sheet: string): IConfigAccessor;
+    private static __impl;
+    private static get impl();
+}
+
+/**
+ * 配置管理器接口
+ */
+interface IConfigManager {
+    /**
+     * 注册存取器
+     * @param sheet
+     * @param accessors
+     */
+    register(sheet: string, accessors: new () => IConfigAccessor): void;
+    /**
+     * 注销
+     * @param sheet
+     */
+    unregister(sheet: string): void;
+    /**
+     * 获取存取器类
+     * @param sheet
+     */
+    getAccessorClass(sheet: string): new () => IConfigAccessor;
+    /**
+     * 获取配置存取器
+     * @param sheet
+     */
+    getAccessor(sheet: string): IConfigAccessor;
 }
 
 /**
@@ -1391,29 +1583,6 @@ declare class Logger {
     private static get impl();
 }
 
-/**
- * 配置存取器接口
- */
-interface IConfigAccessor {
-    /**
-     * 表名
-     */
-    sheetName: string;
-    /**
-     * 保存
-     * @param value
-     */
-    save(value: any): boolean;
-    /**
-     * 获取所有元素
-     */
-    getElements<T>(): Array<T>;
-    /**
-     * 清理
-     */
-    destroy(): void;
-}
-
 declare class ResRef implements IPoolable {
     /**
      * 资源全局唯一KEY
@@ -1963,20 +2132,6 @@ declare class Pool {
      */
     static destroy<T extends IPoolable>(clazz: new () => T): void;
     static logStatus(): void;
-}
-
-/**
- * 加载器接口
- * @event Event.COMPLETE 加载完成
- * @event Event.ERROR 加载错误
- * @event Event.PROGRESS 加载进度
- */
-interface ILoader extends IEventDispatcher, IPoolable {
-    /**
-     * 加载
-     * @param url
-     */
-    load(url: ResURL): void;
 }
 
 /**
@@ -2829,4 +2984,4 @@ declare class Engine {
     static tick(dt: number): void;
 }
 
-export { ArrayProperty, ArrayValue, AudioManager, BaseValue, Binder, BitFlag, CCLoader, ChangedData, ClassUtils, Dictionary, DictionaryProperty, DictionaryValue, Engine, Event, EventDispatcher, EventType$1 as EventType, Func, FuncNode, FunctionHook, Handler, Http, I18N, IAudioChannel, IAudioGroup, IAudioManager, IDeserialization, IDestroyable, IEnginePlugin, IEventDispatcher, IFuncConfig, IFuncData, ILoader, ILoaderManager, ILogger, IPoolable, IProtocol, IRedPointData, IRes, IResource, IResourceManager, ISerDesProperty, ISerDesValue, ISerialization, ISocket, ISocketManager, ITask, ITicker, ITickerManager, ITimer, Injector, JSONDeserialization, JSONSerialization, List, LoaderManager, Logger, MathUtils, Module, ModuleManager, NumberProperty, NumberValue, ObjectUtils, Pool, PropertyBinder, RedPoint, RedPointNode, Res, ResRef, ResRequest, ResURL, Resource, ResourceManager, SerDes, SerDesMode, Socket, SocketManager, SocketManagerImpl, StringProperty, StringUtils, StringValue, Task, TaskQueue, TaskSequence, TickerManager, Timer };
+export { ArrayProperty, ArrayValue, AudioManager, BaseConfigAccessor, BaseValue, Binder, BitFlag, CCLoader, ChangedData, ClassUtils, ConfigManager, ConfigStorage, Dictionary, DictionaryProperty, DictionaryValue, Engine, Event, EventDispatcher, EventType$1 as EventType, Func, FuncNode, FunctionHook, Handler, Http, I18N, IAudioChannel, IAudioGroup, IAudioManager, IConfigAccessor, IConfigManager, IDConfigAccessor, IDeserialization, IDestroyable, IEnginePlugin, IEventDispatcher, IFuncConfig, IFuncData, ILoader, ILoaderManager, ILogger, IPoolable, IProtocol, IRedPointData, IRes, IResource, IResourceManager, ISerDesProperty, ISerDesValue, ISerialization, ISocket, ISocketManager, ITask, ITicker, ITickerManager, ITimer, Injector, JSONDeserialization, JSONSerialization, List, LoaderManager, LocalConfigLoader, Logger, MathUtils, Module, ModuleManager, NumberProperty, NumberValue, ObjectUtils, Pool, PropertyBinder, RedPoint, RedPointNode, RemoteConfigLoader, Res, ResRef, ResRequest, ResURL, Resource, ResourceManager, SerDes, SerDesMode, Socket, SocketManager, SocketManagerImpl, StringProperty, StringUtils, StringValue, Task, TaskQueue, TaskSequence, TickerManager, Timer };

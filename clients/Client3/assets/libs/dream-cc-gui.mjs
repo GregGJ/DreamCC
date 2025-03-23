@@ -1441,6 +1441,10 @@ var SubGUIMediator = class extends BaseMediator {
   }
 };
 
+// src/gui/tabs/TabData.ts
+var TabData = class {
+};
+
 // src/gui/tabs/TabContainer.ts
 import { Binder as Binder2 } from "dream-cc-core";
 var TabContainer = class extends Binder2 {
@@ -1568,6 +1572,7 @@ export {
   RelationManager,
   SubGUIMediator,
   TabContainer,
+  TabData,
   TabPage,
   TooltipManagerImpl,
   TooltipPosMode

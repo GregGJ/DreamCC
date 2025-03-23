@@ -8,7 +8,7 @@ export class I18N {
     /**
      * 多语言表名
      */
-    static fileName: string = "t_s_language";
+    static fileName: string = "language";
     /**
      * 当前语言
      */

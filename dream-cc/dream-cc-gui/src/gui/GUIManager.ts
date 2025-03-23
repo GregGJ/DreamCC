@@ -2,7 +2,6 @@ import { Injector } from "dream-cc-core";
 import { GUIManagerImpl } from "./GUIManagerImpl";
 import { GUIState } from "./GUIState";
 import { IGUIManager } from "./IGUIManager";
-import { ITabData } from "./tabs/ITabData";
 
 /**
      * GUI 管理器
@@ -39,7 +38,7 @@ export class GUIManager {
      * @param key 
      * @param data 
      */
-    static open(key: string, data?: ITabData): void {
+    static open(key: string, data?: any): void {
         this.impl.open(key, data);
     }
 

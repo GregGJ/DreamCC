@@ -22,9 +22,9 @@ export class Module_playerPrefs extends Module {
      */
     playerRecord: DictionaryProperty;
     /**
-     * 当前关卡记录数据
+     * 当前游戏记录
      */
-    currentLevel: DictionaryProperty;
+    currentGame: DictionaryProperty;
 
     constructor() {
         super();
@@ -101,12 +101,40 @@ export class Module_playerPrefs extends Module {
         games.remove(data);
     }
 
+    /**
+     * 创建一个新的关卡记录
+     * @param id 
+     * @returns 
+     */
     createLevelRecord(id: number): DictionaryProperty {
         let result = new DictionaryProperty(id.toString());
         //星级
         result.add(new NumberProperty(RecordPropertys.STARS, 0));
-        result.add(new NumberProperty(GameMode.CAMPAIGN + "|" + GameDifficulty.EASY, 0));
+        //3种模式
+        result.add(new NumberProperty(GameMode.CAMPAIGN.toString(), -1));
+        result.add(new NumberProperty(GameMode.HEROIC.toString(), -1));
+        result.add(new NumberProperty(GameMode.IRON.toString(), -1));
         return result;
+    }
+
+    /**
+     * 开放关卡到指定关卡
+     * @param level 
+     */
+    openToLevel(level: number): void {
+        if (!this.currentGame) {
+            return;
+        }
+        let levels = this.currentGame.get(RecordPropertys.LEVELS) as DictionaryProperty;
+        for (let index = 1; index < level; index++) {
+            let p_level = levels.get(index.toString()) as DictionaryProperty;
+            if (!p_level) {
+                p_level = this.createLevelRecord(index);
+                levels.add(p_level);
+            }
+            p_level.update(GameMode.CAMPAIGN.toString(), index < (level - 1) ? 0 : -1);
+            p_level.update(RecordPropertys.STARS, 1);
+        }
     }
 
     get index(): number {
@@ -120,6 +148,7 @@ export class Module_playerPrefs extends Module {
     }
 
     protected selfInit(): void {
+        // this.clear();
         this.read();
         this.selfInitComplete();
     }

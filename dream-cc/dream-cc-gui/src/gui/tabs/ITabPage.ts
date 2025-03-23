@@ -1,5 +1,3 @@
-import { ITabData } from "./ITabData";
-
 
 
 export interface ITabPage {
@@ -19,8 +17,8 @@ export interface ITabPage {
      * 显示
      * @param data 
      */
-    show(data?: ITabData): void;
-    showedUpdate(data?: ITabData): void;
+    show(data?: any): void;
+    showedUpdate(data?: any): void;
     /**
      * 隐藏
      */

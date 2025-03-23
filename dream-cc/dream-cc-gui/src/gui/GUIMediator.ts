@@ -6,7 +6,6 @@ import { GUIManager } from "./GUIManager";
 import { IGUIInfo } from "./IGUIInfo";
 import { IGUIMediator } from "./IGUIMediator";
 import { SubGUIMediator } from "./SubGUIMediator";
-import { ITabData } from "./tabs/ITabData";
 import { TabContainer } from "./tabs/TabContainer";
 import { Module, ModuleManager, ResURL } from "dream-cc-core";
 
@@ -129,7 +128,7 @@ export class GUIMediator extends BaseMediator implements IGUIMediator {
         super.init();
     }
 
-    show(data?: ITabData): void {
+    show(data?: any): void {
         super.show(data);
         if (this.$subMediators) {
             for (let index = 0; index < this.$subMediators.length; index++) {
@@ -142,7 +141,7 @@ export class GUIMediator extends BaseMediator implements IGUIMediator {
         }
     }
 
-    showedUpdate(data?: ITabData): void {
+    showedUpdate(data?: any): void {
         super.showedUpdate(data);
         if (this.$subMediators) {
             for (let index = 0; index < this.$subMediators.length; index++) {

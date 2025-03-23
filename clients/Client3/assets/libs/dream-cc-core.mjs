@@ -3348,6 +3348,398 @@ var BinderUtils = class {
   }
 };
 
+// src/configs/accessors/ConfigStorage.ts
+var ConfigStorage = class {
+  constructor(keys) {
+    this.key = keys.join("_");
+    this.keys = keys;
+    this.map = /* @__PURE__ */ new Map();
+  }
+  save(value, sheet) {
+    if (this.keys.length == 1) {
+      let key = this.keys[0];
+      let saveKey = value[key];
+      if (this.map.has(saveKey)) {
+        throw new Error(`\u914D\u7F6E\u8868${sheet}\u552F\u4E00Key\u5B58\u5728\u91CD\u590D\u5185\u5BB9:${saveKey}`);
+      }
+      this.map.set(saveKey, value);
+    } else {
+      let values = [];
+      for (let index = 0; index < this.keys.length; index++) {
+        const key = this.keys[index];
+        values.push(value[key]);
+      }
+      const saveKey = values.join("_");
+      if (!saveKey || saveKey.length == 0) {
+        return;
+      }
+      if (this.map.has(saveKey)) {
+        throw new Error(`\u914D\u7F6E\u8868${sheet}\u552F\u4E00Key\u5B58\u5728\u91CD\u590D\u5185\u5BB9:${saveKey}`);
+      }
+      this.map.set(saveKey, value);
+    }
+  }
+  get(key) {
+    if (this.map.has(key)) {
+      return this.map.get(key);
+    }
+    return void 0;
+  }
+  destroy() {
+    this.key = void 0;
+    this.keys = null;
+    this.map.clear();
+    this.map = null;
+  }
+};
+
+// src/configs/accessors/BaseConfigAccessor.ts
+var BaseConfigAccessor = class {
+  constructor() {
+    this.$configs = [];
+    this.$storages = /* @__PURE__ */ new Map();
+  }
+  /**
+  * 子类构造函数中调用，增加存储方式
+  * @param keys 
+  */
+  addStorage(keys) {
+    const key = keys.join("_");
+    if (this.$storages.has(key)) {
+      throw new Error("\u91CD\u590D\u6DFB\u52A0\u914D\u7F6E\u8868\u5B58\u50A8\u65B9\u5F0F\uFF1A" + key);
+    }
+    this.$storages.set(key, new ConfigStorage(keys));
+  }
+  save(value) {
+    const index = this.$configs.indexOf(value);
+    if (index >= 0) {
+      return false;
+    }
+    this.$configs.push(value);
+    for (let i of this.$storages.values()) {
+      i.save(value, this.sheetName);
+    }
+    return true;
+  }
+  /**
+   * 通过单key单值获取项内容
+   * @param key 
+   * @param value 
+   * @returns 
+   */
+  getOne(key, value) {
+    return this.get([key], [value]);
+  }
+  /**
+    * 获取
+    * @param keys 
+    * @param values 
+    * @returns 
+    */
+  get(keys, values) {
+    if (!keys || !values || keys.length == 0 || values.length == 0) {
+      return void 0;
+    }
+    if (keys.length != values.length) {
+      throw new Error("\u53C2\u6570\u957F\u5EA6\u4E0D\u4E00\u81F4!");
+    }
+    if (keys.length == 1) {
+      let key = keys[0];
+      let value = values[0];
+      if (this.$storages.has(key)) {
+        const storage = this.$storages.get(key);
+        return storage.get(value);
+      }
+    } else {
+      let sKey = keys.join("_");
+      if (this.$storages.has(sKey)) {
+        const s = this.$storages.get(sKey);
+        const vKey = values.join("_");
+        return s.get(vKey);
+      }
+    }
+    return void 0;
+  }
+  /**
+   * 获取存储器
+   * @param keys 
+   * @returns 
+   */
+  getStorage(keys) {
+    return this.$storages.get(keys.join("_"));
+  }
+  /**
+   * 获取
+   * @param key
+   * @param value
+   * @returns 
+   */
+  getElements() {
+    return this.$configs;
+  }
+  destroy() {
+    this.$configs = null;
+    for (let i of this.$storages.values()) {
+      i.destroy();
+    }
+    this.$storages.clear();
+    this.$storages = null;
+  }
+};
+
+// src/configs/accessors/IDConfigAccessor.ts
+var IDConfigAccessor = class extends BaseConfigAccessor {
+  constructor() {
+    super();
+    this.addStorage(["id"]);
+  }
+  /**
+   * 通过ID获取配置项内容
+   * @param id 
+   * @returns 
+   */
+  getByID(id) {
+    return this.getOne("id", id);
+  }
+};
+
+// src/configs/res/LocalConfigLoader.ts
+import { assetManager as assetManager4, JsonAsset } from "cc";
+
+// src/configs/ConfigManagerImpl.ts
+var ConfigManagerImpl = class {
+  constructor() {
+    this.__accessors = /* @__PURE__ */ new Map();
+  }
+  /**
+   * 注册存取器
+   * @param sheet 
+   * @param accessor
+   */
+  register(sheet, accessor) {
+    if (this.__accessors.has(sheet)) {
+      if (this.__accessors.get(sheet) != accessor) {
+        throw new Error(`${sheet},\u91CD\u590D\u6CE8\u518C\u914D\u7F6E\u8868\u5B58\u53D6\u5668\u4E14\u5B58\u53D6\u5668\u7C7B\u578B\u4E0D\u4E00\u81F4!`);
+      } else {
+        return;
+      }
+    }
+    this.__accessors.set(sheet, accessor);
+  }
+  /**
+   * 注销
+   * @param sheet 
+   */
+  unregister(sheet) {
+    this.__accessors.delete(sheet);
+  }
+  /**
+   * 获取存取器类
+   * @param sheet 
+   * @returns 
+   */
+  getAccessorClass(sheet) {
+    if (!this.__accessors.has(sheet)) {
+      throw new Error(`${sheet},\u914D\u7F6E\u8868\u5B58\u53D6\u5668\u672A\u6CE8\u518C!`);
+    }
+    return this.__accessors.get(sheet);
+  }
+  /**
+   * 获取存取器
+   * @param sheet 
+   * @returns 
+   */
+  getAccessor(sheet) {
+    if (Res.sheet2URL == void 0) {
+      throw new Error("Res.sheet2URL\u672A\u5B9A\u4E49!\u8BF7\u5728\u521D\u59CB\u5316\u524D\u8BBE\u7F6E!");
+    }
+    const url = Res.sheet2URL(sheet);
+    const urlKey = Res.url2Key(url);
+    if (!ResourceManager.hasRes(urlKey)) {
+      throw new Error(sheet + "\u672A\u52A0\u8F7D!");
+    }
+    let res = ResourceManager.getRes(urlKey);
+    return res.content;
+  }
+};
+
+// src/configs/ConfigManager.ts
+var ConfigManager = class {
+  /**
+    * 注册存取器
+    * @param sheet 
+    * @param accessors 
+    */
+  static register(sheet, accessors) {
+    this.impl.register(sheet, accessors);
+  }
+  /**
+   * 注销
+   * @param sheet 
+   */
+  static unregister(sheet) {
+    this.impl.unregister(sheet);
+  }
+  /**
+   * 获取存取器类
+   * @param sheet 
+   * @returns 
+   */
+  static getAccessorClass(sheet) {
+    return this.impl.getAccessorClass(sheet);
+  }
+  /**
+   * 获取配置存取器
+   * @param sheet
+   */
+  static getAccessor(sheet) {
+    return this.impl.getAccessor(sheet);
+  }
+  static get impl() {
+    if (this.__impl == null) {
+      this.__impl = Injector.getInject(this.KEY);
+    }
+    if (this.__impl == null) {
+      this.__impl = new ConfigManagerImpl();
+    }
+    return this.__impl;
+  }
+};
+ConfigManager.KEY = "ConfigManager";
+
+// src/configs/res/LocalConfigLoader.ts
+var LocalConfigLoader = class extends EventDispatcher {
+  constructor() {
+    super();
+  }
+  load(url) {
+    this.__url = url;
+    if (typeof this.__url == "string") {
+      throw new Error("\u672A\u5B9E\u73B0\uFF01");
+    }
+    let self = this;
+    let bundle = assetManager4.getBundle(this.__url.bundle);
+    if (!bundle) {
+      assetManager4.loadBundle(
+        this.__url.bundle,
+        (err, bundle2) => {
+          if (err) {
+            this.emit(Event.ERROR, this.__url, err);
+            return;
+          }
+          this.__load(this.__url, bundle2);
+        }
+      );
+    } else {
+      this.__load(this.__url, bundle);
+    }
+  }
+  __load(url, bundle) {
+    if (typeof url == "string") {
+      throw new Error("\u672A\u5B9E\u73B0\uFF01");
+    }
+    let urlStr = Res.url2Path(url);
+    bundle.load(
+      urlStr,
+      JsonAsset,
+      (finished, total) => {
+        const progress = finished / total;
+        this.emit(Event.PROGRESS, this.__url, void 0, progress);
+      },
+      (err, asset) => {
+        if (err) {
+          this.emit(Event.ERROR, url, err);
+          return;
+        }
+        const urlKey = Res.url2Key(url);
+        let res = new Resource();
+        res.key = urlKey;
+        res.content = asset;
+        let accessor = this.__parseConfig(url, asset);
+        res.content = accessor;
+        ResourceManager.addRes(res);
+        this.emit(Event.COMPLETE, url);
+      }
+    );
+  }
+  __parseConfig(url, data) {
+    let list = data.json;
+    if (Res.url2Sheet == void 0) {
+      throw new Error("Res.url2Sheet\u672A\u5B9A\u4E49!\u8BF7\u5728\u521D\u59CB\u5316\u524D\u8BBE\u7F6E!");
+    }
+    const sheet_name = Res.url2Sheet(url);
+    let accessorClass = ConfigManager.getAccessorClass(sheet_name);
+    let accessor = new accessorClass();
+    accessor.sheetName = sheet_name;
+    for (let idx = 0; idx < list.length; idx++) {
+      const data2 = list[idx];
+      accessor.save(data2);
+    }
+    return accessor;
+  }
+  reset() {
+    this.__url = void 0;
+    this.offAllEvent();
+  }
+};
+
+// src/configs/res/RemoteConfigLoader.ts
+import { assetManager as assetManager5 } from "cc";
+var _RemoteConfigLoader = class _RemoteConfigLoader extends EventDispatcher {
+  constructor() {
+    super();
+  }
+  load(url) {
+    this.url = url;
+    if (typeof url == "string") {
+      throw new Error("\u672A\u5B9E\u73B0\uFF01");
+    }
+    let self = this;
+    let remote_url = url.url;
+    if (_RemoteConfigLoader.force) {
+      remote_url += "?v=" + Date.now();
+    }
+    assetManager5.loadRemote(remote_url, (err, asset) => {
+      if (err) {
+        self.emit(Event.ERROR, url, err);
+        return;
+      }
+      const urlKey = Res.url2Key(url);
+      let res = new Resource();
+      res.key = urlKey;
+      res.content = asset;
+      let accessor = this.__parseConfig(url, asset);
+      res.content = accessor;
+      ResourceManager.addRes(res);
+      self.emit(Event.COMPLETE, url);
+    });
+  }
+  __parseConfig(url, data) {
+    let list = data.json;
+    if (Res.url2Sheet == void 0) {
+      throw new Error("Res.url2Sheet\u672A\u5B9A\u4E49!\u8BF7\u5728\u521D\u59CB\u5316\u524D\u8BBE\u7F6E!");
+    }
+    const sheet_name = Res.url2Sheet(url);
+    let accessorClass = ConfigManager.getAccessorClass(sheet_name);
+    let accessor = new accessorClass();
+    accessor.sheetName = sheet_name;
+    for (let idx = 0; idx < list.length; idx++) {
+      const data2 = list[idx];
+      accessor.save(data2);
+    }
+    return accessor;
+  }
+  reset() {
+    this.url = void 0;
+    this.offAllEvent();
+  }
+};
+/**
+ * 强制加载最新版本
+ */
+_RemoteConfigLoader.force = true;
+var RemoteConfigLoader = _RemoteConfigLoader;
+
 // src/datas/List.ts
 var List = class extends EventDispatcher {
   constructor(only = true) {
@@ -4055,19 +4447,19 @@ var DataFactory = class {
    * @param type 
    * @param key 
    */
-  static createProperty(key, data) {
+  static createProperty(data) {
     let result;
     if (data instanceof Array) {
-      result = new ArrayProperty(key);
+      result = new ArrayProperty();
     } else {
       if (typeof data === "string") {
-        result = new StringProperty(key);
+        result = new StringProperty();
       } else {
         let numValue = Number(data);
         if (isNaN(numValue)) {
-          result = new DictionaryProperty(key);
+          result = new DictionaryProperty();
         } else {
-          result = new NumberProperty(key);
+          result = new NumberProperty();
         }
       }
     }
@@ -4084,27 +4476,34 @@ var JSONDeserialization = class {
    */
   decode(target, data) {
     if (target instanceof ArrayValue) {
-      let item;
       let value;
       for (let i = 0; i < data.length; i++) {
-        item = data[i];
-        value = DataFactory.createValue(item);
-        value.decode(0 /* JSON */, item);
+        let item_value = data[i];
+        value = DataFactory.createProperty(item_value);
+        value.decode(0 /* JSON */, item_value);
         target.push(value);
       }
+      return;
     }
     if (target instanceof DictionaryValue) {
-      let item;
+      let item_property;
       let property;
       for (const key in data) {
+        if (key == "key") {
+          if (target instanceof DictionaryProperty) {
+            target.key = data.key;
+          }
+          continue;
+        }
         if (Object.prototype.hasOwnProperty.call(data, key)) {
-          item = data[key];
-          property = DataFactory.createProperty(key, item);
+          item_property = data[key];
+          property = DataFactory.createProperty(item_property);
           property.key = key;
-          property.decode(0 /* JSON */, item);
+          property.decode(0 /* JSON */, item_property);
           target.add(property);
         }
       }
+      return;
     }
     if (target instanceof BaseValue) {
       target.setValue(data);
@@ -4122,22 +4521,25 @@ var JSONSerialization = class {
    */
   encode(target, data) {
     if (target instanceof ArrayValue) {
-      let result = [];
-      let item;
+      let result_value = [];
+      let item_value;
       for (let i = 0; i < target.elements.length; i++) {
-        item = target.elements[i];
-        result.push(item.encode(0 /* JSON */, data));
+        item_value = target.elements[i];
+        result_value.push(item_value.encode(0 /* JSON */, data));
       }
-      return result;
+      return result_value;
     }
     if (target instanceof DictionaryValue) {
-      let result = {};
-      let item;
+      let result_property = {};
+      let item_property;
       for (let index = 0; index < target.elements.length; index++) {
-        item = target.elements[index];
-        result[item.key] = item.encode(0 /* JSON */, data);
+        item_property = target.elements[index];
+        result_property[item_property.key] = item_property.encode(0 /* JSON */, data);
       }
-      return result;
+      if (target instanceof DictionaryProperty) {
+        result_property["key"] = target.key;
+      }
+      return result_property;
     }
     return target.value;
   }
@@ -4615,112 +5017,11 @@ var Func = class _Func extends EventDispatcher {
 // src/modules/Module.ts
 import { Component } from "cc";
 
-// src/configs/ConfigManagerImpl.ts
-var ConfigManagerImpl = class {
-  constructor() {
-    this.__accessors = /* @__PURE__ */ new Map();
-  }
-  /**
-   * 注册存取器
-   * @param sheet 
-   * @param accessor
-   */
-  register(sheet, accessor) {
-    if (this.__accessors.has(sheet)) {
-      if (this.__accessors.get(sheet) != accessor) {
-        throw new Error(`${sheet},\u91CD\u590D\u6CE8\u518C\u914D\u7F6E\u8868\u5B58\u53D6\u5668\u4E14\u5B58\u53D6\u5668\u7C7B\u578B\u4E0D\u4E00\u81F4!`);
-      } else {
-        return;
-      }
-    }
-    this.__accessors.set(sheet, accessor);
-  }
-  /**
-   * 注销
-   * @param sheet 
-   */
-  unregister(sheet) {
-    this.__accessors.delete(sheet);
-  }
-  /**
-   * 获取存取器类
-   * @param sheet 
-   * @returns 
-   */
-  getAccessorClass(sheet) {
-    if (!this.__accessors.has(sheet)) {
-      throw new Error(`${sheet},\u914D\u7F6E\u8868\u5B58\u53D6\u5668\u672A\u6CE8\u518C!`);
-    }
-    return this.__accessors.get(sheet);
-  }
-  /**
-   * 获取存取器
-   * @param sheet 
-   * @returns 
-   */
-  getAccessor(sheet) {
-    if (Res.sheet2URL == void 0) {
-      throw new Error("Res.sheet2URL\u672A\u5B9A\u4E49!\u8BF7\u5728\u521D\u59CB\u5316\u524D\u8BBE\u7F6E!");
-    }
-    const url = Res.sheet2URL(sheet);
-    const urlKey = Res.url2Key(url);
-    if (!ResourceManager.hasRes(urlKey)) {
-      throw new Error(sheet + "\u672A\u52A0\u8F7D!");
-    }
-    let res = ResourceManager.getRes(urlKey);
-    return res.content;
-  }
-};
-
-// src/configs/ConfigManager.ts
-var ConfigManager = class {
-  /**
-    * 注册存取器
-    * @param sheet 
-    * @param accessors 
-    */
-  static register(sheet, accessors) {
-    this.impl.register(sheet, accessors);
-  }
-  /**
-   * 注销
-   * @param sheet 
-   */
-  static unregister(sheet) {
-    this.impl.unregister(sheet);
-  }
-  /**
-   * 获取存取器类
-   * @param sheet 
-   * @returns 
-   */
-  static getAccessorClass(sheet) {
-    return this.impl.getAccessorClass(sheet);
-  }
-  /**
-   * 获取配置存取器
-   * @param sheet
-   */
-  static getAccessor(sheet) {
-    return this.impl.getAccessor(sheet);
-  }
-  static get impl() {
-    if (this.__impl == null) {
-      this.__impl = Injector.getInject(this.KEY);
-    }
-    if (this.__impl == null) {
-      this.__impl = new ConfigManagerImpl();
-    }
-    return this.__impl;
-  }
-};
-ConfigManager.KEY = "ConfigManager";
-
 // src/modules/ModuleManager.ts
 import { Node as Node4 } from "cc";
 
 // src/modules/ModuleLoader.ts
-import { assetManager as assetManager4 } from "cc";
+import { assetManager as assetManager6 } from "cc";
 
 // src/modules/ModuleProxy.ts
 var ModuleProxy = class {
@@ -4765,9 +5066,9 @@ var ModuleLoader = class extends EventDispatcher {
       this.__initModule();
     } else {
       Logger.log("Start Load Module:" + this.module_name);
-      let bundle = assetManager4.getBundle(module_name);
+      let bundle = assetManager6.getBundle(module_name);
       if (!bundle) {
-        assetManager4.loadBundle(module_name, this.__bundleLoaded.bind(this));
+        assetManager6.loadBundle(module_name, this.__bundleLoaded.bind(this));
       } else {
         this.__bundleLoaded(null, bundle);
       }
@@ -5840,145 +6141,6 @@ var Handler = class {
   }
 };
 
-// src/configs/accessors/ConfigStorage.ts
-var ConfigStorage = class {
-  constructor(keys) {
-    this.key = keys.join("_");
-    this.keys = keys;
-    this.map = /* @__PURE__ */ new Map();
-  }
-  save(value, sheet) {
-    if (this.keys.length == 1) {
-      let key = this.keys[0];
-      let saveKey = value[key];
-      if (this.map.has(saveKey)) {
-        throw new Error(`\u914D\u7F6E\u8868${sheet}\u552F\u4E00Key\u5B58\u5728\u91CD\u590D\u5185\u5BB9:${saveKey}`);
-      }
-      this.map.set(saveKey, value);
-    } else {
-      let values = [];
-      for (let index = 0; index < this.keys.length; index++) {
-        const key = this.keys[index];
-        values.push(value[key]);
-      }
-      const saveKey = values.join("_");
-      if (!saveKey || saveKey.length == 0) {
-        return;
-      }
-      if (this.map.has(saveKey)) {
-        throw new Error(`\u914D\u7F6E\u8868${sheet}\u552F\u4E00Key\u5B58\u5728\u91CD\u590D\u5185\u5BB9:${saveKey}`);
-      }
-      this.map.set(saveKey, value);
-    }
-  }
-  get(key) {
-    if (this.map.has(key)) {
-      return this.map.get(key);
-    }
-    return void 0;
-  }
-  destroy() {
-    this.key = void 0;
-    this.keys = null;
-    this.map.clear();
-    this.map = null;
-  }
-};
-
-// src/configs/accessors/BaseConfigAccessor.ts
-var BaseConfigAccessor = class {
-  constructor() {
-    this.$configs = [];
-    this.$storages = /* @__PURE__ */ new Map();
-  }
-  /**
-  * 子类构造函数中调用，增加存储方式
-  * @param keys 
-  */
-  addStorage(keys) {
-    const key = keys.join("_");
-    if (this.$storages.has(key)) {
-      throw new Error("\u91CD\u590D\u6DFB\u52A0\u914D\u7F6E\u8868\u5B58\u50A8\u65B9\u5F0F\uFF1A" + key);
-    }
-    this.$storages.set(key, new ConfigStorage(keys));
-  }
-  save(value) {
-    const index = this.$configs.indexOf(value);
-    if (index >= 0) {
-      return false;
-    }
-    this.$configs.push(value);
-    for (let i of this.$storages.values()) {
-      i.save(value, this.sheetName);
-    }
-    return true;
-  }
-  /**
-   * 通过单key单值获取项内容
-   * @param key 
-   * @param value 
-   * @returns 
-   */
-  getOne(key, value) {
-    return this.get([key], [value]);
-  }
-  /**
-    * 获取
-    * @param keys 
-    * @param values 
-    * @returns 
-    */
-  get(keys, values) {
-    if (!keys || !values || keys.length == 0 || values.length == 0) {
-      return void 0;
-    }
-    if (keys.length != values.length) {
-      throw new Error("\u53C2\u6570\u957F\u5EA6\u4E0D\u4E00\u81F4!");
-    }
-    if (keys.length == 1) {
-      let key = keys[0];
-      let value = values[0];
-      if (this.$storages.has(key)) {
-        const storage = this.$storages.get(key);
-        return storage.get(value);
-      }
-    } else {
-      let sKey = keys.join("_");
-      if (this.$storages.has(sKey)) {
-        const s = this.$storages.get(sKey);
-        const vKey = values.join("_");
-        return s.get(vKey);
-      }
-    }
-    return void 0;
-  }
-  /**
-   * 获取存储器
-   * @param keys 
-   * @returns 
-   */
-  getStorage(keys) {
-    return this.$storages.get(keys.join("_"));
-  }
-  /**
-   * 获取
-   * @param key
-   * @param value
-   * @returns 
-   */
-  getElements() {
-    return this.$configs;
-  }
-  destroy() {
-    this.$configs = null;
-    for (let i of this.$storages.values()) {
-      i.destroy();
-    }
-    this.$storages.clear();
-    this.$storages = null;
-  }
-};
-
 // src/utils/StringUtils.ts
 var StringUtils = class {
   /**
@@ -6128,7 +6290,7 @@ var I18N = class {
 /**
  * 多语言表名
  */
-I18N.fileName = "t_s_language";
+I18N.fileName = "language";
 /**
  * 当前语言
  */
@@ -6359,83 +6521,6 @@ var ObjectUtils = class {
   }
 };
 
-// src/configs/res/LocalConfigLoader.ts
-import { assetManager as assetManager5, JsonAsset } from "cc";
-var LocalConfigLoader = class extends EventDispatcher {
-  constructor() {
-    super();
-  }
-  load(url) {
-    this.__url = url;
-    if (typeof this.__url == "string") {
-      throw new Error("\u672A\u5B9E\u73B0\uFF01");
-    }
-    let self = this;
-    let bundle = assetManager5.getBundle(this.__url.bundle);
-    if (!bundle) {
-      assetManager5.loadBundle(
-        this.__url.bundle,
-        (err, bundle2) => {
-          if (err) {
-            this.emit(Event.ERROR, this.__url, err);
-            return;
-          }
-          this.__load(this.__url, bundle2);
-        }
-      );
-    } else {
-      this.__load(this.__url, bundle);
-    }
-  }
-  __load(url, bundle) {
-    if (typeof url == "string") {
-      throw new Error("\u672A\u5B9E\u73B0\uFF01");
-    }
-    let urlStr = Res.url2Path(url);
-    bundle.load(
-      urlStr,
-      JsonAsset,
-      (finished, total) => {
-        const progress = finished / total;
-        this.emit(Event.PROGRESS, this.__url, void 0, progress);
-      },
-      (err, asset) => {
-        if (err) {
-          this.emit(Event.ERROR, url, err);
-          return;
-        }
-        const urlKey = Res.url2Key(url);
-        let res = new Resource();
-        res.key = urlKey;
-        res.content = asset;
-        let accessor = this.__parseConfig(url, asset);
-        res.content = accessor;
-        ResourceManager.addRes(res);
-        this.emit(Event.COMPLETE, url);
-      }
-    );
-  }
-  __parseConfig(url, data) {
-    let list = data.json;
-    if (Res.url2Sheet == void 0) {
-      throw new Error("Res.url2Sheet\u672A\u5B9A\u4E49!\u8BF7\u5728\u521D\u59CB\u5316\u524D\u8BBE\u7F6E!");
-    }
-    const sheet_name = Res.url2Sheet(url);
-    let accessorClass = ConfigManager.getAccessorClass(sheet_name);
-    let accessor = new accessorClass();
-    accessor.sheetName = sheet_name;
-    for (let idx = 0; idx < list.length; idx++) {
-      const data2 = list[idx];
-      accessor.save(data2);
-    }
-    return accessor;
-  }
-  reset() {
-    this.__url = void 0;
-    this.offAllEvent();
-  }
-};
-
 // src/Engine.ts
 var Engine = class {
   /**
@@ -6503,12 +6588,15 @@ export {
   ArrayProperty,
   ArrayValue,
   AudioManager,
+  BaseConfigAccessor,
   BaseValue,
   Binder,
   BitFlag,
   CCLoader,
   ChangedData,
   ClassUtils,
+  ConfigManager,
+  ConfigStorage,
   Dictionary,
   DictionaryProperty,
   DictionaryValue,
@@ -6521,11 +6609,13 @@ export {
   Handler,
   Http,
   I18N,
+  IDConfigAccessor,
   Injector,
   JSONDeserialization,
   JSONSerialization,
   List,
   LoaderManager,
+  LocalConfigLoader,
   Logger,
   MathUtils,
   Module,
@@ -6537,6 +6627,7 @@ export {
   PropertyBinder,
   RedPoint,
   RedPointNode,
+  RemoteConfigLoader,
   Res,
   ResRef,
   ResRequest,

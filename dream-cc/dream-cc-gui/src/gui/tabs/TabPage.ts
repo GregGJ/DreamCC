@@ -1,6 +1,6 @@
 import { Binder } from "dream-cc-core";
-import { ITabData } from "./ITabData";
 import { ITabPage } from "./ITabPage";
+import { TabData } from "./TabData";
 
 
 
@@ -25,11 +25,11 @@ export class TabPage extends Binder implements ITabPage {
         super.init();
     }
 
-    show(data?: ITabData): void {
+    show(data?: any): void {
         this.bindByRecords();
     }
 
-    showedUpdate(data?: ITabData): void {
+    showedUpdate(data?: any): void {
 
     }
 
