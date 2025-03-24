@@ -1,0 +1,31 @@
+{
+    "actions": [
+        {
+            "key": "idleDown",
+            "prefix": "tower_archer_lvl1_shooter",
+            "from": 1,
+            "to": 1
+        },
+        {
+            "key": "idleUp",
+            "prefix": "tower_archer_lvl1_shooter",
+            "from": 2,
+            "to": 2
+        },
+        {
+            "key": "shootingDown",
+            "prefix": "tower_archer_lvl1_shooter",
+            "from": 3,
+            "to": 10
+        },
+        {
+            "key": "shootingUp",
+            "prefix": "tower_archer_lvl1_shooter",
+            "from": 11,
+            "to": 18
+        }
+    ],
+    "textures": [
+        "tower_archer_lvl1_shooter_0.png"
+    ]
+}

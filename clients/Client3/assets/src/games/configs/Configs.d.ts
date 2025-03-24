@@ -88,32 +88,6 @@ declare namespace Config {
       }
    }
    namespace Skills {
-      export interface Skill {
-         /** 类型 */
-         type: number;
-         /** 等级 */
-         level: number;
-         /** 技能主类型 */
-         mainType: number;
-         /** 名称 */
-         name: string;
-         /** 图标 */
-         icon: string;
-         /** 描述 */
-         desc: string;
-         /** 主动技能类型 */
-         activeType: number;
-         /** 僵直时间 */
-         cd: number;
-         /** 起手动作 */
-         startAnimation: string;
-         /** 起手特效 */
-         startEffect: string;
-         /** 目标类型 */
-         targetType: number;
-         /** 攻击距离 */
-         attackRange: number;
-      }
       export interface PassiveSkill {
          /** id */
          id: number;
@@ -139,6 +113,32 @@ declare namespace Config {
          buffers: Array<number>;
          /** 描述 */
          desc: string;
+      }
+      export interface Skill {
+         /** 类型 */
+         type: number;
+         /** 等级 */
+         level: number;
+         /** 技能主类型 */
+         mainType: number;
+         /** 名称 */
+         name: string;
+         /** 图标 */
+         icon: string;
+         /** 描述 */
+         desc: string;
+         /** 主动技能类型 */
+         activeType: number;
+         /** 僵直时间 */
+         cd: number;
+         /** 起手动作 */
+         startAnimation: string;
+         /** 起手特效 */
+         startEffect: string;
+         /** 目标类型 */
+         targetType: number;
+         /** 攻击距离 */
+         attackRange: number;
       }
    }
    namespace Tower {

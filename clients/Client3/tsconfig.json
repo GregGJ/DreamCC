@@ -13,6 +13,15 @@
       ],
       "dream-cc-gui": [
         "./assets/libs/dream-cc-gui"
+      ],
+      "dream-cc-ecs": [
+        "./assets/libs/dream-cc-ecs"
+      ],
+      "dream-cc-pathfinding": [
+        "./assets/libs/dream-cc-pathfinding"
+      ],
+      "dream-cc-ai": [
+        "./assets/libs/dream-cc-ai"
       ]
     }
   }

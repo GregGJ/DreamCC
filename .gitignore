@@ -76,3 +76,6 @@ crashlytics-build.properties
 /dream-cc/dream-cc-gui/node_modules
 /dream-cc/fairygui-cc/node_modules
 /tools/dream_cli/target
+/dream-cc/dream-cc-ecs/node_modules
+/dream-cc/dream-cc-pathfinding/node_modules
+/dream-cc/dream-cc-ai/node_modules

@@ -38,7 +38,12 @@ export class GamePath {
     * @param url 
     * @param type 
     */
-    static battleURL(url: string, type: any, bundle?: string): ResURL {
-        return { url: url, type, bundle: "res" };
+    static battleURL(url: string, type: any, data?: any): ResURL {
+        return {
+            url: "battles/" + url,
+            type,
+            bundle: "res",
+            data
+        };
     }
 }

@@ -1,0 +1,29 @@
+[
+    {
+        "name": "bg",
+        "type": "image",
+        "url": "archer_tower_0001",
+        "ax": 0.56,
+        "ay": 0.3,
+        "x": 0,
+        "y": 0
+    },
+    {
+        "name": "shooter_a",
+        "type": "ani",
+        "url": "tower_archer_lvl1_shooter",
+        "ax": 0.5,
+        "ay": 0,
+        "x": -11,
+        "y": -36
+    },
+    {
+        "name": "shooter_b",
+        "type": "ani",
+        "url": "tower_archer_lvl1_shooter",
+        "ax": 0.5,
+        "ay": 0,
+        "x": 11,
+        "y": -36
+    }
+]

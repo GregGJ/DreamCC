@@ -2,6 +2,9 @@
     "imports": {
         "dream-cc-core": "./assets/libs/dream-cc-core.mjs",
         "fairygui-cc": "./assets/libs/fairygui-cc.mjs",
-        "dream-cc-gui":"./assets/libs/dream-cc-gui.mjs"
+        "dream-cc-gui": "./assets/libs/dream-cc-gui.mjs",
+        "dream-cc-ecs": "./assets/libs/dream-cc-ecs.mjs",
+        "dream-cc-pathfinding": "./assets/libs/dream-cc-pathfinding.mjs",
+        "dream-cc-ai": "./assets/libs/dream-cc-ai.mjs"
     }
 }

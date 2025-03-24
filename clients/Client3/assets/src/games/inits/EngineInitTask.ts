@@ -4,6 +4,8 @@ import { GUIPlugin } from "dream-cc-gui";
 import { LayerKeys } from "../consts/LayerKeys";
 import { GamePath } from "../GamePath";
 import { ConfigKeys } from "../configs/ConfigKeys";
+import { UnitAnimationLoader } from "../res/UnitAnimationLoader";
+import { TowerSkinLoader } from "../res/TowerSkinLoader";
 
 
 
@@ -25,7 +27,9 @@ export class EngineInitTask extends Task {
             }
             return url.url.replace("configs/", "");
         }
-
+        Res.setLoader("ani", UnitAnimationLoader);
+        Res.setLoader("tower", TowerSkinLoader);
+        
         //fgui插件
         let guiPlugin = new GUIPlugin();
         guiPlugin.init(

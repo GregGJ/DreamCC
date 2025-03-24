@@ -1,0 +1,55 @@
+{
+    "actions": [
+        {
+            "key": "attack",
+            "prefix": "goblin",
+            "from": 70,
+            "to": 82
+        },
+        {
+            "key": "death",
+            "prefix": "goblin",
+            "from": 106,
+            "to": 120
+        },
+        {
+            "key": "idle",
+            "prefix": "goblin",
+            "from": 67,
+            "to": 67
+        },
+        {
+            "key": "thorn",
+            "prefix": "goblin",
+            "from": 83,
+            "to": 101
+        },
+        {
+            "key": "thornFree",
+            "prefix": "goblin",
+            "from": 102,
+            "to": 106
+        },
+        {
+            "key": "walkingDown",
+            "prefix": "goblin",
+            "from": 45,
+            "to": 66
+        },
+        {
+            "key": "walkingRightLeft",
+            "prefix": "goblin",
+            "from": 1,
+            "to": 22
+        },
+        {
+            "key": "walkingUp",
+            "prefix": "goblin",
+            "from": 23,
+            "to": 44
+        }
+    ],
+    "textures": [
+        "goblin_0.png"
+    ]
+}

@@ -1,0 +1,32 @@
+{
+  "name": "dream-cc-ai",
+  "version": "1.0.9",
+  "description": "cocos create +fgui game framework",
+  "main": "dist/dream-cc-ai.mjs",
+  "types": "dist/dream-cc-ai.d.ts",
+  "type": "module",
+  "files": [
+    "dist/dream-cc-ai.mjs",
+    "dist/dream-cc-ai.d.ts"
+  ],
+  "scripts": {
+    "build": "rollup -c && node ./esbuild.js && call ./copy2Client.bat"
+  },
+  "keywords": [
+    "ai libs"
+  ],
+  "author": "guojie.greg",
+  "license": "MIT",
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^24.0.1",
+    "@rollup/plugin-node-resolve": "^15.0.1",
+    "rollup": "^3.20.2",
+    "rollup-plugin-dts": "^5.3.0",
+    "rollup-plugin-typescript2": "^0.34.1",
+    "esbuild": "^0.23.0"
+  },
+  "dependencies": {
+    "dream-cc-core": "file:../dream-cc-core",
+    "dream-cc-ecs": "file:../dream-cc-ecs"
+  }
+}

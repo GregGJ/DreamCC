@@ -14,4 +14,4 @@ set output_dir=D:\\DreamCC\\clients\\Client3\\assets\\res\\configs
 set code_output_path=D:\\DreamCC\\clients\\Client3\\assets\\src\\games\\configs
 
 @REM %dream_exe% module-export -i %input% -o %output% -m %define%
-%dream_exe% excel-to-json -i %input_dir% -o %output_dir% -c %code_output_path% -v 2 -w 1 -x 3 -y 5 -z ,
+%dream_exe% excel-to-json -i %input_dir% -o %output_dir% -c %code_output_path% -v 2 -w 1 -x 3 -y 4 -z ,

@@ -1,0 +1,19 @@
+{
+    "actions": [
+        {
+            "key": "idle",
+            "prefix": "tower_archer_druid",
+            "from": 1,
+            "to": 1
+        },
+        {
+            "key": "shoot",
+            "prefix": "tower_archer_druid",
+            "from": 1,
+            "to": 41
+        }
+    ],
+    "textures": [
+        "tower_archer_druid_0.png"
+    ]
+}

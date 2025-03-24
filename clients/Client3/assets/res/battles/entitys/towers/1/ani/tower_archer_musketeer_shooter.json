@@ -1,0 +1,55 @@
+{
+    "actions": [
+        {
+            "key": "idleDown",
+            "prefix": "tower_archer_musketeer_shooter",
+            "from": 1,
+            "to": 1
+        },
+        {
+            "key": "idleUp",
+            "prefix": "tower_archer_musketeer_shooter",
+            "from": 2,
+            "to": 2
+        },
+        {
+            "key": "shootingDown",
+            "prefix": "tower_archer_musketeer_shooter",
+            "from": 1,
+            "to": 26
+        },
+        {
+            "key": "shootingUp",
+            "prefix": "tower_archer_musketeer_shooter",
+            "from": 27,
+            "to": 50
+        },
+        {
+            "key": "cannonShootDown",
+            "prefix": "tower_archer_musketeer_shooter",
+            "from": 194,
+            "to": 225
+        },
+        {
+            "key": "cannonShootUp",
+            "prefix": "tower_archer_musketeer_shooter",
+            "from": 226,
+            "to": 257
+        },
+        {
+            "key": "cannonFuseDown",
+            "prefix": "tower_archer_musketeer_shooter",
+            "from": 130,
+            "to": 161
+        },
+        {
+            "key": "cannonFuseUp",
+            "prefix": "tower_archer_musketeer_shooter",
+            "from": 162,
+            "to": 193
+        }
+    ],
+    "textures": [
+        "tower_archer_musketeer_shooter_0.png"
+    ]
+}
