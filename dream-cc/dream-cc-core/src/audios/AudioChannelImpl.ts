@@ -286,7 +286,6 @@ export class AudioChannelImpl implements IAudioChannel {
         let value: number = passTime / this.__time;
         if (value >= 1) {
             //播放完成
-            // Debuger.Log(Debuger.DRONGO, "播放完成！" + this.__url);
             this.__source.stop();
             this.__isPlaying = false;
             if (this.__playedComplete) {

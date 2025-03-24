@@ -8,6 +8,7 @@ type ResURL = string | {
     type: any;
     bundle: string;
     isSub?: boolean;
+    data?: any;
 };
 
 /**
@@ -2118,6 +2119,13 @@ declare class Pool {
      */
     static release<T extends IPoolable>(clazz: new () => T, item: T): void;
     /**
+     * 获取指定类的所有正在使用的对象
+     * @param type
+     * @param result
+     * @returns
+     */
+    static getUsing<T extends IPoolable>(type: new () => T, result?: Array<T>): Array<T>;
+    /**
      * 释放指定类的所有对象
      *
      * @param clazz 类构造函数，需要实现 IPoolable 接口
@@ -2955,6 +2963,13 @@ declare class StringUtils {
      *  // "here is some info '15.4' and true"
      */
     static substitute2(str: string, ...rest: any[]): string;
+    /**
+     * 获取资源父文件夹
+     * @param url
+     * @param separator
+     * @returns
+     */
+    static getDir(url: string, separator?: string): string;
 }
 
 /**

@@ -27,7 +27,7 @@ export class PoolImpl<T extends IPoolable> implements IDestroyable {
         }
     }
 
-    
+
     /**
      * 销毁对象池中的所有对象并释放资源
      *
@@ -44,7 +44,7 @@ export class PoolImpl<T extends IPoolable> implements IDestroyable {
         return true;
     }
 
-    
+
     /**
      * 从对象池中获取一个对象。
      *
@@ -68,7 +68,7 @@ export class PoolImpl<T extends IPoolable> implements IDestroyable {
         return item;
     }
 
-    
+
     /**
      * 释放对象
      *
@@ -80,7 +80,7 @@ export class PoolImpl<T extends IPoolable> implements IDestroyable {
         this.__free.add(item);
     }
 
-    
+
     /**
      * 释放所有正在使用的资源
      */
@@ -94,6 +94,10 @@ export class PoolImpl<T extends IPoolable> implements IDestroyable {
         this.__using.clear();
     }
 
+    get using(): Set<T> {
+        return this.__using;
+    }
+    
     /**
      * 获取当前正在使用的数量
      */

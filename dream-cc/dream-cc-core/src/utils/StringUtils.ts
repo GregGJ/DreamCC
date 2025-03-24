@@ -111,4 +111,19 @@ export class StringUtils {
 
         return str;
     }
+
+    /**
+     * 获取资源父文件夹
+     * @param url 
+     * @param separator 
+     * @returns 
+     */
+    static getDir(url: string, separator: string = "/"): string {
+        let arr = url.split(separator);
+        if (arr.length > 1) {
+            arr.pop();
+            return arr.join(separator);
+        }
+        return "";
+    }
 }

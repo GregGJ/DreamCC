@@ -69,7 +69,7 @@ export class TaskQueue extends Task {
         }
         e.target.offAllEvent();
         if (e.type == Event.ERROR) {
-            this.emit(Event.ERROR, e.error);
+            this.emit(Event.ERROR, undefined, e.error);
             return;
         }
         e.target.destroy();

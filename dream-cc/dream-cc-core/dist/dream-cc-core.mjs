@@ -233,6 +233,9 @@ var PoolImpl = class {
     });
     this.__using.clear();
   }
+  get using() {
+    return this.__using;
+  }
   /**
    * 获取当前正在使用的数量
    */
@@ -283,6 +286,21 @@ var Pool = class {
     } else {
       throw new Error("\u5BF9\u8C61\u6C60\u4E0D\u5B58\u5728");
     }
+  }
+  /**
+   * 获取指定类的所有正在使用的对象
+   * @param type 
+   * @param result 
+   * @returns 
+   */
+  static getUsing(type, result) {
+    result = result || [];
+    if (!this.pools.has(type)) {
+      return [];
+    }
+    let pool = this.pools.get(type);
+    result.push(...pool.using);
+    return result;
   }
   /**
    * 释放指定类的所有对象
@@ -5961,7 +5979,7 @@ var TaskQueue = class extends Task {
     }
     e.target.offAllEvent();
     if (e.type == Event.ERROR) {
-      this.emit(Event.ERROR, e.error);
+      this.emit(Event.ERROR, void 0, e.error);
       return;
     }
     e.target.destroy();
@@ -6011,7 +6029,7 @@ var TaskSequence = class extends Task {
     }
     e.target.offAllEvent();
     if (e.type == Event.ERROR) {
-      this.emit(Event.ERROR, e.error);
+      this.emit(Event.ERROR, void 0, e.error);
       return;
     }
     this.__index++;
@@ -6239,6 +6257,20 @@ var StringUtils = class {
       str = str.replace(new RegExp("\\{" + i + "\\}", "g"), args[i]);
     }
     return str;
+  }
+  /**
+   * 获取资源父文件夹
+   * @param url 
+   * @param separator 
+   * @returns 
+   */
+  static getDir(url, separator = "/") {
+    let arr = url.split(separator);
+    if (arr.length > 1) {
+      arr.pop();
+      return arr.join(separator);
+    }
+    return "";
   }
 };
 
