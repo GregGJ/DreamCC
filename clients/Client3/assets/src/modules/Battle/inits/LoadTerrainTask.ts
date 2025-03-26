@@ -21,7 +21,7 @@ export class LoadTerrainTask extends Task {
         let images = this.model.terrainConfig!.images;
         for (let index = 0; index < images.length; index++) {
             const imageUrl = images[index];
-            urls.push(GamePath.battleURL("levels/" + "images/" + imageUrl.image.replace(".png", ""), SpriteFrame));
+            urls.push(GamePath.battleURL("levels/images/" + imageUrl.image.replace(".png", ""), SpriteFrame));
         }
         //towerPoint
         let list = this.model.terrainConfig!.towers;

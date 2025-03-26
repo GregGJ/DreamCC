@@ -680,4 +680,18 @@ declare class FSM extends EventDispatcher {
     destroy(): boolean;
 }
 
-export { BTActionNode, BTAsyncActionNode, BTBlackboard, BTConditionNode, BTContext, BTControlNode, BTCoroActionNode, BTDecoratorNode, BTDelayNode, BTFallbackNode, BTForceFailureNode, BTForceSuccessNode, BTIfThenElseNode, BTInverterNode, BTKeepRunningUntilFailureNode, BTNode, BTNodeKeys, BTNodeStatus, BTNodeType, BTParallelNode, BTReactiveFallback, BTRepeatNode, BTRetryNode, BTSequenceNode, BTSequenceStarNode, BTSimpleActionNode, BTSimpleConditionNode, BTStatefulActionNode, BTSyncActionNode, BTTimeOutNode, BTUtils, BTWhileDoElseNode, BehaviorTreeComponent, BehaviorTreeSystem, FSM, IBTControlNode, IBTNode, IBTNodeConfig, IState };
+declare class FSMComponent extends ECSComponent {
+    /**
+     * 状态机
+     */
+    fsm: FSM;
+    constructor();
+    destroy(): boolean;
+}
+
+declare class FSMSystem extends ECSSystem {
+    constructor();
+    protected $tick(entitys: Set<ECSEntity>, dt: number): void;
+}
+
+export { BTActionNode, BTAsyncActionNode, BTBlackboard, BTConditionNode, BTContext, BTControlNode, BTCoroActionNode, BTDecoratorNode, BTDelayNode, BTFallbackNode, BTForceFailureNode, BTForceSuccessNode, BTIfThenElseNode, BTInverterNode, BTKeepRunningUntilFailureNode, BTNode, BTNodeKeys, BTNodeStatus, BTNodeType, BTParallelNode, BTReactiveFallback, BTRepeatNode, BTRetryNode, BTSequenceNode, BTSequenceStarNode, BTSimpleActionNode, BTSimpleConditionNode, BTStatefulActionNode, BTSyncActionNode, BTTimeOutNode, BTUtils, BTWhileDoElseNode, BehaviorTreeComponent, BehaviorTreeSystem, FSM, FSMComponent, FSMSystem, IBTControlNode, IBTNode, IBTNodeConfig, IState };

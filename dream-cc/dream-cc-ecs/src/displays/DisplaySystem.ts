@@ -1,16 +1,17 @@
 import { ECSEntity } from "../core/ECSEntity";
 import { MatcherAllOf } from "../core/ECSMatcher";
 import { ECSSystem } from "../core/ECSSystem";
-import { NodeComponent } from "./NodeComponent";
 import { TransformComponent } from "../transforms/TransformComponent";
+import { DisplayComponent } from "./DisplayComponent";
 
 
-export class NodeSystem extends ECSSystem {
 
+export class DisplaySystem extends ECSSystem {
+    
     constructor() {
         super(
             new MatcherAllOf([
-                NodeComponent,
+                DisplayComponent,
                 TransformComponent
             ]),
             undefined,
@@ -21,18 +22,18 @@ export class NodeSystem extends ECSSystem {
 
     protected $tick(entitys: Set<ECSEntity>, dt: number): void {
         for (const entity of entitys) {
-            const node_com = this.world.getComponent(entity, NodeComponent)!;
+            const display_com = this.world.getComponent(entity, DisplayComponent)!;
             const trans_com = this.world.getComponent(entity, TransformComponent)!;
             //旋转
-            node_com.setRotation(trans_com.rotation);
+            display_com.node.setRotation(trans_com.rotation);
             //平移
             if (TransformComponent.YAxisFlip) {
-                node_com.setPosition(trans_com.position.x, trans_com.position.y * -1, trans_com.position.z);
+                display_com.node.setPosition(trans_com.position.x, trans_com.position.y * -1, trans_com.position.z);
             } else {
-                node_com.setPosition(trans_com.position);
+                display_com.node.setPosition(trans_com.position);
             }
             //缩放
-            node_com.setScale(trans_com.scale);
+            display_com.node.setScale(trans_com.scale);
         }
     }
 }

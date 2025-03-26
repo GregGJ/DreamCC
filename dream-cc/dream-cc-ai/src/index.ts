@@ -49,7 +49,8 @@ export { BTBlackboard } from "./behaviorTree/BTBlackboard";
 //ecs
 export { BehaviorTreeComponent } from "./behaviorTree/ecs/BehaviorTreeComponent";
 export { BehaviorTreeSystem } from "./behaviorTree/ecs/BehaviorTreeSystem";
-
+export { FSMComponent } from "./fsm/ecs/FSMComponent";
+export { FSMSystem } from "./fsm/ecs/FSMSystem";
 
 export { FSM } from "./fsm/FSM";
 export { IState } from "./fsm/IState";

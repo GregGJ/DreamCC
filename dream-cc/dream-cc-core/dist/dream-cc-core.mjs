@@ -2129,6 +2129,7 @@ var AudioChannelImpl = class {
       this.__fadeData.endValue = volume;
       this.__fadeData.complete = fade.complete;
       this.__fadeData.completeStop = fade.completeStop;
+      this.__volume = this.__fadeData.startValue;
     } else {
       this.__volume = volume;
     }
@@ -2366,14 +2367,14 @@ var AudioManagerImpl = class {
       channel = this.__musicChannels[index];
       if (channel.isPlaying) {
         channelVolume = channel.volume * this.__musicVolume * this.__volume;
-        channel.fade(0.1, channelVolume, channel.curVolume);
+        channel.fade(100, channelVolume, channel.curVolume);
       }
     }
     for (let index = 0; index < this.__soundChannels.length; index++) {
       channel = this.__soundChannels[index];
       if (channel.isPlaying) {
         channelVolume = channel.volume * this.__soundVolume * this.__volume;
-        channel.fade(0.1, channelVolume, channel.curVolume);
+        channel.fade(100, channelVolume, channel.curVolume);
       }
     }
   }
@@ -2391,7 +2392,7 @@ var AudioManagerImpl = class {
     let current = this.__musicChannels[this.__musicChannelIndex];
     if (current && current.isPlaying) {
       let channelVolume = current.volume * this.__musicVolume * this.__volume;
-      current.fade(0.1, channelVolume, current.curVolume);
+      current.fade(100, channelVolume, current.curVolume);
     }
   }
   get musicVolume() {
@@ -2413,7 +2414,7 @@ var AudioManagerImpl = class {
       channel = this.__soundChannels[index];
       if (channel.isPlaying) {
         let channelVolume = channel.volume * this.__soundVolume * this.__volume;
-        channel.fade(0.1, channelVolume, channel.curVolume);
+        channel.fade(100, channelVolume, channel.curVolume);
       }
     }
   }
@@ -2482,10 +2483,10 @@ var AudioManagerImpl = class {
       last = this.__musicChannels[0];
     }
     if (last.isPlaying) {
-      last.fade(0.5, 0, void 0, null, true);
+      last.fade(500, 0, void 0, null, true);
     }
     current.volume = volume;
-    current.play(url, null, playVolume, { time: 0.5, startVolume: 0 }, true, speed);
+    current.play(url, null, playVolume, { time: 500, startVolume: 0 }, true, speed);
   }
   stopMusic() {
     let current = this.__musicChannels[this.__musicChannelIndex];
@@ -5974,7 +5975,7 @@ var TaskQueue = class extends Task {
   __subTaskEventHandler(e) {
     if (e.type == Event.PROGRESS) {
       let progress = (this.__index + e.progress) / this.__taskList.length;
-      this.emit(Event.PROGRESS, progress);
+      this.emit(Event.PROGRESS, void 0, void 0, progress);
       return;
     }
     e.target.offAllEvent();
@@ -6024,7 +6025,7 @@ var TaskSequence = class extends Task {
   }
   __subTaskEventHandler(e) {
     if (e.type == Event.PROGRESS) {
-      this.emit(Event.PROGRESS, this.__index / this.__taskList.length);
+      this.emit(Event.PROGRESS, void 0, void 0, this.__index / this.__taskList.length);
       return;
     }
     e.target.offAllEvent();

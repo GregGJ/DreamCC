@@ -17,7 +17,7 @@ esbuild.build(
         // minifyIdentifiers: true, // 压缩标识符
         // minifySyntax: true, // 压缩语法
         format: "esm",
-        external: ["cc", "cc/env","dream-cc-core"],
+        external: ["cc", "cc/env","dream-cc-core","dream-cc-ecs"],
         target: ["es6"],
     }
 );

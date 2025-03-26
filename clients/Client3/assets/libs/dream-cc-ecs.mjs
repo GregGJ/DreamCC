@@ -100,10 +100,19 @@ var Matcher = class {
   }
 };
 var MatcherAllOf = class extends Matcher {
+  constructor(types) {
+    super(types);
+  }
 };
 var MatcherAnyOf = class extends Matcher {
+  constructor(types) {
+    super(types);
+  }
 };
 var MatcherNoneOf = class extends Matcher {
+  constructor(types) {
+    super(types);
+  }
 };
 
 // src/core/ECSStorage.ts
@@ -1159,38 +1168,31 @@ var ParentComponent = class extends ECSComponent {
 // src/nodes/AddToParentQueueSystem.ts
 import { Node as Node2 } from "cc";
 
-// src/nodes/NodeComponent.ts
+// src/displays/DisplayComponent.ts
 import { Node } from "cc";
-import { TickerManager as TickerManager2 } from "dream-cc-core";
-var NodeComponent = class extends Node {
+var DisplayComponent = class extends ECSComponent {
   constructor() {
     super();
-    this.world = null;
-    this.entity = null;
-    this.dirtySignal = null;
   }
   enable() {
-    this.name = this.entity.toString();
-  }
-  markDirtied() {
-    TickerManager2.callNextFrame(this.nextFrame, this);
-  }
-  nextFrame() {
-    this.dirtySignal && this.dirtySignal();
+    this.__node = new Node(this.entity.toString());
   }
   reset() {
-    TickerManager2.clearNextFrame(this.nextFrame, this);
-    this.dirtySignal = null;
-    this.world = null;
-    this.entity = -1;
-    this.active = true;
-    this.setPosition(0, 0, 0);
-    this.setScale(1, 1, 1);
-    this.setRotationFromEuler(0, 0, 0);
-    if (this.parent) {
-      this.removeFromParent();
-    }
-    this.removeAllChildren();
+    super.reset();
+    this.__node.destroy();
+    this.__node = null;
+  }
+  /**
+   * 节点
+   */
+  get node() {
+    return this.__node;
+  }
+  set name(v) {
+    this.__node && (this.__node.name = v);
+  }
+  get name() {
+    return this.__node.name || "";
   }
 };
 
@@ -1199,6 +1201,7 @@ var AddToParentQueueSystem = class extends ECSSystem {
   constructor() {
     super(
       new MatcherAllOf([
+        DisplayComponent,
         ParentComponent
       ]),
       void 0,
@@ -1219,15 +1222,18 @@ var AddToParentQueueSystem = class extends ECSSystem {
         this.nodes.delete(entity);
         if (this.world.hasEntity(entity)) {
           const parent_com = this.world.getComponent(entity, ParentComponent);
-          const node_com = this.world.getComponent(entity, NodeComponent);
+          const display_com = this.world.getComponent(entity, DisplayComponent);
           if (parent_com.parent == null) {
             continue;
           }
           if (parent_com.parent instanceof Node2) {
-            parent_com.parent.addChild(node_com);
+            parent_com.parent.addChild(display_com.node);
           } else {
-            let parent_node = this.world.getComponent(parent_com.parent, NodeComponent);
-            parent_node.addChild(node_com);
+            let parent_node = this.world.getComponent(parent_com.parent, DisplayComponent);
+            if (!parent_node) {
+              continue;
+            }
+            parent_node.node.addChild(display_com.node);
           }
         }
         index++;
@@ -1247,6 +1253,7 @@ var AddToParentSystem = class extends ECSSystem {
   constructor() {
     super(
       new MatcherAllOf([
+        DisplayComponent,
         ParentComponent
       ]),
       void 0,
@@ -1257,45 +1264,19 @@ var AddToParentSystem = class extends ECSSystem {
   $tick(entitys, dt) {
     for (const entity of entitys) {
       const parent_com = this.world.getComponent(entity, ParentComponent);
-      const node_com = this.world.getComponent(entity, NodeComponent);
+      const display_com = this.world.getComponent(entity, DisplayComponent);
       if (parent_com.parent == null) {
         continue;
       }
       if (parent_com.parent instanceof Node3) {
-        parent_com.parent.addChild(node_com);
+        parent_com.parent.addChild(display_com.node);
       } else {
-        let parent_node_com = this.world.getComponent(parent_com.parent, NodeComponent);
-        parent_node_com.addChild(node_com);
+        let parent_display_com = this.world.getComponent(parent_com.parent, DisplayComponent);
+        if (!parent_display_com) {
+          continue;
+        }
+        parent_display_com.node.addChild(display_com.node);
       }
-    }
-  }
-};
-
-// src/nodes/NodeSystem.ts
-var NodeSystem = class extends ECSSystem {
-  constructor() {
-    super(
-      new MatcherAllOf([
-        NodeComponent,
-        TransformComponent
-      ]),
-      void 0,
-      void 0,
-      true
-      //使用脏数据
-    );
-  }
-  $tick(entitys, dt) {
-    for (const entity of entitys) {
-      const node_com = this.world.getComponent(entity, NodeComponent);
-      const trans_com = this.world.getComponent(entity, TransformComponent);
-      node_com.setRotation(trans_com.rotation);
-      if (TransformComponent.YAxisFlip) {
-        node_com.setPosition(trans_com.position.x, trans_com.position.y * -1, trans_com.position.z);
-      } else {
-        node_com.setPosition(trans_com.position);
-      }
-      node_com.setScale(trans_com.scale);
     }
   }
 };
@@ -1333,37 +1314,32 @@ var SizeComponent = class extends ECSComponent {
   }
 };
 
-// src/displays/DisplayComponent.ts
-var DisplayComponent = class extends ECSComponent {
+// src/displays/DisplaySystem.ts
+var DisplaySystem = class extends ECSSystem {
   constructor() {
-    super();
+    super(
+      new MatcherAllOf([
+        DisplayComponent,
+        TransformComponent
+      ]),
+      void 0,
+      void 0,
+      true
+      //使用脏数据
+    );
   }
-  enable() {
-    var _a;
-    if (!this.world.hasComponent(this.entity, NodeComponent)) {
-      (_a = this.world) == null ? void 0 : _a.addComponent(this.entity, NodeComponent);
+  $tick(entitys, dt) {
+    for (const entity of entitys) {
+      const display_com = this.world.getComponent(entity, DisplayComponent);
+      const trans_com = this.world.getComponent(entity, TransformComponent);
+      display_com.node.setRotation(trans_com.rotation);
+      if (TransformComponent.YAxisFlip) {
+        display_com.node.setPosition(trans_com.position.x, trans_com.position.y * -1, trans_com.position.z);
+      } else {
+        display_com.node.setPosition(trans_com.position);
+      }
+      display_com.node.setScale(trans_com.scale);
     }
-  }
-  reset() {
-    super.reset();
-  }
-  /**
-   * 节点
-   */
-  get node() {
-    var _a;
-    if (this.world && this.entity) {
-      let node_com = (_a = this.world) == null ? void 0 : _a.getComponent(this.entity, NodeComponent);
-      return node_com;
-    }
-    return null;
-  }
-  set name(v) {
-    this.node && (this.node.name = v);
-  }
-  get name() {
-    var _a;
-    return ((_a = this.node) == null ? void 0 : _a.name) || "";
   }
 };
 
@@ -1588,11 +1564,11 @@ var Level = class extends EventDispatcher {
 };
 
 // src/levels/LevelManager.ts
-import { TickerManager as TickerManager3 } from "dream-cc-core";
+import { TickerManager as TickerManager2 } from "dream-cc-core";
 var LevelManager = class _LevelManager {
   constructor() {
     this.__levels = /* @__PURE__ */ new Map();
-    TickerManager3.addTicker(this);
+    TickerManager2.addTicker(this);
   }
   /**
    * 初始化关卡
@@ -1870,6 +1846,7 @@ export {
   CampComponent,
   DataComponent,
   DisplayComponent,
+  DisplaySystem,
   ECSComponent,
   ECSMatcher,
   ECSStorage,
@@ -1886,8 +1863,6 @@ export {
   MatcherAllOf,
   MatcherAnyOf,
   MatcherNoneOf,
-  NodeComponent,
-  NodeSystem,
   ParentComponent,
   RendererRoot2DComponent,
   SizeComponent,

@@ -66,16 +66,19 @@ declare class Matcher {
  * 必须所有成立
  */
 declare class MatcherAllOf extends Matcher {
+    constructor(types: Array<new () => IECSComponent>);
 }
 /**
  * 任意一个成立
  */
 declare class MatcherAnyOf extends Matcher {
+    constructor(types: Array<new () => IECSComponent>);
 }
 /**
  * 不能包含
  */
 declare class MatcherNoneOf extends Matcher {
+    constructor(types: Array<new () => IECSComponent>);
 }
 
 /**
@@ -507,22 +510,6 @@ declare class AddToParentSystem extends ECSSystem {
     protected $tick(entitys: Set<ECSEntity>, dt: number): void;
 }
 
-declare class NodeComponent extends Node implements IECSComponent {
-    world: ECSWorld | null;
-    entity: ECSEntity | null;
-    dirtySignal: (() => void) | null;
-    constructor();
-    enable(): void;
-    markDirtied(): void;
-    private nextFrame;
-    reset(): void;
-}
-
-declare class NodeSystem extends ECSSystem {
-    constructor();
-    protected $tick(entitys: Set<ECSEntity>, dt: number): void;
-}
-
 /**
  * 设置父节点组件
  */
@@ -552,15 +539,21 @@ declare class SizeComponent extends ECSComponent {
  * 显示组件
  */
 declare class DisplayComponent extends ECSComponent {
+    private __node;
     constructor();
     enable(): void;
     reset(): void;
     /**
      * 节点
      */
-    get node(): Node | null;
+    get node(): Node;
     set name(v: string);
     get name(): string;
+}
+
+declare class DisplaySystem extends ECSSystem {
+    constructor();
+    protected $tick(entitys: Set<ECSEntity>, dt: number): void;
 }
 
 /**
@@ -843,4 +836,4 @@ declare class LevelManager {
     static get single(): LevelManager;
 }
 
-export { AddToParentQueueSystem, AddToParentSystem, CampComponent, DataComponent, DisplayComponent, ECSComponent, ECSEntity, ECSMatcher, ECSStorage, ECSSystem, ECSWorld, GraphicsComponent, IECSComponent, Level, LevelManager, LevelMode, LevelModeScript, LevelStatus, LinkComponent, LinkSystem, MatcherAllOf, MatcherAnyOf, MatcherNoneOf, NodeComponent, NodeSystem, ParentComponent, RendererRoot2DComponent, SizeComponent, SparseSet, TransformComponent };
+export { AddToParentQueueSystem, AddToParentSystem, CampComponent, DataComponent, DisplayComponent, DisplaySystem, ECSComponent, ECSEntity, ECSMatcher, ECSStorage, ECSSystem, ECSWorld, GraphicsComponent, IECSComponent, Level, LevelManager, LevelMode, LevelModeScript, LevelStatus, LinkComponent, LinkSystem, MatcherAllOf, MatcherAnyOf, MatcherNoneOf, ParentComponent, RendererRoot2DComponent, SizeComponent, SparseSet, TransformComponent };

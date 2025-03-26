@@ -100,6 +100,9 @@ export class Matcher {
  */
 export class MatcherAllOf extends Matcher {
 
+    constructor(types: Array<new () => IECSComponent>){
+        super(types);
+    }
 }
 
 /**
@@ -107,11 +110,17 @@ export class MatcherAllOf extends Matcher {
  */
 export class MatcherAnyOf extends Matcher {
 
+    constructor(types: Array<new () => IECSComponent>){
+        super(types);
+    }
 }
 
 /**
  * 不能包含
  */
 export class MatcherNoneOf extends Matcher {
-
+    
+    constructor(types: Array<new () => IECSComponent>){
+        super(types);
+    }
 }

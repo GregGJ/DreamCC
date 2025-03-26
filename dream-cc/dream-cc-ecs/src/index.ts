@@ -20,13 +20,12 @@ export { TransformComponent } from "./transforms/TransformComponent";
 
 export { AddToParentQueueSystem } from "./nodes/AddToParentQueueSystem";
 export { AddToParentSystem } from "./nodes/AddToParentSystem";
-export { NodeComponent } from "./nodes/NodeComponent";
-export { NodeSystem } from "./nodes/NodeSystem";
 export { ParentComponent } from "./nodes/ParentComponent";
 export { SizeComponent } from "./nodes/SizeComponent";
 
 export { DisplayComponent } from "./displays/DisplayComponent";
-export {GraphicsComponent} from "./displays/GraphicsComponent";
+export { DisplaySystem } from "./displays/DisplaySystem";
+export { GraphicsComponent } from "./displays/GraphicsComponent";
 export { DataComponent } from "./datas/DataComponent";
 
 export { LinkComponent } from "./links/LinkComponent";

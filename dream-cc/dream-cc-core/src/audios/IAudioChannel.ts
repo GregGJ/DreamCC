@@ -36,7 +36,7 @@ export interface IAudioChannel {
 
     /**
      * 淡入
-     * @param time          过度时间(秒为单位)
+     * @param time          过度时间(毫秒为单位)
      * @param startVolume 
      * @param endVolume 
      * @param complete

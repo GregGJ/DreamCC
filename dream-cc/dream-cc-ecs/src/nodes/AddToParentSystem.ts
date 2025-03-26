@@ -1,9 +1,9 @@
 import { Node } from "cc";
-import { NodeComponent } from "./NodeComponent";
-import { ParentComponent } from "./ParentComponent";
+import { ECSEntity } from "../core/ECSEntity";
 import { MatcherAllOf } from "../core/ECSMatcher";
 import { ECSSystem } from "../core/ECSSystem";
-import { ECSEntity } from "../core/ECSEntity";
+import { DisplayComponent } from "../displays/DisplayComponent";
+import { ParentComponent } from "./ParentComponent";
 
 
 
@@ -11,10 +11,11 @@ import { ECSEntity } from "../core/ECSEntity";
  * 添加到父节点系统
  */
 export class AddToParentSystem extends ECSSystem {
-    
+
     constructor() {
         super(
             new MatcherAllOf([
+                DisplayComponent,
                 ParentComponent,
             ]),
             undefined,
@@ -26,15 +27,18 @@ export class AddToParentSystem extends ECSSystem {
     protected $tick(entitys: Set<ECSEntity>, dt: number): void {
         for (const entity of entitys) {
             const parent_com = this.world.getComponent(entity, ParentComponent)!;
-            const node_com = this.world.getComponent(entity, NodeComponent)!;
+            const display_com = this.world.getComponent(entity, DisplayComponent)!;
             if (parent_com.parent == null) {
                 continue;
             }
             if (parent_com.parent instanceof Node) {
-                parent_com.parent.addChild(node_com);
+                parent_com.parent.addChild(display_com.node);
             } else {
-                let parent_node_com = this.world.getComponent(parent_com.parent, NodeComponent)!;
-                parent_node_com.addChild(node_com);
+                let parent_display_com = this.world.getComponent(parent_com.parent, DisplayComponent);
+                if (!parent_display_com) {
+                    continue;
+                }
+                parent_display_com.node.addChild(display_com.node);
             }
         }
     }

@@ -9,18 +9,30 @@ import { Module_playerPrefs } from "../../../models/playerPrefs/Module_playerPre
 import { EXI_Playerprefs } from "../../../models_exi/EXI_Playerprefs";
 import { ModuleKeys } from "../../../games/ModuleKeys";
 import { ILevelWaveData, ITerrainConfig } from "./BattleDatas";
+import { GUIMediator } from "dream-cc-gui";
+import { FSM } from "dream-cc-ai";
 
 
 
 
 
 export class BattleModel {
-
+    /**
+     * 战斗界面
+     */
+    mediator: GUIMediator;
+    /**
+     * 状态机
+     */
+    fsm:FSM;
     /**
      * 所引用的资源
      */
     assets: Set<ResRequest> | null = null;
-
+    /**
+     * 暂停
+     */
+    paused: boolean = false;
     /**当前波次 */
     waveIndex: number = 0;
     /**总波次 */
@@ -39,9 +51,6 @@ export class BattleModel {
     /**金币*/
     glod: number = 0;
 
-    /**游戏进行时间 */
-    time: number = 0;
-
     /**当前关卡记录 */
     levelPref: DictionaryProperty | null = null;
     /**当前关卡配置 */
@@ -59,7 +68,6 @@ export class BattleModel {
     paths: Map<string, Array<Vec2>> | null = null;
     /**结束区域*/
     end: Polygon | null = null;
-
 
     constructor() {
         this.assets = new Set<ResRequest>();

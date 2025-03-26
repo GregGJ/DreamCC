@@ -2,10 +2,10 @@
 
 import { ParentComponent } from "./ParentComponent";
 import { Node } from "cc";
-import { NodeComponent } from "./NodeComponent";
 import { ECSSystem } from "../core/ECSSystem";
 import { ECSEntity } from "../core/ECSEntity";
 import { MatcherAllOf } from "../core/ECSMatcher";
+import { DisplayComponent } from "../displays/DisplayComponent";
 
 
 
@@ -18,6 +18,7 @@ export class AddToParentQueueSystem extends ECSSystem {
     constructor() {
         super(
             new MatcherAllOf([
+                DisplayComponent,
                 ParentComponent,
             ]),
             undefined,
@@ -38,15 +39,18 @@ export class AddToParentQueueSystem extends ECSSystem {
                 this.nodes.delete(entity);
                 if (this.world.hasEntity(entity)) {
                     const parent_com = this.world.getComponent(entity, ParentComponent)!;
-                    const node_com = this.world.getComponent(entity, NodeComponent)!;
+                    const display_com = this.world.getComponent(entity, DisplayComponent)!;
                     if (parent_com.parent == null) {
                         continue;
                     }
                     if (parent_com.parent instanceof Node) {
-                        parent_com.parent.addChild(node_com);
+                        parent_com.parent.addChild(display_com.node);
                     } else {
-                        let parent_node = this.world.getComponent(parent_com.parent, NodeComponent)!;
-                        parent_node.addChild(node_com);
+                        let parent_node = this.world.getComponent(parent_com.parent, DisplayComponent)!;
+                        if (!parent_node) {
+                            continue;
+                        }
+                        parent_node.node.addChild(display_com.node);
                     }
                 }
                 index++;

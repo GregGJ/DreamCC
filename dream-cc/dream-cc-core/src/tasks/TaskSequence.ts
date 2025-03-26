@@ -41,7 +41,7 @@ export class TaskSequence extends Task {
 
     private __subTaskEventHandler(e: Event): void {
         if (e.type == Event.PROGRESS) {
-            this.emit(Event.PROGRESS, this.__index / this.__taskList.length);
+            this.emit(Event.PROGRESS, undefined, undefined, this.__index / this.__taskList.length);
             return;
         }
         e.target.offAllEvent();

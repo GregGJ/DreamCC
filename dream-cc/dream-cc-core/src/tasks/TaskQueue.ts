@@ -64,7 +64,7 @@ export class TaskQueue extends Task {
     private __subTaskEventHandler(e: Event): void {
         if (e.type == Event.PROGRESS) {
             let progress: number = (this.__index + e.progress) / this.__taskList.length;
-            this.emit(Event.PROGRESS, progress);
+            this.emit(Event.PROGRESS, undefined, undefined, progress);
             return;
         }
         e.target.offAllEvent();

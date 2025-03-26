@@ -38,6 +38,6 @@ export class Entrance extends Component {
     }
 
     update(deltaTime: number) {
-        Engine.tick(deltaTime);
+        Engine.tick(deltaTime * 1000);
     }
 }

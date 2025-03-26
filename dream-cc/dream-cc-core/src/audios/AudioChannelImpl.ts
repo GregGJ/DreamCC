@@ -90,6 +90,8 @@ export class AudioChannelImpl implements IAudioChannel {
             this.__fadeData.endValue = volume;
             this.__fadeData.complete = fade.complete;
             this.__fadeData.completeStop = fade.completeStop;
+            //初始化
+            this.__volume = this.__fadeData.startValue;
         } else {
             this.__volume = volume;
         }

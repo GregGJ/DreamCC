@@ -4183,8 +4183,8 @@ var DDLSSimpleView = class extends Node {
     this.paths.circle(path[0], this.getY(path[1]), 4);
     for (let index = 2; index < path.length; index += 2) {
       const x = path[index];
-      const y = path[index + 1];
-      this.paths.lineTo(x, this.getY(y));
+      const y = this.getY(path[index + 1]);
+      this.paths.lineTo(x, y);
       this.paths.circle(x, y, 4);
     }
     this.paths.stroke();
