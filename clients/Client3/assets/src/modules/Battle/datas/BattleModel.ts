@@ -24,7 +24,7 @@ export class BattleModel {
     /**
      * 状态机
      */
-    fsm:FSM;
+    fsm: FSM;
     /**
      * 所引用的资源
      */
@@ -90,6 +90,19 @@ export class BattleModel {
         this.levelPref = levelsPref.get(this.level.toString()) as DictionaryProperty;
         //关卡配置
         this.levelConfig = levelAcc.getLevel(this.level, this.difficulty, this.mode);
+    }
+
+    clear(): void {
+        this.waveIndex = 0;
+        this.waveTotal = this.waveConfig!.length;
+        this.life = this.maxlife = this.levelConfig!.hp;
+        this.glod = this.levelConfig!.glod;
+        let list = this.assets;
+        for (const element of list) {
+            element.dispose();
+        }
+        this.assets.clear();
+        this.paused = false;
     }
 
     /**

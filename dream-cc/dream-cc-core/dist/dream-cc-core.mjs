@@ -1487,6 +1487,7 @@ var LoaderQueue = class _LoaderQueue {
 var LoaderManagerImpl = class {
   constructor() {
     this.__requests = /* @__PURE__ */ new Map();
+    this.__helpList = [];
   }
   /**
    * 加载
@@ -1523,11 +1524,13 @@ var LoaderManagerImpl = class {
     const urlKey = Res.url2Key(url);
     let list = this.__requests.get(urlKey);
     if (list) {
-      for (let index = 0; index < list.length; index++) {
-        const request = list[index];
+      this.__helpList.splice(0, this.__helpList.length);
+      this.__helpList.push(...list);
+      list.splice(0, list.length);
+      for (let index = 0; index < this.__helpList.length; index++) {
+        const request = this.__helpList[index];
         request.childComplete(url);
       }
-      list.splice(0, list.length);
     }
     this.__requests.delete(urlKey);
   }
@@ -1725,6 +1728,8 @@ var ResRequest = class _ResRequest {
     this.urls = [];
     this.cb = void 0;
     this.progress = void 0;
+    this.refKey = void 0;
+    this.helpMap.clear();
   }
   destroy() {
     this.reset();
@@ -6468,7 +6473,12 @@ var _MathUtils = class _MathUtils {
    * @param bv        单位向量
    */
   static calculateAngle(ax, ay, bx, by) {
-    return Math.acos(this.vectorDot(ax, ay, bx, by) / (Math.sqrt(ax * ax + ay * ay) * Math.sqrt(bx * bx + by * by)));
+    var s = Math.atan2(by - ay, bx - ax);
+    s = 180 * s / Math.PI;
+    if (s < 0) {
+      s += 360;
+    }
+    return s;
   }
   /**
   * 求两点之间距离

@@ -1,7 +1,6 @@
 import { Node } from "cc";
 import { Level } from "./Level";
 import { LevelMode } from "./LevelMode";
-import { TickerManager } from "dream-cc-core";
 
 
 
@@ -12,7 +11,6 @@ export class LevelManager {
 
     constructor() {
         this.__levels = new Map<string, Level>();
-        TickerManager.addTicker(this);
     }
 
     /**

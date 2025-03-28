@@ -1,13 +1,19 @@
-import { Sprite } from "cc";
-import { Res, ResRequest, ResURL, Timer } from "dream-cc-core";
+import { Sprite, Vec2 } from "cc";
+import { Res, ResRequest, ResURL } from "dream-cc-core";
 import { DisplayComponent } from "dream-cc-ecs";
-import { IAnimationData, UnitAnimationAsset } from "../../../games/res/UnitAnimationAsset";
-import { Timeline } from "../utils/Timeline";
+import { IAnimationData, UnitAnimationAsset } from "../../../../games/res/UnitAnimationAsset";
+import { ActionUtils } from "../../actions/ActionUtils";
+import { Direction8 } from "../../directions/Direction8";
+import { Direction8Utils } from "../../directions/Direction8Utils";
+import { Timeline } from "../../utils/Timeline";
+import { Node } from "cc";
 
 
 
 
 export class UnitAnimationComponent extends DisplayComponent {
+    
+    private __modelSpace: Node;
 
     private __sprite: Sprite;
     private __asset: UnitAnimationAsset;
@@ -17,6 +23,7 @@ export class UnitAnimationComponent extends DisplayComponent {
 
     private __playing: boolean = false;
     private __aniName: string;
+    private __resName: string;
     private __loop: boolean;
     private __callback: () => void;
     private __startTime: number = 0;
@@ -25,15 +32,29 @@ export class UnitAnimationComponent extends DisplayComponent {
     private __frameInterval: number = 1000 / 30;
     private __currentAniData: IAnimationData;
     private __frameTotal: number = 0;
+    /**方向 */
+    private __direction: Vec2 = new Vec2(1, 0);
 
     constructor() {
         super();
         this.__events = new Map<string, boolean>();
     }
 
+    setDirection(x: number, y: number): void {
+        if (this.__direction.x == x && this.__direction.y == y) {
+            return;
+        }
+        this.__direction.set(x, y);
+        if (this.__loaded && this.__loaded) {
+            this.__play();
+        }
+    }
+
     enable(): void {
         super.enable();
-        this.__sprite = this.node.addComponent(Sprite);
+        this.__modelSpace = new Node("modelSpace");
+        this.__sprite = this.__modelSpace.addComponent(Sprite);
+        this.node.addChild(this.__modelSpace);
     }
 
     reset(): void {
@@ -42,12 +63,15 @@ export class UnitAnimationComponent extends DisplayComponent {
             this.__request.dispose();
             this.__request = null;
         }
-        this.__sprite = null;
+        this.__modelSpace.removeFromParent();
+        this.__modelSpace.destroy();
+        this.__modelSpace = null;
         this.__url = null;
         this.__asset = null;
         this.__loaded = false;
         this.__playing = false;
         this.__aniName = "";
+        this.__resName = "";
         this.__loop = false;
         this.__callback = null;
         this.__startTime = 0;
@@ -55,6 +79,15 @@ export class UnitAnimationComponent extends DisplayComponent {
         this.__frameInterval = 1000 / 30;
         this.__currentAniData = null;
         this.__frameTotal = 0;
+        this.__direction.set(1, 0);
+    }
+
+    destroy(): boolean {
+        if (super.destroy()) {
+            this.reset();
+            return true;
+        }
+        return false;
     }
 
     set url(v: ResURL) {
@@ -112,7 +145,16 @@ export class UnitAnimationComponent extends DisplayComponent {
     }
 
     private __play(): void {
-        this.__currentAniData = this.__asset.actions.get(this.__aniName);
+        let dir = Direction8Utils.vectorToDirection8(this.__direction);
+        if (dir != Direction8.B_B && dir != Direction8.T_T) {
+            if (dir < Direction8.T_T) {
+                this.__modelSpace.setScale(-1, 1);
+            } else {
+                this.__modelSpace.setScale(1, 1);
+            }
+        }
+        this.__resName = ActionUtils.getResAction(this.__aniName, dir);
+        this.__currentAniData = this.__asset.actions.get(this.__resName);
         this.__frameTotal = this.__currentAniData.to + 1 - this.__currentAniData.from;
     }
 
@@ -154,11 +196,11 @@ export class UnitAnimationComponent extends DisplayComponent {
                 }
             }
         }
-        const atlas = this.__asset!.getSpriteAtlas(this.__aniName!, frame);
+        const atlas = this.__asset!.getSpriteAtlas(this.__resName, frame);
         if (this.__sprite.spriteAtlas != atlas) {
             this.__sprite.spriteAtlas = atlas;
         }
-        const frameName = this.__asset.getFrameName(this.__aniName!, frame);
+        const frameName = this.__asset.getFrameName(this.__resName, frame);
         if (!frameName) {
             return;
         }

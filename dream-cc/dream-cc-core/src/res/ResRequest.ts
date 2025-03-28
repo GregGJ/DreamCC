@@ -160,6 +160,8 @@ export class ResRequest {
         this.urls = [];
         this.cb = undefined;
         this.progress = undefined;
+        this.refKey = undefined;
+        this.helpMap.clear();
     }
 
     destroy(): boolean {

@@ -1,25 +1,25 @@
 [
     {
         "time": 0,
-        "tipTime": 3,
+        "tipTime": 3000,
         "glod": 0,
         "spawns": [
             {
                 "delay": 0,
-                "interval": 1,
+                "interval": 1000,
                 "creep": 1,
                 "path": "path_1_1",
                 "count": 3
             },
             {
-                "delay": 3,
+                "delay": 3000,
                 "interval": 1,
                 "creep": 1,
                 "path": "path_1_0",
                 "count": 3
             },
             {
-                "delay": 6,
+                "delay": 6000,
                 "interval": 1,
                 "creep": 1,
                 "path": "path_1_2",
@@ -28,13 +28,13 @@
         ]
     },
     {
-        "time": 10,
-        "tipTime": 6,
+        "time": 10000,
+        "tipTime": 3000,
         "glod": 200,
         "spawns": [
             {
                 "delay": 0,
-                "interval": 1,
+                "interval": 1000,
                 "creep": 1,
                 "path": "path_1_1",
                 "count": 3

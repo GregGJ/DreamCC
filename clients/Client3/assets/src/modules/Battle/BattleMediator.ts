@@ -59,7 +59,10 @@ export class BattleMediator extends GUIMediator {
     }
 
     tick(dt: number): void {
-
+        if(this.model.paused){
+            return;
+        }
+        LevelManager.single.tick(dt);
     }
 
     hide(): void {

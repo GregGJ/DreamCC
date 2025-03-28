@@ -11,6 +11,8 @@ export class LoaderManagerImpl implements ILoaderManager {
 
     private __requests: Map<string, Array<ResRequest>> = new Map<string, Array<ResRequest>>();
 
+    private __helpList: Array<ResRequest> = [];
+
     constructor() {
 
     }
@@ -53,11 +55,13 @@ export class LoaderManagerImpl implements ILoaderManager {
         const urlKey: string = Res.url2Key(url);
         let list = this.__requests.get(urlKey);
         if (list) {
-            for (let index = 0; index < list.length; index++) {
-                const request = list[index];
+            this.__helpList.splice(0, this.__helpList.length);
+            this.__helpList.push(...list);
+            list.splice(0, list.length);
+            for (let index = 0; index < this.__helpList.length; index++) {
+                const request = this.__helpList[index];
                 request.childComplete(url);
             }
-            list.splice(0, list.length);
         }
         this.__requests.delete(urlKey);
     }

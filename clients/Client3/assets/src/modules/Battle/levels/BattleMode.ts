@@ -1,5 +1,5 @@
 import { FSM } from "dream-cc-ai";
-import { LevelMode } from "dream-cc-ecs";
+import { LevelManager, LevelMode } from "dream-cc-ecs";
 import { ConfigKeys } from "../../../games/configs/ConfigKeys";
 import { BattleModel } from "../datas/BattleModel";
 import { FSMStates } from "../fsm/FSMStates";
@@ -47,5 +47,9 @@ export class BattleMode extends LevelMode {
             return true;
         }
         return false;
+    }
+
+    private get model():BattleModel{
+        return BattleModel.single;
     }
 }

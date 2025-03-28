@@ -6,9 +6,9 @@ import { AddToParentSystem, DisplayComponent, DisplaySystem, ParentComponent, Tr
 import { LoadingView } from "dream-cc-gui";
 import { DDLSPathFinder, DDLSRectMeshFactory, Polygon } from "dream-cc-pathfinding";
 import { GamePath } from "../../../games/GamePath";
-import { DDLSDebugComponent } from "../ecs/DDLSDebugComponent";
-import { ImageComponent } from "../ecs/ImageComponent";
-import { UintAnimationSystem } from "../ecs/UnitAnimationSystem";
+import { DDLSDebugComponent } from "../ecs/display/DDLSDebugComponent";
+import { ImageComponent } from "../ecs/display/ImageComponent";
+import { UintAnimationSystem } from "../ecs/display/UnitAnimationSystem";
 import { LoadCommonTask } from "../inits/LoadCommonTask";
 import { LoadTerrainTask } from "../inits/LoadTerrainTask";
 import { LoadTowerTask } from "../inits/LoadTowerTask";
@@ -18,6 +18,7 @@ import { BattleEntitys } from "../levels/BattleEntitys";
 import { BaseState } from "./BaseState";
 import { FSMStates } from "./FSMStates";
 import { Timeline } from "../utils/Timeline";
+import { PathMovementSystem } from "../ecs/movments/PathMovementSystem";
 
 
 
@@ -33,13 +34,11 @@ export class InitState extends BaseState {
     constructor(level: string) {
         super("InitState", level);
     }
-    private isTrue: boolean = false;
+
     enter(data?: any): void {
         super.enter(data);
         //清理
         this.__clear();
-        // if (this.isTrue) return;
-        // this.isTrue = true;
         //关卡数据更新
         this.model.init(data);
         this.__initSystems();
@@ -48,13 +47,6 @@ export class InitState extends BaseState {
     }
 
     private __clear(): void {
-        let list = this.model.assets;
-        for (const element of list) {
-            element.dispose();
-        }
-        this.model.assets.clear();
-        this.model.paused=false;
-        
         this.world.clearAll();
         Timeline.single.reset();
     }
@@ -70,12 +62,13 @@ export class InitState extends BaseState {
         BattleEntityFactory.createEntity(this.world, BattleEntitys.DynamicLayer, BattleEntitys.World);
 
         if (DEBUG) {
-            BattleEntityFactory.createEntity(this.world, BattleEntitys.DebugView, BattleEntitys.World,DDLSDebugComponent);
+            BattleEntityFactory.createEntity(this.world, BattleEntitys.DebugView, BattleEntitys.World, DDLSDebugComponent);
         }
     }
 
     private __initSystems(): void {
         this.world.addSystems([
+            PathMovementSystem,
             UintAnimationSystem,
             AddToParentSystem,
             DisplaySystem,
@@ -103,6 +96,11 @@ export class InitState extends BaseState {
                 LoadingView.changeData({ label: e.error.message });
                 break;
             case Event.COMPLETE:
+                this.__taskQueue.destroy();
+                this.__taskQueue = null;
+                //数据清理
+                this.model.clear();
+                
                 this.__initBackground();
                 this.__initNavigation();
 

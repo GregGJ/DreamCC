@@ -4,6 +4,7 @@ import { GamePath } from "../../../games/GamePath";
 import { UI_BattleView } from "../BattleBinder";
 import { BaseState } from "./BaseState";
 import { FSMStates } from "./FSMStates";
+import { BattleEntityFactory } from "../levels/BattleEntityFactory";
 
 
 
@@ -36,14 +37,11 @@ export class IdleState extends BaseState {
      * 构建塔点
      */
     private __buildTerrains(): void {
-        // let list = this.model.terrainConfig!.towers;
-        // for (let index = 0; index < list.length; index++) {
-        //     const config = list[index];
-        //     const entity = BattleEntityFactory.createTowerPoint(this.world!, config);
-        //     const display = this.world.getComponent(DisplayComponent);
-        //     const layer = this.model.bm?.GetLayer(LevelLayerKeys.Entitys);
-        //     layer?.addChild(display.view.node);
-        // }
+        let list = this.model.terrainConfig!.towers;
+        for (let index = 0; index < list.length; index++) {
+            const config = list[index];
+            BattleEntityFactory.createTowerPoint(this.world!, config);
+        }
     }
 
     private __startButtonClick(): void {

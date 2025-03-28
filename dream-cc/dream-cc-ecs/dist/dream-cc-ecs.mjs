@@ -1564,11 +1564,9 @@ var Level = class extends EventDispatcher {
 };
 
 // src/levels/LevelManager.ts
-import { TickerManager as TickerManager2 } from "dream-cc-core";
 var LevelManager = class _LevelManager {
   constructor() {
     this.__levels = /* @__PURE__ */ new Map();
-    TickerManager2.addTicker(this);
   }
   /**
    * 初始化关卡

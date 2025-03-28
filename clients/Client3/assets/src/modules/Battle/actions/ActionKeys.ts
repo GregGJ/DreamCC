@@ -8,6 +8,7 @@ export enum ActionKeys {
     death = "death",
     thorn = "thorn",
     thornFree = "thornFree",
+    walking = "walking",
     walkingDown = "walkingDown",
     walkingRightLeft = "walkingRightLeft",
     walkingUp = "walkingUp",

@@ -161,8 +161,12 @@ export class MathUtils {
      * @param bv        单位向量
      */
     static calculateAngle(ax: number, ay: number, bx: number, by: number): number {
-        //cos=a.b/(|a||b|);
-        return Math.acos(this.vectorDot(ax, ay, bx, by) / (Math.sqrt(ax * ax + ay * ay) * Math.sqrt(bx * bx + by * by)));
+        var s = Math.atan2(by - ay, bx - ax);
+        s = (180 * s) / Math.PI;
+        if (s < 0) {
+            s += 360;
+        }
+        return s;
     }
 
     /**

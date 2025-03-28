@@ -1,4 +1,4 @@
-import { ECSEntity, ECSSystem, MatcherAllOf } from "dream-cc-ecs";
+import { ECSEntity, ECSSystem, MatcherAllOf, TransformComponent } from "dream-cc-ecs";
 import { UnitAnimationComponent } from "./UnitAnimationComponent";
 
 
@@ -9,6 +9,7 @@ export class UintAnimationSystem extends ECSSystem {
     constructor() {
         super(
             new MatcherAllOf([
+                TransformComponent,
                 UnitAnimationComponent
             ])
         )
@@ -16,7 +17,9 @@ export class UintAnimationSystem extends ECSSystem {
 
     protected $tick(entitys: Set<ECSEntity>, dt: number): void {
         for (const entity of entitys) {
-            const ani_com = this.world.getComponent(entity, UnitAnimationComponent);
+            let ani_com = this.world.getComponent(entity, UnitAnimationComponent);
+            let trans = this.world.getComponent(entity, TransformComponent);
+            ani_com.setDirection(trans.direction.x, trans.direction.y);
             ani_com.tick(dt);
         }
     }
