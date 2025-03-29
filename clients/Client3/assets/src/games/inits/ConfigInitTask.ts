@@ -29,6 +29,8 @@ export class ConfigInitTask extends Task {
         ConfigManager.register(ConfigKeys.Skills_Skill, SkillAccessor);
 
         ConfigManager.register(ConfigKeys.Tower_Tower, TowerAccessor);
+
+        ConfigManager.register(ConfigKeys.Attrs_Attributes, IDConfigAccessor);
         this.emit(Event.COMPLETE);
     }
 

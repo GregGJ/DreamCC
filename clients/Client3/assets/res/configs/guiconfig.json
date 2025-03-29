@@ -48,5 +48,25 @@
           "bundleName": "Settings",
           "packageName": "Settings",
           "comName": "UI_SettingsWindow"
+     },
+     {
+          "key": "Defeated",
+          "layer": "Window",
+          "modal": false,
+          "modalClose": false,
+          "permanence": true,
+          "bundleName": "Battle",
+          "packageName": "Battle",
+          "comName": "UI_DefeatedWindow"
+     },
+     {
+          "key": "Settlement",
+          "layer": "Window",
+          "modal": false,
+          "modalClose": false,
+          "permanence": true,
+          "bundleName": "Battle",
+          "packageName": "Battle",
+          "comName": "UI_SettlementWindow"
      }
 ]

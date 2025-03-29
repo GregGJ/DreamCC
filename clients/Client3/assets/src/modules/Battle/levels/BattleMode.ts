@@ -19,6 +19,7 @@ export class BattleMode extends LevelMode {
     constructor() {
         super();
         this.configs = [
+            ConfigKeys.Attrs_Attributes,
             ConfigKeys.Monster_Monster,
             ConfigKeys.Tower_Tower,
             ConfigKeys.Skills_Skill,
@@ -49,7 +50,7 @@ export class BattleMode extends LevelMode {
         return false;
     }
 
-    private get model():BattleModel{
+    private get model(): BattleModel {
         return BattleModel.single;
     }
 }

@@ -1,17 +1,26 @@
+import { ECSEntity } from "dream-cc-ecs";
 import { Attributes } from "./Attributes";
 
 
 
 export class BattleVO {
- 
-    key:string;
 
+    key: ECSEntity;
     /**
      * 属性集合
      */
-    attrs:Attributes;
+    attrs: Attributes;
 
-    constructor(){
+    constructor() {
+
+    }
+
+    init(...args: any[]): void {
+        this.key = args[0];
+        this.$initAttr();
+    }
+
+    protected $initAttr():void{
         
     }
 }

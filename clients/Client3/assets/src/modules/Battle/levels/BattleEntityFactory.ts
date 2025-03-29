@@ -1,6 +1,6 @@
 import { Node } from "cc";
 import { ConfigManager, IDConfigAccessor } from "dream-cc-core";
-import { DataComponent, DisplayComponent, ECSEntity, ECSWorld, ParentComponent, TransformComponent } from "dream-cc-ecs";
+import { CampComponent, DataComponent, DisplayComponent, ECSEntity, ECSWorld, ParentComponent, TransformComponent } from "dream-cc-ecs";
 import { ConfigKeys } from "../../../games/configs/ConfigKeys";
 import { GamePath } from "../../../games/GamePath";
 import { ActionKeys } from "../actions/ActionKeys";
@@ -11,6 +11,7 @@ import { TowerPointComponnent } from "../ecs/display/TowerPointComponnent";
 import { MonsterVO } from "../datas/entitys/MonsterVO";
 import { PathMovementComponent } from "../ecs/movments/PathMovementComponent";
 import { BattleModel } from "../datas/BattleModel";
+import { sp } from "cc";
 
 
 
@@ -67,14 +68,16 @@ export class BattleEntityFactory {
         ani_com.play(ActionKeys.walking, true);
 
         let monsterVO = new MonsterVO();
-        monsterVO.key = entity;
-        monsterVO.id = spawn.creep;
-        monsterVO.pathID = spawn.path;
+        monsterVO.init(entity, spawn.creep, spawn.path);
 
         let data_com = world.addComponent(entity, DataComponent);
         data_com.data = monsterVO;
 
         let movement = world.addComponent(entity, PathMovementComponent);
-        movement.setData(path, 0.05);
+        movement.setData(path, 0.1);
+
+        //阵营
+        let camp = world.addComponent(entity, CampComponent);
+        camp.camp = 2;
     }
 }

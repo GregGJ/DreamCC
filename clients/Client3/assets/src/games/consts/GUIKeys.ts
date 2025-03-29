@@ -1,4 +1,4 @@
-export enum GUIKeys     {
+export enum GUIKeys       {
     /**大厅*/
     Home = "Home",
     /**地图*/
@@ -9,4 +9,8 @@ export enum GUIKeys     {
     Battle = "Battle",
     /**设置界面*/
     Settings = "Settings",
+    /**失败界面*/
+    Defeated = "Defeated",
+    /**结算界面*/
+    Settlement = "Settlement",
 }

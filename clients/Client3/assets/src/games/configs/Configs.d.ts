@@ -1,4 +1,22 @@
 declare namespace Config {
+   namespace Attrs {
+      export interface Attributes {
+         /** id */
+         id: number;
+         /** 血量 */
+         hp: number;
+         /** 血量恢复(毫秒) */
+         hp_recovery: number;
+         /** 蓝量 */
+         mp: number;
+         /** 蓝量恢复(毫秒) */
+         mp_recovery: number;
+         /** 移动速度(毫秒) */
+         speed: number;
+         /** 护甲 */
+         armors: any;
+      }
+   }
    namespace Constants {
       export interface Constants {
          /** diff */
@@ -71,14 +89,8 @@ declare namespace Config {
          hp_scale: Array<number>;
          /** 半径大小 */
          size: number;
-         /** 血量 */
-         hp: number;
-         /** 移动速度 */
-         speed: number;
-         /** 护甲 */
-         armor: number;
-         /** 护甲类型 */
-         armor_type: number;
+         /** 属性集合ID */
+         attr_id: number;
          /** 走到终点后扣血 */
          life: number;
          /** 技能ID */

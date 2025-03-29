@@ -1,4 +1,5 @@
 export enum ConfigKeys {
+      Attrs_Attributes = "attrs/Attributes",
       Constants_Constants = "constants/Constants",
       Language_Zh_cn = "language/zh_CN",
       Level_Level = "level/Level",

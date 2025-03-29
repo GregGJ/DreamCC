@@ -1,5 +1,5 @@
 import { AudioManager, ConfigManager, IDConfigAccessor } from "dream-cc-core";
-import { LevelManager, TransformComponent } from "dream-cc-ecs";
+import { CampComponent, DataComponent, ECSEntity, LevelManager, TransformComponent } from "dream-cc-ecs";
 import { GamePath } from "../../../games/GamePath";
 import { UI_BattleView } from "../BattleBinder";
 import { ActionKeys } from "../actions/ActionKeys";
@@ -11,6 +11,11 @@ import { BaseState } from "./BaseState";
 import { SpawnData } from "../datas/SpawnData";
 import { FGUIEvent } from "fairygui-cc";
 import { ConfigKeys } from "../../../games/configs/ConfigKeys";
+import { MonsterVO } from "../datas/entitys/MonsterVO";
+import { GUIManager } from "dream-cc-gui";
+import { GUIKeys } from "../../../games/consts/GUIKeys";
+import { FSMStates } from "./FSMStates";
+import { VictoryData } from "../../Map/datas/VictoryData";
 
 
 
@@ -41,9 +46,12 @@ export class RunningState extends BaseState {
         }
         Timeline.single.tick(dt);
         this.__time += dt;
+        //怪物列表
+        let monsters = this.world.getComponents(CampComponent).filter((com) => com.camp == 2).map((com) => com.entity);
         //游戏结束
-        if (this.gameover) {
+        if (this.isGameover(monsters)) {
 
+            return;
         }
         //波次检查
         this.__checkWave();
@@ -54,7 +62,14 @@ export class RunningState extends BaseState {
         super.exit();
     }
 
-    private get gameover(): boolean {
+    private isGameover(monsters: Array<ECSEntity>): boolean {
+        //失败检测
+        if (this.__isDefeated(monsters)) {
+            return true;
+        }
+        if (this.__isVictory(monsters)) {
+            return true;
+        }
         return false;
     }
 
@@ -117,6 +132,77 @@ export class RunningState extends BaseState {
                 BattleEntityFactory.createMonster(this.world, spawn);
             }
         }
+    }
+
+    /**
+     * 检测是否失败
+     */
+    private __isDefeated(monsters: Array<ECSEntity>): boolean {
+        if (!this.model.end) {
+            throw new Error("结束区域不存在！");
+        }
+        for (let index = 0; index < monsters.length; index++) {
+            const entity = monsters[index];
+            const trans = this.world.getComponent(entity, TransformComponent);
+            const data_com = this.world.getComponent(entity, DataComponent);
+
+            let battleVO = data_com.data as MonsterVO;
+
+            let x: number = trans.x;
+            let y: number = trans.y;
+
+            //走进结束点
+            if (this.model.end.contains(x, y)) {
+                this.world.removeEntity(entity);
+                let life = this.model.life - battleVO.config!.life;
+                life = life < 0 ? 0 : life;
+                this.model.life = life;
+
+                //检测玩家血量
+                const endLife = this.model.levelConfig.endLife || 0;
+                if (this.model.life <= endLife) {
+                    this.model.paused = true;
+                    GUIManager.open(GUIKeys.Defeated, (index: number) => {
+                        this.model.paused = false;
+                        if (index == 0) {
+                            //重来
+                            this.model.fsm.switchState(FSMStates.Init, this.data);
+                        } else {
+                            GUIManager.close(GUIKeys.Battle, true);
+                        }
+                    });
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    private __isVictory(monsters: Array<ECSEntity>): boolean {
+        if (this.model.waveIndex < this.model.waveTotal) {
+            return false;
+        }
+        if (monsters.length == 0 && this.spawns.length == 0) {
+            this.model.paused = true;
+            //游戏结束
+            let progress: number = this.model.life / this.model.maxlife;
+            let star: number = 0;
+            if (progress < 0.3) {
+                star = 1;
+            } else if (progress < 0.6) {
+                star = 2;
+            } else {
+                star = 3;
+            }
+            let data: VictoryData = new VictoryData();
+            data.level = this.model.level;
+            data.difficulty = this.model.difficulty;
+            data.mode = this.model.mode;
+            data.stars = star;
+            GUIManager.open(GUIKeys.Settlement, data);
+            return true;
+        }
+        return false;
     }
 
     private __startButtonClick(e: FGUIEvent): void {
