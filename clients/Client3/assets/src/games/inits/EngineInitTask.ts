@@ -1,11 +1,11 @@
 import { JsonAsset, Node } from "cc";
-import { ConfigManager, Engine, Event, Res, ResURL, Task } from "dream-cc-core";
+import { Engine, Event, Res, ResURL, Task } from "dream-cc-core";
 import { GUIPlugin } from "dream-cc-gui";
+import { ConfigKeys } from "../configs/ConfigKeys";
 import { LayerKeys } from "../consts/LayerKeys";
 import { GamePath } from "../GamePath";
-import { ConfigKeys } from "../configs/ConfigKeys";
-import { UnitAnimationLoader } from "../res/UnitAnimationLoader";
 import { TowerSkinLoader } from "../res/TowerSkinLoader";
+import { UnitAnimationLoader } from "../res/UnitAnimationLoader";
 
 
 

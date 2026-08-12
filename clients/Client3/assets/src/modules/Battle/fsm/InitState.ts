@@ -19,6 +19,7 @@ import { BaseState } from "./BaseState";
 import { FSMStates } from "./FSMStates";
 import { Timeline } from "../utils/Timeline";
 import { PathMovementSystem } from "../ecs/movments/PathMovementSystem";
+import { HPBarSystem } from "../ecs/states/HPBarSystem";
 
 
 
@@ -68,6 +69,7 @@ export class InitState extends BaseState {
 
     private __initSystems(): void {
         this.world.addSystems([
+            HPBarSystem,
             PathMovementSystem,
             UintAnimationSystem,
             AddToParentSystem,

@@ -10,6 +10,7 @@ export { IAudioManager } from "./audios/IAudioManager";
 export { Binder } from "./bindings/Binder";
 export { FunctionHook } from "./bindings/FunctionHook";
 export { PropertyBinder } from "./bindings/PropertyBinder";
+export { BinderUtils } from "./bindings/BinderUtils";
 
 //configs
 export { BaseConfigAccessor } from "./configs/accessors/BaseConfigAccessor";

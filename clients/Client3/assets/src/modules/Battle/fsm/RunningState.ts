@@ -38,6 +38,7 @@ export class RunningState extends BaseState {
         //清理
         this.__tips.clear();
         this.spawns.splice(0, this.spawns.length);
+        this.__time = 0;
     }
 
     tick(dt: number): void {

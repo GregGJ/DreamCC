@@ -13,7 +13,7 @@
     "build": "rollup -c && node ./esbuild.js && call ./copy2Client.bat"
   },
   "keywords": [
-    "cocos create +fgui 游戏框架"
+    "dream 游戏框架"
   ],
   "author": "guojie.greg",
   "license": "MIT",

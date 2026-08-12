@@ -449,6 +449,51 @@ declare class PropertyBinder {
 }
 
 /**
+ * 绑定器工具类
+ */
+declare class BinderUtils {
+    constructor();
+    /**
+     * 绑定
+     * @param group
+     * @param source
+     * @param property
+     * @param targetOrCallBack
+     * @param tPropertyOrCaller
+     */
+    static bind(group: any, source: any, property: string | Array<string>, targetOrCallBack: any | Function, tPropertyOrCaller: string | any): void;
+    /**
+     * 取消绑定
+     * @param group
+     * @param source
+     * @param property
+     * @param targetOrCallBack
+     * @param tPropertyOrCaller
+     * @returns
+     */
+    static unbind(group: any, source: any, property?: string | Array<string>, targetOrCallBack?: any | Function, tPropertyOrCaller?: string | any): void;
+    /**
+     * 添加函数钩子
+     * @param group
+     * @param source
+     * @param functionName
+     * @param preHandler
+     * @param laterHandler
+     */
+    static addHook(group: any, source: any, functionName: string, preHandler: Handler, laterHandler: Handler): void;
+    /**
+     * 删除函数钩子
+     * @param group
+     * @param source
+     * @param functionName
+     * @param preHandler
+     * @param laterHandler
+     * @returns
+     */
+    static removeHook(group: any, source: any, functionName?: string, preHandler?: Handler, laterHandler?: Handler): void;
+}
+
+/**
  * 配置存取器接口
  */
 interface IConfigAccessor {
@@ -2999,4 +3044,4 @@ declare class Engine {
     static tick(dt: number): void;
 }
 
-export { ArrayProperty, ArrayValue, AudioManager, BaseConfigAccessor, BaseValue, Binder, BitFlag, CCLoader, ChangedData, ClassUtils, ConfigManager, ConfigStorage, Dictionary, DictionaryProperty, DictionaryValue, Engine, Event, EventDispatcher, EventType$1 as EventType, Func, FuncNode, FunctionHook, Handler, Http, I18N, IAudioChannel, IAudioGroup, IAudioManager, IConfigAccessor, IConfigManager, IDConfigAccessor, IDeserialization, IDestroyable, IEnginePlugin, IEventDispatcher, IFuncConfig, IFuncData, ILoader, ILoaderManager, ILogger, IPoolable, IProtocol, IRedPointData, IRes, IResource, IResourceManager, ISerDesProperty, ISerDesValue, ISerialization, ISocket, ISocketManager, ITask, ITicker, ITickerManager, ITimer, Injector, JSONDeserialization, JSONSerialization, List, LoaderManager, LocalConfigLoader, Logger, MathUtils, Module, ModuleManager, NumberProperty, NumberValue, ObjectUtils, Pool, PropertyBinder, RedPoint, RedPointNode, RemoteConfigLoader, Res, ResRef, ResRequest, ResURL, Resource, ResourceManager, SerDes, SerDesMode, Socket, SocketManager, SocketManagerImpl, StringProperty, StringUtils, StringValue, Task, TaskQueue, TaskSequence, TickerManager, Timer };
+export { ArrayProperty, ArrayValue, AudioManager, BaseConfigAccessor, BaseValue, Binder, BinderUtils, BitFlag, CCLoader, ChangedData, ClassUtils, ConfigManager, ConfigStorage, Dictionary, DictionaryProperty, DictionaryValue, Engine, Event, EventDispatcher, EventType$1 as EventType, Func, FuncNode, FunctionHook, Handler, Http, I18N, IAudioChannel, IAudioGroup, IAudioManager, IConfigAccessor, IConfigManager, IDConfigAccessor, IDeserialization, IDestroyable, IEnginePlugin, IEventDispatcher, IFuncConfig, IFuncData, ILoader, ILoaderManager, ILogger, IPoolable, IProtocol, IRedPointData, IRes, IResource, IResourceManager, ISerDesProperty, ISerDesValue, ISerialization, ISocket, ISocketManager, ITask, ITicker, ITickerManager, ITimer, Injector, JSONDeserialization, JSONSerialization, List, LoaderManager, LocalConfigLoader, Logger, MathUtils, Module, ModuleManager, NumberProperty, NumberValue, ObjectUtils, Pool, PropertyBinder, RedPoint, RedPointNode, RemoteConfigLoader, Res, ResRef, ResRequest, ResURL, Resource, ResourceManager, SerDes, SerDesMode, Socket, SocketManager, SocketManagerImpl, StringProperty, StringUtils, StringValue, Task, TaskQueue, TaskSequence, TickerManager, Timer };

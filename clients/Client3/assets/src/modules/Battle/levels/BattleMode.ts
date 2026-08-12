@@ -15,7 +15,7 @@ import { LevelKeys } from "./LevelKeys";
 export class BattleMode extends LevelMode {
 
     fsm: FSM;
-
+    
     constructor() {
         super();
         this.configs = [

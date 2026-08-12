@@ -12,6 +12,8 @@ import { MonsterVO } from "../datas/entitys/MonsterVO";
 import { PathMovementComponent } from "../ecs/movments/PathMovementComponent";
 import { BattleModel } from "../datas/BattleModel";
 import { sp } from "cc";
+import { HPBarComponent } from "../ecs/states/HPBarComponent";
+import { Prefab } from "cc";
 
 
 
@@ -67,8 +69,12 @@ export class BattleEntityFactory {
         ani_com.url = GamePath.battleURL("entitys/monsters/" + monsterConfig.skin, "ani");
         ani_com.play(ActionKeys.walking, true);
 
+
         let monsterVO = new MonsterVO();
         monsterVO.init(entity, spawn.creep, spawn.path);
+
+        ani_com.uiTrans.anchorX = monsterVO.config.anchor[0];
+        ani_com.uiTrans.anchorY = monsterVO.config.anchor[1];
 
         let data_com = world.addComponent(entity, DataComponent);
         data_com.data = monsterVO;
@@ -79,5 +85,9 @@ export class BattleEntityFactory {
         //阵营
         let camp = world.addComponent(entity, CampComponent);
         camp.camp = 2;
+
+        //血条
+        let hpBar_com = world.addComponent(entity, HPBarComponent);
+        hpBar_com.url = GamePath.battleURL("ui/progress_bar/green_bar", Prefab);
     }
 }

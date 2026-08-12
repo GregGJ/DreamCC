@@ -79,3 +79,4 @@ crashlytics-build.properties
 /dream-cc/dream-cc-ecs/node_modules
 /dream-cc/dream-cc-pathfinding/node_modules
 /dream-cc/dream-cc-ai/node_modules
+/tools/cc_module_check/target

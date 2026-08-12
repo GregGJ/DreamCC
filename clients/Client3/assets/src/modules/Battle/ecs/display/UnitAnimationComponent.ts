@@ -7,14 +7,15 @@ import { Direction8 } from "../../directions/Direction8";
 import { Direction8Utils } from "../../directions/Direction8Utils";
 import { Timeline } from "../../utils/Timeline";
 import { Node } from "cc";
+import { UITransform } from "cc";
 
 
 
 
 export class UnitAnimationComponent extends DisplayComponent {
-    
-    private __modelSpace: Node;
 
+    private __modelSpace: Node;
+    private __uiTrans: UITransform;
     private __sprite: Sprite;
     private __asset: UnitAnimationAsset;
     private __url: ResURL;
@@ -54,6 +55,7 @@ export class UnitAnimationComponent extends DisplayComponent {
         super.enable();
         this.__modelSpace = new Node("modelSpace");
         this.__sprite = this.__modelSpace.addComponent(Sprite);
+        this.__uiTrans = this.__modelSpace.addComponent(UITransform);
         this.node.addChild(this.__modelSpace);
     }
 
@@ -66,6 +68,8 @@ export class UnitAnimationComponent extends DisplayComponent {
         this.__modelSpace.removeFromParent();
         this.__modelSpace.destroy();
         this.__modelSpace = null;
+        this.__sprite = null;
+        this.__uiTrans = null;
         this.__url = null;
         this.__asset = null;
         this.__loaded = false;
@@ -205,5 +209,9 @@ export class UnitAnimationComponent extends DisplayComponent {
             return;
         }
         this.__sprite.changeSpriteFrameFromAtlas(frameName);
+    }
+
+    get uiTrans(): UITransform {
+        return this.__uiTrans;
     }
 }

@@ -3069,6 +3069,76 @@ var PropertyBinder = class {
   }
 };
 
+// src/bindings/BinderUtils.ts
+var BinderUtils = class {
+  constructor() {
+  }
+  /**
+   * 绑定
+   * @param group 
+   * @param source 
+   * @param property 
+   * @param targetOrCallBack 
+   * @param tPropertyOrCaller 
+   */
+  static bind(group, source, property, targetOrCallBack, tPropertyOrCaller) {
+    let binder = source["$PropertyBinder"];
+    if (!binder) {
+      binder = new PropertyBinder(source);
+      source["$PropertyBinder"] = binder;
+    }
+    binder.bind(group, property, targetOrCallBack, tPropertyOrCaller);
+  }
+  /**
+   * 取消绑定
+   * @param group 
+   * @param source 
+   * @param property 
+   * @param targetOrCallBack 
+   * @param tPropertyOrCaller 
+   * @returns 
+   */
+  static unbind(group, source, property, targetOrCallBack, tPropertyOrCaller) {
+    let binder = source["$PropertyBinder"];
+    if (!binder) {
+      return;
+    }
+    binder.unbind(group, property, targetOrCallBack, tPropertyOrCaller);
+  }
+  /**
+   * 添加函数钩子
+   * @param group 
+   * @param source 
+   * @param functionName 
+   * @param preHandler 
+   * @param laterHandler 
+   */
+  static addHook(group, source, functionName, preHandler, laterHandler) {
+    let hook = source["$FunctionHook"];
+    if (!hook) {
+      hook = new FunctionHook(source);
+      source["$FunctionHook"] = hook;
+    }
+    hook.addHook(group, functionName, preHandler, laterHandler);
+  }
+  /**
+   * 删除函数钩子
+   * @param group 
+   * @param source 
+   * @param functionName 
+   * @param preHandler 
+   * @param laterHandler 
+   * @returns 
+   */
+  static removeHook(group, source, functionName, preHandler, laterHandler) {
+    let hook = source["$FunctionHook"];
+    if (!hook) {
+      return;
+    }
+    hook.removeHook(group, functionName, preHandler, laterHandler);
+  }
+};
+
 // src/bindings/Binder.ts
 var Binder = class {
   constructor() {
@@ -3301,74 +3371,6 @@ var Binder = class {
     this.__bindRecords = null;
     this.__hookRecords = null;
     this.__eventRecords = null;
-  }
-};
-var BinderUtils = class {
-  constructor() {
-  }
-  /**
-   * 绑定
-   * @param group 
-   * @param source 
-   * @param property 
-   * @param targetOrCallBack 
-   * @param tPropertyOrCaller 
-   */
-  static bind(group, source, property, targetOrCallBack, tPropertyOrCaller) {
-    let binder = source["$PropertyBinder"];
-    if (!binder) {
-      binder = new PropertyBinder(source);
-      source["$PropertyBinder"] = binder;
-    }
-    binder.bind(group, property, targetOrCallBack, tPropertyOrCaller);
-  }
-  /**
-   * 取消绑定
-   * @param group 
-   * @param source 
-   * @param property 
-   * @param targetOrCallBack 
-   * @param tPropertyOrCaller 
-   * @returns 
-   */
-  static unbind(group, source, property, targetOrCallBack, tPropertyOrCaller) {
-    let binder = source["$PropertyBinder"];
-    if (!binder) {
-      return;
-    }
-    binder.unbind(group, property, targetOrCallBack, tPropertyOrCaller);
-  }
-  /**
-   * 添加函数钩子
-   * @param group 
-   * @param source 
-   * @param functionName 
-   * @param preHandler 
-   * @param laterHandler 
-   */
-  static addHook(group, source, functionName, preHandler, laterHandler) {
-    let hook = source["$FunctionHook"];
-    if (!hook) {
-      hook = new FunctionHook(source);
-      source["$FunctionHook"] = hook;
-    }
-    hook.addHook(group, functionName, preHandler, laterHandler);
-  }
-  /**
-   * 删除函数钩子
-   * @param group 
-   * @param source 
-   * @param functionName 
-   * @param preHandler 
-   * @param laterHandler 
-   * @returns 
-   */
-  static removeHook(group, source, functionName, preHandler, laterHandler) {
-    let hook = source["$FunctionHook"];
-    if (!hook) {
-      return;
-    }
-    hook.removeHook(group, functionName, preHandler, laterHandler);
   }
 };
 
@@ -6634,6 +6636,7 @@ export {
   BaseConfigAccessor,
   BaseValue,
   Binder,
+  BinderUtils,
   BitFlag,
   CCLoader,
   ChangedData,

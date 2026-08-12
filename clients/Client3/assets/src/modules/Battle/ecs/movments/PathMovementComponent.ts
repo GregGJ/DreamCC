@@ -17,7 +17,7 @@ export class PathMovementComponent extends ECSComponent {
      * 目标点
      */
     target: Vec2;
-    
+
     constructor() {
         super();
     }
@@ -25,5 +25,11 @@ export class PathMovementComponent extends ECSComponent {
     setData(path: Array<Vec2>, speed: number = 0.1) {
         this.path = path;
         this.speed = speed;
+    }
+
+    reset(): void {
+        this.path = null;
+        this.target = null;
+        this.speed = 0;
     }
 }
