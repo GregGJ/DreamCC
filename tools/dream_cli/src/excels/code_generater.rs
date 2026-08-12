@@ -9,7 +9,7 @@ pub trait CodeGenerater: Send + Sync {
     ///生成代码头
     fn generate_head(&self, tab_num: usize, space_name: &str) -> String;
     fn generate_end(&self, tab_num: usize) -> String;
-    fn generate(&self, tab_num: usize, sheet_name: &str, head_datas: &Vec<HeadData>) -> String;
+    fn generate(&self, tab_num: usize, sheet_name: &str, head_datas: &[HeadData]) -> String;
 }
 
 pub struct TsCodeGenerater {}
@@ -21,9 +21,10 @@ impl Clone for TsCodeGenerater {
 }
 
 impl CodeGenerater for TsCodeGenerater {
+
     fn generate_enum_head(&self, tab_num: usize) -> String {
         let tab_str = get_tab_str(tab_num);
-        String::from(format!("{}export enum ConfigKeys {{\n", tab_str))
+        format!("{}export enum ConfigKeys {{\n", tab_str)
     }
 
     fn generate_enum(&self, tab_num: usize, file_name: &str, sheet_name: &str) -> String {
@@ -44,10 +45,10 @@ impl CodeGenerater for TsCodeGenerater {
 
     fn generate_end(&self, tab_num: usize) -> String {
         let tab_str = get_tab_str(tab_num);
-        String::from(format!("{}}}\n", tab_str))
+        format!("{}}}\n", tab_str)
     }
 
-    fn generate(&self, tab_num: usize, sheet_name: &str, head_datas: &Vec<HeadData>) -> String {
+    fn generate(&self, tab_num: usize, sheet_name: &str, head_datas: &[HeadData]) -> String {
         let tab_str = get_tab_str(tab_num);
         let tab_str1 = get_tab_str(tab_num + 1);
         let sheet_name = capitalize_first_letter(sheet_name);

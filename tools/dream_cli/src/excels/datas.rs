@@ -52,8 +52,7 @@ impl ExcelDataType {
 
     ///是否是数组
     pub fn is_arr(&self) -> bool {
-        match self {
-            ExcelDataType::ArrByte
+        matches!(self,ExcelDataType::ArrByte
             | ExcelDataType::ArrUByte
             | ExcelDataType::ArrShort
             | ExcelDataType::ArrUShort
@@ -61,27 +60,19 @@ impl ExcelDataType {
             | ExcelDataType::ArrUInt
             | ExcelDataType::ArrFloat
             | ExcelDataType::ArrNumber
-            | ExcelDataType::ArrString => true,
-            _ => false,
-        }
+            | ExcelDataType::ArrString)
     }
 
     ///是否是数字
     pub fn is_number(&self) -> bool {
-        match self {
-            ExcelDataType::String | ExcelDataType::ArrString | ExcelDataType::JSON => false,
-            _ => true,
-        }
+        !matches!(self, ExcelDataType::String | ExcelDataType::ArrString | ExcelDataType::JSON)
     }
 
     pub fn is_json(&self)->bool{
-        match self {
-            ExcelDataType::JSON => true,
-            _ => false,
-        }
+        matches!(self,ExcelDataType::JSON)
     }
 
-    pub fn from_str(value: &str) -> Option<ExcelDataType> {
+    pub fn str_to_type(value: &str) -> Option<ExcelDataType> {
         match value {
             "byte" => Some(ExcelDataType::Byte),
             "ubyte" => Some(ExcelDataType::UByte),
@@ -115,7 +106,14 @@ pub struct HeadData {
     pub data_type: ExcelDataType,
 }
 
+impl Default for HeadData {
+    fn default() -> Self {
+            Self::new()
+    }
+}
+
 impl HeadData {
+
     pub fn new() -> HeadData {
         HeadData {
             index: 0,
@@ -124,7 +122,7 @@ impl HeadData {
             data_type: ExcelDataType::String,
         }
     }
-
+    
     ///当前列是否有效
     pub fn is_valid(&self) -> bool {
         if self.title.is_empty() || self.data_type.as_str().is_empty() {

@@ -157,13 +157,13 @@ fn export(info: &Arc<ExportInfo>, generater: Arc<dyn CodeGenerater>) {
     if dir_path.is_file() {
         panic!("输入路径是文件");
     }
-    let files = find_xlsx_files(&dir_path).unwrap();
+    let files = find_xlsx_files(dir_path).unwrap();
 
     let mut code_str = String::from("declare namespace Config {\n");
     let mut enum_str = generater.generate_enum_head(0);
 
     for file in files {
-        export_xlsx_file(&info, &file, &generater, &mut code_str, &mut enum_str);
+        export_xlsx_file(info, &file, &generater, &mut code_str, &mut enum_str);
     }
     enum_str.push_str(&generater.generate_end(1));
     code_str.push_str(&generater.generate_end(1));
@@ -184,7 +184,7 @@ fn export(info: &Arc<ExportInfo>, generater: Arc<dyn CodeGenerater>) {
 
 fn export_xlsx_file(
     info: &Arc<ExportInfo>,
-    file: &PathBuf,
+    file: &Path,
     generater: &Arc<dyn CodeGenerater>,
     code_str: &mut String,
     enum_str: &mut String,
@@ -426,7 +426,7 @@ fn get_head_list(sheet: &Worksheet, info: &Arc<ExportInfo>) -> Vec<HeadData> {
         //类型
         if let Some(data_cell) = sheet.get_cell((column_data.index, info.type_idx)) {
             column_data.data_type =
-                ExcelDataType::from_str(&data_cell.get_value().to_string().to_lowercase()).unwrap();
+                ExcelDataType::str_to_type(&data_cell.get_value().to_string().to_lowercase()).unwrap();
         }
         //注释
         if let Some(data_cell) = sheet.get_cell((column_data.index, info.comment_idx)) {
