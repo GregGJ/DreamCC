@@ -879,4 +879,5 @@ declare class NodeHeap {
     private __defaultCompare;
 }
 
-export { AStar, DDLSAStar, DDLSConstants, DDLSConstraintSegment, DDLSConstraintShape, DDLSEdge, DDLSEntityAI, DDLSFace, DDLSFunnel, DDLSGeom2D, DDLSGraph, DDLSGraphEdge, DDLSGraphNode, DDLSMatrix2D, DDLSMesh, DDLSObject, DDLSPathFinder, DDLSPoint2D, DDLSRandGenerator, DDLSRectMeshFactory, DDLSSimpleView, DDLSUtils, DDLSVertex, DefaultSettings, Graph, GraphLink, GraphNode, GraphOptions, INodeSearchState, ISearchStatePool, IteratorFromFaceToInnerEdges, IteratorFromMeshToVertices, IteratorFromVertexToHoldingFaces, IteratorFromVertexToIncomingEdges, IteratorFromVertexToOutgoingEdges, NodeHeap, NodeSearchState, Polygon, SearchStatePool };
+export { AStar, DDLSAStar, DDLSConstants, DDLSConstraintSegment, DDLSConstraintShape, DDLSEdge, DDLSEntityAI, DDLSFace, DDLSFunnel, DDLSGeom2D, DDLSGraph, DDLSGraphEdge, DDLSGraphNode, DDLSMatrix2D, DDLSMesh, DDLSObject, DDLSPathFinder, DDLSPoint2D, DDLSRandGenerator, DDLSRectMeshFactory, DDLSSimpleView, DDLSUtils, DDLSVertex, DefaultSettings, Graph, GraphLink, GraphNode, GraphOptions, IteratorFromFaceToInnerEdges, IteratorFromMeshToVertices, IteratorFromVertexToHoldingFaces, IteratorFromVertexToIncomingEdges, IteratorFromVertexToOutgoingEdges, NodeHeap, NodeSearchState, Polygon, SearchStatePool };
+export type { INodeSearchState, ISearchStatePool };

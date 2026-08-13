@@ -1,13 +1,12 @@
 {
   "extends": "../tsconfig.base.json",
   "compilerOptions": {
-    "baseUrl": "..",
     "paths": {
       "dream-cc-core": [
-        "./dist/dream-cc-core.d.ts"
+        "../dist/dream-cc-core.d.ts"
       ],
       "fairygui-cc": [
-        "./dist/fairygui-cc.d.ts"
+        "../dist/fairygui-cc.d.ts"
       ]
     },
     "tsBuildInfoFile": "../node_modules/.cache/tsc/dream-cc-gui.tsbuildinfo"

@@ -845,4 +845,5 @@ declare class GUIPlugin extends EventDispatcher implements IEnginePlugin {
     private __allComplete;
 }
 
-export { Alert, BaseMediator, FGUILoader, FGUIResource, GUIManager, GUIMediator, GUIPlugin, GUIProxy, GUIState, IAlert, IGUIInfo, IGUIManager, IGUIMediator, ILayer, ILayerManager, ILoadingView, IRelationInfo, IRelationList, ITabPage, ITooltipData, IViewComponent, IViewCreator, Layer, LayerManager, LoadingView, RelationManager, SubGUIMediator, TabContainer, TabData, TabPage, TooltipManagerImpl, TooltipPosMode };
+export { Alert, BaseMediator, FGUILoader, FGUIResource, GUIManager, GUIMediator, GUIPlugin, GUIProxy, GUIState, ITooltipData, Layer, LayerManager, LoadingView, RelationManager, SubGUIMediator, TabContainer, TabData, TabPage, TooltipManagerImpl, TooltipPosMode };
+export type { IAlert, IGUIInfo, IGUIManager, IGUIMediator, ILayer, ILayerManager, ILoadingView, IRelationInfo, IRelationList, ITabPage, IViewComponent, IViewCreator };

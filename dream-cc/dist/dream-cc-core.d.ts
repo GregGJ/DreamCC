@@ -3,7 +3,7 @@ import { Component, Node } from 'cc';
 /**
  * 资源URL类型
  */
-declare type ResURL = string | {
+type ResURL = string | {
     url: string;
     type: any;
     bundle: string;
@@ -592,7 +592,7 @@ declare class IDConfigAccessor extends BaseConfigAccessor {
 /**
  * 事件类型
  */
-declare type EventType$1 = number | string;
+type EventType$1 = number | string;
 
 /**
  * 事件派发器接口
@@ -3044,4 +3044,5 @@ declare class Engine {
     static tick(dt: number): void;
 }
 
-export { ArrayProperty, ArrayValue, AudioManager, BaseConfigAccessor, BaseValue, Binder, BinderUtils, BitFlag, CCLoader, ChangedData, ClassUtils, ConfigManager, ConfigStorage, Dictionary, DictionaryProperty, DictionaryValue, Engine, Event, EventDispatcher, EventType$1 as EventType, Func, FuncNode, FunctionHook, Handler, Http, I18N, IAudioChannel, IAudioGroup, IAudioManager, IConfigAccessor, IConfigManager, IDConfigAccessor, IDeserialization, IDestroyable, IEnginePlugin, IEventDispatcher, IFuncConfig, IFuncData, ILoader, ILoaderManager, ILogger, IPoolable, IProtocol, IRedPointData, IRes, IResource, IResourceManager, ISerDesProperty, ISerDesValue, ISerialization, ISocket, ISocketManager, ITask, ITicker, ITickerManager, ITimer, Injector, JSONDeserialization, JSONSerialization, List, LoaderManager, LocalConfigLoader, Logger, MathUtils, Module, ModuleManager, NumberProperty, NumberValue, ObjectUtils, Pool, PropertyBinder, RedPoint, RedPointNode, RemoteConfigLoader, Res, ResRef, ResRequest, ResURL, Resource, ResourceManager, SerDes, SerDesMode, Socket, SocketManager, SocketManagerImpl, StringProperty, StringUtils, StringValue, Task, TaskQueue, TaskSequence, TickerManager, Timer };
+export { ArrayProperty, ArrayValue, AudioManager, BaseConfigAccessor, BaseValue, Binder, BinderUtils, BitFlag, CCLoader, ChangedData, ClassUtils, ConfigManager, ConfigStorage, Dictionary, DictionaryProperty, DictionaryValue, Engine, Event, EventDispatcher, Func, FuncNode, FunctionHook, Handler, Http, I18N, IDConfigAccessor, Injector, JSONDeserialization, JSONSerialization, List, LoaderManager, LocalConfigLoader, Logger, MathUtils, Module, ModuleManager, NumberProperty, NumberValue, ObjectUtils, Pool, PropertyBinder, RedPoint, RedPointNode, RemoteConfigLoader, Res, ResRef, ResRequest, Resource, ResourceManager, SerDes, SerDesMode, Socket, SocketManager, SocketManagerImpl, StringProperty, StringUtils, StringValue, Task, TaskQueue, TaskSequence, TickerManager, Timer };
+export type { EventType$1 as EventType, IAudioChannel, IAudioGroup, IAudioManager, IConfigAccessor, IConfigManager, IDeserialization, IDestroyable, IEnginePlugin, IEventDispatcher, IFuncConfig, IFuncData, ILoader, ILoaderManager, ILogger, IPoolable, IProtocol, IRedPointData, IRes, IResource, IResourceManager, ISerDesProperty, ISerDesValue, ISerialization, ISocket, ISocketManager, ITask, ITicker, ITickerManager, ITimer, ResURL };

@@ -1,13 +1,12 @@
 {
   "extends": "../tsconfig.base.json",
   "compilerOptions": {
-    "baseUrl": "..",
     "paths": {
       "dream-cc-core": [
-        "./dist/dream-cc-core.d.ts"
+        "../dist/dream-cc-core.d.ts"
       ],
       "dream-cc-ecs": [
-        "./dist/dream-cc-ecs.d.ts"
+        "../dist/dream-cc-ecs.d.ts"
       ]
     },
     "tsBuildInfoFile": "../node_modules/.cache/tsc/dream-cc-ai.tsbuildinfo"

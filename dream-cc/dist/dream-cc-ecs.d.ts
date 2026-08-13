@@ -4,7 +4,7 @@ import { Vec3, Quat, Node, Graphics } from 'cc';
 /**
  * 只是一个ID
  */
-declare type ECSEntity = number | string;
+type ECSEntity = number | string;
 
 interface IECSComponent {
     /**所属世界 */
@@ -836,4 +836,5 @@ declare class LevelManager {
     static get single(): LevelManager;
 }
 
-export { AddToParentQueueSystem, AddToParentSystem, CampComponent, DataComponent, DisplayComponent, DisplaySystem, ECSComponent, ECSEntity, ECSMatcher, ECSStorage, ECSSystem, ECSWorld, GraphicsComponent, IECSComponent, Level, LevelManager, LevelMode, LevelModeScript, LevelStatus, LinkComponent, LinkSystem, MatcherAllOf, MatcherAnyOf, MatcherNoneOf, ParentComponent, RendererRoot2DComponent, SizeComponent, SparseSet, TransformComponent };
+export { AddToParentQueueSystem, AddToParentSystem, CampComponent, DataComponent, DisplayComponent, DisplaySystem, ECSComponent, ECSMatcher, ECSStorage, ECSSystem, ECSWorld, GraphicsComponent, Level, LevelManager, LevelMode, LevelModeScript, LevelStatus, LinkComponent, LinkSystem, MatcherAllOf, MatcherAnyOf, MatcherNoneOf, ParentComponent, RendererRoot2DComponent, SizeComponent, SparseSet, TransformComponent };
+export type { ECSEntity, IECSComponent };

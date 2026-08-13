@@ -910,7 +910,7 @@ declare class GObjectPool {
     returnObject(obj: GObject): void;
 }
 
-declare type ListItemRenderer = (index: number, item: GObject) => void;
+type ListItemRenderer = (index: number, item: GObject) => void;
 declare class GList extends GComponent {
     itemRenderer: ListItemRenderer;
     itemProvider: (index: number) => string;
@@ -1168,7 +1168,7 @@ declare class MovieClip extends Image {
     private drawFrame;
 }
 
-declare type PackageDependency = {
+type PackageDependency = {
     id: string;
     name: string;
 };
@@ -2587,4 +2587,5 @@ declare class SmartLoader extends GLoader {
     protected freeExternal(texture: SpriteFrame): void;
 }
 
-export { AlignType, AsyncOperation, AutoSizeType, BlendMode, ButtonMode, ByteBuffer, ChildrenRenderOrder, Controller, DragDropManager, EaseType, FGUIEvent, FillMethod, FillOrigin, FlipType, Frame, GButton, GComboBox, GComponent, GGraph, GGroup, GImage, GLabel, GList, GLoader, GLoader3D, GMovieClip, GObject, GObjectPool, GProgressBar, GRichTextField, GRoot, GScrollBar, GSlider, GTextField, GTextInput, GTree, GTreeNode, GTween, GTweener, GearAnimation, GearBase, GearColor, GearDisplay, GearDisplay2, GearFontSize, GearIcon, GearLook, GearSize, GearText, GearXY, GroupLayoutType, ITooltipManager, ITooltipView, Image, ListItemRenderer, ListLayoutType, ListSelectionMode, LoaderFillType, MovieClip, ObjectPropID, ObjectType, OverflowType, PackageItem, PackageItemType, PopupDirection, PopupMenu, ProgressTitleType, RelationType, ScrollBarDisplayType, ScrollPane, ScrollType, SmartLoader, TooltipManager, Transition, TranslationHelper, UBBParser, UIConfig, UIObjectFactory, UIPackage, VertAlignType, Window, registerFont };
+export { AlignType, AsyncOperation, AutoSizeType, BlendMode, ButtonMode, ByteBuffer, ChildrenRenderOrder, Controller, DragDropManager, EaseType, FGUIEvent, FillMethod, FillOrigin, FlipType, GButton, GComboBox, GComponent, GGraph, GGroup, GImage, GLabel, GList, GLoader, GLoader3D, GMovieClip, GObject, GObjectPool, GProgressBar, GRichTextField, GRoot, GScrollBar, GSlider, GTextField, GTextInput, GTree, GTreeNode, GTween, GTweener, GearAnimation, GearBase, GearColor, GearDisplay, GearDisplay2, GearFontSize, GearIcon, GearLook, GearSize, GearText, GearXY, GroupLayoutType, Image, ListLayoutType, ListSelectionMode, LoaderFillType, MovieClip, ObjectPropID, ObjectType, OverflowType, PackageItem, PackageItemType, PopupDirection, PopupMenu, ProgressTitleType, RelationType, ScrollBarDisplayType, ScrollPane, ScrollType, SmartLoader, TooltipManager, Transition, TranslationHelper, UBBParser, UIConfig, UIObjectFactory, UIPackage, VertAlignType, Window, registerFont };
+export type { Frame, ITooltipManager, ITooltipView, ListItemRenderer };
