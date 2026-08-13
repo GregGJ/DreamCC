@@ -1,18 +1,13 @@
 {
+  "extends": "../tsconfig.base.json",
   "compilerOptions": {
-    "declaration": true,
-    "target": "es6",
-    "module": "es6",
-    "strict": true,
-    "strictNullChecks": false,
-    "moduleResolution": "Node",
-    "skipLibCheck": true,
     "baseUrl": "..",
     "paths": {
       "dream-cc-core": [
         "./dist/dream-cc-core.d.ts"
       ]
     },
+    "tsBuildInfoFile": "../node_modules/.cache/tsc/fairygui-cc.tsbuildinfo"
   },
   "include": [
     "./src/**/*",

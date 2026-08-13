@@ -4,7 +4,7 @@ import { Vec3, Quat, Node, Graphics } from 'cc';
 /**
  * 只是一个ID
  */
-type ECSEntity = number | string;
+declare type ECSEntity = number | string;
 
 interface IECSComponent {
     /**所属世界 */

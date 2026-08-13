@@ -3,7 +3,7 @@ import { Component, Node } from 'cc';
 /**
  * 资源URL类型
  */
-type ResURL = string | {
+declare type ResURL = string | {
     url: string;
     type: any;
     bundle: string;
@@ -592,7 +592,7 @@ declare class IDConfigAccessor extends BaseConfigAccessor {
 /**
  * 事件类型
  */
-type EventType$1 = number | string;
+declare type EventType$1 = number | string;
 
 /**
  * 事件派发器接口

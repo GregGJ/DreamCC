@@ -1,0 +1,38 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "globalDependencies": ["scripts/**", "package.json", "tsconfig.base.json"],
+  "tasks": {
+    "build": {
+      "dependsOn": ["^build"],
+      "outputs": []
+    },
+    "typecheck": {
+      "dependsOn": ["^build"],
+      "outputs": []
+    },
+    "dream-cc-core#build": {
+      "dependsOn": ["^build"],
+      "outputs": ["../dist/dream-cc-core.*"]
+    },
+    "dream-cc-ecs#build": {
+      "dependsOn": ["^build"],
+      "outputs": ["../dist/dream-cc-ecs.*"]
+    },
+    "dream-cc-pathfinding#build": {
+      "dependsOn": ["^build"],
+      "outputs": ["../dist/dream-cc-pathfinding.*"]
+    },
+    "fairygui-cc#build": {
+      "dependsOn": ["^build"],
+      "outputs": ["../dist/fairygui-cc.*"]
+    },
+    "dream-cc-ai#build": {
+      "dependsOn": ["^build"],
+      "outputs": ["../dist/dream-cc-ai.*"]
+    },
+    "dream-cc-gui#build": {
+      "dependsOn": ["^build"],
+      "outputs": ["../dist/dream-cc-gui.*"]
+    }
+  }
+}

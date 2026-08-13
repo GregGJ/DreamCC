@@ -910,7 +910,7 @@ declare class GObjectPool {
     returnObject(obj: GObject): void;
 }
 
-type ListItemRenderer = (index: number, item: GObject) => void;
+declare type ListItemRenderer = (index: number, item: GObject) => void;
 declare class GList extends GComponent {
     itemRenderer: ListItemRenderer;
     itemProvider: (index: number) => string;
@@ -1168,7 +1168,7 @@ declare class MovieClip extends Image {
     private drawFrame;
 }
 
-type PackageDependency = {
+declare type PackageDependency = {
     id: string;
     name: string;
 };

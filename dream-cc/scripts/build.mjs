@@ -1,43 +1,37 @@
-import { spawnSync } from 'node:child_process';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { rmSync } from 'node:fs';
+import { buildPackage } from './build-pkg.mjs';
+import { buildLevels } from './packages.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+const levels = buildLevels();
 
-// build order follows the dependency graph:
-// core -> ecs / pathfinding / fairygui-cc -> ai / gui
-const order = [
-    'dream-cc-core',
-    'dream-cc-ecs',
-    'dream-cc-pathfinding',
-    'fairygui-cc',
-    'dream-cc-ai',
-    'dream-cc-gui',
-];
+async function main() {
+    // clean dist first so renamed/removed packages never leave stale outputs
+    const distDir = path.join(root, 'dist');
+    rmSync(distDir, { recursive: true, force: true });
 
-// run the local npm CLI with node directly to avoid shell-escaping issues
-const npmCli = process.env.npm_execpath
-    ? path.resolve(process.env.npm_execpath)
-    : 'npm';
-
-for (const pkg of order) {
-    console.log(`\n===== build ${pkg} =====`);
-    const result = spawnSync(process.execPath, [npmCli, 'run', 'build', '--workspace', pkg], {
-        stdio: 'inherit',
-    });
-    if (result.status !== 0) {
-        console.error(`[build] ${pkg} failed (exit ${result.status})`);
-        process.exit(result.status ?? 1);
+    const t0 = Date.now();
+    for (const level of levels) {
+        const results = await Promise.all(
+            level.map(async (pkg) => {
+                console.log(`===== build ${pkg} =====`);
+                try {
+                    return await buildPackage(path.join(root, pkg));
+                } catch (error) {
+                    throw new Error(`[build] ${pkg} failed: ${error.message}`);
+                }
+            }),
+        );
+        for (const { name, outfile, dtsFile } of results) {
+            console.log(`[build] ${name}: ${path.basename(outfile)} + ${path.basename(dtsFile)}`);
+        }
     }
+    console.log(`\nAll packages built in ${((Date.now() - t0) / 1000).toFixed(1)}s.`);
 }
 
-console.log('\nAll packages built.');
-
-// single consolidated copy to the client after all packages are built
-const copy = spawnSync(process.execPath, [path.join(root, 'scripts', 'copy-libs.mjs')], {
-    stdio: 'inherit',
+main().catch((error) => {
+    console.error(error.message);
+    process.exit(1);
 });
-if (copy.status !== 0) {
-    console.error(`[copy] failed (exit ${copy.status})`);
-    process.exit(copy.status ?? 1);
-}

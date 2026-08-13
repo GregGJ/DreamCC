@@ -17160,3 +17160,4 @@ export {
   Window,
   registerFont
 };
+//# sourceMappingURL=fairygui-cc.mjs.map

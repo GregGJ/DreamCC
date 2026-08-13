@@ -1,31 +1,65 @@
-import { copyFileSync, existsSync, mkdirSync, readdirSync } from 'node:fs';
+import { copyFileSync, existsSync, mkdirSync, readdirSync, statSync } from 'node:fs';
 import path from 'node:path';
-import { fileURLToPath } from 'node:url';
+import { fileURLToPath, pathToFileURL } from 'node:url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(__dirname, '..');
+const defaultClientLibs = path.join('D:\\', 'DreamCC', 'clients', 'Client3', 'assets', 'libs');
 
-const distDir = path.join(root, 'dist');
+/**
+ * Copy built runtime + typings from dist/ to the Cocos client libs folder.
+ * Only files that changed (size or mtime) are copied.
+ */
+export async function copyLibs(options = {}) {
+    const distDir = path.resolve(options.distDir || path.join(root, 'dist'));
+    const clientLibs = path.resolve(
+        options.clientLibs || process.env.DREAM_CC_CLIENT_LIBS || defaultClientLibs,
+    );
 
-const clientLibs = process.env.DREAM_CC_CLIENT_LIBS
-    || path.join('D:\\', 'DreamCC', 'clients', 'Client3', 'assets', 'libs');
+    if (process.env.DREAM_CC_SKIP_COPY === '1') {
+        console.log('[copy] skipped (DREAM_CC_SKIP_COPY=1)');
+        return { skipped: true };
+    }
 
-if (process.env.DREAM_CC_SKIP_COPY === '1') {
-    console.log('[copy] skipped (DREAM_CC_SKIP_COPY=1)');
-    process.exit(0);
+    if (!existsSync(distDir)) {
+        console.log(`[copy] ${distDir} not found, skip`);
+        return { notFound: true };
+    }
+
+    mkdirSync(clientLibs, { recursive: true });
+
+    let copied = 0;
+    let unchanged = 0;
+    for (const file of readdirSync(distDir)) {
+        // ship runtime code + typings + source maps (set DREAM_CC_SKIP_MAPS=1 to skip maps)
+        if (process.env.DREAM_CC_SKIP_MAPS === '1' && /\.map$/.test(file)) continue;
+        if (!/\.(mjs|d\.ts|map)$/.test(file)) continue;
+
+        const src = path.join(distDir, file);
+        const dest = path.join(clientLibs, file);
+        const srcStat = statSync(src);
+        const destStat = existsSync(dest) ? statSync(dest) : null;
+
+        if (destStat && destStat.size === srcStat.size && destStat.mtimeMs >= srcStat.mtimeMs) {
+            unchanged++;
+            continue;
+        }
+
+        copyFileSync(src, dest);
+        copied++;
+    }
+
+    console.log(`[copy] ${copied} copied, ${unchanged} unchanged -> ${clientLibs}`);
+    return { copied, unchanged, clientLibs };
 }
 
-if (!existsSync(distDir)) {
-    console.log(`[copy] ${distDir} not found, skip`);
-    process.exit(0);
-}
+// CLI entry: node ./scripts/copy-libs.mjs
+const isCli = process.argv[1]
+    && pathToFileURL(path.resolve(process.argv[1])).href === import.meta.url;
 
-mkdirSync(clientLibs, { recursive: true });
-let copied = 0;
-for (const file of readdirSync(distDir)) {
-    // only ship runtime code + typings; never .map or intermediates
-    if (!/\.(mjs|d\.ts)$/.test(file)) continue;
-    copyFileSync(path.join(distDir, file), path.join(clientLibs, file));
-    copied++;
+if (isCli) {
+    copyLibs().catch((error) => {
+        console.error('[copy] failed:', error.message);
+        process.exit(1);
+    });
 }
-console.log(`[copy] ${copied} file(s) -> ${clientLibs}`);

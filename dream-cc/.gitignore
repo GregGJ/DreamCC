@@ -1,3 +1,5 @@
 node_modules/
 *.map
 /fairygui-cc/build/
+.turbo/
+*.tsbuildinfo
