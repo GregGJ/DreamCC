@@ -202,6 +202,9 @@ export class GUIManagerImpl implements IGUIManager {
         if (layer.isFullScrene && layer.openRecord.length > 1) {
             layer.openRecord.pop();
             let guikey: string = layer.openRecord.pop();
+            if (key == guikey) {
+                return;
+            }
             // console.log("关闭："+key+"时，回到："+guikey);
             this.__open(guikey);
         }

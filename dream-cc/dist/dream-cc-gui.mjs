@@ -914,6 +914,7 @@ var GUIManagerImpl = class {
 		if (layer.isFullScrene && layer.openRecord.length > 1) {
 			layer.openRecord.pop();
 			let guikey = layer.openRecord.pop();
+			if (key == guikey) return;
 			this.__open(guikey);
 		}
 	}
