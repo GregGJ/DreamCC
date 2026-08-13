@@ -1,0 +1,25 @@
+{
+  "name": "dream-cc",
+  "version": "1.0.0",
+  "private": true,
+  "description": "dream-cc monorepo (npm workspaces)",
+  "workspaces": [
+    "dream-cc-core",
+    "dream-cc-ecs",
+    "dream-cc-ai",
+    "dream-cc-gui",
+    "dream-cc-pathfinding",
+    "fairygui-cc"
+  ],
+  "scripts": {
+    "build": "node ./scripts/build.mjs",
+    "copy": "node ./scripts/copy-libs.mjs",
+    "typecheck": "npm run typecheck --workspaces --if-present"
+  },
+  "devDependencies": {
+    "esbuild": "^0.23.1",
+    "rollup": "^3.29.5",
+    "rollup-plugin-dts": "^5.3.1",
+    "typescript": "^5.8.2"
+  }
+}

@@ -7,10 +7,16 @@
     "strictNullChecks": false,
     "moduleResolution": "Node",
     "skipLibCheck": true,
+    "baseUrl": "..",
+    "paths": {
+      "dream-cc-core": [
+        "./dist/dream-cc-core.d.ts"
+      ]
+    },
   },
   "include": [
     "./src/**/*",
-    "libs"
+    "../libs"
   ],
   "exclude": [
     "node_modules"
