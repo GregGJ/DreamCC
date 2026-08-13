@@ -1,6 +1,6 @@
 import { EventDispatcher } from "dream-cc-core";
 import { ECSComponent, ECSEntity, ECSSystem } from "dream-cc-ecs";
-//#region src/behaviorTree/BTBlackboard.d.ts
+//#region dream-cc-ai/src/behaviorTree/BTBlackboard.d.ts
 /**
  * 行为树黑板
  */
@@ -39,7 +39,7 @@ declare class BTBlackboard extends EventDispatcher {
   destroy(): boolean;
 }
 //#endregion
-//#region src/behaviorTree/BTNodeStatus.d.ts
+//#region dream-cc-ai/src/behaviorTree/BTNodeStatus.d.ts
 /**
  * 节点状态
  */
@@ -54,7 +54,7 @@ declare enum BTNodeStatus {
   RUNNING = 3
 }
 //#endregion
-//#region src/behaviorTree/BTNodeType.d.ts
+//#region dream-cc-ai/src/behaviorTree/BTNodeType.d.ts
 /**
  * 节点类型
  */
@@ -66,7 +66,7 @@ declare enum BTNodeType {
   CONDITION = 4
 }
 //#endregion
-//#region src/behaviorTree/interfaces/IBTNode.d.ts
+//#region dream-cc-ai/src/behaviorTree/interfaces/IBTNode.d.ts
 /**
  * 节点接口
  */
@@ -93,14 +93,14 @@ interface IBTNode {
   readonly type: BTNodeType;
 }
 //#endregion
-//#region src/behaviorTree/interfaces/IBTNodeConfig.d.ts
+//#region dream-cc-ai/src/behaviorTree/interfaces/IBTNodeConfig.d.ts
 interface IBTNodeConfig {
   name: string;
   type: string;
   children?: IBTNodeConfig[];
 }
 //#endregion
-//#region src/behaviorTree/BTNode.d.ts
+//#region dream-cc-ai/src/behaviorTree/BTNode.d.ts
 declare abstract class BTNode implements IBTNode {
   /**名称 */
   name: string;
@@ -122,7 +122,7 @@ declare abstract class BTNode implements IBTNode {
   get type(): BTNodeType;
 }
 //#endregion
-//#region src/behaviorTree/actions/BTActionNode.d.ts
+//#region dream-cc-ai/src/behaviorTree/actions/BTActionNode.d.ts
 /**
  * 动作节点基础类
  */
@@ -131,7 +131,7 @@ declare abstract class BTActionNode extends BTNode {
   get type(): BTNodeType;
 }
 //#endregion
-//#region src/behaviorTree/actions/BTAsyncActionNode.d.ts
+//#region dream-cc-ai/src/behaviorTree/actions/BTAsyncActionNode.d.ts
 /**
  * 异步动作节点基础类
  */
@@ -143,7 +143,7 @@ declare abstract class BTAsyncActionNode extends BTActionNode {
   halt(): void;
 }
 //#endregion
-//#region src/behaviorTree/actions/BTCoroActionNode.d.ts
+//#region dream-cc-ai/src/behaviorTree/actions/BTCoroActionNode.d.ts
 declare abstract class BTCoroActionNode extends BTActionNode {
   private yield;
   constructor(name: string, blackboard: BTBlackboard);
@@ -152,14 +152,14 @@ declare abstract class BTCoroActionNode extends BTActionNode {
   halt(): void;
 }
 //#endregion
-//#region src/behaviorTree/actions/BTSimpleActionNode.d.ts
+//#region dream-cc-ai/src/behaviorTree/actions/BTSimpleActionNode.d.ts
 declare class BTSimpleActionNode extends BTAsyncActionNode {
   protected tickFunctor: (node: IBTNode) => BTNodeStatus;
   constructor(name: string, blackboard: BTBlackboard, tickFunctor: (node: IBTNode) => BTNodeStatus);
   tick(): BTNodeStatus;
 }
 //#endregion
-//#region src/behaviorTree/actions/BTStatefulActionNode.d.ts
+//#region dream-cc-ai/src/behaviorTree/actions/BTStatefulActionNode.d.ts
 /**
  * 状态类动作节点
  */
@@ -177,7 +177,7 @@ declare abstract class BTStatefulActionNode extends BTActionNode {
   onHalted(): void;
 }
 //#endregion
-//#region src/behaviorTree/actions/BTSyncActionNode.d.ts
+//#region dream-cc-ai/src/behaviorTree/actions/BTSyncActionNode.d.ts
 /**
  * 同步动作节点
  */
@@ -187,7 +187,7 @@ declare abstract class BTSyncActionNode extends BTActionNode {
   halt(): void;
 }
 //#endregion
-//#region src/behaviorTree/conditions/BTConditionNode.d.ts
+//#region dream-cc-ai/src/behaviorTree/conditions/BTConditionNode.d.ts
 /**
  * 条件节点
  */
@@ -197,7 +197,7 @@ declare abstract class BTConditionNode extends BTNode {
   get type(): BTNodeType;
 }
 //#endregion
-//#region src/behaviorTree/conditions/BTSimpleConditionNode.d.ts
+//#region dream-cc-ai/src/behaviorTree/conditions/BTSimpleConditionNode.d.ts
 /**
  * 简单条件节点
  */
@@ -207,7 +207,7 @@ declare class BTSimpleConditionNode extends BTConditionNode {
   tick(): BTNodeStatus;
 }
 //#endregion
-//#region src/behaviorTree/interfaces/IBTControlNode.d.ts
+//#region dream-cc-ai/src/behaviorTree/interfaces/IBTControlNode.d.ts
 /**
  * 控制节点接口
  */
@@ -237,7 +237,7 @@ interface IBTControlNode extends IBTNode {
   haltChildren(): void;
 }
 //#endregion
-//#region src/behaviorTree/controls/BTControlNode.d.ts
+//#region dream-cc-ai/src/behaviorTree/controls/BTControlNode.d.ts
 /**
  * 控制节点
  */
@@ -254,7 +254,7 @@ declare abstract class BTControlNode extends BTNode implements IBTControlNode {
   get type(): BTNodeType;
 }
 //#endregion
-//#region src/behaviorTree/controls/BTFallbackNode.d.ts
+//#region dream-cc-ai/src/behaviorTree/controls/BTFallbackNode.d.ts
 /**
  * 在勾选第一个子节点之前，节点状态变为RUNNING。
  * 如果一个子节点返回FAILURE，则回退标记下一个子节点。
@@ -268,7 +268,7 @@ declare class BTFallbackNode extends BTControlNode {
   halt(): void;
 }
 //#endregion
-//#region src/behaviorTree/controls/BTIfThenElseNode.d.ts
+//#region dream-cc-ai/src/behaviorTree/controls/BTIfThenElseNode.d.ts
 /**
  * 有2或3个子节点，node1就是if判断的条件。
  * 如果node1返回SUCCESS，那么node2执行；
@@ -284,7 +284,7 @@ declare class BTIfThenElseNode extends BTControlNode {
   halt(): void;
 }
 //#endregion
-//#region src/behaviorTree/controls/BTParallelNode.d.ts
+//#region dream-cc-ai/src/behaviorTree/controls/BTParallelNode.d.ts
 /**
  * 当返回SUCCESS的子节点个数>=THRESHOLD_SUCCESS时，返回SUCCESS。
  * 当返回FAILURE的子节点个数>=THRESHOLD_FAILURE时，返回FAILURE。
@@ -301,7 +301,7 @@ declare class BTParallelNode extends BTControlNode {
   destroy(): void;
 }
 //#endregion
-//#region src/behaviorTree/controls/BTReactiveFallback.d.ts
+//#region dream-cc-ai/src/behaviorTree/controls/BTReactiveFallback.d.ts
 /**
  * 如果某个子节点返回RUNNING，返回RUNNING，且下次tick()时之前的子节点会再次执行，reactive所在。
  * 如果某个子节点返回SUCCESS，不再执行，且返回SUCCESS。
@@ -312,7 +312,7 @@ declare class BTReactiveFallback extends BTControlNode {
   tick(): BTNodeStatus;
 }
 //#endregion
-//#region src/behaviorTree/controls/BTSequenceNode.d.ts
+//#region dream-cc-ai/src/behaviorTree/controls/BTSequenceNode.d.ts
 /**
  * 按从左到右的顺序依次执行子节点。
  * 如果某个子节点返回RUNNING，返回RUNNING，且下次tick()时之前的子节点不会再执行。
@@ -326,7 +326,7 @@ declare class BTSequenceNode extends BTControlNode {
   tick(): BTNodeStatus;
 }
 //#endregion
-//#region src/behaviorTree/controls/BTSequenceStarNode.d.ts
+//#region dream-cc-ai/src/behaviorTree/controls/BTSequenceStarNode.d.ts
 /**
  * 同SequenceNode，不同之处在于如果某个子节点返回FAILURE，返回FAILURE，终止所有节点的执行。
  * 但不复位current_child_idx_。所以当再次tick()时，从FAILURE的子节点开始。
@@ -337,7 +337,7 @@ declare class BTSequenceStarNode extends BTControlNode {
   tick(): BTNodeStatus;
 }
 //#endregion
-//#region src/behaviorTree/controls/BTWhileDoElseNode.d.ts
+//#region dream-cc-ai/src/behaviorTree/controls/BTWhileDoElseNode.d.ts
 /**
  * 是IfThenElseNode的reactive版本。
  * reactive体现在每次tick()都会执行node1，即检查if条件的变化。
@@ -348,7 +348,7 @@ declare class BTWhileDoElseNode extends BTControlNode {
   tick(): BTNodeStatus;
 }
 //#endregion
-//#region src/behaviorTree/decorators/BTDecoratorNode.d.ts
+//#region dream-cc-ai/src/behaviorTree/decorators/BTDecoratorNode.d.ts
 /**
  * 装饰节点
  */
@@ -367,7 +367,7 @@ declare abstract class BTDecoratorNode extends BTNode {
   get type(): BTNodeType;
 }
 //#endregion
-//#region src/behaviorTree/decorators/BTDelayNode.d.ts
+//#region dream-cc-ai/src/behaviorTree/decorators/BTDelayNode.d.ts
 /**
  * 延迟指定时间后执行子节点
  */
@@ -389,7 +389,7 @@ declare class BTDelayNode extends BTDecoratorNode {
   halt(): void;
 }
 //#endregion
-//#region src/behaviorTree/decorators/BTForceFailureNode.d.ts
+//#region dream-cc-ai/src/behaviorTree/decorators/BTForceFailureNode.d.ts
 /**
  * 如果子节点执行后返回RUNNING，该节点返回RUNNING；否则，该节点返回FAILURE，即强制返回失败状态。
  */
@@ -398,7 +398,7 @@ declare class BTForceFailureNode extends BTDecoratorNode {
   tick(): BTNodeStatus;
 }
 //#endregion
-//#region src/behaviorTree/decorators/BTForceSuccessNode.d.ts
+//#region dream-cc-ai/src/behaviorTree/decorators/BTForceSuccessNode.d.ts
 /**
  * 如果子节点执行后返回RUNNING，该节点返回RUNNING；否则，该节点返回SUCCESS，即强制返回成功状态。
  */
@@ -407,7 +407,7 @@ declare class BTForceSuccessNode extends BTDecoratorNode {
   tick(): BTNodeStatus;
 }
 //#endregion
-//#region src/behaviorTree/decorators/BTInverterNode.d.ts
+//#region dream-cc-ai/src/behaviorTree/decorators/BTInverterNode.d.ts
 /**
  * 如果子节点执行后返回RUNNING，该节点返回RUNNING；
  * 如果子节点执行后返回SUCCESS，该节点返回FAILURE；
@@ -419,7 +419,7 @@ declare class BTInverterNode extends BTDecoratorNode {
   tick(): BTNodeStatus;
 }
 //#endregion
-//#region src/behaviorTree/decorators/BTKeepRunningUntilFailureNode.d.ts
+//#region dream-cc-ai/src/behaviorTree/decorators/BTKeepRunningUntilFailureNode.d.ts
 /**
  * 如果子节点执行后返回RUNNING或SUCCESS，下次tick()继续执行子节点，直到子节点返回FAILURE。
  */
@@ -428,7 +428,7 @@ declare class BTKeepRunningUntilFailureNode extends BTDecoratorNode {
   tick(): BTNodeStatus;
 }
 //#endregion
-//#region src/behaviorTree/decorators/BTRepeatNode.d.ts
+//#region dream-cc-ai/src/behaviorTree/decorators/BTRepeatNode.d.ts
 /**
  * 重复执行子节点NUM_CYCLES 次，若每次都返回 SUCCESS，该节点返回SUCCESS；
  * 若子节点某次返回FAILURE，该节点不再重复执行子节点，立即返回FAILURE；
@@ -443,7 +443,7 @@ declare class BTRepeatNode extends BTDecoratorNode {
   halt(): void;
 }
 //#endregion
-//#region src/behaviorTree/decorators/BTRetryNode.d.ts
+//#region dream-cc-ai/src/behaviorTree/decorators/BTRetryNode.d.ts
 /**
  * 如果子节点执行后返回RUNNING，该节点返回RUNNING；
  * 如果子节点执行后返回SUCCESS，该节点返回SUCCESS，不再执行；
@@ -458,7 +458,7 @@ declare class BTRetryNode extends BTDecoratorNode {
   tick(): BTNodeStatus;
 }
 //#endregion
-//#region src/behaviorTree/decorators/BTTimeOutNode.d.ts
+//#region dream-cc-ai/src/behaviorTree/decorators/BTTimeOutNode.d.ts
 /**
  * 在设置的msec 毫秒内，返回子节点执行的状态。
  * 若子节点返回FAILURE或SUCCESS，不再执行。
@@ -474,7 +474,7 @@ declare class BTTimeOutNode extends BTDecoratorNode {
   tick(): BTNodeStatus;
 }
 //#endregion
-//#region src/behaviorTree/BTUtils.d.ts
+//#region dream-cc-ai/src/behaviorTree/BTUtils.d.ts
 /**
  * 行为树
  */
@@ -496,7 +496,7 @@ declare class BTUtils {
   static printTreeRecursively<T>(root: IBTNode): string;
 }
 //#endregion
-//#region src/behaviorTree/BTContext.d.ts
+//#region dream-cc-ai/src/behaviorTree/BTContext.d.ts
 declare class BTContext {
   private class_map;
   constructor();
@@ -525,7 +525,7 @@ declare class BTContext {
   destroy(): void;
 }
 //#endregion
-//#region src/behaviorTree/BTNodeKeys.d.ts
+//#region dream-cc-ai/src/behaviorTree/BTNodeKeys.d.ts
 /**
  * 节点KEY
  */
@@ -622,7 +622,7 @@ declare enum BTNodeKeys {
   TimeOut = "timeout"
 }
 //#endregion
-//#region src/behaviorTree/ecs/BehaviorTreeComponent.d.ts
+//#region dream-cc-ai/src/behaviorTree/ecs/BehaviorTreeComponent.d.ts
 /**
  * 行为树组件
  */
@@ -659,7 +659,7 @@ declare class BehaviorTreeComponent extends ECSComponent {
   destroy(): boolean;
 }
 //#endregion
-//#region src/behaviorTree/ecs/BehaviorTreeSystem.d.ts
+//#region dream-cc-ai/src/behaviorTree/ecs/BehaviorTreeSystem.d.ts
 /**
  * 行为树系统
  */
@@ -668,7 +668,7 @@ declare class BehaviorTreeSystem extends ECSSystem {
   protected $tick(entitys: Set<ECSEntity>, dt: number): void;
 }
 //#endregion
-//#region src/fsm/IState.d.ts
+//#region dream-cc-ai/src/fsm/IState.d.ts
 /**
  * 状态接口
  */
@@ -686,7 +686,7 @@ interface IState {
   destroy(): void;
 }
 //#endregion
-//#region src/fsm/FSM.d.ts
+//#region dream-cc-ai/src/fsm/FSM.d.ts
 /**
  * 状态机
  */
@@ -718,7 +718,7 @@ declare class FSM extends EventDispatcher {
   destroy(): boolean;
 }
 //#endregion
-//#region src/fsm/ecs/FSMComponent.d.ts
+//#region dream-cc-ai/src/fsm/ecs/FSMComponent.d.ts
 declare class FSMComponent extends ECSComponent {
   /**
    * 状态机
@@ -728,7 +728,7 @@ declare class FSMComponent extends ECSComponent {
   destroy(): boolean;
 }
 //#endregion
-//#region src/fsm/ecs/FSMSystem.d.ts
+//#region dream-cc-ai/src/fsm/ecs/FSMSystem.d.ts
 declare class FSMSystem extends ECSSystem {
   constructor();
   protected $tick(entitys: Set<ECSEntity>, dt: number): void;

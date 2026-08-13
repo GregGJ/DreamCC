@@ -1,12 +1,12 @@
 import { EventDispatcher, IDestroyable, IPoolable, ResRequest } from "dream-cc-core";
 import { Graphics, Node, Quat, Vec3 } from "cc";
-//#region src/core/ECSEntity.d.ts
+//#region dream-cc-ecs/src/core/ECSEntity.d.ts
 /**
  * 只是一个ID
  */
 type ECSEntity = number | string;
 //#endregion
-//#region src/core/IECSComponent.d.ts
+//#region dream-cc-ecs/src/core/IECSComponent.d.ts
 interface IECSComponent {
   /**所属世界 */
   world: ECSWorld | null;
@@ -24,7 +24,7 @@ interface IECSComponent {
   destroy(): boolean;
 }
 //#endregion
-//#region src/core/ECSMatcher.d.ts
+//#region dream-cc-ecs/src/core/ECSMatcher.d.ts
 /**
  * 匹配器
  */
@@ -83,7 +83,7 @@ declare class MatcherNoneOf extends Matcher {
   constructor(types: Array<new () => IECSComponent>);
 }
 //#endregion
-//#region src/core/ECSSystem.d.ts
+//#region dream-cc-ecs/src/core/ECSSystem.d.ts
 /**
  * 系统
  */
@@ -116,7 +116,7 @@ declare abstract class ECSSystem {
   destory(): void;
 }
 //#endregion
-//#region src/core/ECSWorld.d.ts
+//#region dream-cc-ecs/src/core/ECSWorld.d.ts
 /**
  * 世界
  */
@@ -290,7 +290,7 @@ declare class ECSWorld {
   private __matcherComponents;
 }
 //#endregion
-//#region src/core/ECSComponent.d.ts
+//#region dream-cc-ecs/src/core/ECSComponent.d.ts
 /**
  * 组件抽象类
  */
@@ -314,7 +314,7 @@ declare abstract class ECSComponent implements IECSComponent {
   destroy(): boolean;
 }
 //#endregion
-//#region src/core/ECSStorage.d.ts
+//#region dream-cc-ecs/src/core/ECSStorage.d.ts
 declare class ECSStorage<T extends IPoolable> {
   private __uidMapping;
   private __values;
@@ -387,7 +387,7 @@ declare class ECSStorage<T extends IPoolable> {
   get values(): Map<new () => any, Array<T | null>>;
 }
 //#endregion
-//#region src/core/SparseSet.d.ts
+//#region dream-cc-ecs/src/core/SparseSet.d.ts
 /**
  * 稀疏集合
  */
@@ -435,7 +435,7 @@ declare class SparseSet {
   get maxCount(): number;
 }
 //#endregion
-//#region src/camps/CampComponent.d.ts
+//#region dream-cc-ecs/src/camps/CampComponent.d.ts
 /**
  * 阵营基础类
  */
@@ -447,7 +447,7 @@ declare class CampComponent extends ECSComponent {
   constructor();
 }
 //#endregion
-//#region src/transforms/TransformComponent.d.ts
+//#region dream-cc-ecs/src/transforms/TransformComponent.d.ts
 /**
  * 变换组件
  */
@@ -503,7 +503,7 @@ declare class TransformComponent extends ECSComponent {
   reset(): void;
 }
 //#endregion
-//#region src/nodes/AddToParentQueueSystem.d.ts
+//#region dream-cc-ecs/src/nodes/AddToParentQueueSystem.d.ts
 declare class AddToParentQueueSystem extends ECSSystem {
   private nodes;
   private frame_count;
@@ -512,7 +512,7 @@ declare class AddToParentQueueSystem extends ECSSystem {
   protected $tick(entitys: Set<ECSEntity>, dt: number): void;
 }
 //#endregion
-//#region src/nodes/AddToParentSystem.d.ts
+//#region dream-cc-ecs/src/nodes/AddToParentSystem.d.ts
 /**
  * 添加到父节点系统
  */
@@ -521,7 +521,7 @@ declare class AddToParentSystem extends ECSSystem {
   protected $tick(entitys: Set<ECSEntity>, dt: number): void;
 }
 //#endregion
-//#region src/nodes/ParentComponent.d.ts
+//#region dream-cc-ecs/src/nodes/ParentComponent.d.ts
 /**
  * 设置父节点组件
  */
@@ -533,7 +533,7 @@ declare class ParentComponent extends ECSComponent {
   reset(): void;
 }
 //#endregion
-//#region src/nodes/SizeComponent.d.ts
+//#region dream-cc-ecs/src/nodes/SizeComponent.d.ts
 /**
  * 大小记录组件(只用于记录大小)
  */
@@ -548,7 +548,7 @@ declare class SizeComponent extends ECSComponent {
   reset(): void;
 }
 //#endregion
-//#region src/displays/DisplayComponent.d.ts
+//#region dream-cc-ecs/src/displays/DisplayComponent.d.ts
 /**
  * 显示组件
  */
@@ -565,13 +565,13 @@ declare class DisplayComponent extends ECSComponent {
   get name(): string;
 }
 //#endregion
-//#region src/displays/DisplaySystem.d.ts
+//#region dream-cc-ecs/src/displays/DisplaySystem.d.ts
 declare class DisplaySystem extends ECSSystem {
   constructor();
   protected $tick(entitys: Set<ECSEntity>, dt: number): void;
 }
 //#endregion
-//#region src/displays/GraphicsComponent.d.ts
+//#region dream-cc-ecs/src/displays/GraphicsComponent.d.ts
 /**
  * 绘画组件
  */
@@ -583,7 +583,7 @@ declare class GraphicsComponent extends DisplayComponent {
   reset(): void;
 }
 //#endregion
-//#region src/datas/DataComponent.d.ts
+//#region dream-cc-ecs/src/datas/DataComponent.d.ts
 declare class DataComponent extends ECSComponent {
   private __data;
   constructor();
@@ -592,7 +592,7 @@ declare class DataComponent extends ECSComponent {
   get data(): any;
 }
 //#endregion
-//#region src/links/LinkComponent.d.ts
+//#region dream-cc-ecs/src/links/LinkComponent.d.ts
 /**
  * 链接组件
  */
@@ -602,13 +602,13 @@ declare class LinkComponent extends ECSComponent {
   constructor();
 }
 //#endregion
-//#region src/links/LinkSystem.d.ts
+//#region dream-cc-ecs/src/links/LinkSystem.d.ts
 declare class LinkSystem extends ECSSystem {
   constructor();
   protected $tick(entitys: Set<ECSEntity>, dt: number): void;
 }
 //#endregion
-//#region src/displays/RendererRoot2DComponent.d.ts
+//#region dream-cc-ecs/src/displays/RendererRoot2DComponent.d.ts
 /**
  * 3D世界中的2D渲染组件
  */
@@ -619,7 +619,7 @@ declare class RendererRoot2DComponent extends DisplayComponent {
   reset(): void;
 }
 //#endregion
-//#region src/levels/LevelModeScript.d.ts
+//#region dream-cc-ecs/src/levels/LevelModeScript.d.ts
 /**
  * 关卡模式脚本(用于拆分和重用逻辑)
  */
@@ -644,7 +644,7 @@ declare abstract class LevelModeScript {
   get world(): ECSWorld;
 }
 //#endregion
-//#region src/levels/LevelMode.d.ts
+//#region dream-cc-ecs/src/levels/LevelMode.d.ts
 /**
  * 关卡模式基类
  */
@@ -721,7 +721,7 @@ declare abstract class LevelMode extends EventDispatcher {
   get root(): Node;
 }
 //#endregion
-//#region src/levels/LevelStatus.d.ts
+//#region dream-cc-ecs/src/levels/LevelStatus.d.ts
 /**
  * 关卡状态数据存放
  */
@@ -754,7 +754,7 @@ declare class LevelStatus implements IDestroyable {
   destroy(): boolean;
 }
 //#endregion
-//#region src/levels/Level.d.ts
+//#region dream-cc-ecs/src/levels/Level.d.ts
 /**
  * 关卡
  */
@@ -809,7 +809,7 @@ declare class Level extends EventDispatcher {
   get status(): LevelStatus;
 }
 //#endregion
-//#region src/levels/LevelManager.d.ts
+//#region dream-cc-ecs/src/levels/LevelManager.d.ts
 declare class LevelManager {
   private __levels;
   constructor();

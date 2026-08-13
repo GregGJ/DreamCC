@@ -21,9 +21,10 @@
 ## 环境要求
 
 - Node.js（建议与 `package.json` 中 `packageManager` 声明一致，当前为 `npm@12.0.2`）
-- npm（workspaces + Turborepo）
+- npm（workspaces）
 - tsdown 0.22 要求 Node.js `^22.18.0` 或 `>=24.11.0`
 - TypeScript 7.x（`^7.0.0`，实际解析到 7.0.2）
+- IDE 建议使用仓库内 TypeScript：`.vscode/settings.json` 已配置 `typescript.tsdk` 指向 `node_modules/typescript/lib`，避免编辑器与命令行版本不一致（例如 `moduleResolution=node10` 弃用告警）
 
 ## 安装
 
@@ -35,11 +36,11 @@ npm install
 
 | 命令 | 说明 |
 | --- | --- |
-| `npm run build` | 默认入口：Turborepo 并行构建 + 缓存（推荐） |
-| `npm run build:local` | 进程内并行全量构建，不经过 turbo；构建前自动清空 `dist/` |
+| `npm run build` | 进程内拓扑并行全量构建；构建前自动清空 `dist/` |
+| `npm run build:local` | `build` 的兼容别名（同一实现） |
 | `npm run dev` | 监听模式：改动源码后自动重建受影响的包及其下游，并拷贝到客户端 |
-| `npm run typecheck` | Turborepo 并行增量类型检查 |
-| `npm run typecheck:local` | 逐包串行 `tsc --noEmit` |
+| `npm run typecheck` | 逐包串行 `tsc --noEmit`（按 workspace 顺序） |
+| `npm run typecheck:local` | `typecheck` 的兼容别名（同一实现） |
 | `npm run copy` | 将 `dist/` 产物拷贝到客户端 |
 | `npm run clean` | 清空 `dist/` |
 
@@ -78,9 +79,15 @@ D:\DreamCC\clients\Client3\assets\libs
 - **打包引擎**：tsdown（Rolldown）一步完成 JS bundle + 声明打包，`ESM` / `target ES2015`；`cc`、`cc/env` 与本地工作区包保持 external，各包独立成 bundle。
 - **类型声明**：tsdown 内置 rolldown-plugin-dts 生成单文件 `.d.ts`，声明中同样保留对外部包的真实 import；TypeScript 7 自动使用原生 tsgo 编译器（5/6 则走 tsc）。
 - **类型导出规范**：类型再导出必须显式 `export type { ... }`（`tsconfig.base.json` 已启用 `isolatedModules` 强制约束），这是 Rolldown 与 esbuild 的差异点，迁移时已按此修正所有入口文件。
-- **Turborepo 缓存**：每包使用独立的输出通配（`../dist/<pkg>.*`）避免缓存快照互相覆盖；`scripts/**`、`package.json`、`tsconfig.base.json` 变更会自动失效全部缓存。缓存与日志位于各包 `.turbo/` 与 `node_modules/.cache/`，均已 gitignore。
+- **构建编排**：无外部任务编排器（已移除 Turborepo）；`scripts/build.mjs` 按依赖拓扑分层并行（`core → {ecs, pathfinding, fairygui-cc} → {ai, gui}`），`scripts/dev.mjs` 提供监听重建与自动拷贝。
+- **监听模式**：`scripts/dev.mjs` 监听各包 `src/`（150ms 防抖），改动后仅重建受影响包及其下游，成功后自动增量拷贝到客户端。
 - **TypeScript 配置**：统一继承 `tsconfig.base.json`；类型检查启用 `incremental`，增量信息写入 `node_modules/.cache/tsc/`。
 - `dist/` 为构建产物（仓库内已跟踪）；`*.map` 与 `*.tsbuildinfo` 不纳入版本控制。
+
+## 常见问题
+
+- `npm install` 后提示 `'tsc' 不是内部或外部命令`：`node_modules/.bin/tsc` 未被正确链接，执行 `npm rebuild typescript` 即可恢复。
+- 直接用 tsdown 构建时可能出现 `WARN TypeScript 7.0 ... experimental` 或 `Emit types with ...` 提示：均为 tsgo 的信息性日志（本项目构建脚本已过滤），不影响产物。
 
 ## 在 Cocos Creator 中使用
 

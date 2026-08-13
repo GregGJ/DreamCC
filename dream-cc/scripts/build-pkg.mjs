@@ -7,9 +7,11 @@ import { pathToFileURL } from 'node:url';
 // API when it initializes; filter it out (fires once per process, does not
 // affect the generated declarations) while keeping real warnings visible.
 const dtsLogger = {
-    info: (...args) => console.info(...args),
+    info: (...args) => {
+        // one-time tsgo bootstrap notice (e.g. "Emit types with typescript@7.0.2")
+        console.info(...args);
+    },
     warn: (...args) => {
-        if (String(args[0]).includes('does not yet have a stable API')) return;
         console.warn(...args);
     },
     error: (...args) => console.error(...args),
@@ -55,15 +57,14 @@ export async function buildPackage(pkgDir, options = {}) {
             tsconfig: path.join(pkgDir, 'tsconfig.json'),
             cwd: pkgDir,
             // don't persist tsbuildinfo (parallel builds share dist; cache
-            // management stays with turbo / tsc)
+            // management stays with tsc)
             incremental: false,
             // keep declarations plain .d.ts without declaration maps
             sourcemap: false,
-            logger: dtsLogger,
         },
         outExtensions: () => ({ js: '.mjs', dts: '.d.ts' }),
         deps: { neverBundle: true },
-        clean: false, // dist is cleaned once by build.mjs / turbo
+        clean: false, // dist is cleaned once by build.mjs
         report: false,
         logLevel: 'warn',
     });

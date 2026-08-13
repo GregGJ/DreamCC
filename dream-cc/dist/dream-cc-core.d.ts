@@ -1,5 +1,5 @@
 import { Component, Node } from "cc";
-//#region src/res/ResURL.d.ts
+//#region dream-cc-core/src/res/ResURL.d.ts
 /**
  * 资源URL类型
  */
@@ -11,7 +11,7 @@ type ResURL = string | {
   data?: any;
 };
 //#endregion
-//#region src/audios/IAudioChannel.d.ts
+//#region dream-cc-core/src/audios/IAudioChannel.d.ts
 /**
  * 音频通道
  */
@@ -66,7 +66,7 @@ interface IAudioChannel {
   resume(): void;
 }
 //#endregion
-//#region src/audios/AudioManager.d.ts
+//#region dream-cc-core/src/audios/AudioManager.d.ts
 /**
  * 音频管理器
  */
@@ -140,7 +140,7 @@ declare class AudioManager {
   private static get impl();
 }
 //#endregion
-//#region src/audios/IAudioGroup.d.ts
+//#region dream-cc-core/src/audios/IAudioGroup.d.ts
 /**
  * 音频组
  */
@@ -156,7 +156,7 @@ interface IAudioGroup {
   stopAll(): void;
 }
 //#endregion
-//#region src/audios/IAudioManager.d.ts
+//#region dream-cc-core/src/audios/IAudioManager.d.ts
 /**
  * 音频管理器
  */
@@ -205,7 +205,7 @@ interface IAudioManager {
   getPlaying(url: ResURL): IAudioChannel;
 }
 //#endregion
-//#region src/interfaces/IDestroyable.d.ts
+//#region dream-cc-core/src/interfaces/IDestroyable.d.ts
 /**
  * 可销毁对象的接口。
  * 实现此接口的类应提供一个 destroy 方法，用于执行对象销毁时的清理操作。
@@ -217,7 +217,7 @@ interface IDestroyable {
   destroy(): boolean;
 }
 //#endregion
-//#region src/pools/IPoolable.d.ts
+//#region dream-cc-core/src/pools/IPoolable.d.ts
 /**
  * 可重用对象接口
  */
@@ -228,7 +228,7 @@ interface IPoolable extends IDestroyable {
   reset(): void;
 }
 //#endregion
-//#region src/utils/Handler.d.ts
+//#region dream-cc-core/src/utils/Handler.d.ts
 /**
  * 处理器
  */
@@ -258,7 +258,7 @@ declare class Handler implements IPoolable {
   equals(method: Function, caller?: any): boolean;
 }
 //#endregion
-//#region src/bindings/Binder.d.ts
+//#region dream-cc-core/src/bindings/Binder.d.ts
 /**
  * 绑定工具类
  */
@@ -377,7 +377,7 @@ declare class Binder {
   destroy(): void;
 }
 //#endregion
-//#region src/bindings/FunctionHook.d.ts
+//#region dream-cc-core/src/bindings/FunctionHook.d.ts
 declare class FunctionHook {
   data: any;
   /**
@@ -407,7 +407,7 @@ declare class FunctionHook {
   removeHook(group: any, functionName?: string, preHandler?: Handler, laterHandler?: Handler): void;
 }
 //#endregion
-//#region src/bindings/PropertyBinder.d.ts
+//#region dream-cc-core/src/bindings/PropertyBinder.d.ts
 /**
  * 属性绑定器
  */
@@ -458,7 +458,7 @@ declare class PropertyBinder {
   private __updateProperty;
 }
 //#endregion
-//#region src/bindings/BinderUtils.d.ts
+//#region dream-cc-core/src/bindings/BinderUtils.d.ts
 /**
  * 绑定器工具类
  */
@@ -504,7 +504,7 @@ declare class BinderUtils {
   static removeHook(group: any, source: any, functionName?: string, preHandler?: Handler, laterHandler?: Handler): void;
 }
 //#endregion
-//#region src/configs/IConfigAccessor.d.ts
+//#region dream-cc-core/src/configs/IConfigAccessor.d.ts
 /**
  * 配置存取器接口
  */
@@ -528,7 +528,7 @@ interface IConfigAccessor {
   destroy(): void;
 }
 //#endregion
-//#region src/configs/accessors/ConfigStorage.d.ts
+//#region dream-cc-core/src/configs/accessors/ConfigStorage.d.ts
 /**
  * 配置存储器
  */
@@ -542,7 +542,7 @@ declare class ConfigStorage {
   destroy(): void;
 }
 //#endregion
-//#region src/configs/accessors/BaseConfigAccessor.d.ts
+//#region dream-cc-core/src/configs/accessors/BaseConfigAccessor.d.ts
 /**
  * 配置存取器基类
  */
@@ -590,7 +590,7 @@ declare class BaseConfigAccessor implements IConfigAccessor {
   destroy(): void;
 }
 //#endregion
-//#region src/configs/accessors/IDConfigAccessor.d.ts
+//#region dream-cc-core/src/configs/accessors/IDConfigAccessor.d.ts
 /**
  * 以id为key的配置存储器
  */
@@ -604,13 +604,13 @@ declare class IDConfigAccessor extends BaseConfigAccessor {
   getByID<T>(id: number): T;
 }
 //#endregion
-//#region src/events/EventType.d.ts
+//#region dream-cc-core/src/events/EventType.d.ts
 /**
  * 事件类型
  */
 type EventType = number | string;
 //#endregion
-//#region src/events/IEventDispatcher.d.ts
+//#region dream-cc-core/src/events/IEventDispatcher.d.ts
 /**
  * 事件派发器接口
  */
@@ -661,7 +661,7 @@ interface IEventDispatcher extends IDestroyable {
   hasEventHandler(type: EventType, handler: (e: Event) => void, caller?: any): boolean;
 }
 //#endregion
-//#region src/events/Event.d.ts
+//#region dream-cc-core/src/events/Event.d.ts
 /**
  * 事件对象
  */
@@ -730,7 +730,7 @@ declare class Event implements IPoolable {
   static create(type: EventType, target: IEventDispatcher, data?: any, err?: Error, progress?: number): Event;
 }
 //#endregion
-//#region src/events/EventDispatcher.d.ts
+//#region dream-cc-core/src/events/EventDispatcher.d.ts
 /**
  * 事件派发器
  */
@@ -794,7 +794,7 @@ declare class EventDispatcher implements IEventDispatcher {
   destroy(): boolean;
 }
 //#endregion
-//#region src/res/loaders/ILoader.d.ts
+//#region dream-cc-core/src/res/loaders/ILoader.d.ts
 /**
  * 加载器接口
  * @event Event.COMPLETE 加载完成
@@ -809,7 +809,7 @@ interface ILoader extends IEventDispatcher, IPoolable {
   load(url: ResURL): void;
 }
 //#endregion
-//#region src/configs/res/LocalConfigLoader.d.ts
+//#region dream-cc-core/src/configs/res/LocalConfigLoader.d.ts
 declare class LocalConfigLoader extends EventDispatcher implements ILoader {
   private __url;
   constructor();
@@ -819,7 +819,7 @@ declare class LocalConfigLoader extends EventDispatcher implements ILoader {
   reset(): void;
 }
 //#endregion
-//#region src/configs/res/RemoteConfigLoader.d.ts
+//#region dream-cc-core/src/configs/res/RemoteConfigLoader.d.ts
 /**
  * 远程配置加载器
  */
@@ -835,7 +835,7 @@ declare class RemoteConfigLoader extends EventDispatcher implements ILoader {
   reset(): void;
 }
 //#endregion
-//#region src/configs/ConfigManager.d.ts
+//#region dream-cc-core/src/configs/ConfigManager.d.ts
 /**
  * 配置表管理器
  */
@@ -867,7 +867,7 @@ declare class ConfigManager {
   private static get impl();
 }
 //#endregion
-//#region src/configs/IConfigManager.d.ts
+//#region dream-cc-core/src/configs/IConfigManager.d.ts
 /**
  * 配置管理器接口
  */
@@ -895,7 +895,7 @@ interface IConfigManager {
   getAccessor(sheet: string): IConfigAccessor;
 }
 //#endregion
-//#region src/datas/Dictionary.d.ts
+//#region dream-cc-core/src/datas/Dictionary.d.ts
 /**
  * 字典
  */
@@ -946,7 +946,7 @@ declare class Dictionary<TKey, TValue> extends EventDispatcher {
   destroy(): boolean;
 }
 //#endregion
-//#region src/datas/List.d.ts
+//#region dream-cc-core/src/datas/List.d.ts
 /**
  * 列表
  */
@@ -1026,7 +1026,7 @@ declare class List<T> extends EventDispatcher {
   get elements(): Array<T>;
 }
 //#endregion
-//#region src/datas/ser_des/ChangedData.d.ts
+//#region dream-cc-core/src/datas/ser_des/ChangedData.d.ts
 declare class ChangedData {
   key: string;
   newValue: any;
@@ -1035,7 +1035,7 @@ declare class ChangedData {
   static create(newValue?: any, oldValue?: any, key?: string): ChangedData;
 }
 //#endregion
-//#region src/datas/ser_des/deserializations/IDeserialization.d.ts
+//#region dream-cc-core/src/datas/ser_des/deserializations/IDeserialization.d.ts
 interface IDeserialization {
   /**
    * 反序列化
@@ -1045,7 +1045,7 @@ interface IDeserialization {
   decode(target: any, data: any): void;
 }
 //#endregion
-//#region src/datas/ser_des/serializations/ISerialization.d.ts
+//#region dream-cc-core/src/datas/ser_des/serializations/ISerialization.d.ts
 interface ISerialization {
   /**
    * 序列化
@@ -1055,7 +1055,7 @@ interface ISerialization {
   encode(target: any, data: any): any;
 }
 //#endregion
-//#region src/datas/ser_des/SerDesMode.d.ts
+//#region dream-cc-core/src/datas/ser_des/SerDesMode.d.ts
 /**
  * 序列化和反序列化模式
  */
@@ -1066,7 +1066,7 @@ declare enum SerDesMode {
   JSON = 0
 }
 //#endregion
-//#region src/datas/ser_des/SerDes.d.ts
+//#region dream-cc-core/src/datas/ser_des/SerDes.d.ts
 /**
  * 序列化和反序列化
  */
@@ -1091,7 +1091,7 @@ declare class SerDes {
   static getDeserialization(type: SerDesMode): IDeserialization;
 }
 //#endregion
-//#region src/datas/ser_des/deserializations/JSONDeserialization.d.ts
+//#region dream-cc-core/src/datas/ser_des/deserializations/JSONDeserialization.d.ts
 declare class JSONDeserialization implements IDeserialization {
   /**
    * 解码
@@ -1101,7 +1101,7 @@ declare class JSONDeserialization implements IDeserialization {
   decode(target: any, data: any): void;
 }
 //#endregion
-//#region src/datas/ser_des/values/ISerDesValue.d.ts
+//#region dream-cc-core/src/datas/ser_des/values/ISerDesValue.d.ts
 /**
  * 值接口
  */
@@ -1138,7 +1138,7 @@ interface ISerDesValue extends IEventDispatcher {
   decode(mode: SerDesMode, data: any): void;
 }
 //#endregion
-//#region src/datas/ser_des/values/BaseValue.d.ts
+//#region dream-cc-core/src/datas/ser_des/values/BaseValue.d.ts
 /**
  * 值抽象类
  */
@@ -1169,7 +1169,7 @@ declare class BaseValue extends EventDispatcher implements ISerDesValue {
   equality(value: ISerDesValue): boolean;
 }
 //#endregion
-//#region src/datas/ser_des/values/ArrayValue.d.ts
+//#region dream-cc-core/src/datas/ser_des/values/ArrayValue.d.ts
 /**
  * 数组型数值
  */
@@ -1245,7 +1245,7 @@ declare class ArrayValue extends BaseValue {
   get elements(): Array<ISerDesValue>;
 }
 //#endregion
-//#region src/datas/ser_des/propertys/ISerDesProperty.d.ts
+//#region dream-cc-core/src/datas/ser_des/propertys/ISerDesProperty.d.ts
 /**
  * 属性接口
  */
@@ -1256,7 +1256,7 @@ interface ISerDesProperty extends ISerDesValue {
   key: string;
 }
 //#endregion
-//#region src/datas/ser_des/propertys/ArrayProperty.d.ts
+//#region dream-cc-core/src/datas/ser_des/propertys/ArrayProperty.d.ts
 declare class ArrayProperty extends ArrayValue implements ISerDesProperty {
   key: string;
   constructor(key?: string, value?: any);
@@ -1267,7 +1267,7 @@ declare class ArrayProperty extends ArrayValue implements ISerDesProperty {
   containProperty(value: ISerDesProperty): Boolean;
 }
 //#endregion
-//#region src/datas/ser_des/values/DictionaryValue.d.ts
+//#region dream-cc-core/src/datas/ser_des/values/DictionaryValue.d.ts
 /**
  * 对象类型数据
  */
@@ -1325,14 +1325,14 @@ declare class DictionaryValue extends BaseValue {
   private get map();
 }
 //#endregion
-//#region src/datas/ser_des/propertys/DictionaryProperty.d.ts
+//#region dream-cc-core/src/datas/ser_des/propertys/DictionaryProperty.d.ts
 declare class DictionaryProperty extends DictionaryValue implements ISerDesProperty {
   key: string;
   constructor(key?: string, value?: any);
   protected sendEvent(newValue: any, oldValue: any): void;
 }
 //#endregion
-//#region src/datas/ser_des/values/NumberValue.d.ts
+//#region dream-cc-core/src/datas/ser_des/values/NumberValue.d.ts
 /**
  * 数值类型值
  */
@@ -1341,14 +1341,14 @@ declare class NumberValue extends BaseValue {
   protected checkValue(value: any): boolean;
 }
 //#endregion
-//#region src/datas/ser_des/propertys/NumberProperty.d.ts
+//#region dream-cc-core/src/datas/ser_des/propertys/NumberProperty.d.ts
 declare class NumberProperty extends NumberValue implements ISerDesProperty {
   key: string;
   constructor(key?: string, value?: any);
   protected sendEvent(newValue: any, oldValue: any): void;
 }
 //#endregion
-//#region src/datas/ser_des/values/StringValue.d.ts
+//#region dream-cc-core/src/datas/ser_des/values/StringValue.d.ts
 /**
  * 字符串类型值
  */
@@ -1357,14 +1357,14 @@ declare class StringValue extends BaseValue {
   protected checkValue(value: any): boolean;
 }
 //#endregion
-//#region src/datas/ser_des/propertys/StringProperty.d.ts
+//#region dream-cc-core/src/datas/ser_des/propertys/StringProperty.d.ts
 declare class StringProperty extends StringValue implements ISerDesProperty {
   key: string;
   constructor(key?: string, value?: any);
   protected sendEvent(newValue: any, oldValue: any): void;
 }
 //#endregion
-//#region src/datas/ser_des/serializations/JSONSerialization.d.ts
+//#region dream-cc-core/src/datas/ser_des/serializations/JSONSerialization.d.ts
 declare class JSONSerialization implements ISerialization {
   /**
    * 编码
@@ -1375,7 +1375,7 @@ declare class JSONSerialization implements ISerialization {
   encode(target: any, data: any): any;
 }
 //#endregion
-//#region src/func/redPoint/IRedPointData.d.ts
+//#region dream-cc-core/src/func/redPoint/IRedPointData.d.ts
 interface IRedPointData {
   /**
    * 全局唯一ID
@@ -1384,7 +1384,7 @@ interface IRedPointData {
   children: Array<number | IRedPointData>;
 }
 //#endregion
-//#region src/ticker/ITicker.d.ts
+//#region dream-cc-core/src/ticker/ITicker.d.ts
 /**
  * 心跳接口
  */
@@ -1396,7 +1396,7 @@ interface ITicker {
   tick(dt: number): void;
 }
 //#endregion
-//#region src/func/redPoint/RedPointNode.d.ts
+//#region dream-cc-core/src/func/redPoint/RedPointNode.d.ts
 /**
  * 红点节点
  */
@@ -1426,7 +1426,7 @@ declare class RedPointNode extends EventDispatcher {
   get isActive(): boolean;
 }
 //#endregion
-//#region src/func/IFuncConfig.d.ts
+//#region dream-cc-core/src/func/IFuncConfig.d.ts
 /**
  * 功能开放配置数据接口
  */
@@ -1435,7 +1435,7 @@ interface IFuncConfig {
   parent: number;
 }
 //#endregion
-//#region src/func/redPoint/RedPoint.d.ts
+//#region dream-cc-core/src/func/redPoint/RedPoint.d.ts
 declare class RedPoint implements ITicker {
   /**每帧运行检测器数量 */
   static FRAME_RUN_COUNT: number;
@@ -1501,7 +1501,7 @@ declare class RedPoint implements ITicker {
   static get single(): RedPoint;
 }
 //#endregion
-//#region src/func/IFuncData.d.ts
+//#region dream-cc-core/src/func/IFuncData.d.ts
 /**
  * 功能开放服务器数据接口
  */
@@ -1509,7 +1509,7 @@ interface IFuncData {
   id: number;
 }
 //#endregion
-//#region src/func/FuncNode.d.ts
+//#region dream-cc-core/src/func/FuncNode.d.ts
 /**
  * 功能开放叶子节点
  */
@@ -1529,7 +1529,7 @@ declare class FuncNode extends EventDispatcher {
   get isActive(): boolean;
 }
 //#endregion
-//#region src/func/Func.d.ts
+//#region dream-cc-core/src/func/Func.d.ts
 /**
  * 功能开放
  */
@@ -1573,7 +1573,7 @@ declare class Func extends EventDispatcher {
   static get single(): Func;
 }
 //#endregion
-//#region src/interfaces/IEnginePlugin.d.ts
+//#region dream-cc-core/src/interfaces/IEnginePlugin.d.ts
 /**
  * 引擎插件
  */
@@ -1593,7 +1593,7 @@ interface IEnginePlugin extends IEventDispatcher {
   start(): void;
 }
 //#endregion
-//#region src/loggers/ILogger.d.ts
+//#region dream-cc-core/src/loggers/ILogger.d.ts
 interface ILogger {
   /**
    * 设置显示过滤器，默认显示所有日志类型。
@@ -1638,7 +1638,7 @@ interface ILogger {
   info(msg: any, type?: string): void;
 }
 //#endregion
-//#region src/loggers/Logger.d.ts
+//#region dream-cc-core/src/loggers/Logger.d.ts
 declare enum LogType {
   ALL = "all",
   NET = "net",
@@ -1684,7 +1684,7 @@ declare class Logger {
   private static get impl();
 }
 //#endregion
-//#region src/res/ResRef.d.ts
+//#region dream-cc-core/src/res/ResRef.d.ts
 declare class ResRef implements IPoolable {
   /**
    * 资源全局唯一KEY
@@ -1715,7 +1715,7 @@ declare class ResRef implements IPoolable {
   destroy(): boolean;
 }
 //#endregion
-//#region src/res/ResRequest.d.ts
+//#region dream-cc-core/src/res/ResRequest.d.ts
 declare enum State {
   ERROR = 0,
   SUCCESS = 1,
@@ -1814,7 +1814,7 @@ declare class ResRequest {
   private removeDuplicates;
 }
 //#endregion
-//#region src/modules/Module.d.ts
+//#region dream-cc-core/src/modules/Module.d.ts
 /**
  * 模块脚本基础类(模块脚本子类必须使用@ccclass('XXXModule'))
  */
@@ -1898,7 +1898,7 @@ declare class Module extends Component implements IEventDispatcher {
   hasEventHandler(key: number | string, handler: (e: Event) => void, caller: any): boolean;
 }
 //#endregion
-//#region src/modules/ModuleProxy.d.ts
+//#region dream-cc-core/src/modules/ModuleProxy.d.ts
 declare class ModuleProxy {
   module: Module;
   /**
@@ -1911,7 +1911,7 @@ declare class ModuleProxy {
   destroy(): boolean;
 }
 //#endregion
-//#region src/modules/ModuleManager.d.ts
+//#region dream-cc-core/src/modules/ModuleManager.d.ts
 /**
  * 模块管理器
  */
@@ -1976,7 +1976,7 @@ declare class ModuleManager implements ITicker {
   static get single(): ModuleManager;
 }
 //#endregion
-//#region src/net/http/Http.d.ts
+//#region dream-cc-core/src/net/http/Http.d.ts
 /**
  * http
  */
@@ -2006,7 +2006,7 @@ declare class Http {
   private static setRequestHeader;
 }
 //#endregion
-//#region src/net/socket/IProtocol.d.ts
+//#region dream-cc-core/src/net/socket/IProtocol.d.ts
 interface IProtocol {
   /**
    * 解析回调
@@ -2028,7 +2028,7 @@ interface IProtocol {
   encode(code: number | string, data: any): any;
 }
 //#endregion
-//#region src/net/socket/ISocket.d.ts
+//#region dream-cc-core/src/net/socket/ISocket.d.ts
 /**
  * 长连接接口
  */
@@ -2067,7 +2067,7 @@ interface ISocket extends IEventDispatcher {
   close(): void;
 }
 //#endregion
-//#region src/net/socket/ISocketManager.d.ts
+//#region dream-cc-core/src/net/socket/ISocketManager.d.ts
 /**
  * 长链接管理接口
  */
@@ -2090,7 +2090,7 @@ interface ISocketManager {
   getSocket(name: string): ISocket;
 }
 //#endregion
-//#region src/net/socket/Socket.d.ts
+//#region dream-cc-core/src/net/socket/Socket.d.ts
 declare class Socket extends EventDispatcher implements ISocket {
   /**名称 */
   name: string;
@@ -2140,7 +2140,7 @@ declare class Socket extends EventDispatcher implements ISocket {
   private onerror;
 }
 //#endregion
-//#region src/net/socket/SocketManager.d.ts
+//#region dream-cc-core/src/net/socket/SocketManager.d.ts
 declare enum EventType$1 {
   SOCKET_CONNECTED = "SOCKET_CONNECTED",
   SOCKET_ERROR = "SOCKET_ERROR",
@@ -2184,7 +2184,7 @@ declare class SocketManager {
   private static get impl();
 }
 //#endregion
-//#region src/net/socket/SocketManagerImpl.d.ts
+//#region dream-cc-core/src/net/socket/SocketManagerImpl.d.ts
 declare class SocketManagerImpl implements ISocketManager {
   private __socketMap;
   constructor();
@@ -2202,7 +2202,7 @@ declare class SocketManagerImpl implements ISocketManager {
   getSocket(name: string): ISocket;
 }
 //#endregion
-//#region src/pools/Pool.d.ts
+//#region dream-cc-core/src/pools/Pool.d.ts
 /**
  * 对象池
  * @example
@@ -2255,7 +2255,7 @@ declare class Pool {
   static logStatus(): void;
 }
 //#endregion
-//#region src/res/loaders/CCLoader.d.ts
+//#region dream-cc-core/src/res/loaders/CCLoader.d.ts
 /**
  * cocos 内置类型资源加载器
  */
@@ -2267,7 +2267,7 @@ declare class CCLoader extends EventDispatcher implements ILoader {
   private __load;
 }
 //#endregion
-//#region src/res/loaders/ILoaderManager.d.ts
+//#region dream-cc-core/src/res/loaders/ILoaderManager.d.ts
 interface ILoaderManager {
   /**
    * 加载资源
@@ -2284,7 +2284,7 @@ interface ILoaderManager {
   childProgress(url: ResURL, progress: number): void;
 }
 //#endregion
-//#region src/res/loaders/LoaderManager.d.ts
+//#region dream-cc-core/src/res/loaders/LoaderManager.d.ts
 declare class LoaderManager {
   static KEY: string;
   /**
@@ -2304,7 +2304,7 @@ declare class LoaderManager {
   private static get impl();
 }
 //#endregion
-//#region src/res/resources/IRes.d.ts
+//#region dream-cc-core/src/res/resources/IRes.d.ts
 interface IRes {
   /**
    * url转key
@@ -2353,7 +2353,7 @@ interface IRes {
   loadAssetBundles(names: string | Array<string>): Promise<void>;
 }
 //#endregion
-//#region src/res/resources/IResource.d.ts
+//#region dream-cc-core/src/res/resources/IResource.d.ts
 /**
  * 资源接口
  */
@@ -2394,7 +2394,7 @@ interface IResource extends IDestroyable {
   readonly refList: Array<ResRef>;
 }
 //#endregion
-//#region src/res/resources/IResourceManager.d.ts
+//#region dream-cc-core/src/res/resources/IResourceManager.d.ts
 /**
  * 资源管理器接口
  */
@@ -2435,7 +2435,7 @@ interface IResourceManager {
   readonly resList: Array<IResource>;
 }
 //#endregion
-//#region src/res/resources/Resource.d.ts
+//#region dream-cc-core/src/res/resources/Resource.d.ts
 /**
  * 资源
  */
@@ -2471,7 +2471,7 @@ declare class Resource implements IResource {
   get refLength(): number;
 }
 //#endregion
-//#region src/res/resources/ResourceManager.d.ts
+//#region dream-cc-core/src/res/resources/ResourceManager.d.ts
 declare class ResourceManager {
   static KEY: string;
   /**
@@ -2526,7 +2526,7 @@ declare class ResourceManager {
   private static get impl();
 }
 //#endregion
-//#region src/res/Res.d.ts
+//#region dream-cc-core/src/res/Res.d.ts
 declare enum ResType {
   FGUI = "fgui",
   CONFIG = "config"
@@ -2612,7 +2612,7 @@ declare class Res {
   static sheet2URL: ((sheet: string, type?: any, bundle?: string) => ResURL) | undefined;
 }
 //#endregion
-//#region src/tasks/ITask.d.ts
+//#region dream-cc-core/src/tasks/ITask.d.ts
 /**
  * 任务接口
  */
@@ -2624,7 +2624,7 @@ interface ITask extends IEventDispatcher {
   start(data?: any): void;
 }
 //#endregion
-//#region src/tasks/Task.d.ts
+//#region dream-cc-core/src/tasks/Task.d.ts
 /**
  * 任务
  */
@@ -2642,7 +2642,7 @@ declare class Task extends EventDispatcher implements ITask {
   destroy(): boolean;
 }
 //#endregion
-//#region src/tasks/TaskQueue.d.ts
+//#region dream-cc-core/src/tasks/TaskQueue.d.ts
 /**
  * 任务队列
  */
@@ -2660,7 +2660,7 @@ declare class TaskQueue extends Task {
   destroy(): boolean;
 }
 //#endregion
-//#region src/tasks/TaskSequence.d.ts
+//#region dream-cc-core/src/tasks/TaskSequence.d.ts
 /**
  * 任务序列（并行）
  */
@@ -2675,7 +2675,7 @@ declare class TaskSequence extends Task {
   destroy(): boolean;
 }
 //#endregion
-//#region src/ticker/ITickerManager.d.ts
+//#region dream-cc-core/src/ticker/ITickerManager.d.ts
 /**
  * 心跳驱动器接口
  */
@@ -2709,7 +2709,7 @@ interface ITickerManager {
   clearNextFrame(value: Function, caller: any): void;
 }
 //#endregion
-//#region src/ticker/TickerManager.d.ts
+//#region dream-cc-core/src/ticker/TickerManager.d.ts
 /**
  * 心跳驱动器实现
  */
@@ -2747,7 +2747,7 @@ declare class TickerManager {
   static get impl(): ITickerManager;
 }
 //#endregion
-//#region src/timer/ITimer.d.ts
+//#region dream-cc-core/src/timer/ITimer.d.ts
 /**
  * 计时器接口
  */
@@ -2770,7 +2770,7 @@ interface ITimer {
   reset(time?: number): void;
 }
 //#endregion
-//#region src/timer/Timer.d.ts
+//#region dream-cc-core/src/timer/Timer.d.ts
 declare class Timer {
   static KEY: string;
   private static __serverTime;
@@ -2796,7 +2796,7 @@ declare class Timer {
   private static get impl();
 }
 //#endregion
-//#region src/utils/BitFlag.d.ts
+//#region dream-cc-core/src/utils/BitFlag.d.ts
 /**
  * bit位操作
  */
@@ -2826,7 +2826,7 @@ declare class BitFlag {
   static getType(bit: number): new () => any;
 }
 //#endregion
-//#region src/utils/ClassUtils.d.ts
+//#region dream-cc-core/src/utils/ClassUtils.d.ts
 declare class ClassUtils {
   /**
    * 获取单词指定位置单词
@@ -2840,7 +2840,7 @@ declare class ClassUtils {
   static getClassName(value: any): string;
 }
 //#endregion
-//#region src/utils/I18N.d.ts
+//#region dream-cc-core/src/utils/I18N.d.ts
 declare class I18N {
   /**
    * 多语言表名
@@ -2874,7 +2874,7 @@ declare class I18N {
   static get defaultSheetName(): string;
 }
 //#endregion
-//#region src/utils/Injector.d.ts
+//#region dream-cc-core/src/utils/Injector.d.ts
 /**
  * 简易注入器
  */
@@ -2895,7 +2895,7 @@ declare class Injector {
   static getInject(customKey: string): any | null;
 }
 //#endregion
-//#region src/utils/MathUtils.d.ts
+//#region dream-cc-core/src/utils/MathUtils.d.ts
 declare class MathUtils {
   static readonly ZeroTolerance: number;
   static readonly Angle90: number;
@@ -3027,7 +3027,7 @@ declare class MathUtils {
   static inTheCircle(x: number, y: number, ox: number, oy: number, r: number): boolean;
 }
 //#endregion
-//#region src/utils/ObjectUtils.d.ts
+//#region dream-cc-core/src/utils/ObjectUtils.d.ts
 /**
  * 对象工具类
  */
@@ -3051,7 +3051,7 @@ declare class ObjectUtils {
   static clear(obj: any): void;
 }
 //#endregion
-//#region src/utils/StringUtils.d.ts
+//#region dream-cc-core/src/utils/StringUtils.d.ts
 declare class StringUtils {
   /**
    * 判断字符串是否为空
@@ -3109,7 +3109,7 @@ declare class StringUtils {
   static getDir(url: string, separator?: string): string;
 }
 //#endregion
-//#region src/Engine.d.ts
+//#region dream-cc-core/src/Engine.d.ts
 /**
  * 引擎入口
  */

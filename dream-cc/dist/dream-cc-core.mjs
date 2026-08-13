@@ -1,6 +1,6 @@
 import { Asset, AudioSource, Component, JsonAsset, Node, Prefab, SpriteFrame, Texture2D, assetManager, director, find, game, instantiate, isValid } from "cc";
 import { DEBUG } from "cc/env";
-//#region src/utils/Injector.ts
+//#region dream-cc-core/src/utils/Injector.ts
 /**
 * 简易注入器
 */
@@ -30,7 +30,7 @@ var Injector = class {
 Injector.__injectedMap = /* @__PURE__ */ new Map();
 Injector.__instanceMap = /* @__PURE__ */ new Map();
 //#endregion
-//#region src/ticker/TickerManagerImpl.ts
+//#region dream-cc-core/src/ticker/TickerManagerImpl.ts
 var TickerManagerImpl = class {
 	constructor() {
 		this.__tickerList = [];
@@ -73,7 +73,7 @@ var NextFrameHandler = class {
 	}
 };
 //#endregion
-//#region src/ticker/TickerManager.ts
+//#region dream-cc-core/src/ticker/TickerManager.ts
 /**
 * 心跳驱动器实现
 */
@@ -124,7 +124,7 @@ var TickerManager = class {
 };
 TickerManager.KEY = "TickerManager";
 //#endregion
-//#region src/pools/PoolImpl.ts
+//#region dream-cc-core/src/pools/PoolImpl.ts
 /**
 * 对象池实现
 */
@@ -210,7 +210,7 @@ var PoolImpl = class {
 	}
 };
 //#endregion
-//#region src/pools/Pool.ts
+//#region dream-cc-core/src/pools/Pool.ts
 /**
 * 对象池
 * @example
@@ -294,7 +294,7 @@ var Pool = class {
 };
 Pool.pools = /* @__PURE__ */ new Map();
 //#endregion
-//#region src/events/Event.ts
+//#region dream-cc-core/src/events/Event.ts
 /**
 * 事件对象
 */
@@ -363,7 +363,7 @@ Event.ADD_CHILD = "ADD_CHILD";
 Event.REMOVE_CHILD = "REMOVE_CHILD";
 Event.CHILD_VALUE_CHANGED = "CHILD_VALUE_CHANGED";
 //#endregion
-//#region src/events/EventListener.ts
+//#region dream-cc-core/src/events/EventListener.ts
 /**
 * 监听者
 */
@@ -395,7 +395,7 @@ var EventListener = class {
 	}
 };
 //#endregion
-//#region src/events/EventDispatcher.ts
+//#region dream-cc-core/src/events/EventDispatcher.ts
 var _EventDispatcher;
 /**
 * 事件派发器
@@ -539,7 +539,7 @@ var EventDispatcher = class {
 _EventDispatcher = EventDispatcher;
 EventDispatcher.Main = new _EventDispatcher();
 //#endregion
-//#region src/datas/Dictionary.ts
+//#region dream-cc-core/src/datas/Dictionary.ts
 /**
 * 字典
 */
@@ -640,7 +640,7 @@ var Dictionary = class extends EventDispatcher {
 	}
 };
 //#endregion
-//#region src/timer/TimerImpl.ts
+//#region dream-cc-core/src/timer/TimerImpl.ts
 var TimerImpl = class {
 	constructor() {
 		this.__currentTime = 0;
@@ -669,7 +669,7 @@ var TimerImpl = class {
 	}
 };
 //#endregion
-//#region src/timer/Timer.ts
+//#region dream-cc-core/src/timer/Timer.ts
 var Timer = class {
 	/**
 	* 服务器时间(毫秒)
@@ -708,7 +708,7 @@ Timer.KEY = "Timer";
 Timer.__serverTime = 0;
 Timer.__lastTime = 0;
 //#endregion
-//#region src/res/resources/ResourceManagerImpl.ts
+//#region dream-cc-core/src/res/resources/ResourceManagerImpl.ts
 /**
 * 资源管理器默认实现
 */
@@ -783,7 +783,7 @@ var ResourceManagerImpl = class {
 	}
 };
 //#endregion
-//#region src/res/resources/ResourceManager.ts
+//#region dream-cc-core/src/res/resources/ResourceManager.ts
 var ResourceManager = class {
 	/**
 	* 添加一个资源
@@ -846,7 +846,7 @@ ResourceManager.GC_CHECK_TIME = 5e3;
 ResourceManager.GC_TIME = 15e3;
 ResourceManager.AUTO_GC = true;
 //#endregion
-//#region src/loggers/LoggerImpl.ts
+//#region dream-cc-core/src/loggers/LoggerImpl.ts
 var LoggerImpl = class {
 	constructor() {
 		this.__logs = new Dictionary();
@@ -926,7 +926,7 @@ var LoggerImpl = class {
 	}
 };
 //#endregion
-//#region src/loggers/Logger.ts
+//#region dream-cc-core/src/loggers/Logger.ts
 var LogType = /* @__PURE__ */ function(LogType) {
 	LogType["ALL"] = "all";
 	LogType["NET"] = "net";
@@ -984,7 +984,7 @@ Logger.TYPE = LogType;
 Logger.KEY = "Logger";
 Logger.MaxCount = 1e3;
 //#endregion
-//#region src/res/ResRef.ts
+//#region dream-cc-core/src/res/ResRef.ts
 var ResRef = class {
 	constructor() {
 		this.key = "";
@@ -1019,7 +1019,7 @@ var ResRef = class {
 	}
 };
 //#endregion
-//#region src/res/resources/Resource.ts
+//#region dream-cc-core/src/res/resources/Resource.ts
 /**
 * 资源
 */
@@ -1091,7 +1091,7 @@ var Resource = class {
 	}
 };
 //#endregion
-//#region src/res/loaders/CCLoader.ts
+//#region dream-cc-core/src/res/loaders/CCLoader.ts
 /**
 * cocos 内置类型资源加载器
 */
@@ -1151,7 +1151,7 @@ var CCLoader = class extends EventDispatcher {
 	}
 };
 //#endregion
-//#region src/res/loaders/LoaderQueue.ts
+//#region dream-cc-core/src/res/loaders/LoaderQueue.ts
 /**
 * 加载队列
 */
@@ -1244,7 +1244,7 @@ var LoaderQueue = class LoaderQueue {
 	}
 };
 //#endregion
-//#region src/res/loaders/LoaderManagerImpl.ts
+//#region dream-cc-core/src/res/loaders/LoaderManagerImpl.ts
 var LoaderManagerImpl = class {
 	constructor() {
 		this.__requests = /* @__PURE__ */ new Map();
@@ -1344,7 +1344,7 @@ var LoaderManagerImpl = class {
 	}
 };
 //#endregion
-//#region src/res/loaders/LoaderManager.ts
+//#region dream-cc-core/src/res/loaders/LoaderManager.ts
 var LoaderManager = class {
 	/**
 	* 加载资源
@@ -1377,7 +1377,7 @@ var LoaderManager = class {
 };
 LoaderManager.KEY = "LoaderManager";
 //#endregion
-//#region src/res/ResRequest.ts
+//#region dream-cc-core/src/res/ResRequest.ts
 /**
 * 资源请求
 * @example
@@ -1539,7 +1539,7 @@ var ResRequest = class ResRequest {
 	}
 };
 //#endregion
-//#region src/utils/ClassUtils.ts
+//#region dream-cc-core/src/utils/ClassUtils.ts
 var ClassUtils = class {
 	/**
 	* 获取单词指定位置单词
@@ -1583,7 +1583,7 @@ var ClassUtils = class {
 	}
 };
 //#endregion
-//#region src/res/resources/ResImpl.ts
+//#region dream-cc-core/src/res/resources/ResImpl.ts
 /**
 * 资源入口实现
 */
@@ -1686,7 +1686,7 @@ var ResImpl = class {
 	}
 };
 //#endregion
-//#region src/res/Res.ts
+//#region dream-cc-core/src/res/Res.ts
 var ResType = /* @__PURE__ */ function(ResType) {
 	ResType["FGUI"] = "fgui";
 	ResType["CONFIG"] = "config";
@@ -1772,7 +1772,7 @@ Res.KEY = "Res";
 Res.TYPE = ResType;
 Res.MAX_LOADER_THREAD = 5;
 //#endregion
-//#region src/audios/AudioChannelImpl.ts
+//#region dream-cc-core/src/audios/AudioChannelImpl.ts
 var AudioChannelImpl = class {
 	constructor(node, source) {
 		this.__reqeust = null;
@@ -1946,7 +1946,7 @@ var AudioChannelImpl = class {
 };
 var FadeData = class {};
 //#endregion
-//#region src/audios/AudioManagerImpl.ts
+//#region dream-cc-core/src/audios/AudioManagerImpl.ts
 /**
 * 音频播放管理器
 */
@@ -2143,7 +2143,7 @@ var AudioManagerImpl = class {
 	}
 };
 //#endregion
-//#region src/audios/AudioManager.ts
+//#region dream-cc-core/src/audios/AudioManager.ts
 /**
 * 音频管理器
 */
@@ -2250,7 +2250,7 @@ var AudioManager = class {
 AudioManager.KEY = "AudioManager";
 AudioManager.MAX_SOUND_CHANNEL_COUNT = 30;
 //#endregion
-//#region src/bindings/FunctionHook.ts
+//#region dream-cc-core/src/bindings/FunctionHook.ts
 /**
 * 函数钩子信息
 */
@@ -2384,7 +2384,7 @@ var FunctionHook = class {
 	}
 };
 //#endregion
-//#region src/bindings/PropertyBinder.ts
+//#region dream-cc-core/src/bindings/PropertyBinder.ts
 /**
 * 绑定信息
 */
@@ -2586,7 +2586,7 @@ var PropertyBinder = class {
 	}
 };
 //#endregion
-//#region src/bindings/BinderUtils.ts
+//#region dream-cc-core/src/bindings/BinderUtils.ts
 /**
 * 绑定器工具类
 */
@@ -2654,7 +2654,7 @@ var BinderUtils = class {
 	}
 };
 //#endregion
-//#region src/bindings/Binder.ts
+//#region dream-cc-core/src/bindings/Binder.ts
 /**
 * 绑定工具类
 */
@@ -2883,7 +2883,7 @@ var Binder = class {
 	}
 };
 //#endregion
-//#region src/configs/accessors/ConfigStorage.ts
+//#region dream-cc-core/src/configs/accessors/ConfigStorage.ts
 /**
 * 配置存储器
 */
@@ -2921,7 +2921,7 @@ var ConfigStorage = class {
 	}
 };
 //#endregion
-//#region src/configs/accessors/BaseConfigAccessor.ts
+//#region dream-cc-core/src/configs/accessors/BaseConfigAccessor.ts
 /**
 * 配置存取器基类
 */
@@ -3001,7 +3001,7 @@ var BaseConfigAccessor = class {
 	}
 };
 //#endregion
-//#region src/configs/accessors/IDConfigAccessor.ts
+//#region dream-cc-core/src/configs/accessors/IDConfigAccessor.ts
 /**
 * 以id为key的配置存储器
 */
@@ -3020,7 +3020,7 @@ var IDConfigAccessor = class extends BaseConfigAccessor {
 	}
 };
 //#endregion
-//#region src/configs/ConfigManagerImpl.ts
+//#region dream-cc-core/src/configs/ConfigManagerImpl.ts
 var ConfigManagerImpl = class {
 	constructor() {
 		this.__accessors = /* @__PURE__ */ new Map();
@@ -3067,7 +3067,7 @@ var ConfigManagerImpl = class {
 	}
 };
 //#endregion
-//#region src/configs/ConfigManager.ts
+//#region dream-cc-core/src/configs/ConfigManager.ts
 /**
 * 配置表管理器
 */
@@ -3110,7 +3110,7 @@ var ConfigManager = class {
 };
 ConfigManager.KEY = "ConfigManager";
 //#endregion
-//#region src/configs/res/LocalConfigLoader.ts
+//#region dream-cc-core/src/configs/res/LocalConfigLoader.ts
 var LocalConfigLoader = class extends EventDispatcher {
 	constructor() {
 		super();
@@ -3166,7 +3166,7 @@ var LocalConfigLoader = class extends EventDispatcher {
 	}
 };
 //#endregion
-//#region src/configs/res/RemoteConfigLoader.ts
+//#region dream-cc-core/src/configs/res/RemoteConfigLoader.ts
 /**
 * 远程配置加载器
 */
@@ -3213,7 +3213,7 @@ var RemoteConfigLoader = class RemoteConfigLoader extends EventDispatcher {
 };
 RemoteConfigLoader.force = true;
 //#endregion
-//#region src/datas/List.ts
+//#region dream-cc-core/src/datas/List.ts
 /**
 * 列表
 */
@@ -3351,7 +3351,7 @@ var List = class extends EventDispatcher {
 	}
 };
 //#endregion
-//#region src/datas/ser_des/ChangedData.ts
+//#region dream-cc-core/src/datas/ser_des/ChangedData.ts
 var ChangedData = class ChangedData {
 	constructor() {}
 	static create(newValue, oldValue, key) {
@@ -3363,7 +3363,7 @@ var ChangedData = class ChangedData {
 	}
 };
 //#endregion
-//#region src/datas/ser_des/SerDesMode.ts
+//#region dream-cc-core/src/datas/ser_des/SerDesMode.ts
 /**
 * 序列化和反序列化模式
 */
@@ -3375,7 +3375,7 @@ let SerDesMode = /* @__PURE__ */ function(SerDesMode) {
 	return SerDesMode;
 }({});
 //#endregion
-//#region src/datas/ser_des/values/BaseValue.ts
+//#region dream-cc-core/src/datas/ser_des/values/BaseValue.ts
 /**
 * 值抽象类
 */
@@ -3426,7 +3426,7 @@ var BaseValue = class extends EventDispatcher {
 	}
 };
 //#endregion
-//#region src/datas/ser_des/values/ArrayValue.ts
+//#region dream-cc-core/src/datas/ser_des/values/ArrayValue.ts
 /**
 * 数组型数值
 */
@@ -3583,7 +3583,7 @@ var ArrayValue = class ArrayValue extends BaseValue {
 	}
 };
 //#endregion
-//#region src/datas/ser_des/values/DictionaryValue.ts
+//#region dream-cc-core/src/datas/ser_des/values/DictionaryValue.ts
 /**
 * 对象类型数据
 */
@@ -3699,7 +3699,7 @@ var DictionaryValue = class DictionaryValue extends BaseValue {
 	}
 };
 //#endregion
-//#region src/datas/ser_des/propertys/ArrayProperty.ts
+//#region dream-cc-core/src/datas/ser_des/propertys/ArrayProperty.ts
 var ArrayProperty = class extends ArrayValue {
 	constructor(key, value) {
 		super();
@@ -3726,7 +3726,7 @@ var ArrayProperty = class extends ArrayValue {
 	}
 };
 //#endregion
-//#region src/datas/ser_des/propertys/DictionaryProperty.ts
+//#region dream-cc-core/src/datas/ser_des/propertys/DictionaryProperty.ts
 var DictionaryProperty = class extends DictionaryValue {
 	constructor(key, value) {
 		super();
@@ -3738,7 +3738,7 @@ var DictionaryProperty = class extends DictionaryValue {
 	}
 };
 //#endregion
-//#region src/datas/ser_des/values/NumberValue.ts
+//#region dream-cc-core/src/datas/ser_des/values/NumberValue.ts
 /**
 * 数值类型值
 */
@@ -3759,7 +3759,7 @@ var NumberValue = class extends BaseValue {
 	}
 };
 //#endregion
-//#region src/datas/ser_des/propertys/NumberProperty.ts
+//#region dream-cc-core/src/datas/ser_des/propertys/NumberProperty.ts
 var NumberProperty = class extends NumberValue {
 	constructor(key, value) {
 		super();
@@ -3771,7 +3771,7 @@ var NumberProperty = class extends NumberValue {
 	}
 };
 //#endregion
-//#region src/datas/ser_des/values/StringValue.ts
+//#region dream-cc-core/src/datas/ser_des/values/StringValue.ts
 /**
 * 字符串类型值
 */
@@ -3785,7 +3785,7 @@ var StringValue = class extends BaseValue {
 	}
 };
 //#endregion
-//#region src/datas/ser_des/propertys/StringProperty.ts
+//#region dream-cc-core/src/datas/ser_des/propertys/StringProperty.ts
 var StringProperty = class extends StringValue {
 	constructor(key, value) {
 		super();
@@ -3797,7 +3797,7 @@ var StringProperty = class extends StringValue {
 	}
 };
 //#endregion
-//#region src/datas/ser_des/DataFactory.ts
+//#region dream-cc-core/src/datas/ser_des/DataFactory.ts
 var DataFactory = class {
 	/**
 	* 根据数据创建值对象
@@ -3827,7 +3827,7 @@ var DataFactory = class {
 	}
 };
 //#endregion
-//#region src/datas/ser_des/deserializations/JSONDeserialization.ts
+//#region dream-cc-core/src/datas/ser_des/deserializations/JSONDeserialization.ts
 var JSONDeserialization = class {
 	/**
 	* 解码
@@ -3867,7 +3867,7 @@ var JSONDeserialization = class {
 	}
 };
 //#endregion
-//#region src/datas/ser_des/serializations/JSONSerialization.ts
+//#region dream-cc-core/src/datas/ser_des/serializations/JSONSerialization.ts
 var JSONSerialization = class {
 	/**
 	* 编码
@@ -3899,7 +3899,7 @@ var JSONSerialization = class {
 	}
 };
 //#endregion
-//#region src/datas/ser_des/SerDes.ts
+//#region dream-cc-core/src/datas/ser_des/SerDes.ts
 /**
 * 序列化和反序列化
 */
@@ -3945,7 +3945,7 @@ SerDes.__serMap = /* @__PURE__ */ new Map();
 SerDes.__desMap = /* @__PURE__ */ new Map();
 SerDes.__inited = false;
 //#endregion
-//#region src/func/redPoint/RedPointNode.ts
+//#region dream-cc-core/src/func/redPoint/RedPointNode.ts
 /**
 * 红点节点
 */
@@ -4005,7 +4005,7 @@ var RedPointNode = class extends EventDispatcher {
 	}
 };
 //#endregion
-//#region src/func/redPoint/RedPoint.ts
+//#region dream-cc-core/src/func/redPoint/RedPoint.ts
 var RedPoint = class RedPoint {
 	constructor() {
 		this.__redPoints = /* @__PURE__ */ new Map();
@@ -4163,7 +4163,7 @@ var RedPoint = class RedPoint {
 };
 RedPoint.FRAME_RUN_COUNT = 2;
 //#endregion
-//#region src/func/FuncNode.ts
+//#region dream-cc-core/src/func/FuncNode.ts
 /**
 * 功能开放叶子节点
 */
@@ -4218,7 +4218,7 @@ var FuncNode = class extends EventDispatcher {
 	}
 };
 //#endregion
-//#region src/func/Func.ts
+//#region dream-cc-core/src/func/Func.ts
 /**
 * 功能开放
 */
@@ -4314,7 +4314,7 @@ var Func = class Func extends EventDispatcher {
 	}
 };
 //#endregion
-//#region src/modules/ModuleProxy.ts
+//#region dream-cc-core/src/modules/ModuleProxy.ts
 var ModuleProxy = class {
 	constructor(module) {
 		this.refCount = 0;
@@ -4334,7 +4334,7 @@ var ModuleProxy = class {
 	}
 };
 //#endregion
-//#region src/modules/ModuleLoader.ts
+//#region dream-cc-core/src/modules/ModuleLoader.ts
 /**
 * 模块加载器
 */
@@ -4420,7 +4420,7 @@ var ModuleLoader = class extends EventDispatcher {
 	}
 };
 //#endregion
-//#region src/modules/ModuleQueue.ts
+//#region dream-cc-core/src/modules/ModuleQueue.ts
 /**
 * 模块加载队列
 */
@@ -4483,7 +4483,7 @@ var ModuleQueue = class ModuleQueue {
 	}
 };
 //#endregion
-//#region src/modules/ModuleRequest.ts
+//#region dream-cc-core/src/modules/ModuleRequest.ts
 var ModuleRequest = class {
 	constructor(modules, progress, callback, isSub) {
 		this.isSub = false;
@@ -4538,7 +4538,7 @@ var ModuleRequest = class {
 	}
 };
 //#endregion
-//#region src/modules/ModuleManager.ts
+//#region dream-cc-core/src/modules/ModuleManager.ts
 /**
 * 模块管理器
 */
@@ -4653,7 +4653,7 @@ var ModuleManager = class ModuleManager {
 ModuleManager.MAX_LOADER_THREAD = 5;
 ModuleManager.GC_INTERVAL = 60;
 //#endregion
-//#region src/modules/Module.ts
+//#region dream-cc-core/src/modules/Module.ts
 /**
 * 模块脚本基础类(模块脚本子类必须使用@ccclass('XXXModule'))
 */
@@ -4790,7 +4790,7 @@ var Module = class extends Component {
 	}
 };
 //#endregion
-//#region src/net/http/Http.ts
+//#region dream-cc-core/src/net/http/Http.ts
 /**
 * http
 */
@@ -4859,7 +4859,7 @@ var Http = class {
 	}
 };
 //#endregion
-//#region src/net/socket/SocketManagerImpl.ts
+//#region dream-cc-core/src/net/socket/SocketManagerImpl.ts
 var SocketManagerImpl = class {
 	constructor() {
 		this.__socketMap = /* @__PURE__ */ new Map();
@@ -4890,7 +4890,7 @@ var SocketManagerImpl = class {
 	}
 };
 //#endregion
-//#region src/net/socket/SocketManager.ts
+//#region dream-cc-core/src/net/socket/SocketManager.ts
 var EventType = /* @__PURE__ */ function(EventType) {
 	EventType["SOCKET_CONNECTED"] = "SOCKET_CONNECTED";
 	EventType["SOCKET_ERROR"] = "SOCKET_ERROR";
@@ -4947,7 +4947,7 @@ SocketManager.KEY = "SocketManager";
 SocketManager.EventType = EventType;
 SocketManager.__default_socket = "GameSocket";
 //#endregion
-//#region src/net/socket/Socket.ts
+//#region dream-cc-core/src/net/socket/Socket.ts
 var Socket = class Socket extends EventDispatcher {
 	constructor(message_parser) {
 		super();
@@ -5044,7 +5044,7 @@ var Socket = class Socket extends EventDispatcher {
 };
 Socket.MAX_ERROR_COUNT = 3;
 //#endregion
-//#region src/tasks/Task.ts
+//#region dream-cc-core/src/tasks/Task.ts
 /**
 * 任务
 */
@@ -5073,7 +5073,7 @@ var Task = class extends EventDispatcher {
 	}
 };
 //#endregion
-//#region src/tasks/TaskQueue.ts
+//#region dream-cc-core/src/tasks/TaskQueue.ts
 /**
 * 任务队列
 */
@@ -5135,7 +5135,7 @@ var TaskQueue = class extends Task {
 	}
 };
 //#endregion
-//#region src/tasks/TaskSequence.ts
+//#region dream-cc-core/src/tasks/TaskSequence.ts
 /**
 * 任务序列（并行）
 */
@@ -5185,7 +5185,7 @@ var TaskSequence = class extends Task {
 	}
 };
 //#endregion
-//#region src/utils/BitFlag.ts
+//#region dream-cc-core/src/utils/BitFlag.ts
 /**
 * bit位操作
 */
@@ -5244,7 +5244,7 @@ BitFlag.TYPES = /* @__PURE__ */ new Map();
 BitFlag.BITS = /* @__PURE__ */ new Map();
 BitFlag.TYPE_IDX = 0;
 //#endregion
-//#region src/utils/Handler.ts
+//#region dream-cc-core/src/utils/Handler.ts
 /**
 * 处理器
 */
@@ -5289,7 +5289,7 @@ var Handler = class {
 	}
 };
 //#endregion
-//#region src/utils/StringUtils.ts
+//#region dream-cc-core/src/utils/StringUtils.ts
 var StringUtils = class {
 	/**
 	* 判断字符串是否为空
@@ -5398,7 +5398,7 @@ var StringUtils = class {
 	}
 };
 //#endregion
-//#region src/utils/I18N.ts
+//#region dream-cc-core/src/utils/I18N.ts
 var I18N = class {
 	constructor() {}
 	/**
@@ -5446,7 +5446,7 @@ var L18Acc = class extends BaseConfigAccessor {
 	}
 };
 //#endregion
-//#region src/utils/MathUtils.ts
+//#region dream-cc-core/src/utils/MathUtils.ts
 var MathUtils = class MathUtils {
 	/**
 	* 检测是否相等
@@ -5628,7 +5628,7 @@ MathUtils.Angle90 = Math.PI * .5;
 MathUtils.Rad2Angle = 180 / Math.PI;
 MathUtils.Angle2Rad = Math.PI / 180;
 //#endregion
-//#region src/utils/ObjectUtils.ts
+//#region dream-cc-core/src/utils/ObjectUtils.ts
 /**
 * 对象工具类
 */
@@ -5660,7 +5660,7 @@ var ObjectUtils = class {
 	}
 };
 //#endregion
-//#region src/Engine.ts
+//#region dream-cc-core/src/Engine.ts
 /**
 * 引擎入口
 */

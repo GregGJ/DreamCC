@@ -13,17 +13,16 @@
     "fairygui-cc"
   ],
   "scripts": {
-    "build": "turbo run build",
+    "build": "node ./scripts/build.mjs",
     "build:local": "node ./scripts/build.mjs",
     "dev": "node ./scripts/dev.mjs",
     "copy": "node ./scripts/copy-libs.mjs",
     "clean": "node ./scripts/clean.mjs",
-    "typecheck": "turbo run typecheck",
+    "typecheck": "npm run typecheck --workspaces --if-present",
     "typecheck:local": "npm run typecheck --workspaces --if-present"
   },
   "devDependencies": {
     "tsdown": "^0.22.14",
-    "turbo": "^2.10.9",
     "typescript": "^7.0.0"
   }
 }

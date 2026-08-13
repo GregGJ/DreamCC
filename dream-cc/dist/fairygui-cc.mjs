@@ -1,7 +1,7 @@
 import { Asset, AssetManager, AudioClip, AudioSourceComponent, BitmapFont, BufferAsset, Color, Component, EditBox, Event, EventMouse, EventTarget, Font, Graphics, ImageAsset, Label, Layers, Mask, Node, Overflow, Rect, RichText, Size, Sprite, SpriteAtlas, SpriteFrame, Texture2D, UIOpacity, UIRenderer, UITransform, Vec2, Vec3, View, assetManager, director, dragonBones, game, gfx, isValid, macro, math, misc, path, resources, screen, sp, sys, view } from "cc";
 import { Injector, Logger, Res } from "dream-cc-core";
 import { EDITOR } from "cc/env";
-//#region src/fairygui/FieldTypes.ts
+//#region fairygui-cc/src/fairygui/FieldTypes.ts
 let ButtonMode = /* @__PURE__ */ function(ButtonMode) {
 	ButtonMode[ButtonMode["Common"] = 0] = "Common";
 	ButtonMode[ButtonMode["Check"] = 1] = "Check";
@@ -196,7 +196,7 @@ let ObjectPropID = /* @__PURE__ */ function(ObjectPropID) {
 	return ObjectPropID;
 }({});
 //#endregion
-//#region src/fairygui/display/BlendMode.ts
+//#region fairygui-cc/src/fairygui/display/BlendMode.ts
 let BlendMode = /* @__PURE__ */ function(BlendMode) {
 	BlendMode[BlendMode["Normal"] = 0] = "Normal";
 	BlendMode[BlendMode["None"] = 1] = "None";
@@ -240,7 +240,7 @@ const factors = [
 	[gfx.BlendFactor.SRC_ALPHA, gfx.BlendFactor.ONE_MINUS_SRC_ALPHA]
 ];
 //#endregion
-//#region src/fairygui/event/FGUIEvent.ts
+//#region fairygui-cc/src/fairygui/event/FGUIEvent.ts
 var FGUIEvent = class extends Event {
 	constructor(type, bubbles) {
 		super(type, bubbles);
@@ -307,7 +307,7 @@ function returnEvent(evt) {
 	eventPool.push(evt);
 }
 //#endregion
-//#region src/fairygui/tween/EaseType.ts
+//#region fairygui-cc/src/fairygui/tween/EaseType.ts
 let EaseType = /* @__PURE__ */ function(EaseType) {
 	EaseType[EaseType["Linear"] = 0] = "Linear";
 	EaseType[EaseType["SineIn"] = 1] = "SineIn";
@@ -344,7 +344,7 @@ let EaseType = /* @__PURE__ */ function(EaseType) {
 	return EaseType;
 }({});
 //#endregion
-//#region src/fairygui/gears/GearBase.ts
+//#region fairygui-cc/src/fairygui/gears/GearBase.ts
 var GearBase = class GearBase {
 	dispose() {
 		if (this._tweenConfig && this._tweenConfig._tweener) {
@@ -418,7 +418,7 @@ var GearTweenConfig = class {
 	}
 };
 //#endregion
-//#region src/fairygui/gears/GearAnimation.ts
+//#region fairygui-cc/src/fairygui/gears/GearAnimation.ts
 var GearAnimation = class extends GearBase {
 	init() {
 		this._default = {
@@ -455,7 +455,7 @@ var GearAnimation = class extends GearBase {
 	}
 };
 //#endregion
-//#region src/fairygui/gears/GearColor.ts
+//#region fairygui-cc/src/fairygui/gears/GearColor.ts
 var GearColor = class extends GearBase {
 	init() {
 		this._default = {
@@ -492,7 +492,7 @@ var GearColor = class extends GearBase {
 	}
 };
 //#endregion
-//#region src/fairygui/gears/GearDisplay.ts
+//#region fairygui-cc/src/fairygui/gears/GearDisplay.ts
 var GearDisplay = class extends GearBase {
 	constructor(..._args) {
 		super(..._args);
@@ -521,7 +521,7 @@ var GearDisplay = class extends GearBase {
 	}
 };
 //#endregion
-//#region src/fairygui/gears/GearDisplay2.ts
+//#region fairygui-cc/src/fairygui/gears/GearDisplay2.ts
 var GearDisplay2 = class extends GearBase {
 	constructor(..._args) {
 		super(..._args);
@@ -544,7 +544,7 @@ var GearDisplay2 = class extends GearBase {
 	}
 };
 //#endregion
-//#region src/fairygui/gears/GearFontSize.ts
+//#region fairygui-cc/src/fairygui/gears/GearFontSize.ts
 var GearFontSize = class extends GearBase {
 	constructor(..._args) {
 		super(..._args);
@@ -570,7 +570,7 @@ var GearFontSize = class extends GearBase {
 	}
 };
 //#endregion
-//#region src/fairygui/gears/GearIcon.ts
+//#region fairygui-cc/src/fairygui/gears/GearIcon.ts
 var GearIcon = class extends GearBase {
 	init() {
 		this._default = this._owner.icon;
@@ -592,7 +592,7 @@ var GearIcon = class extends GearBase {
 	}
 };
 //#endregion
-//#region src/fairygui/utils/Pool.ts
+//#region fairygui-cc/src/fairygui/utils/Pool.ts
 var Pool = class {
 	constructor(type, init, reset) {
 		this.pool = [];
@@ -623,7 +623,7 @@ var Pool = class {
 	}
 };
 //#endregion
-//#region src/fairygui/tween/EaseManager.ts
+//#region fairygui-cc/src/fairygui/tween/EaseManager.ts
 const _PiOver2 = Math.PI * .5;
 const _TwoPi = Math.PI * 2;
 function evaluateEase(easeType, time, duration, overshootOrAmplitude, period) {
@@ -722,7 +722,7 @@ function bounce_easeInOut(time, duration) {
 	return bounce_easeOut(time * 2 - duration, duration) * .5 + .5;
 }
 //#endregion
-//#region src/fairygui/tween/TweenValue.ts
+//#region fairygui-cc/src/fairygui/tween/TweenValue.ts
 var TweenValue = class {
 	constructor() {
 		this.x = this.y = this.z = this.w = 0;
@@ -767,7 +767,7 @@ var TweenValue = class {
 	}
 };
 //#endregion
-//#region src/fairygui/tween/GTweener.ts
+//#region fairygui-cc/src/fairygui/tween/GTweener.ts
 var s_vec2$5 = new Vec2();
 var GTweener = class {
 	constructor() {
@@ -1141,7 +1141,7 @@ var GTweener = class {
 	}
 };
 //#endregion
-//#region src/fairygui/tween/TweenManager.ts
+//#region fairygui-cc/src/fairygui/tween/TweenManager.ts
 var TweenManager = class TweenManager {
 	static createTween() {
 		if (!_root) {
@@ -1225,7 +1225,7 @@ var _tweenerPool = new Pool(GTweener, (e) => e._init(), (e) => e._reset());
 var _totalActiveTweens = 0;
 var _root;
 //#endregion
-//#region src/fairygui/tween/GTween.ts
+//#region fairygui-cc/src/fairygui/tween/GTween.ts
 var GTween = class {
 	static to(start, end, duration) {
 		return TweenManager.createTween()._to(start, end, duration);
@@ -1260,7 +1260,7 @@ var GTween = class {
 };
 GTween.catchCallbackExceptions = true;
 //#endregion
-//#region src/fairygui/gears/GearLook.ts
+//#region fairygui-cc/src/fairygui/gears/GearLook.ts
 var GearLook = class extends GearBase {
 	init() {
 		this._default = {
@@ -1338,7 +1338,7 @@ var GearLook = class extends GearBase {
 	}
 };
 //#endregion
-//#region src/fairygui/gears/GearSize.ts
+//#region fairygui-cc/src/fairygui/gears/GearSize.ts
 var GearSize = class extends GearBase {
 	init() {
 		this._default = {
@@ -1421,7 +1421,7 @@ var GearSize = class extends GearBase {
 	}
 };
 //#endregion
-//#region src/fairygui/gears/GearText.ts
+//#region fairygui-cc/src/fairygui/gears/GearText.ts
 var GearText = class extends GearBase {
 	init() {
 		this._default = this._owner.text;
@@ -1443,7 +1443,7 @@ var GearText = class extends GearBase {
 	}
 };
 //#endregion
-//#region src/fairygui/gears/GearXY.ts
+//#region fairygui-cc/src/fairygui/gears/GearXY.ts
 var GearXY = class extends GearBase {
 	init() {
 		this._default = {
@@ -1537,7 +1537,7 @@ var GearXY = class extends GearBase {
 	}
 };
 //#endregion
-//#region src/fairygui/RelationItem.ts
+//#region fairygui-cc/src/fairygui/RelationItem.ts
 var RelationItem = class {
 	constructor(owner) {
 		this._owner = owner;
@@ -1970,7 +1970,7 @@ var RelationDef = class {
 	}
 };
 //#endregion
-//#region src/fairygui/Relations.ts
+//#region fairygui-cc/src/fairygui/Relations.ts
 var Relations = class {
 	constructor(owner) {
 		this.sizeDirty = false;
@@ -2078,7 +2078,7 @@ var Relations = class {
 	}
 };
 //#endregion
-//#region src/fairygui/UIConfig.ts
+//#region fairygui-cc/src/fairygui/UIConfig.ts
 var UIConfig = class {
 	constructor() {}
 };
@@ -2109,7 +2109,7 @@ function getFontByName(name) {
 	return _fontRegistry[name];
 }
 //#endregion
-//#region src/tooltips/TooltipManager.ts
+//#region fairygui-cc/src/tooltips/TooltipManager.ts
 var TooltipManager = class {
 	constructor() {}
 	/**
@@ -2149,7 +2149,7 @@ var TooltipManager = class {
 TooltipManager.KEY = "TooltipsManager";
 TooltipManager.tooltipLayer = "Tooltip";
 //#endregion
-//#region src/fairygui/GObject.ts
+//#region fairygui-cc/src/fairygui/GObject.ts
 var GObject = class GObject {
 	constructor() {
 		this._x = 0;
@@ -2968,7 +2968,7 @@ var s_dragQuery;
 var Decls$1 = {};
 var constructingDepth = { n: 0 };
 //#endregion
-//#region src/fairygui/GGroup.ts
+//#region fairygui-cc/src/fairygui/GGroup.ts
 var GGroup = class extends GObject {
 	constructor() {
 		super();
@@ -3297,7 +3297,7 @@ var GGroup = class extends GObject {
 	}
 };
 //#endregion
-//#region src/fairygui/GGraph.ts
+//#region fairygui-cc/src/fairygui/GGraph.ts
 var GGraph = class extends GObject {
 	constructor() {
 		super();
@@ -3488,7 +3488,7 @@ var GGraph = class extends GObject {
 	}
 };
 //#endregion
-//#region src/fairygui/display/Image.ts
+//#region fairygui-cc/src/fairygui/display/Image.ts
 var Image$1 = class extends Sprite {
 	constructor() {
 		super();
@@ -3577,7 +3577,7 @@ var Image$1 = class extends Sprite {
 	}
 };
 //#endregion
-//#region src/fairygui/GImage.ts
+//#region fairygui-cc/src/fairygui/GImage.ts
 var GImage = class extends GObject {
 	constructor() {
 		super();
@@ -3662,7 +3662,7 @@ var GImage = class extends GObject {
 	}
 };
 //#endregion
-//#region src/fairygui/display/MovieClip.ts
+//#region fairygui-cc/src/fairygui/display/MovieClip.ts
 var MovieClip = class extends Image$1 {
 	constructor() {
 		super();
@@ -3859,7 +3859,7 @@ var MovieClip = class extends Image$1 {
 	}
 };
 //#endregion
-//#region src/fairygui/GMovieClip.ts
+//#region fairygui-cc/src/fairygui/GMovieClip.ts
 var GMovieClip = class extends GObject {
 	constructor() {
 		super();
@@ -3974,7 +3974,7 @@ var GMovieClip = class extends GObject {
 	}
 };
 //#endregion
-//#region src/fairygui/event/HitTest.ts
+//#region fairygui-cc/src/fairygui/event/HitTest.ts
 var PixelHitTest = class {
 	constructor(data, offsetX, offsetY) {
 		this._data = data;
@@ -4011,7 +4011,7 @@ var ChildHitArea = class {
 	}
 };
 //#endregion
-//#region src/fairygui/UIContentScaler.ts
+//#region fairygui-cc/src/fairygui/UIContentScaler.ts
 var UIContentScaler = class {};
 UIContentScaler.scaleFactor = 1;
 UIContentScaler.scaleLevel = 0;
@@ -4029,7 +4029,7 @@ function updateScaler() {
 	else UIContentScaler.scaleLevel = 0;
 }
 //#endregion
-//#region src/fairygui/PackageItem.ts
+//#region fairygui-cc/src/fairygui/PackageItem.ts
 var PackageItem = class {
 	constructor() {
 		this.width = 0;
@@ -4057,7 +4057,7 @@ var PackageItem = class {
 	}
 };
 //#endregion
-//#region src/fairygui/TranslationHelper.ts
+//#region fairygui-cc/src/fairygui/TranslationHelper.ts
 var TranslationHelper = class TranslationHelper {
 	static loadFromXML(source) {
 		TranslationHelper.strings = {};
@@ -4215,7 +4215,7 @@ var TranslationHelper = class TranslationHelper {
 	}
 };
 //#endregion
-//#region src/fairygui/utils/ByteBuffer.ts
+//#region fairygui-cc/src/fairygui/utils/ByteBuffer.ts
 var ByteBuffer = class ByteBuffer {
 	constructor(buffer, offset, length) {
 		this.version = 0;
@@ -4370,7 +4370,7 @@ var ByteBuffer = class ByteBuffer {
 	}
 };
 //#endregion
-//#region src/fairygui/UIPackage.ts
+//#region fairygui-cc/src/fairygui/UIPackage.ts
 var PathUtils = path;
 var UIPackage = class UIPackage {
 	constructor() {
@@ -4994,13 +4994,13 @@ var _branch = "";
 var _vars = {};
 var Decls = {};
 //#endregion
-//#region src/fairygui/utils/ToolSet.ts
+//#region fairygui-cc/src/fairygui/utils/ToolSet.ts
 function toGrayedColor(c) {
 	let v = c.r * .299 + c.g * .587 + c.b * .114;
 	return new Color(v, v, v, c.a);
 }
 //#endregion
-//#region src/fairygui/utils/UBBParser.ts
+//#region fairygui-cc/src/fairygui/utils/UBBParser.ts
 var UBBParser = class {
 	constructor() {
 		this._readPos = 0;
@@ -5117,7 +5117,7 @@ var UBBParser = class {
 };
 var defaultParser = new UBBParser();
 //#endregion
-//#region src/fairygui/GTextField.ts
+//#region fairygui-cc/src/fairygui/GTextField.ts
 var GTextField = class extends GObject {
 	constructor() {
 		super();
@@ -5511,7 +5511,7 @@ var GTextField = class extends GObject {
 	}
 };
 //#endregion
-//#region src/fairygui/GRichTextField.ts
+//#region fairygui-cc/src/fairygui/GRichTextField.ts
 var RichTextImageAtlas = class extends SpriteAtlas {
 	getSpriteFrame(key) {
 		let pi = UIPackage.getItemByURL(key);
@@ -5627,7 +5627,7 @@ var GRichTextField = class extends GTextField {
 	}
 };
 //#endregion
-//#region src/fairygui/event/InputProcessor.ts
+//#region fairygui-cc/src/fairygui/event/InputProcessor.ts
 var InputProcessor = class extends Component {
 	constructor() {
 		super();
@@ -6003,7 +6003,7 @@ var TouchInfo = class {
 var s_vec3 = new Vec3();
 var s_vec3_2 = new Vec3();
 //#endregion
-//#region src/fairygui/action/ControllerAction.ts
+//#region fairygui-cc/src/fairygui/action/ControllerAction.ts
 var ControllerAction = class {
 	constructor() {}
 	run(controller, prevPage, curPage) {
@@ -6024,7 +6024,7 @@ var ControllerAction = class {
 	}
 };
 //#endregion
-//#region src/fairygui/action/PlayTransitionAction.ts
+//#region fairygui-cc/src/fairygui/action/PlayTransitionAction.ts
 var PlayTransitionAction = class extends ControllerAction {
 	constructor() {
 		super();
@@ -6054,7 +6054,7 @@ var PlayTransitionAction = class extends ControllerAction {
 	}
 };
 //#endregion
-//#region src/fairygui/action/ChangePageAction.ts
+//#region fairygui-cc/src/fairygui/action/ChangePageAction.ts
 var ChangePageAction = class extends ControllerAction {
 	constructor() {
 		super();
@@ -6082,7 +6082,7 @@ var ChangePageAction = class extends ControllerAction {
 	}
 };
 //#endregion
-//#region src/fairygui/Controller.ts
+//#region fairygui-cc/src/fairygui/Controller.ts
 var _nextPageId = 0;
 var Controller = class extends EventTarget {
 	constructor() {
@@ -6278,7 +6278,7 @@ function createAction(type) {
 	return null;
 }
 //#endregion
-//#region src/fairygui/Margin.ts
+//#region fairygui-cc/src/fairygui/Margin.ts
 var Margin = class {
 	constructor() {
 		this.left = 0;
@@ -6297,7 +6297,7 @@ var Margin = class {
 	}
 };
 //#endregion
-//#region src/fairygui/ScrollPane.ts
+//#region fairygui-cc/src/fairygui/ScrollPane.ts
 var ScrollPane = class ScrollPane extends Component {
 	constructor(..._args) {
 		super(..._args);
@@ -7499,7 +7499,7 @@ function easeFunc(t, d) {
 	return (t = t / d - 1) * t * t + 1;
 }
 //#endregion
-//#region src/fairygui/tween/GPathPoint.ts
+//#region fairygui-cc/src/fairygui/tween/GPathPoint.ts
 var GPathPoint = class GPathPoint {
 	constructor() {
 		this.x = 0;
@@ -7556,7 +7556,7 @@ var GPathPoint = class GPathPoint {
 	}
 };
 //#endregion
-//#region src/fairygui/tween/GPath.ts
+//#region fairygui-cc/src/fairygui/tween/GPath.ts
 var GPath = class {
 	constructor() {
 		this._segments = new Array();
@@ -7756,7 +7756,7 @@ function distance(x1, y1, x2, y2) {
 	return Math.sqrt(Math.pow(x1 - x2, 2) + Math.pow(y1 - y2, 2));
 }
 //#endregion
-//#region src/fairygui/Transition.ts
+//#region fairygui-cc/src/fairygui/Transition.ts
 var Transition = class {
 	constructor(owner) {
 		this._ownerBaseX = 0;
@@ -8566,7 +8566,7 @@ var TweenConfig = class {
 	}
 };
 //#endregion
-//#region src/fairygui/GComponent.ts
+//#region fairygui-cc/src/fairygui/GComponent.ts
 var GComponent = class GComponent extends GObject {
 	constructor() {
 		super();
@@ -9396,7 +9396,7 @@ var GComponent = class GComponent extends GObject {
 };
 var s_vec2$2 = new Vec2();
 //#endregion
-//#region src/fairygui/Window.ts
+//#region fairygui-cc/src/fairygui/Window.ts
 var Window = class extends GComponent {
 	constructor() {
 		super();
@@ -9589,7 +9589,7 @@ var Window = class extends GComponent {
 	}
 };
 //#endregion
-//#region src/fairygui/GRoot.ts
+//#region fairygui-cc/src/fairygui/GRoot.ts
 var GRoot = class GRoot extends GComponent {
 	static get inst() {
 		if (!GRoot._inst) throw "Call GRoot.create first!";
@@ -9880,7 +9880,7 @@ var GRoot = class GRoot extends GComponent {
 };
 Decls$1.GRoot = GRoot;
 //#endregion
-//#region src/fairygui/GTextInput.ts
+//#region fairygui-cc/src/fairygui/GTextInput.ts
 var GTextInput = class extends GTextField {
 	constructor() {
 		super();
@@ -10022,7 +10022,7 @@ var MyEditBox = class extends EditBox {
 	}
 };
 //#endregion
-//#region src/fairygui/GObjectPool.ts
+//#region fairygui-cc/src/fairygui/GObjectPool.ts
 var GObjectPool = class {
 	constructor() {
 		this._count = 0;
@@ -10063,7 +10063,7 @@ var GObjectPool = class {
 	}
 };
 //#endregion
-//#region src/fairygui/GLoader.ts
+//#region fairygui-cc/src/fairygui/GLoader.ts
 var GLoader = class GLoader extends GObject {
 	constructor() {
 		super();
@@ -10511,7 +10511,7 @@ var GLoader = class GLoader extends GObject {
 };
 GLoader._errorSignPool = new GObjectPool();
 //#endregion
-//#region src/fairygui/GLoader3D.ts
+//#region fairygui-cc/src/fairygui/GLoader3D.ts
 var GLoader3D = class extends GObject {
 	constructor() {
 		super();
@@ -10857,7 +10857,7 @@ var GLoader3D = class extends GObject {
 	}
 };
 //#endregion
-//#region src/fairygui/GLabel.ts
+//#region fairygui-cc/src/fairygui/GLabel.ts
 var GLabel = class extends GComponent {
 	constructor() {
 		super();
@@ -10988,7 +10988,7 @@ var GLabel = class extends GComponent {
 	}
 };
 //#endregion
-//#region src/fairygui/GButton.ts
+//#region fairygui-cc/src/fairygui/GButton.ts
 var GButton = class GButton extends GComponent {
 	constructor() {
 		super();
@@ -11323,7 +11323,7 @@ GButton.SELECTED_OVER = "selectedOver";
 GButton.DISABLED = "disabled";
 GButton.SELECTED_DISABLED = "selectedDisabled";
 //#endregion
-//#region src/fairygui/GList.ts
+//#region fairygui-cc/src/fairygui/GList.ts
 var GList = class extends GComponent {
 	constructor() {
 		super();
@@ -12974,7 +12974,7 @@ var GList = class extends GComponent {
 };
 var s_n = 0;
 //#endregion
-//#region src/fairygui/GComboBox.ts
+//#region fairygui-cc/src/fairygui/GComboBox.ts
 var GComboBox = class extends GComponent {
 	constructor() {
 		super();
@@ -13286,7 +13286,7 @@ var GComboBox = class extends GComponent {
 	}
 };
 //#endregion
-//#region src/fairygui/GSlider.ts
+//#region fairygui-cc/src/fairygui/GSlider.ts
 var GSlider = class extends GComponent {
 	constructor() {
 		super();
@@ -13478,7 +13478,7 @@ var GSlider = class extends GComponent {
 };
 var s_vec2$1 = new Vec2();
 //#endregion
-//#region src/fairygui/GProgressBar.ts
+//#region fairygui-cc/src/fairygui/GProgressBar.ts
 var GProgressBar = class extends GComponent {
 	constructor() {
 		super();
@@ -13630,7 +13630,7 @@ var GProgressBar = class extends GComponent {
 	}
 };
 //#endregion
-//#region src/fairygui/GScrollBar.ts
+//#region fairygui-cc/src/fairygui/GScrollBar.ts
 var GScrollBar = class extends GComponent {
 	constructor() {
 		super();
@@ -13733,7 +13733,7 @@ var GScrollBar = class extends GComponent {
 };
 var s_vec2 = new Vec2();
 //#endregion
-//#region src/fairygui/GTreeNode.ts
+//#region fairygui-cc/src/fairygui/GTreeNode.ts
 var GTreeNode = class {
 	constructor(hasChild, resURL) {
 		this._level = 0;
@@ -13895,7 +13895,7 @@ var GTreeNode = class {
 	}
 };
 //#endregion
-//#region src/fairygui/GTree.ts
+//#region fairygui-cc/src/fairygui/GTree.ts
 var GTree = class extends GList {
 	constructor() {
 		super();
@@ -14149,7 +14149,7 @@ var GTree = class extends GList {
 };
 var s_list = new Array();
 //#endregion
-//#region src/fairygui/PopupMenu.ts
+//#region fairygui-cc/src/fairygui/PopupMenu.ts
 var PopupMenu = class {
 	constructor(url) {
 		if (!url) {
@@ -14274,7 +14274,7 @@ var PopupMenu = class {
 	}
 };
 //#endregion
-//#region src/fairygui/UIObjectFactory.ts
+//#region fairygui-cc/src/fairygui/UIObjectFactory.ts
 var UIObjectFactory = class UIObjectFactory {
 	constructor() {}
 	static setExtension(url, type) {
@@ -14331,7 +14331,7 @@ UIObjectFactory.counter = 0;
 UIObjectFactory.extensions = {};
 Decls.UIObjectFactory = UIObjectFactory;
 //#endregion
-//#region src/fairygui/DragDropManager.ts
+//#region fairygui-cc/src/fairygui/DragDropManager.ts
 var DragDropManager = class DragDropManager {
 	static get inst() {
 		if (!DragDropManager._inst) DragDropManager._inst = new DragDropManager();
@@ -14388,7 +14388,7 @@ var DragDropManager = class DragDropManager {
 	}
 };
 //#endregion
-//#region src/fairygui/AsyncOperation.ts
+//#region fairygui-cc/src/fairygui/AsyncOperation.ts
 var AsyncOperation = class {
 	createObject(pkgName, resName) {
 		if (this._node) throw "Already running";
@@ -14553,7 +14553,7 @@ var AsyncOperationRunner = class extends Component {
 	}
 };
 //#endregion
-//#region src/fairygui/display/SmartLoader.ts
+//#region fairygui-cc/src/fairygui/display/SmartLoader.ts
 var SmartLoader = class extends GLoader {
 	constructor() {
 		super();

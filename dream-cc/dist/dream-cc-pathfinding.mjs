@@ -1,6 +1,6 @@
 import { Color, Graphics, Node, Rect, UITransform, Vec2 } from "cc";
 import { Event, EventDispatcher } from "dream-cc-core";
-//#region src/ddls/data/DDLSEdge.ts
+//#region dream-cc-pathfinding/src/ddls/data/DDLSEdge.ts
 var DDLSEdge = class DDLSEdge {
 	constructor() {
 		this.colorDebug = -1;
@@ -96,7 +96,7 @@ var DDLSEdge = class DDLSEdge {
 };
 DDLSEdge.INC = 0;
 //#endregion
-//#region src/ddls/data/DDLSFace.ts
+//#region dream-cc-pathfinding/src/ddls/data/DDLSFace.ts
 var DDLSFace = class DDLSFace {
 	constructor() {
 		this.colorDebug = -1;
@@ -122,7 +122,7 @@ var DDLSFace = class DDLSFace {
 };
 DDLSFace.INC = 0;
 //#endregion
-//#region src/ddls/data/math/DDLSPoint2D.ts
+//#region dream-cc-pathfinding/src/ddls/data/math/DDLSPoint2D.ts
 var DDLSPoint2D = class DDLSPoint2D {
 	constructor(x = 0, y = 0) {
 		this._id = DDLSPoint2D.INC;
@@ -183,7 +183,7 @@ var DDLSPoint2D = class DDLSPoint2D {
 };
 DDLSPoint2D.INC = 0;
 //#endregion
-//#region src/ddls/data/DDLSVertex.ts
+//#region dream-cc-pathfinding/src/ddls/data/DDLSVertex.ts
 var DDLSVertex = class DDLSVertex {
 	constructor() {
 		this.colorDebug = -1;
@@ -235,12 +235,12 @@ var DDLSVertex = class DDLSVertex {
 };
 DDLSVertex.INC = 0;
 //#endregion
-//#region src/ddls/data/DDLSConstants.ts
+//#region dream-cc-pathfinding/src/ddls/data/DDLSConstants.ts
 var DDLSConstants = class {};
 DDLSConstants.EPSILON = .01;
 DDLSConstants.EPSILON_SQUARED = 1e-4;
 //#endregion
-//#region src/ddls/data/math/DDLSRandGenerator.ts
+//#region dream-cc-pathfinding/src/ddls/data/math/DDLSRandGenerator.ts
 var DDLSRandGenerator = class {
 	constructor(seed = 1234, rangeMin = 0, rangeMax = 1) {
 		this._originalSeed = this._currSeed = this.seed;
@@ -283,7 +283,7 @@ var DDLSRandGenerator = class {
 	}
 };
 //#endregion
-//#region src/ddls/iterators/IteratorFromVertexToHoldingFaces.ts
+//#region dream-cc-pathfinding/src/ddls/iterators/IteratorFromVertexToHoldingFaces.ts
 var IteratorFromVertexToHoldingFaces = class {
 	constructor() {}
 	set fromVertex(value) {
@@ -305,7 +305,7 @@ var IteratorFromVertexToHoldingFaces = class {
 	}
 };
 //#endregion
-//#region src/ddls/iterators/IteratorFromFaceToInnerEdges.ts
+//#region dream-cc-pathfinding/src/ddls/iterators/IteratorFromFaceToInnerEdges.ts
 var IteratorFromFaceToInnerEdges = class {
 	constructor() {}
 	set fromFace(value) {
@@ -322,7 +322,7 @@ var IteratorFromFaceToInnerEdges = class {
 	}
 };
 //#endregion
-//#region src/ddls/data/math/DDLSGeom2D.ts
+//#region dream-cc-pathfinding/src/ddls/data/math/DDLSGeom2D.ts
 var DDLSGeom2D = class DDLSGeom2D {
 	static locatePosition(x, y, mesh) {
 		var closedVertex;
@@ -809,7 +809,7 @@ var DDLSGeom2D = class DDLSGeom2D {
 DDLSGeom2D.__samples = [];
 DDLSGeom2D.__circumcenter = new DDLSPoint2D();
 //#endregion
-//#region src/ddls/ai/DDLSAStar.ts
+//#region dream-cc-pathfinding/src/ddls/ai/DDLSAStar.ts
 var DDLSAStar = class {
 	constructor() {
 		this.__iterEdge = new IteratorFromFaceToInnerEdges();
@@ -1053,7 +1053,7 @@ var DDLSAStar = class {
 	}
 };
 //#endregion
-//#region src/ddls/data/math/DDLSMatrix2D.ts
+//#region dream-cc-pathfinding/src/ddls/data/math/DDLSMatrix2D.ts
 var DDLSMatrix2D = class DDLSMatrix2D {
 	constructor(a = 1, b = 0, c = 0, d = 1, e = 0, f = 0) {
 		this._a = this.a;
@@ -1166,7 +1166,7 @@ var DDLSMatrix2D = class DDLSMatrix2D {
 	}
 };
 //#endregion
-//#region src/ddls/data/DDLSObject.ts
+//#region dream-cc-pathfinding/src/ddls/data/DDLSObject.ts
 var DDLSObject = class DDLSObject {
 	constructor() {
 		this._id = DDLSObject.INC;
@@ -1292,7 +1292,7 @@ var DDLSObject = class DDLSObject {
 };
 DDLSObject.INC = 0;
 //#endregion
-//#region src/ddls/ai/DDLSEntityAI.ts
+//#region dream-cc-pathfinding/src/ddls/ai/DDLSEntityAI.ts
 var DDLSEntityAI = class DDLSEntityAI {
 	constructor() {
 		this._radius = 10;
@@ -1369,7 +1369,7 @@ var DDLSEntityAI = class DDLSEntityAI {
 };
 DDLSEntityAI.NUM_SEGMENTS = 6;
 //#endregion
-//#region src/ddls/ai/DDLSFunnel.ts
+//#region dream-cc-pathfinding/src/ddls/ai/DDLSFunnel.ts
 var DDLSFunnel = class {
 	constructor() {
 		this._radius = 0;
@@ -1821,7 +1821,7 @@ var DDLSFunnel = class {
 	}
 };
 //#endregion
-//#region src/ddls/ai/DDLSPathFinder.ts
+//#region dream-cc-pathfinding/src/ddls/ai/DDLSPathFinder.ts
 var DDLSPathFinder = class {
 	/**
 	* 寻路工具 
@@ -1863,7 +1863,7 @@ var DDLSPathFinder = class {
 	}
 };
 //#endregion
-//#region src/ddls/data/graph/DDLSGraphEdge.ts
+//#region dream-cc-pathfinding/src/ddls/data/graph/DDLSGraphEdge.ts
 var DDLSGraphEdge = class DDLSGraphEdge {
 	constructor() {
 		this._id = DDLSGraphEdge.INC;
@@ -1933,7 +1933,7 @@ var DDLSGraphEdge = class DDLSGraphEdge {
 };
 DDLSGraphEdge.INC = 0;
 //#endregion
-//#region src/ddls/data/graph/DDLSGraphNode.ts
+//#region dream-cc-pathfinding/src/ddls/data/graph/DDLSGraphNode.ts
 var DDLSGraphNode = class DDLSGraphNode {
 	constructor() {
 		this._id = DDLSGraphNode.INC;
@@ -1983,7 +1983,7 @@ var DDLSGraphNode = class DDLSGraphNode {
 };
 DDLSGraphNode.INC = 0;
 //#endregion
-//#region src/ddls/data/graph/DDLSGraph.ts
+//#region dream-cc-pathfinding/src/ddls/data/graph/DDLSGraph.ts
 var DDLSGraph = class DDLSGraph {
 	constructor() {
 		this._id = DDLSGraph.INC;
@@ -2081,7 +2081,7 @@ var DDLSGraph = class DDLSGraph {
 };
 DDLSGraph.INC = 0;
 //#endregion
-//#region src/ddls/data/DDLSConstraintSegment.ts
+//#region dream-cc-pathfinding/src/ddls/data/DDLSConstraintSegment.ts
 var DDLSConstraintSegment = class DDLSConstraintSegment {
 	constructor() {
 		this._id = DDLSConstraintSegment.INC;
@@ -2118,7 +2118,7 @@ var DDLSConstraintSegment = class DDLSConstraintSegment {
 };
 DDLSConstraintSegment.INC = 0;
 //#endregion
-//#region src/ddls/data/DDLSConstraintShape.ts
+//#region dream-cc-pathfinding/src/ddls/data/DDLSConstraintShape.ts
 var DDLSConstraintShape = class DDLSConstraintShape {
 	constructor() {
 		this._id = DDLSConstraintShape.INC;
@@ -2138,7 +2138,7 @@ var DDLSConstraintShape = class DDLSConstraintShape {
 };
 DDLSConstraintShape.INC = 0;
 //#endregion
-//#region src/ddls/iterators/IteratorFromVertexToOutgoingEdges.ts
+//#region dream-cc-pathfinding/src/ddls/iterators/IteratorFromVertexToOutgoingEdges.ts
 var IteratorFromVertexToOutgoingEdges = class {
 	constructor() {
 		this.realEdgesOnly = true;
@@ -2167,7 +2167,7 @@ var IteratorFromVertexToOutgoingEdges = class {
 	}
 };
 //#endregion
-//#region src/ddls/data/DDLSMesh.ts
+//#region dream-cc-pathfinding/src/ddls/data/DDLSMesh.ts
 var DDLSMesh = class DDLSMesh {
 	constructor(width, height) {
 		this._id = DDLSMesh.INC;
@@ -3097,7 +3097,7 @@ var FaceMap = class {
 	}
 };
 //#endregion
-//#region src/ddls/factories/DDLSRectMeshFactory.ts
+//#region dream-cc-pathfinding/src/ddls/factories/DDLSRectMeshFactory.ts
 var DDLSRectMeshFactory = class {
 	static buildRectangle(width, height) {
 		var vTL = new DDLSVertex();
@@ -3188,7 +3188,7 @@ var DDLSRectMeshFactory = class {
 	}
 };
 //#endregion
-//#region src/ddls/iterators/IteratorFromMeshToVertices.ts
+//#region dream-cc-pathfinding/src/ddls/iterators/IteratorFromMeshToVertices.ts
 var IteratorFromMeshToVertices = class {
 	constructor() {}
 	set fromMesh(value) {
@@ -3209,7 +3209,7 @@ var IteratorFromMeshToVertices = class {
 	}
 };
 //#endregion
-//#region src/ddls/iterators/IteratorFromVertexToIncomingEdges.ts
+//#region dream-cc-pathfinding/src/ddls/iterators/IteratorFromVertexToIncomingEdges.ts
 var IteratorFromVertexToIncomingEdges = class {
 	constructor() {}
 	set fromVertex(value) {
@@ -3232,7 +3232,7 @@ var IteratorFromVertexToIncomingEdges = class {
 	}
 };
 //#endregion
-//#region src/ddls/utils/DDLSUtils.ts
+//#region dream-cc-pathfinding/src/ddls/utils/DDLSUtils.ts
 var DDLSUtils = class DDLSUtils {
 	/**
 	* 计算角色站位位置
@@ -3347,7 +3347,7 @@ var DDLSUtils = class DDLSUtils {
 };
 DDLSUtils.checkedEdges = /* @__PURE__ */ new Map();
 //#endregion
-//#region src/ddls/utils/Polygon.ts
+//#region dream-cc-pathfinding/src/ddls/utils/Polygon.ts
 /** A polygon describes a closed two-dimensional shape bounded by a number of straight
 *  line segments.
 *
@@ -3548,7 +3548,7 @@ var Polygon = class Polygon {
 	}
 };
 //#endregion
-//#region src/ddls/view/DDLSSimpleView.ts
+//#region dream-cc-pathfinding/src/ddls/view/DDLSSimpleView.ts
 var DDLSSimpleView = class extends Node {
 	constructor(YAxisFlip = true) {
 		super();
@@ -3709,7 +3709,7 @@ var DDLSSimpleView = class extends Node {
 	}
 };
 //#endregion
-//#region src/grids/graphs/GraphNode.ts
+//#region dream-cc-pathfinding/src/grids/graphs/GraphNode.ts
 var GraphNode = class {
 	constructor(id, data) {
 		this.id = id;
@@ -3717,7 +3717,7 @@ var GraphNode = class {
 	}
 };
 //#endregion
-//#region src/grids/graphs/GraphLink.ts
+//#region dream-cc-pathfinding/src/grids/graphs/GraphLink.ts
 var GraphLink = class {
 	constructor(fromId, toId, data, id) {
 		this.fromId = fromId;
@@ -3727,7 +3727,7 @@ var GraphLink = class {
 	}
 };
 //#endregion
-//#region src/grids/graphs/Graph.ts
+//#region dream-cc-pathfinding/src/grids/graphs/Graph.ts
 /**
 * 
 */
@@ -3891,10 +3891,10 @@ var Graph = class extends EventDispatcher {
 	}
 };
 //#endregion
-//#region src/grids/graphs/GraphOptions.ts
+//#region dream-cc-pathfinding/src/grids/graphs/GraphOptions.ts
 var GraphOptions = class {};
 //#endregion
-//#region src/grids/searchs/NodeSearchState.ts
+//#region dream-cc-pathfinding/src/grids/searchs/NodeSearchState.ts
 var NodeSearchState = class {
 	constructor(node) {
 		this.closed = false;
@@ -3909,7 +3909,7 @@ var NodeSearchState = class {
 	}
 };
 //#endregion
-//#region src/grids/searchs/SearchStatePool.ts
+//#region dream-cc-pathfinding/src/grids/searchs/SearchStatePool.ts
 var SearchStatePool = class {
 	constructor() {
 		this.currentInCache = 0;
@@ -3937,7 +3937,7 @@ var SearchStatePool = class {
 	}
 };
 //#endregion
-//#region src/grids/DefaultSettings.ts
+//#region dream-cc-pathfinding/src/grids/DefaultSettings.ts
 var DefaultSettings = class {
 	static get blocked() {
 		if (!this.__blocked) return this.defaultBlocked;
@@ -4000,7 +4000,7 @@ var DefaultSettings = class {
 	}
 };
 //#endregion
-//#region src/grids/NodeHeap.ts
+//#region dream-cc-pathfinding/src/grids/NodeHeap.ts
 var NodeHeap = class {
 	constructor(options) {
 		this.__data = [];
@@ -4077,7 +4077,7 @@ var NodeHeap = class {
 	}
 };
 //#endregion
-//#region src/grids/AStar.ts
+//#region dream-cc-pathfinding/src/grids/AStar.ts
 /**
 * A* 算法
 */

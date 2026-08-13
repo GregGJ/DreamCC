@@ -1,7 +1,7 @@
 import { Binder, EventDispatcher, IEnginePlugin, ILoader, Module, ResRequest, ResURL, Resource } from "dream-cc-core";
 import { GComponent, ITooltipManager, ITooltipView } from "fairygui-cc";
 import { Color, Node } from "cc";
-//#region src/gui/alerts/IAlert.d.ts
+//#region dream-cc-gui/src/gui/alerts/IAlert.d.ts
 interface IAlert {
   /**
    * 显示一个警告框
@@ -14,7 +14,7 @@ interface IAlert {
   show(msg: string, title?: string, buttons?: string[], callback?: (btnIdx: number) => void, buttonSkins?: string[]): void;
 }
 //#endregion
-//#region src/gui/alerts/Alert.d.ts
+//#region dream-cc-gui/src/gui/alerts/Alert.d.ts
 declare class Alert {
   static KEY: string;
   /**
@@ -30,7 +30,7 @@ declare class Alert {
   static get impl(): IAlert;
 }
 //#endregion
-//#region src/gui/layer/ILayer.d.ts
+//#region dream-cc-gui/src/gui/layer/ILayer.d.ts
 /**
  * UI层接口
  */
@@ -50,7 +50,7 @@ interface ILayer {
   getCount(): number;
 }
 //#endregion
-//#region src/gui/layer/ILayerManager.d.ts
+//#region dream-cc-gui/src/gui/layer/ILayerManager.d.ts
 /**
  * 层管理器接口
  */
@@ -77,7 +77,7 @@ interface ILayerManager {
   getAllLayer(): ILayer[];
 }
 //#endregion
-//#region src/gui/layer/Layer.d.ts
+//#region dream-cc-gui/src/gui/layer/Layer.d.ts
 /**
  * 层级类
  */
@@ -94,7 +94,7 @@ declare class Layer extends GComponent implements ILayer {
   getCount(): number;
 }
 //#endregion
-//#region src/gui/layer/LayerManager.d.ts
+//#region dream-cc-gui/src/gui/layer/LayerManager.d.ts
 /**
  * 层管理器
  */
@@ -124,7 +124,7 @@ declare class LayerManager {
   private static get impl();
 }
 //#endregion
-//#region src/gui/loadingView/ILoadingView.d.ts
+//#region dream-cc-gui/src/gui/loadingView/ILoadingView.d.ts
 /**
  * 加载界面
  */
@@ -144,7 +144,7 @@ interface ILoadingView {
   hide(): void;
 }
 //#endregion
-//#region src/gui/loadingView/LoadingView.d.ts
+//#region dream-cc-gui/src/gui/loadingView/LoadingView.d.ts
 /**
  * 加载界面
  */
@@ -157,7 +157,7 @@ declare class LoadingView {
   static get impl(): ILoadingView;
 }
 //#endregion
-//#region src/gui/tooltips/TooltipPosMode.d.ts
+//#region dream-cc-gui/src/gui/tooltips/TooltipPosMode.d.ts
 /**
  * 位置模式
  */
@@ -167,7 +167,7 @@ declare enum TooltipPosMode {
   Right = 2
 }
 //#endregion
-//#region src/gui/tooltips/ITooltipData.d.ts
+//#region dream-cc-gui/src/gui/tooltips/ITooltipData.d.ts
 /**
  * 提示数据
  */
@@ -186,7 +186,7 @@ declare class ITooltipData {
   posMode: TooltipPosMode;
 }
 //#endregion
-//#region src/gui/tooltips/TooltipManagerImpl.d.ts
+//#region dream-cc-gui/src/gui/tooltips/TooltipManagerImpl.d.ts
 /**
  * tooltip 管理类
  */
@@ -206,7 +206,7 @@ declare class TooltipManagerImpl implements ITooltipManager {
   get isShowing(): boolean;
 }
 //#endregion
-//#region src/gui/relations/IRelationList.d.ts
+//#region dream-cc-gui/src/gui/relations/IRelationList.d.ts
 /**
  * UI关联数据列表
  */
@@ -221,7 +221,7 @@ interface IRelationList {
   hide: Array<string>;
 }
 //#endregion
-//#region src/gui/relations/IRelationInfo.d.ts
+//#region dream-cc-gui/src/gui/relations/IRelationInfo.d.ts
 /**
  * UI关联数据
  */
@@ -236,7 +236,7 @@ interface IRelationInfo {
   hide: IRelationList;
 }
 //#endregion
-//#region src/gui/relations/RelationManager.d.ts
+//#region dream-cc-gui/src/gui/relations/RelationManager.d.ts
 /**
  * GUI 关联关系
  */
@@ -259,7 +259,7 @@ declare class RelationManager {
   static getRelation(key: string): IRelationInfo;
 }
 //#endregion
-//#region src/gui/res/FGUILoader.d.ts
+//#region dream-cc-gui/src/gui/res/FGUILoader.d.ts
 declare class FGUILoader extends EventDispatcher implements ILoader {
   url: ResURL;
   constructor();
@@ -268,7 +268,7 @@ declare class FGUILoader extends EventDispatcher implements ILoader {
   reset(): void;
 }
 //#endregion
-//#region src/gui/res/FGUIResource.d.ts
+//#region dream-cc-gui/src/gui/res/FGUIResource.d.ts
 declare class FGUIResource extends Resource {
   constructor();
   /**
@@ -277,7 +277,7 @@ declare class FGUIResource extends Resource {
   destroy(): boolean;
 }
 //#endregion
-//#region src/gui/BaseMediator.d.ts
+//#region dream-cc-gui/src/gui/BaseMediator.d.ts
 /**
  * 基础Mediator类
  */
@@ -300,7 +300,7 @@ declare class BaseMediator extends Binder {
   getUIComponent(path: string): any;
 }
 //#endregion
-//#region src/gui/GUIState.d.ts
+//#region dream-cc-gui/src/gui/GUIState.d.ts
 /**
  * 界面状态
  */
@@ -327,7 +327,7 @@ declare enum GUIState {
   Closed = 4
 }
 //#endregion
-//#region src/gui/GUIManager.d.ts
+//#region dream-cc-gui/src/gui/GUIManager.d.ts
 /**
  * GUI 管理器
  */
@@ -389,7 +389,7 @@ declare class GUIManager {
   private static get impl();
 }
 //#endregion
-//#region src/gui/IGUIInfo.d.ts
+//#region dream-cc-gui/src/gui/IGUIInfo.d.ts
 interface IGUIInfo {
   /**
    * UI 全局唯一KEY
@@ -431,7 +431,7 @@ interface IGUIInfo {
   maskAlpha: boolean;
 }
 //#endregion
-//#region src/gui/IViewComponent.d.ts
+//#region dream-cc-gui/src/gui/IViewComponent.d.ts
 interface IViewComponent {
   /**
    * 可见性
@@ -439,7 +439,7 @@ interface IViewComponent {
   visible: boolean;
 }
 //#endregion
-//#region src/gui/IGUIMediator.d.ts
+//#region dream-cc-gui/src/gui/IGUIMediator.d.ts
 interface IGUIMediator {
   info: any;
   /**
@@ -523,7 +523,7 @@ interface IGUIMediator {
   getUIComponent(path: string): any;
 }
 //#endregion
-//#region src/gui/SubGUIMediator.d.ts
+//#region dream-cc-gui/src/gui/SubGUIMediator.d.ts
 /**
  * 子UI 逻辑划分
  */
@@ -540,7 +540,7 @@ declare class SubGUIMediator extends BaseMediator {
   destroy(): void;
 }
 //#endregion
-//#region src/gui/tabs/ITabPage.d.ts
+//#region dream-cc-gui/src/gui/tabs/ITabPage.d.ts
 interface ITabPage {
   /**
    * UI
@@ -570,7 +570,7 @@ interface ITabPage {
   destroy(): void;
 }
 //#endregion
-//#region src/gui/tabs/TabContainer.d.ts
+//#region dream-cc-gui/src/gui/tabs/TabContainer.d.ts
 /**
  * 页签容器组件
  */
@@ -598,7 +598,7 @@ declare class TabContainer extends Binder {
   destroy(): void;
 }
 //#endregion
-//#region src/gui/GUIMediator.d.ts
+//#region dream-cc-gui/src/gui/GUIMediator.d.ts
 /**
  * UI逻辑类
  */
@@ -666,7 +666,7 @@ declare class GUIMediator extends BaseMediator implements IGUIMediator {
   destroy(): void;
 }
 //#endregion
-//#region src/gui/GUIProxy.d.ts
+//#region dream-cc-gui/src/gui/GUIProxy.d.ts
 /**
  * GUI代理，将资源加载和Mediator逻辑隔离开
  */
@@ -724,7 +724,7 @@ declare class GUIProxy {
   getComponent(path: string): any;
 }
 //#endregion
-//#region src/gui/IGUIManager.d.ts
+//#region dream-cc-gui/src/gui/IGUIManager.d.ts
 /**
  * UI管理器接口
  */
@@ -784,7 +784,7 @@ interface IGUIManager {
   isOpen(key: string): boolean;
 }
 //#endregion
-//#region src/gui/IViewCreator.d.ts
+//#region dream-cc-gui/src/gui/IViewCreator.d.ts
 interface IViewCreator {
   /**
    * 创建Mediator
@@ -792,13 +792,13 @@ interface IViewCreator {
   createMediator(): IGUIMediator;
 }
 //#endregion
-//#region src/gui/tabs/TabData.d.ts
+//#region dream-cc-gui/src/gui/tabs/TabData.d.ts
 declare class TabData {
   page?: number;
   pageData?: TabData;
 }
 //#endregion
-//#region src/gui/tabs/TabPage.d.ts
+//#region dream-cc-gui/src/gui/tabs/TabPage.d.ts
 declare class TabPage extends Binder implements ITabPage {
   /**
    * UI
@@ -816,7 +816,7 @@ declare class TabPage extends Binder implements ITabPage {
   destroy(): void;
 }
 //#endregion
-//#region src/GUIPlugin.d.ts
+//#region dream-cc-gui/src/GUIPlugin.d.ts
 /**
  * GUI插件
  */

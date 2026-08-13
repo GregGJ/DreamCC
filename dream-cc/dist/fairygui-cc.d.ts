@@ -1,6 +1,6 @@
 import { Asset, AssetManager, AudioClip, Color, Component, Constructor, EditBox, Event as Event$1, EventTarget, Font, Graphics, HorizontalTextAlignment, Label, Mask, Node, Rect, RichText, Size, Sprite, SpriteAtlas, SpriteFrame, UIOpacity, UITransform, Vec2, VerticalTextAlignment, dragonBones, sp } from "cc";
 import { ResURL } from "dream-cc-core";
-//#region src/fairygui/utils/ByteBuffer.d.ts
+//#region fairygui-cc/src/fairygui/utils/ByteBuffer.d.ts
 declare class ByteBuffer {
   stringTable: Array<string>;
   version: number;
@@ -33,7 +33,7 @@ declare class ByteBuffer {
   seek(indexTablePos: number, blockIndex: number): boolean;
 }
 //#endregion
-//#region src/fairygui/event/HitTest.d.ts
+//#region fairygui-cc/src/fairygui/event/HitTest.d.ts
 interface IHitTest {
   hitTest(pt: Vec2, globalPt: Vec2): boolean;
 }
@@ -44,7 +44,7 @@ declare class PixelHitTestData {
   constructor(ba: ByteBuffer);
 }
 //#endregion
-//#region src/fairygui/FieldTypes.d.ts
+//#region fairygui-cc/src/fairygui/FieldTypes.d.ts
 declare enum ButtonMode {
   Common = 0,
   Check = 1,
@@ -218,7 +218,7 @@ declare enum ObjectPropID {
   Selected = 9
 }
 //#endregion
-//#region src/fairygui/Margin.d.ts
+//#region fairygui-cc/src/fairygui/Margin.d.ts
 declare class Margin {
   left: number;
   right: number;
@@ -229,7 +229,7 @@ declare class Margin {
   isNone(): boolean;
 }
 //#endregion
-//#region src/fairygui/GScrollBar.d.ts
+//#region fairygui-cc/src/fairygui/GScrollBar.d.ts
 declare class GScrollBar extends GComponent {
   private _grip;
   private _arrowButton1;
@@ -256,7 +256,7 @@ declare class GScrollBar extends GComponent {
   private onBarTouchBegin;
 }
 //#endregion
-//#region src/fairygui/ScrollPane.d.ts
+//#region fairygui-cc/src/fairygui/ScrollPane.d.ts
 declare class ScrollPane extends Component {
   private _owner;
   private _container;
@@ -417,7 +417,7 @@ declare class ScrollPane extends Component {
   private runTween;
 }
 //#endregion
-//#region src/fairygui/Transition.d.ts
+//#region fairygui-cc/src/fairygui/Transition.d.ts
 declare class Transition {
   name: string;
   private _owner;
@@ -476,7 +476,7 @@ declare class Transition {
   private decodeValue;
 }
 //#endregion
-//#region src/fairygui/GComponent.d.ts
+//#region fairygui-cc/src/fairygui/GComponent.d.ts
 declare class GComponent extends GObject {
   hitArea?: IHitTest;
   private _sortingChildCount;
@@ -580,7 +580,7 @@ declare class GComponent extends GObject {
   protected onDisable(): void;
 }
 //#endregion
-//#region src/fairygui/Controller.d.ts
+//#region fairygui-cc/src/fairygui/Controller.d.ts
 declare class Controller extends EventTarget {
   private _selectedIndex;
   private _previousIndex;
@@ -623,7 +623,7 @@ declare class Controller extends EventTarget {
   setup(buffer: ByteBuffer): void;
 }
 //#endregion
-//#region src/fairygui/display/BlendMode.d.ts
+//#region fairygui-cc/src/fairygui/display/BlendMode.d.ts
 declare enum BlendMode {
   Normal = 0,
   None = 1,
@@ -639,7 +639,7 @@ declare enum BlendMode {
   Custom3 = 11
 }
 //#endregion
-//#region src/fairygui/tween/GPathPoint.d.ts
+//#region fairygui-cc/src/fairygui/tween/GPathPoint.d.ts
 declare class GPathPoint {
   x: number;
   y: number;
@@ -655,7 +655,7 @@ declare class GPathPoint {
   clone(): GPathPoint;
 }
 //#endregion
-//#region src/fairygui/tween/GPath.d.ts
+//#region fairygui-cc/src/fairygui/tween/GPath.d.ts
 declare class GPath {
   private _segments;
   private _points;
@@ -675,7 +675,7 @@ declare class GPath {
   private onBezierCurve;
 }
 //#endregion
-//#region src/fairygui/tween/TweenValue.d.ts
+//#region fairygui-cc/src/fairygui/tween/TweenValue.d.ts
 declare class TweenValue {
   x: number;
   y: number;
@@ -689,7 +689,7 @@ declare class TweenValue {
   setZero(): void;
 }
 //#endregion
-//#region src/fairygui/tween/GTweener.d.ts
+//#region fairygui-cc/src/fairygui/tween/GTweener.d.ts
 declare class GTweener {
   _target: any;
   _propType: any;
@@ -771,7 +771,7 @@ declare class GTweener {
   private callCompleteCallback;
 }
 //#endregion
-//#region src/fairygui/gears/GearBase.d.ts
+//#region fairygui-cc/src/fairygui/gears/GearBase.d.ts
 declare class GearBase {
   static disableAllTweenEffect?: boolean;
   _owner: GObject;
@@ -799,7 +799,7 @@ declare class GearTweenConfig {
   constructor();
 }
 //#endregion
-//#region src/fairygui/gears/GearLook.d.ts
+//#region fairygui-cc/src/fairygui/gears/GearLook.d.ts
 declare class GearLook extends GearBase {
   private _storage;
   private _default;
@@ -811,7 +811,7 @@ declare class GearLook extends GearBase {
   updateState(): void;
 }
 //#endregion
-//#region src/fairygui/gears/GearSize.d.ts
+//#region fairygui-cc/src/fairygui/gears/GearSize.d.ts
 declare class GearSize extends GearBase {
   private _storage;
   private _default;
@@ -824,7 +824,7 @@ declare class GearSize extends GearBase {
   updateFromRelations(dx: number, dy: number): void;
 }
 //#endregion
-//#region src/fairygui/gears/GearXY.d.ts
+//#region fairygui-cc/src/fairygui/gears/GearXY.d.ts
 declare class GearXY extends GearBase {
   positionsInPercent: boolean;
   private _storage;
@@ -839,7 +839,7 @@ declare class GearXY extends GearBase {
   updateFromRelations(dx: number, dy: number): void;
 }
 //#endregion
-//#region src/fairygui/event/InputProcessor.d.ts
+//#region fairygui-cc/src/fairygui/event/InputProcessor.d.ts
 declare class InputProcessor extends Component {
   private _owner;
   private _touchListener;
@@ -876,7 +876,7 @@ declare class InputProcessor extends Component {
   private getEvent;
 }
 //#endregion
-//#region src/fairygui/event/FGUIEvent.d.ts
+//#region fairygui-cc/src/fairygui/event/FGUIEvent.d.ts
 declare class FGUIEvent extends Event$1 {
   static TOUCH_BEGIN: string;
   static TOUCH_MOVE: string;
@@ -919,7 +919,7 @@ declare class FGUIEvent extends Event$1 {
   captureTouch(): void;
 }
 //#endregion
-//#region src/fairygui/GObjectPool.d.ts
+//#region fairygui-cc/src/fairygui/GObjectPool.d.ts
 declare class GObjectPool {
   private _pool;
   private _count;
@@ -930,7 +930,7 @@ declare class GObjectPool {
   returnObject(obj: GObject): void;
 }
 //#endregion
-//#region src/fairygui/GList.d.ts
+//#region fairygui-cc/src/fairygui/GList.d.ts
 type ListItemRenderer = (index: number, item: GObject) => void;
 declare class GList extends GComponent {
   itemRenderer: ListItemRenderer;
@@ -1051,7 +1051,7 @@ declare class GList extends GComponent {
   setup_afterAdd(buffer: ByteBuffer, beginPos: number): void;
 }
 //#endregion
-//#region src/fairygui/GTree.d.ts
+//#region fairygui-cc/src/fairygui/GTree.d.ts
 declare class GTree extends GList {
   treeNodeRender: (node: GTreeNode, obj: GComponent) => void;
   treeNodeWillExpand: (node: GTreeNode, expanded: boolean) => void;
@@ -1089,7 +1089,7 @@ declare class GTree extends GList {
   protected readItems(buffer: ByteBuffer): void;
 }
 //#endregion
-//#region src/fairygui/GTreeNode.d.ts
+//#region fairygui-cc/src/fairygui/GTreeNode.d.ts
 declare class GTreeNode {
   data?: any;
   private _parent;
@@ -1129,7 +1129,7 @@ declare class GTreeNode {
   _setTree(value: GTree): void;
 }
 //#endregion
-//#region src/fairygui/display/Image.d.ts
+//#region fairygui-cc/src/fairygui/display/Image.d.ts
 declare class Image extends Sprite {
   private _flip;
   private _fillMethod;
@@ -1150,7 +1150,7 @@ declare class Image extends Sprite {
   private setupFill;
 }
 //#endregion
-//#region src/fairygui/display/MovieClip.d.ts
+//#region fairygui-cc/src/fairygui/display/MovieClip.d.ts
 interface Frame {
   rect: Rect;
   addDelay: number;
@@ -1193,7 +1193,7 @@ declare class MovieClip extends Image {
   private drawFrame;
 }
 //#endregion
-//#region src/fairygui/UIPackage.d.ts
+//#region fairygui-cc/src/fairygui/UIPackage.d.ts
 type PackageDependency = {
   id: string;
   name: string;
@@ -1277,7 +1277,7 @@ declare class UIPackage {
   private loadDragonBones;
 }
 //#endregion
-//#region src/fairygui/PackageItem.d.ts
+//#region fairygui-cc/src/fairygui/PackageItem.d.ts
 declare class PackageItem {
   owner: UIPackage;
   type: PackageItemType;
@@ -1312,7 +1312,7 @@ declare class PackageItem {
   toString(): string;
 }
 //#endregion
-//#region src/fairygui/Relations.d.ts
+//#region fairygui-cc/src/fairygui/Relations.d.ts
 declare class Relations {
   private _owner;
   private _items;
@@ -1332,7 +1332,7 @@ declare class Relations {
   setup(buffer: ByteBuffer, parentToChild: boolean): void;
 }
 //#endregion
-//#region src/fairygui/GObject.d.ts
+//#region fairygui-cc/src/fairygui/GObject.d.ts
 declare class GObject {
   data?: any;
   packageItem?: PackageItem;
@@ -1528,7 +1528,7 @@ declare class GObjectPartner extends Component {
   protected onDestroy(): void;
 }
 //#endregion
-//#region src/fairygui/GGroup.d.ts
+//#region fairygui-cc/src/fairygui/GGroup.d.ts
 declare class GGroup extends GObject {
   private _layout;
   private _lineGap;
@@ -1573,7 +1573,7 @@ declare class GGroup extends GObject {
   setup_afterAdd(buffer: ByteBuffer, beginPos: number): void;
 }
 //#endregion
-//#region src/fairygui/GGraph.d.ts
+//#region fairygui-cc/src/fairygui/GGraph.d.ts
 declare class GGraph extends GObject {
   _content: Graphics;
   private _type;
@@ -1607,7 +1607,7 @@ declare class GGraph extends GObject {
   setup_beforeAdd(buffer: ByteBuffer, beginPos: number): void;
 }
 //#endregion
-//#region src/fairygui/GImage.d.ts
+//#region fairygui-cc/src/fairygui/GImage.d.ts
 declare class GImage extends GObject {
   _content: Image;
   constructor();
@@ -1630,7 +1630,7 @@ declare class GImage extends GObject {
   setup_beforeAdd(buffer: ByteBuffer, beginPos: number): void;
 }
 //#endregion
-//#region src/fairygui/GMovieClip.d.ts
+//#region fairygui-cc/src/fairygui/GMovieClip.d.ts
 declare class GMovieClip extends GObject {
   _content: MovieClip;
   constructor();
@@ -1654,7 +1654,7 @@ declare class GMovieClip extends GObject {
   setup_beforeAdd(buffer: ByteBuffer, beginPos: number): void;
 }
 //#endregion
-//#region src/fairygui/Window.d.ts
+//#region fairygui-cc/src/fairygui/Window.d.ts
 interface IUISource {
   fileName: string;
   loaded: boolean;
@@ -1715,7 +1715,7 @@ declare class Window extends GComponent {
   private onDragStart_1;
 }
 //#endregion
-//#region src/fairygui/GRoot.d.ts
+//#region fairygui-cc/src/fairygui/GRoot.d.ts
 declare class GRoot extends GComponent {
   private _modalLayer;
   private _popupStack;
@@ -1765,7 +1765,7 @@ declare class GRoot extends GComponent {
   handlePositionChanged(): void;
 }
 //#endregion
-//#region src/fairygui/GTextField.d.ts
+//#region fairygui-cc/src/fairygui/GTextField.d.ts
 declare class GTextField extends GObject {
   _label: Label;
   protected _font: string;
@@ -1852,7 +1852,7 @@ declare class GTextField extends GObject {
   setup_afterAdd(buffer: ByteBuffer, beginPos: number): void;
 }
 //#endregion
-//#region src/fairygui/GRichTextField.d.ts
+//#region fairygui-cc/src/fairygui/GRichTextField.d.ts
 declare class GRichTextField extends GTextField {
   _richText: RichText;
   private _bold;
@@ -1880,7 +1880,7 @@ declare class GRichTextField extends GTextField {
   protected handleSizeChanged(): void;
 }
 //#endregion
-//#region src/fairygui/GTextInput.d.ts
+//#region fairygui-cc/src/fairygui/GTextInput.d.ts
 declare class GTextInput extends GTextField {
   _editBox: EditBox;
   private _promptText;
@@ -1914,7 +1914,7 @@ declare class GTextInput extends GTextField {
   setup_beforeAdd(buffer: ByteBuffer, beginPos: number): void;
 }
 //#endregion
-//#region src/fairygui/GLoader.d.ts
+//#region fairygui-cc/src/fairygui/GLoader.d.ts
 declare class GLoader extends GObject {
   _content: MovieClip;
   private _url;
@@ -1997,7 +1997,7 @@ declare class GLoader extends GObject {
   setup_beforeAdd(buffer: ByteBuffer, beginPos: number): void;
 }
 //#endregion
-//#region src/fairygui/GLoader3D.d.ts
+//#region fairygui-cc/src/fairygui/GLoader3D.d.ts
 declare class GLoader3D extends GObject {
   private _url;
   private _align;
@@ -2066,7 +2066,7 @@ declare class GLoader3D extends GObject {
   setup_beforeAdd(buffer: ByteBuffer, beginPos: number): void;
 }
 //#endregion
-//#region src/fairygui/GLabel.d.ts
+//#region fairygui-cc/src/fairygui/GLabel.d.ts
 declare class GLabel extends GComponent {
   protected _titleObject: GObject;
   protected _iconObject: GObject;
@@ -2093,7 +2093,7 @@ declare class GLabel extends GComponent {
   private onClick_1;
 }
 //#endregion
-//#region src/fairygui/GButton.d.ts
+//#region fairygui-cc/src/fairygui/GButton.d.ts
 declare class GButton extends GComponent {
   protected _titleObject: GObject;
   protected _iconObject: GObject;
@@ -2170,7 +2170,7 @@ declare class GButton extends GComponent {
   private onClick_1;
 }
 //#endregion
-//#region src/fairygui/GComboBox.d.ts
+//#region fairygui-cc/src/fairygui/GComboBox.d.ts
 declare class GComboBox extends GComponent {
   dropdown: GComponent;
   protected _titleObject: GObject;
@@ -2231,7 +2231,7 @@ declare class GComboBox extends GComponent {
   private onTouchEnd_1;
 }
 //#endregion
-//#region src/fairygui/GSlider.d.ts
+//#region fairygui-cc/src/fairygui/GSlider.d.ts
 declare class GSlider extends GComponent {
   private _min;
   private _max;
@@ -2274,7 +2274,7 @@ declare class GSlider extends GComponent {
   private onBarTouchBegin;
 }
 //#endregion
-//#region src/fairygui/GProgressBar.d.ts
+//#region fairygui-cc/src/fairygui/GProgressBar.d.ts
 declare class GProgressBar extends GComponent {
   private _min;
   private _max;
@@ -2308,7 +2308,7 @@ declare class GProgressBar extends GComponent {
   setup_afterAdd(buffer: ByteBuffer, beginPos: number): void;
 }
 //#endregion
-//#region src/fairygui/PopupMenu.d.ts
+//#region fairygui-cc/src/fairygui/PopupMenu.d.ts
 declare class PopupMenu {
   protected _contentPane: GComponent;
   protected _list: GList;
@@ -2335,7 +2335,7 @@ declare class PopupMenu {
   private onDisplay;
 }
 //#endregion
-//#region src/fairygui/UIObjectFactory.d.ts
+//#region fairygui-cc/src/fairygui/UIObjectFactory.d.ts
 declare class UIObjectFactory {
   static counter: number;
   static extensions: {
@@ -2349,7 +2349,7 @@ declare class UIObjectFactory {
   static newObject(type: number | PackageItem, userClass?: new () => GObject): GObject;
 }
 //#endregion
-//#region src/fairygui/UIConfig.d.ts
+//#region fairygui-cc/src/fairygui/UIConfig.d.ts
 declare class UIConfig {
   constructor();
   static defaultFont: string;
@@ -2381,7 +2381,7 @@ declare class UIConfig {
 }
 declare function registerFont(name: string, font: Font | string, bundle?: AssetManager.Bundle): void;
 //#endregion
-//#region src/fairygui/DragDropManager.d.ts
+//#region fairygui-cc/src/fairygui/DragDropManager.d.ts
 declare class DragDropManager {
   private _agent;
   private _sourceData;
@@ -2395,7 +2395,7 @@ declare class DragDropManager {
   private onDragEnd;
 }
 //#endregion
-//#region src/fairygui/AsyncOperation.d.ts
+//#region fairygui-cc/src/fairygui/AsyncOperation.d.ts
 declare class AsyncOperation {
   callback: (obj: GObject) => void;
   private _node;
@@ -2406,7 +2406,7 @@ declare class AsyncOperation {
   private completed;
 }
 //#endregion
-//#region src/fairygui/TranslationHelper.d.ts
+//#region fairygui-cc/src/fairygui/TranslationHelper.d.ts
 declare class TranslationHelper {
   static strings: {
     [index: string]: {
@@ -2417,7 +2417,7 @@ declare class TranslationHelper {
   static translateComponent(item: PackageItem): void;
 }
 //#endregion
-//#region src/fairygui/gears/GearAnimation.d.ts
+//#region fairygui-cc/src/fairygui/gears/GearAnimation.d.ts
 declare class GearAnimation extends GearBase {
   private _storage;
   private _default;
@@ -2427,7 +2427,7 @@ declare class GearAnimation extends GearBase {
   updateState(): void;
 }
 //#endregion
-//#region src/fairygui/gears/GearColor.d.ts
+//#region fairygui-cc/src/fairygui/gears/GearColor.d.ts
 declare class GearColor extends GearBase {
   private _storage;
   private _default;
@@ -2437,7 +2437,7 @@ declare class GearColor extends GearBase {
   updateState(): void;
 }
 //#endregion
-//#region src/fairygui/gears/GearDisplay.d.ts
+//#region fairygui-cc/src/fairygui/gears/GearDisplay.d.ts
 declare class GearDisplay extends GearBase {
   pages: string[];
   private _visible;
@@ -2449,7 +2449,7 @@ declare class GearDisplay extends GearBase {
   apply(): void;
 }
 //#endregion
-//#region src/fairygui/gears/GearDisplay2.d.ts
+//#region fairygui-cc/src/fairygui/gears/GearDisplay2.d.ts
 declare class GearDisplay2 extends GearBase {
   pages: string[];
   condition: number;
@@ -2459,7 +2459,7 @@ declare class GearDisplay2 extends GearBase {
   evaluate(connected: boolean): boolean;
 }
 //#endregion
-//#region src/fairygui/gears/GearFontSize.d.ts
+//#region fairygui-cc/src/fairygui/gears/GearFontSize.d.ts
 declare class GearFontSize extends GearBase {
   private _storage;
   private _default;
@@ -2469,7 +2469,7 @@ declare class GearFontSize extends GearBase {
   updateState(): void;
 }
 //#endregion
-//#region src/fairygui/gears/GearIcon.d.ts
+//#region fairygui-cc/src/fairygui/gears/GearIcon.d.ts
 declare class GearIcon extends GearBase {
   private _storage;
   private _default;
@@ -2479,7 +2479,7 @@ declare class GearIcon extends GearBase {
   updateState(): void;
 }
 //#endregion
-//#region src/fairygui/gears/GearText.d.ts
+//#region fairygui-cc/src/fairygui/gears/GearText.d.ts
 declare class GearText extends GearBase {
   private _storage;
   private _default;
@@ -2489,7 +2489,7 @@ declare class GearText extends GearBase {
   updateState(): void;
 }
 //#endregion
-//#region src/fairygui/tween/GTween.d.ts
+//#region fairygui-cc/src/fairygui/tween/GTween.d.ts
 declare class GTween {
   static catchCallbackExceptions: boolean;
   static to(start: number, end: number, duration: number): GTweener;
@@ -2504,7 +2504,7 @@ declare class GTween {
   static getTween(target: any, propType?: any): GTweener;
 }
 //#endregion
-//#region src/fairygui/tween/EaseType.d.ts
+//#region fairygui-cc/src/fairygui/tween/EaseType.d.ts
 declare enum EaseType {
   Linear = 0,
   SineIn = 1,
@@ -2540,7 +2540,7 @@ declare enum EaseType {
   Custom = 31
 }
 //#endregion
-//#region src/fairygui/utils/UBBParser.d.ts
+//#region fairygui-cc/src/fairygui/utils/UBBParser.d.ts
 declare class UBBParser {
   private _text;
   private _readPos;
@@ -2562,7 +2562,7 @@ declare class UBBParser {
   parse(text: string, remove?: boolean): string;
 }
 //#endregion
-//#region src/tooltips/ITooltipView.d.ts
+//#region fairygui-cc/src/tooltips/ITooltipView.d.ts
 interface ITooltipView {
   /**
    * view
@@ -2579,7 +2579,7 @@ interface ITooltipView {
   destroy(): void;
 }
 //#endregion
-//#region src/tooltips/ITooltipManager.d.ts
+//#region fairygui-cc/src/tooltips/ITooltipManager.d.ts
 /**
  * tooltip管理器
  */
@@ -2610,7 +2610,7 @@ interface ITooltipManager {
   hide(): void;
 }
 //#endregion
-//#region src/tooltips/TooltipManager.d.ts
+//#region fairygui-cc/src/tooltips/TooltipManager.d.ts
 declare class TooltipManager {
   static KEY: string;
   /**提示层 */
@@ -2640,7 +2640,7 @@ declare class TooltipManager {
   static get impl(): ITooltipManager;
 }
 //#endregion
-//#region src/fairygui/display/SmartLoader.d.ts
+//#region fairygui-cc/src/fairygui/display/SmartLoader.d.ts
 declare class SmartLoader extends GLoader {
   /**加载完成回调 */
   loadedCallback: (target: SmartLoader, err?: Error) => void;

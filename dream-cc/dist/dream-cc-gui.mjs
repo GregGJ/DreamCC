@@ -1,7 +1,7 @@
 import { Binder, Event, EventDispatcher, I18N, Injector, Logger, ModuleManager, Res, Resource, ResourceManager, TickerManager, Timer } from "dream-cc-core";
 import { AsyncOperation, GComponent, GGraph, GRoot, SmartLoader, UIObjectFactory, UIPackage, registerFont } from "fairygui-cc";
 import { Color, Node, Vec2, assetManager } from "cc";
-//#region src/gui/alerts/Alert.ts
+//#region dream-cc-gui/src/gui/alerts/Alert.ts
 var Alert = class {
 	/**
 	* 显示一个警告框
@@ -22,7 +22,7 @@ var Alert = class {
 };
 Alert.KEY = "Alert";
 //#endregion
-//#region src/gui/layer/Layer.ts
+//#region dream-cc-gui/src/gui/layer/Layer.ts
 /**
 * 层级类
 */
@@ -39,7 +39,7 @@ var Layer = class extends GComponent {
 	}
 };
 //#endregion
-//#region src/gui/layer/LayerManagerImpl.ts
+//#region dream-cc-gui/src/gui/layer/LayerManagerImpl.ts
 /**
 * cocos fgui 层管理器
 */
@@ -84,7 +84,7 @@ var LayerManagerImpl = class {
 	}
 };
 //#endregion
-//#region src/gui/layer/LayerManager.ts
+//#region dream-cc-gui/src/gui/layer/LayerManager.ts
 /**
 * 层管理器
 */
@@ -125,7 +125,7 @@ var LayerManager = class {
 };
 LayerManager.KEY = "LayerManager";
 //#endregion
-//#region src/gui/loadingView/LoadingView.ts
+//#region dream-cc-gui/src/gui/loadingView/LoadingView.ts
 /**
 * 加载界面
 */
@@ -150,13 +150,13 @@ var LoadingView = class {
 };
 LoadingView.KEY = "LoadingView";
 //#endregion
-//#region src/gui/tooltips/ITooltipData.ts
+//#region dream-cc-gui/src/gui/tooltips/ITooltipData.ts
 /**
 * 提示数据
 */
 var ITooltipData = class {};
 //#endregion
-//#region src/gui/tooltips/TooltipPosMode.ts
+//#region dream-cc-gui/src/gui/tooltips/TooltipPosMode.ts
 /**
 * 位置模式
 */
@@ -167,7 +167,7 @@ let TooltipPosMode = /* @__PURE__ */ function(TooltipPosMode) {
 	return TooltipPosMode;
 }({});
 //#endregion
-//#region src/gui/tooltips/TooltipManagerImpl.ts
+//#region dream-cc-gui/src/gui/tooltips/TooltipManagerImpl.ts
 /**
 * tooltip 管理类
 */
@@ -237,7 +237,7 @@ var TooltipManagerImpl = class {
 	}
 };
 //#endregion
-//#region src/gui/relations/RelationManager.ts
+//#region dream-cc-gui/src/gui/relations/RelationManager.ts
 /**
 * GUI 关联关系
 */
@@ -290,7 +290,7 @@ var RelationManager = class {
 RelationManager.DEBUG = false;
 RelationManager.__map = /* @__PURE__ */ new Map();
 //#endregion
-//#region src/gui/res/FGUIResource.ts
+//#region dream-cc-gui/src/gui/res/FGUIResource.ts
 var FGUIResource = class extends Resource {
 	constructor() {
 		super();
@@ -309,7 +309,7 @@ var FGUIResource = class extends Resource {
 	}
 };
 //#endregion
-//#region src/gui/res/FGUILoader.ts
+//#region dream-cc-gui/src/gui/res/FGUILoader.ts
 var FGUILoader = class extends EventDispatcher {
 	constructor() {
 		super();
@@ -354,7 +354,7 @@ var FGUILoader = class extends EventDispatcher {
 	}
 };
 //#endregion
-//#region src/gui/BaseMediator.ts
+//#region dream-cc-gui/src/gui/BaseMediator.ts
 /**
 * 基础Mediator类
 */
@@ -397,7 +397,7 @@ var BaseMediator = class extends Binder {
 	}
 };
 //#endregion
-//#region src/GUIPlugin.ts
+//#region dream-cc-gui/src/GUIPlugin.ts
 /**
 * GUI插件
 */
@@ -585,7 +585,7 @@ var GUIPlugin = class GUIPlugin extends EventDispatcher {
 GUIPlugin.MaskColor = new Color(0, 0, 0, 127.5);
 GUIPlugin.AlphaMaskColor = new Color(0, 0, 0, 0);
 //#endregion
-//#region src/gui/GUIProxy.ts
+//#region dream-cc-gui/src/gui/GUIProxy.ts
 /**
 * GUI代理，将资源加载和Mediator逻辑隔离开
 */
@@ -753,7 +753,7 @@ var GUIProxy = class GUIProxy {
 };
 GUIProxy.createNode = new Node("createHelpNode");
 //#endregion
-//#region src/gui/GUIState.ts
+//#region dream-cc-gui/src/gui/GUIState.ts
 /**
 * 界面状态
 */
@@ -781,7 +781,7 @@ let GUIState = /* @__PURE__ */ function(GUIState) {
 	return GUIState;
 }({});
 //#endregion
-//#region src/gui/GUIManagerImpl.ts
+//#region dream-cc-gui/src/gui/GUIManagerImpl.ts
 /**
 * GUI管理器
 */
@@ -964,7 +964,7 @@ var GUIManagerImpl = class {
 	}
 };
 //#endregion
-//#region src/gui/GUIManager.ts
+//#region dream-cc-gui/src/gui/GUIManager.ts
 /**
 * GUI 管理器
 */
@@ -1040,7 +1040,7 @@ var GUIManager = class {
 GUIManager.KEY = "GUIManager";
 GUIManager.GUI_GC_INTERVAL = 30;
 //#endregion
-//#region src/gui/GUIMediator.ts
+//#region dream-cc-gui/src/gui/GUIMediator.ts
 /**
 * UI逻辑类
 */
@@ -1164,7 +1164,7 @@ var GUIMediator = class extends BaseMediator {
 	}
 };
 //#endregion
-//#region src/gui/SubGUIMediator.ts
+//#region dream-cc-gui/src/gui/SubGUIMediator.ts
 /**
 * 子UI 逻辑划分
 */
@@ -1193,10 +1193,10 @@ var SubGUIMediator = class extends BaseMediator {
 	}
 };
 //#endregion
-//#region src/gui/tabs/TabData.ts
+//#region dream-cc-gui/src/gui/tabs/TabData.ts
 var TabData = class {};
 //#endregion
-//#region src/gui/tabs/TabContainer.ts
+//#region dream-cc-gui/src/gui/tabs/TabContainer.ts
 /**
 * 页签容器组件
 */
@@ -1278,7 +1278,7 @@ var TabContainer = class extends Binder {
 	}
 };
 //#endregion
-//#region src/gui/tabs/TabPage.ts
+//#region dream-cc-gui/src/gui/tabs/TabPage.ts
 var TabPage = class extends Binder {
 	constructor() {
 		super();

@@ -1,6 +1,6 @@
 import { Color, Node, Rect, UITransform, Vec2 } from "cc";
 import { EventDispatcher } from "dream-cc-core";
-//#region src/ddls/data/DDLSConstraintShape.d.ts
+//#region dream-cc-pathfinding/src/ddls/data/DDLSConstraintShape.d.ts
 declare class DDLSConstraintShape {
   private static INC;
   private _id;
@@ -11,7 +11,7 @@ declare class DDLSConstraintShape {
   dispose(): void;
 }
 //#endregion
-//#region src/ddls/data/DDLSConstraintSegment.d.ts
+//#region dream-cc-pathfinding/src/ddls/data/DDLSConstraintSegment.d.ts
 declare class DDLSConstraintSegment {
   private static INC;
   private _id;
@@ -28,7 +28,7 @@ declare class DDLSConstraintSegment {
   toString(): string;
 }
 //#endregion
-//#region src/ddls/data/DDLSFace.d.ts
+//#region dream-cc-pathfinding/src/ddls/data/DDLSFace.d.ts
 declare class DDLSFace {
   private static INC;
   private _id;
@@ -43,7 +43,7 @@ declare class DDLSFace {
   get edge(): DDLSEdge;
 }
 //#endregion
-//#region src/ddls/data/math/DDLSMatrix2D.d.ts
+//#region dream-cc-pathfinding/src/ddls/data/math/DDLSMatrix2D.d.ts
 declare class DDLSMatrix2D {
   private _a;
   private _b;
@@ -75,7 +75,7 @@ declare class DDLSMatrix2D {
   set f(value: number);
 }
 //#endregion
-//#region src/ddls/data/math/DDLSPoint2D.d.ts
+//#region dream-cc-pathfinding/src/ddls/data/math/DDLSPoint2D.d.ts
 declare class DDLSPoint2D {
   private static INC;
   private _id;
@@ -98,7 +98,7 @@ declare class DDLSPoint2D {
   distanceSquaredTo(p: DDLSPoint2D): number;
 }
 //#endregion
-//#region src/ddls/data/DDLSVertex.d.ts
+//#region dream-cc-pathfinding/src/ddls/data/DDLSVertex.d.ts
 declare class DDLSVertex {
   private static INC;
   private _id;
@@ -122,7 +122,7 @@ declare class DDLSVertex {
   toString(): string;
 }
 //#endregion
-//#region src/ddls/data/DDLSEdge.d.ts
+//#region dream-cc-pathfinding/src/ddls/data/DDLSEdge.d.ts
 declare class DDLSEdge {
   private static INC;
   private _id;
@@ -162,7 +162,7 @@ declare class DDLSEdge {
   toString(): string;
 }
 //#endregion
-//#region src/ddls/data/DDLSObject.d.ts
+//#region dream-cc-pathfinding/src/ddls/data/DDLSObject.d.ts
 declare class DDLSObject {
   private static INC;
   private _id;
@@ -207,7 +207,7 @@ declare class DDLSObject {
   get edges(): DDLSEdge[];
 }
 //#endregion
-//#region src/ddls/data/DDLSMesh.d.ts
+//#region dream-cc-pathfinding/src/ddls/data/DDLSMesh.d.ts
 declare class DDLSMesh {
   private static INC;
   private _id;
@@ -255,7 +255,7 @@ declare class DDLSMesh {
   debug(): void;
 }
 //#endregion
-//#region src/ddls/ai/DDLSAStar.d.ts
+//#region dream-cc-pathfinding/src/ddls/ai/DDLSAStar.d.ts
 declare class DDLSAStar {
   private _mesh;
   private __closedFaces;
@@ -285,7 +285,7 @@ declare class DDLSAStar {
   private isWalkableByRadius;
 }
 //#endregion
-//#region src/ddls/ai/DDLSEntityAI.d.ts
+//#region dream-cc-pathfinding/src/ddls/ai/DDLSEntityAI.d.ts
 declare class DDLSEntityAI {
   private static NUM_SEGMENTS;
   private _radius;
@@ -318,7 +318,7 @@ declare class DDLSEntityAI {
   set radius(value: number);
 }
 //#endregion
-//#region src/ddls/ai/DDLSFunnel.d.ts
+//#region dream-cc-pathfinding/src/ddls/ai/DDLSFunnel.d.ts
 declare class DDLSFunnel {
   private _radius;
   private _radiusSquared;
@@ -344,7 +344,7 @@ declare class DDLSFunnel {
   private smoothAngle;
 }
 //#endregion
-//#region src/ddls/ai/DDLSPathFinder.d.ts
+//#region dream-cc-pathfinding/src/ddls/ai/DDLSPathFinder.d.ts
 declare class DDLSPathFinder {
   private _mesh;
   private _astar;
@@ -362,7 +362,7 @@ declare class DDLSPathFinder {
   findPath(startX: number, startY: number, toX: number, toY: number, resultPath: any[], radius?: number): boolean;
 }
 //#endregion
-//#region src/ddls/data/graph/DDLSGraphNode.d.ts
+//#region dream-cc-pathfinding/src/ddls/data/graph/DDLSGraphNode.d.ts
 declare class DDLSGraphNode {
   private static INC;
   private _id;
@@ -392,7 +392,7 @@ declare class DDLSGraphNode {
   });
 }
 //#endregion
-//#region src/ddls/data/graph/DDLSGraphEdge.d.ts
+//#region dream-cc-pathfinding/src/ddls/data/graph/DDLSGraphEdge.d.ts
 declare class DDLSGraphEdge {
   private static INC;
   private _id;
@@ -433,7 +433,7 @@ declare class DDLSGraphEdge {
   });
 }
 //#endregion
-//#region src/ddls/data/graph/DDLSGraph.d.ts
+//#region dream-cc-pathfinding/src/ddls/data/graph/DDLSGraph.d.ts
 declare class DDLSGraph {
   private static INC;
   private _id;
@@ -450,7 +450,7 @@ declare class DDLSGraph {
   deleteEdge(edge: DDLSGraphEdge): void;
 }
 //#endregion
-//#region src/ddls/data/math/DDLSGeom2D.d.ts
+//#region dream-cc-pathfinding/src/ddls/data/math/DDLSGeom2D.d.ts
 declare class DDLSGeom2D {
   private static _randGen;
   private static __samples;
@@ -491,7 +491,7 @@ declare class DDLSGeom2D {
   static pathLength(path: number[]): number;
 }
 //#endregion
-//#region src/ddls/data/math/DDLSRandGenerator.d.ts
+//#region dream-cc-pathfinding/src/ddls/data/math/DDLSRandGenerator.d.ts
 declare class DDLSRandGenerator {
   private _originalSeed;
   private _currSeed;
@@ -510,18 +510,18 @@ declare class DDLSRandGenerator {
   next(): number;
 }
 //#endregion
-//#region src/ddls/data/DDLSConstants.d.ts
+//#region dream-cc-pathfinding/src/ddls/data/DDLSConstants.d.ts
 declare class DDLSConstants {
   static EPSILON: number;
   static EPSILON_SQUARED: number;
 }
 //#endregion
-//#region src/ddls/factories/DDLSRectMeshFactory.d.ts
+//#region dream-cc-pathfinding/src/ddls/factories/DDLSRectMeshFactory.d.ts
 declare class DDLSRectMeshFactory {
   static buildRectangle(width: number, height: number): DDLSMesh;
 }
 //#endregion
-//#region src/ddls/iterators/IteratorFromFaceToInnerEdges.d.ts
+//#region dream-cc-pathfinding/src/ddls/iterators/IteratorFromFaceToInnerEdges.d.ts
 declare class IteratorFromFaceToInnerEdges {
   private _fromFace;
   private _nextEdge;
@@ -531,7 +531,7 @@ declare class IteratorFromFaceToInnerEdges {
   next(): DDLSEdge;
 }
 //#endregion
-//#region src/ddls/iterators/IteratorFromMeshToVertices.d.ts
+//#region dream-cc-pathfinding/src/ddls/iterators/IteratorFromMeshToVertices.d.ts
 declare class IteratorFromMeshToVertices {
   private _fromMesh;
   private _currIndex;
@@ -541,7 +541,7 @@ declare class IteratorFromMeshToVertices {
   next(): DDLSVertex;
 }
 //#endregion
-//#region src/ddls/iterators/IteratorFromVertexToHoldingFaces.d.ts
+//#region dream-cc-pathfinding/src/ddls/iterators/IteratorFromVertexToHoldingFaces.d.ts
 declare class IteratorFromVertexToHoldingFaces {
   private _fromVertex;
   private _nextEdge;
@@ -551,7 +551,7 @@ declare class IteratorFromVertexToHoldingFaces {
   next(): DDLSFace;
 }
 //#endregion
-//#region src/ddls/iterators/IteratorFromVertexToIncomingEdges.d.ts
+//#region dream-cc-pathfinding/src/ddls/iterators/IteratorFromVertexToIncomingEdges.d.ts
 declare class IteratorFromVertexToIncomingEdges {
   private _fromVertex;
   private _nextEdge;
@@ -561,7 +561,7 @@ declare class IteratorFromVertexToIncomingEdges {
   next(): DDLSEdge;
 }
 //#endregion
-//#region src/ddls/iterators/IteratorFromVertexToOutgoingEdges.d.ts
+//#region dream-cc-pathfinding/src/ddls/iterators/IteratorFromVertexToOutgoingEdges.d.ts
 declare class IteratorFromVertexToOutgoingEdges {
   private _fromVertex;
   private _nextEdge;
@@ -572,7 +572,7 @@ declare class IteratorFromVertexToOutgoingEdges {
   next(): DDLSEdge;
 }
 //#endregion
-//#region src/ddls/utils/DDLSUtils.d.ts
+//#region dream-cc-pathfinding/src/ddls/utils/DDLSUtils.d.ts
 declare class DDLSUtils {
   private static checkedEdges;
   /**
@@ -606,7 +606,7 @@ declare class DDLSUtils {
   static pathFormatting(path: Array<number>, result: Array<number>, checkDup?: boolean): void;
 }
 //#endregion
-//#region src/ddls/utils/Polygon.d.ts
+//#region dream-cc-pathfinding/src/ddls/utils/Polygon.d.ts
 /** A polygon describes a closed two-dimensional shape bounded by a number of straight
  *  line segments.
  *
@@ -669,7 +669,7 @@ declare class Polygon {
   get rect(): Rect;
 }
 //#endregion
-//#region src/ddls/view/DDLSSimpleView.d.ts
+//#region dream-cc-pathfinding/src/ddls/view/DDLSSimpleView.d.ts
 declare class DDLSSimpleView extends Node {
   /**
    * Y轴反转
@@ -732,7 +732,7 @@ declare class DDLSSimpleView extends Node {
   private getY;
 }
 //#endregion
-//#region src/grids/graphs/GraphLink.d.ts
+//#region dream-cc-pathfinding/src/grids/graphs/GraphLink.d.ts
 declare class GraphLink {
   fromId: string;
   toId: string;
@@ -741,7 +741,7 @@ declare class GraphLink {
   constructor(fromId: string, toId: string, data: any, id: string);
 }
 //#endregion
-//#region src/grids/graphs/GraphNode.d.ts
+//#region dream-cc-pathfinding/src/grids/graphs/GraphNode.d.ts
 declare class GraphNode {
   id: string;
   links: Array<GraphLink>;
@@ -749,12 +749,12 @@ declare class GraphNode {
   constructor(id: string, data: any);
 }
 //#endregion
-//#region src/grids/graphs/GraphOptions.d.ts
+//#region dream-cc-pathfinding/src/grids/graphs/GraphOptions.d.ts
 declare class GraphOptions {
   multigraph: boolean;
 }
 //#endregion
-//#region src/grids/graphs/Graph.d.ts
+//#region dream-cc-pathfinding/src/grids/graphs/Graph.d.ts
 /**
  *
  */
@@ -791,7 +791,7 @@ declare class Graph extends EventDispatcher {
   private __makeLinkId;
 }
 //#endregion
-//#region src/grids/searchs/INodeSearchState.d.ts
+//#region dream-cc-pathfinding/src/grids/searchs/INodeSearchState.d.ts
 interface INodeSearchState {
   node: GraphNode;
   parent: INodeSearchState;
@@ -802,7 +802,7 @@ interface INodeSearchState {
   heapIndex: number;
 }
 //#endregion
-//#region src/grids/searchs/ISearchStatePool.d.ts
+//#region dream-cc-pathfinding/src/grids/searchs/ISearchStatePool.d.ts
 interface ISearchStatePool {
   /**
    * 创建
@@ -815,7 +815,7 @@ interface ISearchStatePool {
   reset(): void;
 }
 //#endregion
-//#region src/grids/searchs/NodeSearchState.d.ts
+//#region dream-cc-pathfinding/src/grids/searchs/NodeSearchState.d.ts
 declare class NodeSearchState implements INodeSearchState {
   node: GraphNode;
   parent: NodeSearchState;
@@ -827,7 +827,7 @@ declare class NodeSearchState implements INodeSearchState {
   constructor(node: GraphNode);
 }
 //#endregion
-//#region src/grids/searchs/SearchStatePool.d.ts
+//#region dream-cc-pathfinding/src/grids/searchs/SearchStatePool.d.ts
 declare class SearchStatePool {
   currentInCache: number;
   nodeCache: INodeSearchState[];
@@ -835,7 +835,7 @@ declare class SearchStatePool {
   reset(): void;
 }
 //#endregion
-//#region src/grids/AStar.d.ts
+//#region dream-cc-pathfinding/src/grids/AStar.d.ts
 declare class IAStarOptions {
   oriented?: boolean;
   blocked?: (a: GraphNode, b: GraphNode, link: GraphLink) => boolean;
@@ -860,7 +860,7 @@ declare class AStar {
   private reconstructPath;
 }
 //#endregion
-//#region src/grids/DefaultSettings.d.ts
+//#region dream-cc-pathfinding/src/grids/DefaultSettings.d.ts
 declare class DefaultSettings {
   /**
    * 是否阻塞
@@ -896,7 +896,7 @@ declare class DefaultSettings {
   private static defaultSetHeapIndex;
 }
 //#endregion
-//#region src/grids/NodeHeap.d.ts
+//#region dream-cc-pathfinding/src/grids/NodeHeap.d.ts
 interface INodeHeapOptions {
   setNodeId: (item: INodeSearchState, index: number) => void;
   compare?: (a: INodeSearchState, b: INodeSearchState) => number;

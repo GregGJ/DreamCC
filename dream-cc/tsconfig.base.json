@@ -7,6 +7,6 @@
     "strict": false,
     "declaration": false,
     "incremental": true,
-    "isolatedModules": true
+    "isolatedModules": true,
   }
 }

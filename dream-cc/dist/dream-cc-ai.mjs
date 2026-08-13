@@ -1,6 +1,6 @@
 import { Event, EventDispatcher, Logger, Timer } from "dream-cc-core";
 import { ECSComponent, ECSSystem, MatcherAllOf } from "dream-cc-ecs";
-//#region src/behaviorTree/BTNodeStatus.ts
+//#region dream-cc-ai/src/behaviorTree/BTNodeStatus.ts
 /**
 * 节点状态
 */
@@ -16,7 +16,7 @@ let BTNodeStatus = /* @__PURE__ */ function(BTNodeStatus) {
 	return BTNodeStatus;
 }({});
 //#endregion
-//#region src/behaviorTree/BTNodeType.ts
+//#region dream-cc-ai/src/behaviorTree/BTNodeType.ts
 /**
 * 节点类型
 */
@@ -29,7 +29,7 @@ let BTNodeType = /* @__PURE__ */ function(BTNodeType) {
 	return BTNodeType;
 }({});
 //#endregion
-//#region src/behaviorTree/BTNode.ts
+//#region dream-cc-ai/src/behaviorTree/BTNode.ts
 var BTNode = class {
 	constructor(name, blackboard) {
 		this.parent = null;
@@ -58,7 +58,7 @@ var BTNode = class {
 	}
 };
 //#endregion
-//#region src/behaviorTree/actions/BTActionNode.ts
+//#region dream-cc-ai/src/behaviorTree/actions/BTActionNode.ts
 /**
 * 动作节点基础类
 */
@@ -97,7 +97,7 @@ function _asyncToGenerator(n) {
 	};
 }
 //#endregion
-//#region src/behaviorTree/actions/BTAsyncActionNode.ts
+//#region dream-cc-ai/src/behaviorTree/actions/BTAsyncActionNode.ts
 /**
 * 异步动作节点基础类
 */
@@ -129,7 +129,7 @@ var BTAsyncActionNode = class extends BTActionNode {
 	}
 };
 //#endregion
-//#region src/behaviorTree/actions/BTCoroActionNode.ts
+//#region dream-cc-ai/src/behaviorTree/actions/BTCoroActionNode.ts
 var BTCoroActionNode = class extends BTActionNode {
 	constructor(name, blackboard) {
 		super(name, blackboard);
@@ -148,7 +148,7 @@ var BTCoroActionNode = class extends BTActionNode {
 	}
 };
 //#endregion
-//#region src/behaviorTree/actions/BTSimpleActionNode.ts
+//#region dream-cc-ai/src/behaviorTree/actions/BTSimpleActionNode.ts
 var BTSimpleActionNode = class extends BTAsyncActionNode {
 	constructor(name, blackboard, tickFunctor) {
 		super(name, blackboard);
@@ -166,7 +166,7 @@ var BTSimpleActionNode = class extends BTAsyncActionNode {
 	}
 };
 //#endregion
-//#region src/behaviorTree/actions/BTStatefulActionNode.ts
+//#region dream-cc-ai/src/behaviorTree/actions/BTStatefulActionNode.ts
 /**
 * 状态类动作节点
 */
@@ -200,7 +200,7 @@ var BTStatefulActionNode = class extends BTActionNode {
 	}
 };
 //#endregion
-//#region src/behaviorTree/actions/BTSyncActionNode.ts
+//#region dream-cc-ai/src/behaviorTree/actions/BTSyncActionNode.ts
 /**
 * 同步动作节点
 */
@@ -218,7 +218,7 @@ var BTSyncActionNode = class extends BTActionNode {
 	}
 };
 //#endregion
-//#region src/behaviorTree/conditions/BTConditionNode.ts
+//#region dream-cc-ai/src/behaviorTree/conditions/BTConditionNode.ts
 /**
 * 条件节点
 */
@@ -234,7 +234,7 @@ var BTConditionNode = class extends BTNode {
 	}
 };
 //#endregion
-//#region src/behaviorTree/conditions/BTSimpleConditionNode.ts
+//#region dream-cc-ai/src/behaviorTree/conditions/BTSimpleConditionNode.ts
 /**
 * 简单条件节点
 */
@@ -248,7 +248,7 @@ var BTSimpleConditionNode = class extends BTConditionNode {
 	}
 };
 //#endregion
-//#region src/behaviorTree/controls/BTControlNode.ts
+//#region dream-cc-ai/src/behaviorTree/controls/BTControlNode.ts
 /**
 * 控制节点
 */
@@ -293,7 +293,7 @@ var BTControlNode = class extends BTNode {
 	}
 };
 //#endregion
-//#region src/behaviorTree/controls/BTFallbackNode.ts
+//#region dream-cc-ai/src/behaviorTree/controls/BTFallbackNode.ts
 /**
 * 在勾选第一个子节点之前，节点状态变为RUNNING。
 * 如果一个子节点返回FAILURE，则回退标记下一个子节点。
@@ -335,7 +335,7 @@ var BTFallbackNode = class extends BTControlNode {
 	}
 };
 //#endregion
-//#region src/behaviorTree/controls/BTIfThenElseNode.ts
+//#region dream-cc-ai/src/behaviorTree/controls/BTIfThenElseNode.ts
 /**
 * 有2或3个子节点，node1就是if判断的条件。
 * 如果node1返回SUCCESS，那么node2执行；
@@ -378,7 +378,7 @@ var BTIfThenElseNode = class extends BTControlNode {
 	}
 };
 //#endregion
-//#region src/behaviorTree/controls/BTParallelNode.ts
+//#region dream-cc-ai/src/behaviorTree/controls/BTParallelNode.ts
 /**
 * 当返回SUCCESS的子节点个数>=THRESHOLD_SUCCESS时，返回SUCCESS。
 * 当返回FAILURE的子节点个数>=THRESHOLD_FAILURE时，返回FAILURE。
@@ -444,7 +444,7 @@ var BTParallelNode = class extends BTControlNode {
 	}
 };
 //#endregion
-//#region src/behaviorTree/controls/BTReactiveFallback.ts
+//#region dream-cc-ai/src/behaviorTree/controls/BTReactiveFallback.ts
 /**
 * 如果某个子节点返回RUNNING，返回RUNNING，且下次tick()时之前的子节点会再次执行，reactive所在。
 * 如果某个子节点返回SUCCESS，不再执行，且返回SUCCESS。
@@ -477,7 +477,7 @@ var BTReactiveFallback = class extends BTControlNode {
 	}
 };
 //#endregion
-//#region src/behaviorTree/controls/BTSequenceNode.ts
+//#region dream-cc-ai/src/behaviorTree/controls/BTSequenceNode.ts
 /**
 * 按从左到右的顺序依次执行子节点。
 * 如果某个子节点返回RUNNING，返回RUNNING，且下次tick()时之前的子节点不会再执行。
@@ -518,7 +518,7 @@ var BTSequenceNode = class extends BTControlNode {
 	}
 };
 //#endregion
-//#region src/behaviorTree/controls/BTSequenceStarNode.ts
+//#region dream-cc-ai/src/behaviorTree/controls/BTSequenceStarNode.ts
 /**
 * 同SequenceNode，不同之处在于如果某个子节点返回FAILURE，返回FAILURE，终止所有节点的执行。
 * 但不复位current_child_idx_。所以当再次tick()时，从FAILURE的子节点开始。
@@ -552,7 +552,7 @@ var BTSequenceStarNode = class extends BTControlNode {
 	}
 };
 //#endregion
-//#region src/behaviorTree/controls/BTWhileDoElseNode.ts
+//#region dream-cc-ai/src/behaviorTree/controls/BTWhileDoElseNode.ts
 /**
 * 是IfThenElseNode的reactive版本。
 * reactive体现在每次tick()都会执行node1，即检查if条件的变化。
@@ -583,7 +583,7 @@ var BTWhileDoElseNode = class extends BTControlNode {
 	}
 };
 //#endregion
-//#region src/behaviorTree/decorators/BTDecoratorNode.ts
+//#region dream-cc-ai/src/behaviorTree/decorators/BTDecoratorNode.ts
 /**
 * 装饰节点
 */
@@ -625,7 +625,7 @@ var BTDecoratorNode = class extends BTNode {
 	}
 };
 //#endregion
-//#region src/behaviorTree/decorators/BTDelayNode.ts
+//#region dream-cc-ai/src/behaviorTree/decorators/BTDelayNode.ts
 /**
 * 延迟指定时间后执行子节点
 */
@@ -678,7 +678,7 @@ var BTDelayNode = class extends BTDecoratorNode {
 	}
 };
 //#endregion
-//#region src/behaviorTree/decorators/BTForceFailureNode.ts
+//#region dream-cc-ai/src/behaviorTree/decorators/BTForceFailureNode.ts
 /**
 * 如果子节点执行后返回RUNNING，该节点返回RUNNING；否则，该节点返回FAILURE，即强制返回失败状态。
 */
@@ -697,7 +697,7 @@ var BTForceFailureNode = class extends BTDecoratorNode {
 	}
 };
 //#endregion
-//#region src/behaviorTree/decorators/BTForceSuccessNode.ts
+//#region dream-cc-ai/src/behaviorTree/decorators/BTForceSuccessNode.ts
 /**
 * 如果子节点执行后返回RUNNING，该节点返回RUNNING；否则，该节点返回SUCCESS，即强制返回成功状态。
 */
@@ -716,7 +716,7 @@ var BTForceSuccessNode = class extends BTDecoratorNode {
 	}
 };
 //#endregion
-//#region src/behaviorTree/decorators/BTInverterNode.ts
+//#region dream-cc-ai/src/behaviorTree/decorators/BTInverterNode.ts
 /**
 * 如果子节点执行后返回RUNNING，该节点返回RUNNING；
 * 如果子节点执行后返回SUCCESS，该节点返回FAILURE；
@@ -738,7 +738,7 @@ var BTInverterNode = class extends BTDecoratorNode {
 	}
 };
 //#endregion
-//#region src/behaviorTree/decorators/BTKeepRunningUntilFailureNode.ts
+//#region dream-cc-ai/src/behaviorTree/decorators/BTKeepRunningUntilFailureNode.ts
 /**
 * 如果子节点执行后返回RUNNING或SUCCESS，下次tick()继续执行子节点，直到子节点返回FAILURE。
 */
@@ -757,7 +757,7 @@ var BTKeepRunningUntilFailureNode = class extends BTDecoratorNode {
 	}
 };
 //#endregion
-//#region src/behaviorTree/decorators/BTRepeatNode.ts
+//#region dream-cc-ai/src/behaviorTree/decorators/BTRepeatNode.ts
 /**
 * 重复执行子节点NUM_CYCLES 次，若每次都返回 SUCCESS，该节点返回SUCCESS；
 * 若子节点某次返回FAILURE，该节点不再重复执行子节点，立即返回FAILURE；
@@ -796,7 +796,7 @@ var BTRepeatNode = class extends BTDecoratorNode {
 	}
 };
 //#endregion
-//#region src/behaviorTree/decorators/BTRetryNode.ts
+//#region dream-cc-ai/src/behaviorTree/decorators/BTRetryNode.ts
 /**
 * 如果子节点执行后返回RUNNING，该节点返回RUNNING；
 * 如果子节点执行后返回SUCCESS，该节点返回SUCCESS，不再执行；
@@ -834,7 +834,7 @@ var BTRetryNode = class extends BTDecoratorNode {
 	}
 };
 //#endregion
-//#region src/behaviorTree/decorators/BTTimeOutNode.ts
+//#region dream-cc-ai/src/behaviorTree/decorators/BTTimeOutNode.ts
 /**
 * 在设置的msec 毫秒内，返回子节点执行的状态。
 * 若子节点返回FAILURE或SUCCESS，不再执行。
@@ -879,7 +879,7 @@ var BTTimeOutNode = class extends BTDecoratorNode {
 	}
 };
 //#endregion
-//#region src/behaviorTree/BTUtils.ts
+//#region dream-cc-ai/src/behaviorTree/BTUtils.ts
 /**
 * 行为树
 */
@@ -948,7 +948,7 @@ var BTUtils = class {
 	}
 };
 //#endregion
-//#region src/behaviorTree/BTNodeKeys.ts
+//#region dream-cc-ai/src/behaviorTree/BTNodeKeys.ts
 /**
 * 节点KEY
 */
@@ -1046,7 +1046,7 @@ let BTNodeKeys = /* @__PURE__ */ function(BTNodeKeys) {
 	return BTNodeKeys;
 }({});
 //#endregion
-//#region src/behaviorTree/controls/BTReactiveSequence.ts
+//#region dream-cc-ai/src/behaviorTree/controls/BTReactiveSequence.ts
 /**
 * 尝试依次执行其所有子节点，并且每个子节点只有在成功执行后才会继续到下一个。
 * 如果任何一个子节点失败，整个序列失败。
@@ -1080,7 +1080,7 @@ var BTReactiveSequence = class extends BTControlNode {
 	}
 };
 //#endregion
-//#region src/behaviorTree/BTContext.ts
+//#region dream-cc-ai/src/behaviorTree/BTContext.ts
 var BTContext = class {
 	constructor() {
 		this.class_map = /* @__PURE__ */ new Map();
@@ -1153,7 +1153,7 @@ var BTContext = class {
 	}
 };
 //#endregion
-//#region src/behaviorTree/BTBlackboard.ts
+//#region dream-cc-ai/src/behaviorTree/BTBlackboard.ts
 /**
 * 行为树黑板
 */
@@ -1208,7 +1208,7 @@ var BTBlackboard = class extends EventDispatcher {
 	}
 };
 //#endregion
-//#region src/behaviorTree/ecs/BehaviorTreeComponent.ts
+//#region dream-cc-ai/src/behaviorTree/ecs/BehaviorTreeComponent.ts
 /**
 * 行为树组件
 */
@@ -1262,7 +1262,7 @@ var BehaviorTreeComponent = class extends ECSComponent {
 	}
 };
 //#endregion
-//#region src/behaviorTree/ecs/BehaviorTreeSystem.ts
+//#region dream-cc-ai/src/behaviorTree/ecs/BehaviorTreeSystem.ts
 /**
 * 行为树系统
 */
@@ -1288,7 +1288,7 @@ var BehaviorTreeSystem = class extends ECSSystem {
 	}
 };
 //#endregion
-//#region src/fsm/FSM.ts
+//#region dream-cc-ai/src/fsm/FSM.ts
 /**
 * 状态机
 */
@@ -1352,7 +1352,7 @@ var FSM = class extends EventDispatcher {
 	}
 };
 //#endregion
-//#region src/fsm/ecs/FSMComponent.ts
+//#region dream-cc-ai/src/fsm/ecs/FSMComponent.ts
 var FSMComponent = class extends ECSComponent {
 	constructor() {
 		super();
@@ -1368,7 +1368,7 @@ var FSMComponent = class extends ECSComponent {
 	}
 };
 //#endregion
-//#region src/fsm/ecs/FSMSystem.ts
+//#region dream-cc-ai/src/fsm/ecs/FSMSystem.ts
 var FSMSystem = class extends ECSSystem {
 	constructor() {
 		super(new MatcherAllOf([FSMComponent]));

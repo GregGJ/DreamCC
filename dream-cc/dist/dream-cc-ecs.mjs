@@ -1,6 +1,6 @@
 import { Dictionary, Event, EventDispatcher, Pool, Res, TickerManager } from "dream-cc-core";
 import { Graphics, Node, Quat, RenderRoot2D, Vec3 } from "cc";
-//#region src/core/ECSComponent.ts
+//#region dream-cc-ecs/src/core/ECSComponent.ts
 /**
 * 组件抽象类
 */
@@ -30,7 +30,7 @@ var ECSComponent = class {
 	}
 };
 //#endregion
-//#region src/core/ECSMatcher.ts
+//#region dream-cc-ecs/src/core/ECSMatcher.ts
 /**
 * 匹配器
 */
@@ -113,7 +113,7 @@ var MatcherNoneOf = class extends Matcher {
 	}
 };
 //#endregion
-//#region src/core/ECSWorld.ts
+//#region dream-cc-ecs/src/core/ECSWorld.ts
 /**
 * 世界
 */
@@ -501,7 +501,7 @@ var ECSWorld = class ECSWorld {
 ECSWorld.HELP_SYSTEM_LIST = [];
 ECSWorld.HELP_ENTITY_LIST = [];
 //#endregion
-//#region src/core/SparseSet.ts
+//#region dream-cc-ecs/src/core/SparseSet.ts
 /**
 * 稀疏集合
 */
@@ -595,7 +595,7 @@ var SparseSet = class {
 	}
 };
 //#endregion
-//#region src/core/ECSStorage.ts
+//#region dream-cc-ecs/src/core/ECSStorage.ts
 var ECSStorage = class {
 	constructor(maxCount) {
 		this.__entityIndex = 0;
@@ -787,7 +787,7 @@ var ECSStorage = class {
 	}
 };
 //#endregion
-//#region src/core/ECSSystem.ts
+//#region dream-cc-ecs/src/core/ECSSystem.ts
 /**
 * 系统
 */
@@ -836,7 +836,7 @@ var ECSSystem = class {
 };
 ECSSystem.HELP_ENTITY_LIST = [];
 //#endregion
-//#region src/camps/CampComponent.ts
+//#region dream-cc-ecs/src/camps/CampComponent.ts
 /**
 * 阵营基础类
 */
@@ -847,7 +847,7 @@ var CampComponent = class extends ECSComponent {
 	}
 };
 //#endregion
-//#region src/transforms/TransformComponent.ts
+//#region dream-cc-ecs/src/transforms/TransformComponent.ts
 /**
 * 变换组件
 */
@@ -1010,7 +1010,7 @@ var TransformComponent = class extends ECSComponent {
 };
 TransformComponent.YAxisFlip = true;
 //#endregion
-//#region src/nodes/ParentComponent.ts
+//#region dream-cc-ecs/src/nodes/ParentComponent.ts
 /**
 * 设置父节点组件
 */
@@ -1033,7 +1033,7 @@ var ParentComponent = class extends ECSComponent {
 	}
 };
 //#endregion
-//#region src/displays/DisplayComponent.ts
+//#region dream-cc-ecs/src/displays/DisplayComponent.ts
 /**
 * 显示组件
 */
@@ -1063,7 +1063,7 @@ var DisplayComponent = class extends ECSComponent {
 	}
 };
 //#endregion
-//#region src/nodes/AddToParentQueueSystem.ts
+//#region dream-cc-ecs/src/nodes/AddToParentQueueSystem.ts
 var AddToParentQueueSystem = class extends ECSSystem {
 	constructor() {
 		super(new MatcherAllOf([DisplayComponent, ParentComponent]), void 0, void 0, true);
@@ -1099,7 +1099,7 @@ var AddToParentQueueSystem = class extends ECSSystem {
 	}
 };
 //#endregion
-//#region src/nodes/AddToParentSystem.ts
+//#region dream-cc-ecs/src/nodes/AddToParentSystem.ts
 /**
 * 添加到父节点系统
 */
@@ -1122,7 +1122,7 @@ var AddToParentSystem = class extends ECSSystem {
 	}
 };
 //#endregion
-//#region src/nodes/SizeComponent.ts
+//#region dream-cc-ecs/src/nodes/SizeComponent.ts
 /**
 * 大小记录组件(只用于记录大小)
 */
@@ -1157,7 +1157,7 @@ var SizeComponent = class extends ECSComponent {
 	}
 };
 //#endregion
-//#region src/displays/DisplaySystem.ts
+//#region dream-cc-ecs/src/displays/DisplaySystem.ts
 var DisplaySystem = class extends ECSSystem {
 	constructor() {
 		super(new MatcherAllOf([DisplayComponent, TransformComponent]), void 0, void 0, true);
@@ -1174,7 +1174,7 @@ var DisplaySystem = class extends ECSSystem {
 	}
 };
 //#endregion
-//#region src/displays/GraphicsComponent.ts
+//#region dream-cc-ecs/src/displays/GraphicsComponent.ts
 /**
 * 绘画组件
 */
@@ -1198,7 +1198,7 @@ var GraphicsComponent = class extends DisplayComponent {
 	}
 };
 //#endregion
-//#region src/datas/DataComponent.ts
+//#region dream-cc-ecs/src/datas/DataComponent.ts
 var DataComponent = class extends ECSComponent {
 	constructor() {
 		super();
@@ -1217,7 +1217,7 @@ var DataComponent = class extends ECSComponent {
 	}
 };
 //#endregion
-//#region src/links/LinkComponent.ts
+//#region dream-cc-ecs/src/links/LinkComponent.ts
 /**
 * 链接组件
 */
@@ -1227,7 +1227,7 @@ var LinkComponent = class extends ECSComponent {
 	}
 };
 //#endregion
-//#region src/links/LinkSystem.ts
+//#region dream-cc-ecs/src/links/LinkSystem.ts
 var LinkSystem = class extends ECSSystem {
 	constructor() {
 		super(new MatcherAllOf([LinkComponent, TransformComponent]));
@@ -1244,7 +1244,7 @@ var LinkSystem = class extends ECSSystem {
 	}
 };
 //#endregion
-//#region src/displays/RendererRoot2DComponent.ts
+//#region dream-cc-ecs/src/displays/RendererRoot2DComponent.ts
 /**
 * 3D世界中的2D渲染组件
 */
@@ -1265,7 +1265,7 @@ var RendererRoot2DComponent = class extends DisplayComponent {
 	}
 };
 //#endregion
-//#region src/levels/LevelStatus.ts
+//#region dream-cc-ecs/src/levels/LevelStatus.ts
 /**
 * 关卡状态数据存放
 */
@@ -1313,7 +1313,7 @@ var LevelStatus = class {
 	}
 };
 //#endregion
-//#region src/levels/Level.ts
+//#region dream-cc-ecs/src/levels/Level.ts
 /**
 * 关卡
 */
@@ -1403,7 +1403,7 @@ var Level = class extends EventDispatcher {
 	}
 };
 //#endregion
-//#region src/levels/LevelManager.ts
+//#region dream-cc-ecs/src/levels/LevelManager.ts
 var LevelManager = class LevelManager {
 	constructor() {
 		this.__levels = /* @__PURE__ */ new Map();
@@ -1482,7 +1482,7 @@ var LevelManager = class LevelManager {
 	}
 };
 //#endregion
-//#region src/levels/LevelMode.ts
+//#region dream-cc-ecs/src/levels/LevelMode.ts
 /**
 * 关卡模式基类
 */
@@ -1631,7 +1631,7 @@ var LevelMode = class extends EventDispatcher {
 	}
 };
 //#endregion
-//#region src/levels/LevelModeScript.ts
+//#region dream-cc-ecs/src/levels/LevelModeScript.ts
 /**
 * 关卡模式脚本(用于拆分和重用逻辑)
 */
