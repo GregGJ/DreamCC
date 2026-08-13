@@ -1,21 +1,21 @@
 
 export { Alert } from "./gui/alerts/Alert";
-export { IAlert } from "./gui/alerts/IAlert";
+export type { IAlert } from "./gui/alerts/IAlert";
 
-export { ILayer } from "./gui/layer/ILayer";
-export { ILayerManager } from "./gui/layer/ILayerManager";
+export type { ILayer } from "./gui/layer/ILayer";
+export type { ILayerManager } from "./gui/layer/ILayerManager";
 export { Layer } from "./gui/layer/Layer";
 export { LayerManager } from "./gui/layer/LayerManager";
 
-export { ILoadingView } from "./gui/loadingView/ILoadingView";
+export type { ILoadingView } from "./gui/loadingView/ILoadingView";
 export { LoadingView } from "./gui/loadingView/LoadingView";
 
 export { ITooltipData } from "./gui/tooltips/ITooltipData";
 export { TooltipManagerImpl } from "./gui/tooltips/TooltipManagerImpl";
 export { TooltipPosMode } from "./gui/tooltips/TooltipPosMode";
 
-export { IRelationInfo } from "./gui/relations/IRelationInfo";
-export { IRelationList } from "./gui/relations/IRelationList";
+export type { IRelationInfo } from "./gui/relations/IRelationInfo";
+export type { IRelationList } from "./gui/relations/IRelationList";
 export { RelationManager } from "./gui/relations/RelationManager";
 
 export { FGUILoader } from "./gui/res/FGUILoader";
@@ -26,16 +26,16 @@ export { GUIManager } from "./gui/GUIManager";
 export { GUIMediator } from "./gui/GUIMediator";
 export { GUIProxy } from "./gui/GUIProxy";
 export { GUIState } from "./gui/GUIState";
-export { IGUIInfo } from "./gui/IGUIInfo";
-export { IGUIManager } from "./gui/IGUIManager";
-export { IGUIMediator } from "./gui/IGUIMediator";
-export { IViewComponent } from "./gui/IViewComponent";
-export { IViewCreator } from "./gui/IViewCreator";
+export type { IGUIInfo } from "./gui/IGUIInfo";
+export type { IGUIManager } from "./gui/IGUIManager";
+export type { IGUIMediator } from "./gui/IGUIMediator";
+export type { IViewComponent } from "./gui/IViewComponent";
+export type { IViewCreator } from "./gui/IViewCreator";
 export { SubGUIMediator } from "./gui/SubGUIMediator";
 
 
 export { TabData } from "./gui/tabs/TabData";
-export { ITabPage } from "./gui/tabs/ITabPage";
+export type { ITabPage } from "./gui/tabs/ITabPage";
 export { TabContainer } from "./gui/tabs/TabContainer";
 export { TabPage } from "./gui/tabs/TabPage";
 

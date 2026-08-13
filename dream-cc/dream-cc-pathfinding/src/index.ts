@@ -42,8 +42,8 @@ export { GraphLink } from "./grids/graphs/GraphLink";
 export { GraphNode } from "./grids/graphs/GraphNode";
 export { GraphOptions } from "./grids/graphs/GraphOptions";
 
-export { INodeSearchState } from "./grids/searchs/INodeSearchState";
-export { ISearchStatePool } from "./grids/searchs/ISearchStatePool";
+export type { INodeSearchState } from "./grids/searchs/INodeSearchState";
+export type { ISearchStatePool } from "./grids/searchs/ISearchStatePool";
 
 export { NodeSearchState } from "./grids/searchs/NodeSearchState";
 export { SearchStatePool } from "./grids/searchs/SearchStatePool";

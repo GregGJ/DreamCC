@@ -33,9 +33,9 @@ export { BTRetryNode } from "./behaviorTree/decorators/BTRetryNode";
 export { BTTimeOutNode } from "./behaviorTree/decorators/BTTimeOutNode";
 
 //interfaces
-export { IBTNode } from "./behaviorTree/interfaces/IBTNode";
-export { IBTControlNode } from "./behaviorTree/interfaces/IBTControlNode";
-export { IBTNodeConfig } from "./behaviorTree/interfaces/IBTNodeConfig";
+export type { IBTNode } from "./behaviorTree/interfaces/IBTNode";
+export type { IBTControlNode } from "./behaviorTree/interfaces/IBTControlNode";
+export type { IBTNodeConfig } from "./behaviorTree/interfaces/IBTNodeConfig";
 
 
 export { BTUtils } from "./behaviorTree/BTUtils";
@@ -53,4 +53,5 @@ export { FSMComponent } from "./fsm/ecs/FSMComponent";
 export { FSMSystem } from "./fsm/ecs/FSMSystem";
 
 export { FSM } from "./fsm/FSM";
-export { IState } from "./fsm/IState";
+export type { IState } from "./fsm/IState";
+

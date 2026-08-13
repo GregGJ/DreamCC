@@ -2,12 +2,12 @@
 
 //core
 export { ECSComponent } from "./core/ECSComponent";
-export { ECSEntity } from "./core/ECSEntity";
+export type { ECSEntity } from "./core/ECSEntity";
 export { ECSMatcher } from "./core/ECSMatcher";
 export { ECSStorage } from "./core/ECSStorage";
 export { ECSSystem } from "./core/ECSSystem";
 export { ECSWorld } from "./core/ECSWorld";
-export { IECSComponent } from "./core/IECSComponent";
+export type { IECSComponent } from "./core/IECSComponent";
 export { SparseSet } from "./core/SparseSet";
 export { MatcherAllOf } from "./core/ECSMatcher";
 export { MatcherAnyOf } from "./core/ECSMatcher";
@@ -40,3 +40,4 @@ export { LevelManager } from "./levels/LevelManager";
 export { LevelMode } from "./levels/LevelMode";
 export { LevelModeScript } from "./levels/LevelModeScript";
 export { LevelStatus } from "./levels/LevelStatus";
+

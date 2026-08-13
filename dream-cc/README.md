@@ -22,6 +22,8 @@
 
 - Node.js（建议与 `package.json` 中 `packageManager` 声明一致，当前为 `npm@12.0.2`）
 - npm（workspaces + Turborepo）
+- tsdown 0.22 要求 Node.js `^22.18.0` 或 `>=24.11.0`
+- TypeScript 7.x（`^7.0.0`，实际解析到 7.0.2）
 
 ## 安装
 
@@ -73,8 +75,9 @@ D:\DreamCC\clients\Client3\assets\libs
 ## 构建细节
 
 - **依赖图**：`core → {ecs, pathfinding, fairygui-cc} → {ai, gui}`，构建按拓扑分层并行。
-- **JS 打包**：esbuild，`ESM` / `target ES6`；`cc`、`cc/env` 与本地工作区包保持 external，各包独立成 bundle。
-- **类型声明**：rollup-plugin-dts 生成单文件 `.d.ts`，声明中同样保留对外部包的真实 import。
+- **打包引擎**：tsdown（Rolldown）一步完成 JS bundle + 声明打包，`ESM` / `target ES2015`；`cc`、`cc/env` 与本地工作区包保持 external，各包独立成 bundle。
+- **类型声明**：tsdown 内置 rolldown-plugin-dts 生成单文件 `.d.ts`，声明中同样保留对外部包的真实 import；TypeScript 7 自动使用原生 tsgo 编译器（5/6 则走 tsc）。
+- **类型导出规范**：类型再导出必须显式 `export type { ... }`（`tsconfig.base.json` 已启用 `isolatedModules` 强制约束），这是 Rolldown 与 esbuild 的差异点，迁移时已按此修正所有入口文件。
 - **Turborepo 缓存**：每包使用独立的输出通配（`../dist/<pkg>.*`）避免缓存快照互相覆盖；`scripts/**`、`package.json`、`tsconfig.base.json` 变更会自动失效全部缓存。缓存与日志位于各包 `.turbo/` 与 `node_modules/.cache/`，均已 gitignore。
 - **TypeScript 配置**：统一继承 `tsconfig.base.json`；类型检查启用 `incremental`，增量信息写入 `node_modules/.cache/tsc/`。
 - `dist/` 为构建产物（仓库内已跟踪）；`*.map` 与 `*.tsbuildinfo` 不纳入版本控制。

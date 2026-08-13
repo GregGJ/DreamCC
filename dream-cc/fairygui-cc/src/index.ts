@@ -16,7 +16,7 @@ export { GComboBox } from "./fairygui/GComboBox";
 export { GSlider } from "./fairygui/GSlider";
 export { GProgressBar } from "./fairygui/GProgressBar";
 export { GScrollBar } from "./fairygui/GScrollBar";
-export { GList, ListItemRenderer } from "./fairygui/GList";
+export { GList } from "./fairygui/GList"; export type { ListItemRenderer } from "./fairygui/GList";
 export { GTree } from "./fairygui/GTree";
 export { GTreeNode } from "./fairygui/GTreeNode";
 export { Window } from "./fairygui/Window";
@@ -48,7 +48,7 @@ export * from "./fairygui/FieldTypes"
 
 export { BlendMode } from "./fairygui/display/BlendMode";
 export { Image } from "./fairygui/display/Image";
-export { MovieClip, Frame } from "./fairygui/display/MovieClip";
+export { MovieClip } from "./fairygui/display/MovieClip"; export type { Frame } from "./fairygui/display/MovieClip";
 
 export { FGUIEvent } from "./fairygui/event/FGUIEvent";
 
@@ -60,8 +60,8 @@ export { UBBParser } from "./fairygui/utils/UBBParser";
 export { ByteBuffer } from "./fairygui/utils/ByteBuffer";
 
 
-export {ITooltipView} from './tooltips/ITooltipView';
-export {ITooltipManager} from './tooltips/ITooltipManager';
+export type { ITooltipView } from './tooltips/ITooltipView';
+export type { ITooltipManager } from './tooltips/ITooltipManager';
 export {TooltipManager} from './tooltips/TooltipManager';
 
 export {SmartLoader} from "./fairygui/display/SmartLoader";

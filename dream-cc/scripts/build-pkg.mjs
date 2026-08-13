@@ -1,23 +1,23 @@
-import esbuild from 'esbuild';
-import { rollup } from 'rollup';
-import dts from 'rollup-plugin-dts';
-import { existsSync, readFileSync } from 'node:fs';
+import { build } from 'tsdown';
+import { existsSync, readFileSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
 import { pathToFileURL } from 'node:url';
 
-// Local workspace packages always ship as separate bundles and stay external.
-const workspacePackages = [
-    'dream-cc-core',
-    'dream-cc-ecs',
-    'dream-cc-ai',
-    'dream-cc-gui',
-    'dream-cc-pathfinding',
-    'fairygui-cc',
-];
+// tsgo prints a one-time informational warning about the experimental TS7
+// API when it initializes; filter it out (fires once per process, does not
+// affect the generated declarations) while keeping real warnings visible.
+const dtsLogger = {
+    info: (...args) => console.info(...args),
+    warn: (...args) => {
+        if (String(args[0]).includes('does not yet have a stable API')) return;
+        console.warn(...args);
+    },
+    error: (...args) => console.error(...args),
+};
 
 /**
  * Build one package:
- *   JS bundle via esbuild, bundled declarations via rollup-plugin-dts.
+ *   JS bundle + bundled declarations in one tsdown pass (Rolldown).
  * Entry point and externals are derived from the package itself.
  */
 export async function buildPackage(pkgDir, options = {}) {
@@ -34,45 +34,50 @@ export async function buildPackage(pkgDir, options = {}) {
         throw new Error(`${name}: no entry found in src/`);
     }
 
-    // `cc` (Cocos Creator runtime) and local workspace packages are external.
-    const external = [
-        'cc',
-        'cc/env',
-        ...Object.keys(pkgJson.dependencies || {}).filter((dep) => workspacePackages.includes(dep)),
-    ];
-    const externalSet = new Set(external);
-
     const distDir = path.join(pkgDir, '..', 'dist');
     const outfile = path.join(distDir, `${name}.mjs`);
     const dtsFile = path.join(distDir, `${name}.d.ts`);
 
-    // 1) JS bundle
-    await esbuild.build({
-        entryPoints: [entry],
-        outfile,
-        bundle: true,
-        sourcemap,
+    // tsdown:
+    // - every bare import (`cc`, `cc/env`, local workspace packages) stays
+    //   external as written via deps.neverBundle: true
+    // - entry alias keeps the package name as the output basename
+    // - outExtensions forces .mjs / .d.ts regardless of package.json type
+    // - dts.tsconfig pins the per-package tsconfig so declarations resolve
+    //   `../dist/*.d.ts` via its `paths` mapping
+    await build({
+        entry: { [name]: entry },
+        outDir: distDir,
         format: 'esm',
-        external,
-        target: ['es6'],
+        target: 'es2015',
+        sourcemap,
+        dts: {
+            tsconfig: path.join(pkgDir, 'tsconfig.json'),
+            cwd: pkgDir,
+            // don't persist tsbuildinfo (parallel builds share dist; cache
+            // management stays with turbo / tsc)
+            incremental: false,
+            // keep declarations plain .d.ts without declaration maps
+            sourcemap: false,
+            logger: dtsLogger,
+        },
+        outExtensions: () => ({ js: '.mjs', dts: '.d.ts' }),
+        deps: { neverBundle: true },
+        clean: false, // dist is cleaned once by build.mjs / turbo
+        report: false,
+        logLevel: 'warn',
     });
 
-    // 2) declarations (tsconfig is discovered from the package directory)
-    //    explicit `external` keeps `cc` / workspace imports as real imports in
-    //    the d.ts bundle instead of relying on unresolved-import fallback.
-    const bundle = await rollup({
-        input: entry,
-        external,
-        plugins: [dts({ compilerOptions: { preserveSymlinks: false } })],
-        onwarn(warning, warn) {
-            if (warning.code === 'UNRESOLVED_IMPORT' && warning.id && externalSet.has(warning.id)) {
-                return; // expected: `cc` / local workspace packages are external
-            }
-            warn(warning);
-        },
-    });
-    await bundle.write({ format: 'esm', file: dtsFile });
-    await bundle.close();
+    // tsgo appends `//# sourceMappingURL=<name>.d.ts.map` to the bundled
+    // declarations even though we don't emit declaration maps; drop the
+    // dangling reference so the output matches the shipped artifacts.
+    if (existsSync(dtsFile)) {
+        const content = readFileSync(dtsFile, 'utf8');
+        const cleaned = content.replace(/^\/\/# sourceMappingURL=.*\.d\.ts\.map\r?\n?/m, '');
+        if (cleaned !== content) {
+            writeFileSync(dtsFile, cleaned);
+        }
+    }
 
     return { name, outfile, dtsFile };
 }
